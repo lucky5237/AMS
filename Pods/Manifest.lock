@@ -1,0 +1,130 @@
+PODS:
+  - Aspects (1.4.1)
+  - AXIndicatorView (0.0.7)
+  - AXNavigationBackItemInjection (0.0.2)
+  - AXPracticalHUD (1.1.6):
+    - AXIndicatorView
+  - AXWebViewController (0.6.1):
+    - Aspects
+    - AXNavigationBackItemInjection
+    - AXPracticalHUD
+    - NJKWebViewProgress
+  - CocoaAsyncSocket (7.6.1)
+  - ECSlidingViewController (2.0.3)
+  - FDFullscreenPopGesture (1.1)
+  - IQKeyboardManager (4.0.11)
+  - JDStatusBarNotification (1.6.0)
+  - Masonry (1.0.2)
+  - MBProgressHUD (1.0.0)
+  - MJRefresh (3.1.12)
+  - NJKWebViewProgress (0.2.3):
+    - NJKWebViewProgress/Core (= 0.2.3)
+    - NJKWebViewProgress/ProgressView (= 0.2.3)
+  - NJKWebViewProgress/Core (0.2.3)
+  - NJKWebViewProgress/ProgressView (0.2.3)
+  - RealReachability (1.1.9):
+    - RealReachability/Connection (= 1.1.9)
+    - RealReachability/Ping (= 1.1.9)
+  - RealReachability/Connection (1.1.9)
+  - RealReachability/Ping (1.1.9)
+  - RTRootNavigationController (0.6.7):
+    - RTRootNavigationController/Core (= 0.6.7)
+  - RTRootNavigationController/Core (0.6.7)
+  - TextInputLimit (1.0.2)
+  - UITableView+FDTemplateLayoutCell (1.6)
+  - YYCategories (1.0.4):
+    - YYCategories/no-arc (= 1.0.4)
+  - YYCategories/no-arc (1.0.4)
+  - ZJKitTool (2.3.4):
+    - Masonry
+    - MBProgressHUD
+    - YYCategories
+    - ZJKitTool/ZJCategory (= 2.3.4)
+    - ZJKitTool/ZJControllerKit (= 2.3.4)
+    - ZJKitTool/ZJGeneraMacros (= 2.3.4)
+    - ZJKitTool/ZJKit (= 2.3.4)
+    - ZJKitTool/ZJKitMasonry (= 2.3.4)
+    - ZJKitTool/ZJPickerView (= 2.3.4)
+    - ZJKitTool/ZJTool (= 2.3.4)
+  - ZJKitTool/ZJCategory (2.3.4):
+    - Masonry
+    - MBProgressHUD
+    - YYCategories
+    - ZJKitTool/ZJCategory/Object (= 2.3.4)
+    - ZJKitTool/ZJCategory/UIKit (= 2.3.4)
+  - ZJKitTool/ZJCategory/Object (2.3.4):
+    - Masonry
+    - MBProgressHUD
+    - YYCategories
+  - ZJKitTool/ZJCategory/UIKit (2.3.4):
+    - Masonry
+    - MBProgressHUD
+    - YYCategories
+  - ZJKitTool/ZJControllerKit (2.3.4):
+    - Masonry
+    - MBProgressHUD
+    - YYCategories
+    - ZJKitTool/ZJGeneraMacros
+  - ZJKitTool/ZJGeneraMacros (2.3.4):
+    - Masonry
+    - MBProgressHUD
+    - YYCategories
+  - ZJKitTool/ZJKit (2.3.4):
+    - Masonry
+    - MBProgressHUD
+    - YYCategories
+  - ZJKitTool/ZJKitMasonry (2.3.4):
+    - Masonry
+    - MBProgressHUD
+    - YYCategories
+    - ZJKitTool/ZJGeneraMacros
+  - ZJKitTool/ZJPickerView (2.3.4):
+    - Masonry
+    - MBProgressHUD
+    - YYCategories
+  - ZJKitTool/ZJTool (2.3.4):
+    - Masonry
+    - MBProgressHUD
+    - YYCategories
+
+DEPENDENCIES:
+  - AXWebViewController (~> 0.6.0)
+  - CocoaAsyncSocket
+  - ECSlidingViewController (~> 2.0.3)
+  - FDFullscreenPopGesture (= 1.1)
+  - IQKeyboardManager
+  - JDStatusBarNotification
+  - Masonry
+  - MBProgressHUD
+  - MJRefresh
+  - RealReachability
+  - RTRootNavigationController
+  - TextInputLimit (~> 1.0.2)
+  - UITableView+FDTemplateLayoutCell (~> 1.6)
+  - ZJKitTool
+
+SPEC CHECKSUMS:
+  Aspects: 7595ba96a6727a58ebcbfc954497fc5d2fdde546
+  AXIndicatorView: caa6c08cc6b732fad163fa26197e3c34b1339060
+  AXNavigationBackItemInjection: efe0446967f3cbcc85a9118decd1e145138912dd
+  AXPracticalHUD: eba707b5515a4da7424ac3d36f07e643df1c8fc3
+  AXWebViewController: 3a6751e9afdf2ca09663c3db460833f07c524d61
+  CocoaAsyncSocket: 7eadd3f59e1a6c84e2aefc93e9ff7b55156fe174
+  ECSlidingViewController: 6485c14f23b4487e9946535421ca8f111f86cc53
+  FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
+  IQKeyboardManager: 83eae5318483a34eb2069ef413d195b97605232e
+  JDStatusBarNotification: 21b616e7432284fea6eb0ce9eadc37c8038a5544
+  Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
+  MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
+  MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
+  NJKWebViewProgress: f481fd424cb5ecc27eacae11b5397db92fba9a4d
+  RealReachability: a8c483900986a0f3305733961effbfbb00637a02
+  RTRootNavigationController: d6aa6cbb78a3eaecea4f6e4df63f15dd887836b8
+  TextInputLimit: 8ab7e524fee7c62334296e19e4c73acc9526ce65
+  UITableView+FDTemplateLayoutCell: 5c949b4a5059c404b442926c0e80f81d10a2d66f
+  YYCategories: 6bcd4314c6661a561410dce4a793379ebd306abd
+  ZJKitTool: 997e3b28d233e8fa5752eb16251d960341b13cc6
+
+PODFILE CHECKSUM: 46426bc2744eca5f9d299ffa4be60e2937ee1011
+
+COCOAPODS: 1.4.0
