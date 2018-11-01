@@ -10,6 +10,9 @@
 #import "MainViewController.h"
 #import <ECSlidingViewController.h>
 #import <RealReachability.h>
+#import "LeftMenuViewController.h"
+#import <RTRootNavigationController.h>
+#import <JDStatusBarNotification.h>
 
 @implementation AppDelegate (AppSevice)
 
@@ -20,12 +23,13 @@
     //首页controller
     MainViewController *mainVc = [[MainViewController alloc] init];
     mainVc.view.backgroundColor = [UIColor greenColor];
-    UINavigationController *navVc = [[UINavigationController alloc] initWithRootViewController:mainVc];
+    RTRootNavigationController *navVc = [[RTRootNavigationController alloc] initWithRootViewController:mainVc];
+//    navVc.navigationBar.translucent = NO;
     //管理controller
     ECSlidingViewController *managerVc = [[ECSlidingViewController alloc] initWithTopViewController:navVc];
     //左边controller
-    UITableViewController *leftVc = [[UITableViewController alloc] initWithStyle:UITableViewStylePlain];
-    leftVc.view.backgroundColor = [UIColor redColor];
+    LeftMenuViewController *leftVc = [[LeftMenuViewController alloc] init];
+    leftVc.view.backgroundColor = kWhiteColor;
     //右边controller
     UITableViewController *rightVc = [[UITableViewController alloc] initWithStyle:UITableViewStylePlain];
     rightVc.view.backgroundColor = [UIColor blueColor];
@@ -33,7 +37,7 @@
     managerVc.underRightViewController = rightVc;
     managerVc.anchorRightPeekAmount = 100;
     managerVc.anchorLeftPeekAmount = 100;
-    [mainVc.view addGestureRecognizer:managerVc.panGesture];
+//    [mainVc.view addGestureRecognizer:managerVc.panGesture];
     
     self.managerVc = managerVc;
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
@@ -59,13 +63,16 @@
     NSLog(@"currentStatus:%@",@(status));
     switch (status) {
         case RealStatusNotReachable:
-            NSLog(@"当前无网络连接");
+            [JDStatusBarNotification showWithStatus:@"当前无网络连接" dismissAfter:2 styleName:JDStatusBarStyleError];
             break;
         case RealStatusViaWiFi:
-            NSLog(@"当前有WiFi连接");
+            [JDStatusBarNotification showWithStatus:@"已连接WiFi" dismissAfter:2 styleName:JDStatusBarStyleSuccess];
             break;
         case RealStatusViaWWAN:
             NSLog(@"当前有WWAN连接");
+            if ([realReachaility currentWWANtype] == WWANType4G) {
+                 [JDStatusBarNotification showWithStatus:@"已连接4G" dismissAfter:2 styleName:JDStatusBarStyleSuccess];
+            }
             break;
         default:
             NSLog(@"未知网络连接");

@@ -6,7 +6,7 @@
 //  Copyright © 2018年 jianlu. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 //#import "default_message.h"
 
 NS_ASSUME_NONNULL_BEGIN

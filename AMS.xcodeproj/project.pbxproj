@@ -31,10 +31,34 @@
 		16633A352181605000D450E8 /* AMSSocketClient.mm in Sources */ = {isa = PBXBuildFile; fileRef = 16633A342181605000D450E8 /* AMSSocketClient.mm */; };
 		16633A3C21819D1A00D450E8 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16633A3B21819D1A00D450E8 /* BaseViewController.m */; };
 		16633A3F2181BE6C00D450E8 /* AMSUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 16633A3E2181BE6C00D450E8 /* AMSUtil.m */; };
+		166DDB82218A9CDB00D43461 /* BaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 166DDB81218A9CDB00D43461 /* BaseTableViewController.m */; };
+		166DDC01218AE34E00D43461 /* Y_StockChartGlobalVariable.m in Sources */ = {isa = PBXBuildFile; fileRef = 166DDB9F218AE34E00D43461 /* Y_StockChartGlobalVariable.m */; };
+		166DDC02218AE34E00D43461 /* UIColor+Y_StockChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 166DDBA4218AE34E00D43461 /* UIColor+Y_StockChart.m */; };
+		166DDC03218AE34E00D43461 /* Y_StockChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 166DDBA5218AE34E00D43461 /* Y_StockChartView.m */; };
+		166DDC04218AE34E00D43461 /* Y_KLineMAView.m in Sources */ = {isa = PBXBuildFile; fileRef = 166DDBA9218AE34E00D43461 /* Y_KLineMAView.m */; };
+		166DDC05218AE34E00D43461 /* Y_KLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 166DDBAA218AE34E00D43461 /* Y_KLineView.m */; };
+		166DDC06218AE34E00D43461 /* Y_StockChartRightYView.m in Sources */ = {isa = PBXBuildFile; fileRef = 166DDBAC218AE34E00D43461 /* Y_StockChartRightYView.m */; };
+		166DDC07218AE34E00D43461 /* Y_VolumeMAView.m in Sources */ = {isa = PBXBuildFile; fileRef = 166DDBB0218AE34E00D43461 /* Y_VolumeMAView.m */; };
+		166DDC08218AE34E00D43461 /* Y_KLineAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 166DDBB2218AE34E00D43461 /* Y_KLineAccessoryView.m */; };
+		166DDC09218AE34E00D43461 /* Y_KLineAccessory.m in Sources */ = {isa = PBXBuildFile; fileRef = 166DDBB5218AE34E00D43461 /* Y_KLineAccessory.m */; };
+		166DDC0A218AE34E00D43461 /* Y_AccessoryMAView.m in Sources */ = {isa = PBXBuildFile; fileRef = 166DDBB8218AE34E00D43461 /* Y_AccessoryMAView.m */; };
+		166DDC0B218AE34E00D43461 /* Y_KLinePositionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 166DDBBC218AE34E00D43461 /* Y_KLinePositionModel.m */; };
+		166DDC0C218AE34E00D43461 /* Y_KLineModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 166DDBC1218AE34E00D43461 /* Y_KLineModel.m */; };
+		166DDC0D218AE34E00D43461 /* Y_KLineGroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 166DDBC2218AE34E00D43461 /* Y_KLineGroupModel.m */; };
+		166DDC0E218AE34E00D43461 /* Y_KLineVolumePositionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 166DDBC3218AE34E00D43461 /* Y_KLineVolumePositionModel.m */; };
+		166DDC0F218AE34E00D43461 /* Y_KLineVolumeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 166DDBC6218AE34E00D43461 /* Y_KLineVolumeView.m */; };
+		166DDC10218AE34E00D43461 /* Y_KLineVolume.m in Sources */ = {isa = PBXBuildFile; fileRef = 166DDBC8218AE34E00D43461 /* Y_KLineVolume.m */; };
+		166DDC11218AE34E00D43461 /* Y_KLineMainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 166DDBCC218AE34E00D43461 /* Y_KLineMainView.m */; };
+		166DDC12218AE34E00D43461 /* Y_MALine.m in Sources */ = {isa = PBXBuildFile; fileRef = 166DDBD0218AE34E00D43461 /* Y_MALine.m */; };
+		166DDC13218AE34E00D43461 /* Y_KLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 166DDBD1218AE34E00D43461 /* Y_KLine.m */; };
+		166DDC14218AE34E00D43461 /* Y_StockChartSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 166DDBD4218AE34E00D43461 /* Y_StockChartSegmentView.m */; };
+		166DDC29218AF57200D43461 /* Y_StockChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 166DDC28218AF57200D43461 /* Y_StockChartViewController.m */; };
+		166DDC2C218AF5C500D43461 /* NetWorking.m in Sources */ = {isa = PBXBuildFile; fileRef = 166DDC2B218AF5C400D43461 /* NetWorking.m */; };
 		167900352187F192008ECB31 /* UIButton+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 167900332187F192008ECB31 /* UIButton+Category.m */; };
 		167900382188253C008ECB31 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 167900372188253C008ECB31 /* DetailViewController.m */; };
 		1693ADF9218007FE00EDEEF6 /* AMSSocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1693ADF7218007FE00EDEEF6 /* AMSSocketManager.m */; };
 		169727C32186B45F009F6F65 /* AppDelegate+AppSevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 169727C22186B45F009F6F65 /* AppDelegate+AppSevice.m */; };
+		16BAC14721893F8B008F965E /* LeftMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16BAC14621893F8B008F965E /* LeftMenuViewController.m */; };
 		16CCD3A821831456003D5BFD /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16CCD3A721831456003D5BFD /* MainViewController.m */; };
 		16D3D818217F17A000793DF8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 16D3D817217F17A000793DF8 /* AppDelegate.m */; };
 		16D3D81E217F17A000793DF8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16D3D81C217F17A000793DF8 /* Main.storyboard */; };
@@ -98,6 +122,53 @@
 		16633A3B21819D1A00D450E8 /* BaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		16633A3D2181BE6C00D450E8 /* AMSUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AMSUtil.h; path = AMS/Utils/AMSUtil.h; sourceTree = SOURCE_ROOT; };
 		16633A3E2181BE6C00D450E8 /* AMSUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AMSUtil.m; path = AMS/Utils/AMSUtil.m; sourceTree = SOURCE_ROOT; };
+		166DDB80218A9CDB00D43461 /* BaseTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseTableViewController.h; sourceTree = "<group>"; };
+		166DDB81218A9CDB00D43461 /* BaseTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewController.m; sourceTree = "<group>"; };
+		166DDB9B218AE34E00D43461 /* Y_StockChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Y_StockChartView.h; sourceTree = "<group>"; };
+		166DDB9E218AE34E00D43461 /* Y_StockChartGlobalVariable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Y_StockChartGlobalVariable.h; sourceTree = "<group>"; };
+		166DDB9F218AE34E00D43461 /* Y_StockChartGlobalVariable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Y_StockChartGlobalVariable.m; sourceTree = "<group>"; };
+		166DDBA1218AE34E00D43461 /* Y_StockChartConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Y_StockChartConstant.h; sourceTree = "<group>"; };
+		166DDBA3218AE34E00D43461 /* UIColor+Y_StockChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Y_StockChart.h"; sourceTree = "<group>"; };
+		166DDBA4218AE34E00D43461 /* UIColor+Y_StockChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Y_StockChart.m"; sourceTree = "<group>"; };
+		166DDBA5218AE34E00D43461 /* Y_StockChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Y_StockChartView.m; sourceTree = "<group>"; };
+		166DDBA8218AE34E00D43461 /* Y_KLineMAView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Y_KLineMAView.h; sourceTree = "<group>"; };
+		166DDBA9218AE34E00D43461 /* Y_KLineMAView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Y_KLineMAView.m; sourceTree = "<group>"; };
+		166DDBAA218AE34E00D43461 /* Y_KLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Y_KLineView.m; sourceTree = "<group>"; };
+		166DDBAC218AE34E00D43461 /* Y_StockChartRightYView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Y_StockChartRightYView.m; sourceTree = "<group>"; };
+		166DDBAD218AE34E00D43461 /* Y_StockChartRightYView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Y_StockChartRightYView.h; sourceTree = "<group>"; };
+		166DDBAF218AE34E00D43461 /* Y_VolumeMAView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Y_VolumeMAView.h; sourceTree = "<group>"; };
+		166DDBB0218AE34E00D43461 /* Y_VolumeMAView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Y_VolumeMAView.m; sourceTree = "<group>"; };
+		166DDBB2218AE34E00D43461 /* Y_KLineAccessoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Y_KLineAccessoryView.m; sourceTree = "<group>"; };
+		166DDBB4218AE34E00D43461 /* Y_KLineAccessory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Y_KLineAccessory.h; sourceTree = "<group>"; };
+		166DDBB5218AE34E00D43461 /* Y_KLineAccessory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Y_KLineAccessory.m; sourceTree = "<group>"; };
+		166DDBB6218AE34E00D43461 /* Y_KLineAccessoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Y_KLineAccessoryView.h; sourceTree = "<group>"; };
+		166DDBB8218AE34E00D43461 /* Y_AccessoryMAView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Y_AccessoryMAView.m; sourceTree = "<group>"; };
+		166DDBB9218AE34E00D43461 /* Y_AccessoryMAView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Y_AccessoryMAView.h; sourceTree = "<group>"; };
+		166DDBBC218AE34E00D43461 /* Y_KLinePositionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Y_KLinePositionModel.m; sourceTree = "<group>"; };
+		166DDBBD218AE34E00D43461 /* Y_KLineModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Y_KLineModel.h; sourceTree = "<group>"; };
+		166DDBBE218AE34E00D43461 /* Y_KLineGroupModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Y_KLineGroupModel.h; sourceTree = "<group>"; };
+		166DDBBF218AE34E00D43461 /* Y_KLineVolumePositionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Y_KLineVolumePositionModel.h; sourceTree = "<group>"; };
+		166DDBC0218AE34E00D43461 /* Y_KLinePositionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Y_KLinePositionModel.h; sourceTree = "<group>"; };
+		166DDBC1218AE34E00D43461 /* Y_KLineModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Y_KLineModel.m; sourceTree = "<group>"; };
+		166DDBC2218AE34E00D43461 /* Y_KLineGroupModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Y_KLineGroupModel.m; sourceTree = "<group>"; };
+		166DDBC3218AE34E00D43461 /* Y_KLineVolumePositionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Y_KLineVolumePositionModel.m; sourceTree = "<group>"; };
+		166DDBC4218AE34E00D43461 /* Y_KLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Y_KLineView.h; sourceTree = "<group>"; };
+		166DDBC6218AE34E00D43461 /* Y_KLineVolumeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Y_KLineVolumeView.m; sourceTree = "<group>"; };
+		166DDBC8218AE34E00D43461 /* Y_KLineVolume.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Y_KLineVolume.m; sourceTree = "<group>"; };
+		166DDBC9218AE34E00D43461 /* Y_KLineVolume.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Y_KLineVolume.h; sourceTree = "<group>"; };
+		166DDBCA218AE34E00D43461 /* Y_KLineVolumeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Y_KLineVolumeView.h; sourceTree = "<group>"; };
+		166DDBCC218AE34E00D43461 /* Y_KLineMainView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Y_KLineMainView.m; sourceTree = "<group>"; };
+		166DDBCE218AE34E00D43461 /* Y_MALine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Y_MALine.h; sourceTree = "<group>"; };
+		166DDBCF218AE34E00D43461 /* Y_KLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Y_KLine.h; sourceTree = "<group>"; };
+		166DDBD0218AE34E00D43461 /* Y_MALine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Y_MALine.m; sourceTree = "<group>"; };
+		166DDBD1218AE34E00D43461 /* Y_KLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Y_KLine.m; sourceTree = "<group>"; };
+		166DDBD2218AE34E00D43461 /* Y_KLineMainView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Y_KLineMainView.h; sourceTree = "<group>"; };
+		166DDBD4218AE34E00D43461 /* Y_StockChartSegmentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Y_StockChartSegmentView.m; sourceTree = "<group>"; };
+		166DDBD5218AE34E00D43461 /* Y_StockChartSegmentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Y_StockChartSegmentView.h; sourceTree = "<group>"; };
+		166DDC27218AF57100D43461 /* Y_StockChartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Y_StockChartViewController.h; sourceTree = "<group>"; };
+		166DDC28218AF57200D43461 /* Y_StockChartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Y_StockChartViewController.m; sourceTree = "<group>"; };
+		166DDC2A218AF5C400D43461 /* NetWorking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetWorking.h; sourceTree = "<group>"; };
+		166DDC2B218AF5C400D43461 /* NetWorking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetWorking.m; sourceTree = "<group>"; };
 		167900332187F192008ECB31 /* UIButton+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Category.m"; sourceTree = "<group>"; };
 		167900342187F192008ECB31 /* UIButton+Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Category.h"; sourceTree = "<group>"; };
 		167900362188253C008ECB31 /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
@@ -107,6 +178,8 @@
 		169727C12186B45F009F6F65 /* AppDelegate+AppSevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+AppSevice.h"; sourceTree = "<group>"; };
 		169727C22186B45F009F6F65 /* AppDelegate+AppSevice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+AppSevice.m"; sourceTree = "<group>"; };
 		169727CD2186D92E009F6F65 /* UtilsMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UtilsMacros.h; sourceTree = "<group>"; };
+		16BAC14521893F8B008F965E /* LeftMenuViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LeftMenuViewController.h; sourceTree = "<group>"; };
+		16BAC14621893F8B008F965E /* LeftMenuViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LeftMenuViewController.m; sourceTree = "<group>"; };
 		16CCD3A621831456003D5BFD /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		16CCD3A721831456003D5BFD /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		16D3D813217F17A000793DF8 /* AMS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AMS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -132,6 +205,198 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		166DDB9A218AE34E00D43461 /* Y_KLine */ = {
+			isa = PBXGroup;
+			children = (
+				166DDB9B218AE34E00D43461 /* Y_StockChartView.h */,
+				166DDB9C218AE34E00D43461 /* Config */,
+				166DDBA5218AE34E00D43461 /* Y_StockChartView.m */,
+				166DDBA6218AE34E00D43461 /* KLine */,
+			);
+			path = Y_KLine;
+			sourceTree = "<group>";
+		};
+		166DDB9C218AE34E00D43461 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				166DDB9D218AE34E00D43461 /* GlobalVariable */,
+				166DDBA0218AE34E00D43461 /* Constant */,
+				166DDBA2218AE34E00D43461 /* Theme */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		166DDB9D218AE34E00D43461 /* GlobalVariable */ = {
+			isa = PBXGroup;
+			children = (
+				166DDB9E218AE34E00D43461 /* Y_StockChartGlobalVariable.h */,
+				166DDB9F218AE34E00D43461 /* Y_StockChartGlobalVariable.m */,
+			);
+			path = GlobalVariable;
+			sourceTree = "<group>";
+		};
+		166DDBA0218AE34E00D43461 /* Constant */ = {
+			isa = PBXGroup;
+			children = (
+				166DDBA1218AE34E00D43461 /* Y_StockChartConstant.h */,
+			);
+			path = Constant;
+			sourceTree = "<group>";
+		};
+		166DDBA2218AE34E00D43461 /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				166DDBA3218AE34E00D43461 /* UIColor+Y_StockChart.h */,
+				166DDBA4218AE34E00D43461 /* UIColor+Y_StockChart.m */,
+			);
+			path = Theme;
+			sourceTree = "<group>";
+		};
+		166DDBA6218AE34E00D43461 /* KLine */ = {
+			isa = PBXGroup;
+			children = (
+				166DDBA7218AE34E00D43461 /* KLine_MAView */,
+				166DDBAA218AE34E00D43461 /* Y_KLineView.m */,
+				166DDBAB218AE34E00D43461 /* PriceView */,
+				166DDBAE218AE34E00D43461 /* Volume_MAView */,
+				166DDBB1218AE34E00D43461 /* AccessoryView */,
+				166DDBB7218AE34E00D43461 /* Accessory_MAView */,
+				166DDBBA218AE34E00D43461 /* Model */,
+				166DDBC4218AE34E00D43461 /* Y_KLineView.h */,
+				166DDBC5218AE34E00D43461 /* VolumeView */,
+				166DDBCB218AE34E00D43461 /* MainKLineView */,
+				166DDBD3218AE34E00D43461 /* SegmentView */,
+			);
+			path = KLine;
+			sourceTree = "<group>";
+		};
+		166DDBA7218AE34E00D43461 /* KLine_MAView */ = {
+			isa = PBXGroup;
+			children = (
+				166DDBA8218AE34E00D43461 /* Y_KLineMAView.h */,
+				166DDBA9218AE34E00D43461 /* Y_KLineMAView.m */,
+			);
+			path = KLine_MAView;
+			sourceTree = "<group>";
+		};
+		166DDBAB218AE34E00D43461 /* PriceView */ = {
+			isa = PBXGroup;
+			children = (
+				166DDBAC218AE34E00D43461 /* Y_StockChartRightYView.m */,
+				166DDBAD218AE34E00D43461 /* Y_StockChartRightYView.h */,
+			);
+			path = PriceView;
+			sourceTree = "<group>";
+		};
+		166DDBAE218AE34E00D43461 /* Volume_MAView */ = {
+			isa = PBXGroup;
+			children = (
+				166DDBAF218AE34E00D43461 /* Y_VolumeMAView.h */,
+				166DDBB0218AE34E00D43461 /* Y_VolumeMAView.m */,
+			);
+			path = Volume_MAView;
+			sourceTree = "<group>";
+		};
+		166DDBB1218AE34E00D43461 /* AccessoryView */ = {
+			isa = PBXGroup;
+			children = (
+				166DDBB2218AE34E00D43461 /* Y_KLineAccessoryView.m */,
+				166DDBB3218AE34E00D43461 /* Line */,
+				166DDBB6218AE34E00D43461 /* Y_KLineAccessoryView.h */,
+			);
+			path = AccessoryView;
+			sourceTree = "<group>";
+		};
+		166DDBB3218AE34E00D43461 /* Line */ = {
+			isa = PBXGroup;
+			children = (
+				166DDBB4218AE34E00D43461 /* Y_KLineAccessory.h */,
+				166DDBB5218AE34E00D43461 /* Y_KLineAccessory.m */,
+			);
+			path = Line;
+			sourceTree = "<group>";
+		};
+		166DDBB7218AE34E00D43461 /* Accessory_MAView */ = {
+			isa = PBXGroup;
+			children = (
+				166DDBB8218AE34E00D43461 /* Y_AccessoryMAView.m */,
+				166DDBB9218AE34E00D43461 /* Y_AccessoryMAView.h */,
+			);
+			path = Accessory_MAView;
+			sourceTree = "<group>";
+		};
+		166DDBBA218AE34E00D43461 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				166DDBBB218AE34E00D43461 /* KLineModel */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		166DDBBB218AE34E00D43461 /* KLineModel */ = {
+			isa = PBXGroup;
+			children = (
+				166DDBBC218AE34E00D43461 /* Y_KLinePositionModel.m */,
+				166DDBBD218AE34E00D43461 /* Y_KLineModel.h */,
+				166DDBBE218AE34E00D43461 /* Y_KLineGroupModel.h */,
+				166DDBBF218AE34E00D43461 /* Y_KLineVolumePositionModel.h */,
+				166DDBC0218AE34E00D43461 /* Y_KLinePositionModel.h */,
+				166DDBC1218AE34E00D43461 /* Y_KLineModel.m */,
+				166DDBC2218AE34E00D43461 /* Y_KLineGroupModel.m */,
+				166DDBC3218AE34E00D43461 /* Y_KLineVolumePositionModel.m */,
+			);
+			path = KLineModel;
+			sourceTree = "<group>";
+		};
+		166DDBC5218AE34E00D43461 /* VolumeView */ = {
+			isa = PBXGroup;
+			children = (
+				166DDBC6218AE34E00D43461 /* Y_KLineVolumeView.m */,
+				166DDBC7218AE34E00D43461 /* Line */,
+				166DDBCA218AE34E00D43461 /* Y_KLineVolumeView.h */,
+			);
+			path = VolumeView;
+			sourceTree = "<group>";
+		};
+		166DDBC7218AE34E00D43461 /* Line */ = {
+			isa = PBXGroup;
+			children = (
+				166DDBC8218AE34E00D43461 /* Y_KLineVolume.m */,
+				166DDBC9218AE34E00D43461 /* Y_KLineVolume.h */,
+			);
+			path = Line;
+			sourceTree = "<group>";
+		};
+		166DDBCB218AE34E00D43461 /* MainKLineView */ = {
+			isa = PBXGroup;
+			children = (
+				166DDBCC218AE34E00D43461 /* Y_KLineMainView.m */,
+				166DDBCD218AE34E00D43461 /* Line */,
+				166DDBD2218AE34E00D43461 /* Y_KLineMainView.h */,
+			);
+			path = MainKLineView;
+			sourceTree = "<group>";
+		};
+		166DDBCD218AE34E00D43461 /* Line */ = {
+			isa = PBXGroup;
+			children = (
+				166DDBCE218AE34E00D43461 /* Y_MALine.h */,
+				166DDBCF218AE34E00D43461 /* Y_KLine.h */,
+				166DDBD0218AE34E00D43461 /* Y_MALine.m */,
+				166DDBD1218AE34E00D43461 /* Y_KLine.m */,
+			);
+			path = Line;
+			sourceTree = "<group>";
+		};
+		166DDBD3218AE34E00D43461 /* SegmentView */ = {
+			isa = PBXGroup;
+			children = (
+				166DDBD4218AE34E00D43461 /* Y_StockChartSegmentView.m */,
+				166DDBD5218AE34E00D43461 /* Y_StockChartSegmentView.h */,
+			);
+			path = SegmentView;
+			sourceTree = "<group>";
+		};
 		167900322187EF70008ECB31 /* Category */ = {
 			isa = PBXGroup;
 			children = (
@@ -205,6 +470,8 @@
 		169727C42186D733009F6F65 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				166DDC2A218AF5C400D43461 /* NetWorking.h */,
+				166DDC2B218AF5C400D43461 /* NetWorking.m */,
 				167900322187EF70008ECB31 /* Category */,
 				16633A3D2181BE6C00D450E8 /* AMSUtil.h */,
 				16633A3E2181BE6C00D450E8 /* AMSUtil.m */,
@@ -219,6 +486,8 @@
 			children = (
 				16633A3A21819D1A00D450E8 /* BaseViewController.h */,
 				16633A3B21819D1A00D450E8 /* BaseViewController.m */,
+				166DDB80218A9CDB00D43461 /* BaseTableViewController.h */,
+				166DDB81218A9CDB00D43461 /* BaseTableViewController.m */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -242,10 +511,14 @@
 		169727C92186D7A5009F6F65 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				166DDC27218AF57100D43461 /* Y_StockChartViewController.h */,
+				166DDC28218AF57200D43461 /* Y_StockChartViewController.m */,
 				16CCD3A621831456003D5BFD /* MainViewController.h */,
 				16CCD3A721831456003D5BFD /* MainViewController.m */,
 				167900362188253C008ECB31 /* DetailViewController.h */,
 				167900372188253C008ECB31 /* DetailViewController.m */,
+				16BAC14521893F8B008F965E /* LeftMenuViewController.h */,
+				16BAC14621893F8B008F965E /* LeftMenuViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -262,6 +535,7 @@
 		169727CB2186D8CB009F6F65 /* ThridParty */ = {
 			isa = PBXGroup;
 			children = (
+				166DDB9A218AE34E00D43461 /* Y_KLine */,
 				16873FD621801FBA00422BC7 /* Lib_Best */,
 				16633A332181605000D450E8 /* AMSSocketClient.h */,
 				16633A342181605000D450E8 /* AMSSocketClient.mm */,
@@ -471,25 +745,47 @@
 			buildActionMask = 2147483647;
 			files = (
 				16CCD3A821831456003D5BFD /* MainViewController.m in Sources */,
+				166DDC03218AE34E00D43461 /* Y_StockChartView.m in Sources */,
+				166DDC09218AE34E00D43461 /* Y_KLineAccessory.m in Sources */,
+				166DDC0F218AE34E00D43461 /* Y_KLineVolumeView.m in Sources */,
+				166DDB82218A9CDB00D43461 /* BaseTableViewController.m in Sources */,
+				166DDC06218AE34E00D43461 /* Y_StockChartRightYView.m in Sources */,
+				166DDC07218AE34E00D43461 /* Y_VolumeMAView.m in Sources */,
 				161F28E4218839130036E22B /* default_best_rpchead.cpp in Sources */,
+				166DDC14218AE34E00D43461 /* Y_StockChartSegmentView.m in Sources */,
 				161F28DD218839130036E22B /* lib_best_msssage.cpp in Sources */,
+				166DDC0C218AE34E00D43461 /* Y_KLineModel.m in Sources */,
+				166DDC13218AE34E00D43461 /* Y_KLine.m in Sources */,
 				161F28E5218839130036E22B /* default_best_message.cpp in Sources */,
 				161F28F521883F680036E22B /* BestMessageUtil.mm in Sources */,
+				166DDC0A218AE34E00D43461 /* Y_AccessoryMAView.m in Sources */,
+				166DDC0D218AE34E00D43461 /* Y_KLineGroupModel.m in Sources */,
 				161F28E6218839130036E22B /* default_best_message_factory.cpp in Sources */,
+				166DDC0B218AE34E00D43461 /* Y_KLinePositionModel.m in Sources */,
 				161F28E8218839130036E22B /* stdafx.cpp in Sources */,
+				166DDC01218AE34E00D43461 /* Y_StockChartGlobalVariable.m in Sources */,
 				167900352187F192008ECB31 /* UIButton+Category.m in Sources */,
+				166DDC11218AE34E00D43461 /* Y_KLineMainView.m in Sources */,
 				161F28D8218839130036E22B /* default_best_group.cpp in Sources */,
 				161F28D7218839130036E22B /* default_bestIteror.cpp in Sources */,
+				166DDC29218AF57200D43461 /* Y_StockChartViewController.m in Sources */,
+				166DDC04218AE34E00D43461 /* Y_KLineMAView.m in Sources */,
 				16D3D826217F17A200793DF8 /* main.m in Sources */,
 				161F28E1218839130036E22B /* default_message_pool.cpp in Sources */,
+				166DDC02218AE34E00D43461 /* UIColor+Y_StockChart.m in Sources */,
 				161F28E7218839130036E22B /* qcmutex.cpp in Sources */,
 				161F28E2218839130036E22B /* qcstutils.cpp in Sources */,
 				167900382188253C008ECB31 /* DetailViewController.m in Sources */,
 				1693ADF9218007FE00EDEEF6 /* AMSSocketManager.m in Sources */,
+				166DDC12218AE34E00D43461 /* Y_MALine.m in Sources */,
 				16633A352181605000D450E8 /* AMSSocketClient.mm in Sources */,
+				166DDC05218AE34E00D43461 /* Y_KLineView.m in Sources */,
 				161F28DC218839130036E22B /* step_serializer.cpp in Sources */,
+				166DDC08218AE34E00D43461 /* Y_KLineAccessoryView.m in Sources */,
 				16D3D818217F17A000793DF8 /* AppDelegate.m in Sources */,
+				166DDC0E218AE34E00D43461 /* Y_KLineVolumePositionModel.m in Sources */,
 				161F28F221883DC00036E22B /* MBProgressHUD+AMS.m in Sources */,
+				166DDC2C218AF5C500D43461 /* NetWorking.m in Sources */,
 				161F28DF218839130036E22B /* default_best_field.cpp in Sources */,
 				161F28E0218839130036E22B /* default_best_data_message.cpp in Sources */,
 				16633A3F2181BE6C00D450E8 /* AMSUtil.m in Sources */,
@@ -498,6 +794,8 @@
 				161F28D9218839130036E22B /* default_best_record.cpp in Sources */,
 				161F28DE218839130036E22B /* default_message.cpp in Sources */,
 				16633A3C21819D1A00D450E8 /* BaseViewController.m in Sources */,
+				166DDC10218AE34E00D43461 /* Y_KLineVolume.m in Sources */,
+				16BAC14721893F8B008F965E /* LeftMenuViewController.m in Sources */,
 				161F28DA218839130036E22B /* default_serializer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -659,7 +957,10 @@
 					"\"${PODS_ROOT}/Headers/Public/RealReachability\"",
 				);
 				INFOPLIST_FILE = AMS/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = jianlu.com.AMS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -683,7 +984,10 @@
 					"\"${PODS_ROOT}/Headers/Public/RealReachability\"",
 				);
 				INFOPLIST_FILE = AMS/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = jianlu.com.AMS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -11,8 +11,9 @@
 #import "AppDelegate+AppSevice.h"
 #import "DetailViewController.h"
 #import <AXWebViewController.h>
-@interface MainViewController ()
+#import "Y_StockChartViewController.h"
 
+@interface MainViewController ()
 @end
 
 @implementation MainViewController
@@ -29,15 +30,23 @@
         make.center.mas_equalTo(self.view);
         make.size.mas_equalTo(CGSizeMake(100, 100));
     } touchUp:^(id sender) {
-        DetailViewController *detailVc = [[DetailViewController alloc] init];
-        [self.navigationController pushViewController:detailVc animated:YES];
+        Y_StockChartViewController *stockVc = [[Y_StockChartViewController alloc] init];
+        [self.rt_navigationController pushViewController:stockVc animated:YES];
     }];
+    UISwipeGestureRecognizer *upSwipeGR = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeFrom:)];
+    [upSwipeGR setDirection:UISwipeGestureRecognizerDirectionUp];
+    [self.view addGestureRecognizer:upSwipeGR];
+    
+    UISwipeGestureRecognizer *downSwipeGR = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeFrom:)];
+    [downSwipeGR setDirection:UISwipeGestureRecognizerDirectionDown];
+    [self.view addGestureRecognizer:downSwipeGR];
+    
     
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-//    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    //    AppDelegate *delegate = [AppDelegate shareAppDelegate];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -60,16 +69,25 @@
     [delegate.managerVc resetTopViewAnimated:YES];
 }
 
+-(void)handleSwipeFrom:(UISwipeGestureRecognizer *)swipeGr{
+    if (swipeGr.direction == UISwipeGestureRecognizerDirectionUp) {
+        DLog(@"向上滑动了");
+    }
+    if (swipeGr.direction == UISwipeGestureRecognizerDirectionDown) {
+        DLog(@"向下滑动了");
+    }
+}
+
 
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

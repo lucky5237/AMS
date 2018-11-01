@@ -18,15 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor orangeColor];
-    self.navigationItem.title = @"详情";
-//    [MBProgressHUD showActivityMessageInView:@"正在加载"];
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        [MBProgressHUD hideHUD];
-//        [MBProgressHUD showSuccessMessage:@"加载成功"];
-//    });
-//    [MBProgressHUD showTopTipMessage:@"加载成功"];
-    [JDStatusBarNotification showWithStatus:@"加载成功" dismissAfter:2 styleName:JDStatusBarStyleSuccess];
-    
+    self.title = @"详情";
     // Do any additional setup after loading the view.
 }
 -(void)viewWillAppear:(BOOL)animated{

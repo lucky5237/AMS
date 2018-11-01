@@ -15,11 +15,12 @@
 
 #ifdef __OBJC__
 #import "UtilsMacros.h"
-#import <Masonry.h>
-#import <UIControl+YYAdd.h>
 #import "AMSUtil.h"
 #import "MBProgressHUD+AMS.h"
+
+#import <Masonry.h>
 #import <ZJKitTool.h>
+#import <RTRootNavigationController.h>
 #endif
 
 #endif /* AMSPrefixHeader_pch */

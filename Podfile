@@ -11,7 +11,7 @@ target 'AMS' do
   pod 'MBProgressHUD'
 #  pod 'YYKit'
   pod 'ECSlidingViewController', '~> 2.0.3'
-  pod 'Masonry'
+  pod 'Masonry', '~> 1.1'
   pod 'IQKeyboardManager'
   pod 'MJRefresh'
   pod 'FDFullscreenPopGesture', '1.1'
@@ -21,7 +21,12 @@ target 'AMS' do
   pod 'TextInputLimit', '~> 1.0.2'
   pod 'RTRootNavigationController'
   pod 'JDStatusBarNotification'
-#  pod 'HYBMasonryAutoCellHeight'
 #  pod 'HYBHelperKit'
   pod 'ZJKitTool'
+#  pod 'HYBMasonryAutoCellHeight', '~> 2.0.1'
+  pod 'DZNEmptyDataSet'
+#  pod 'JXCategoryView'
+#  pod 'WRNavigationBar','~>1.2.0’
+  pod 'SDWebImage', '~> 4.0'
+  pod 'AFNetworking', '~> 3.0'
 end
