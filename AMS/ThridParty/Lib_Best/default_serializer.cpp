@@ -97,11 +97,19 @@ const void*  DefaultBestSerializer::SerializeMessage(int32& len, IBestMessage* m
 		{
 			//这里要判断是否已经序列化
 			IBestDataMessage* bestDataMessage = headMessage->GetDataMessage();
-			if (bestDataMessage != NULL && bestDataMessage->Status() == 0)
+			if (bestDataMessage != NULL && bestDataMessage->Status() == 0
+				&& bestDataMessage->GetDataHeadMessage())
 			{
+				int total_len = 0;
 				int tmp_len = 0;
 				bestDataMessage->Serialize(&tmp_len);
-				headMessage->SetDataLength(tmp_len);
+				DefaultBestDataHeadMessage* data_head_messge = (DefaultBestDataHeadMessage*)bestDataMessage->GetDataHeadMessage();
+				data_head_messge->SetDataLength(tmp_len);
+				total_len+= tmp_len;
+				tmp_len = 0;
+				bestDataMessage->SerializeHead(&tmp_len);
+				total_len += data_head_messge->GetHeadLength();
+				headMessage->SetDataLength(total_len);
 			}
 		}
 		int tmp_len = 0;
@@ -136,9 +144,20 @@ const void*  DefaultBestSerializer::SerializeMessage(int32& len, IBestMessage* m
 				tmp_buffer = headMessage->GetBuffer(&tmp_len);
 				memcpy(buffer->buff + buffer->pos, tmp_buffer, tmp_len);
 				buffer->pos += tmp_len;
+				///
 				IBestDataMessage* bestDataMessage = headMessage->GetDataMessage();
 				if (bestDataMessage != NULL)
 				{
+					DefaultBestDataHeadMessage* data_head_messge = (DefaultBestDataHeadMessage*)bestDataMessage->GetDataHeadMessage();
+					if(0 != data_head_messge)
+					{
+						tmp_buffer = data_head_messge->GetBuffer(&tmp_len);
+						if (tmp_len > 0)
+						{
+							memcpy(buffer->buff + buffer->pos, tmp_buffer, tmp_len);
+							buffer->pos += tmp_len;
+						}
+					}
 					tmp_buffer = bestDataMessage->GetBuffer(&tmp_len);
 					if (tmp_len > 0)
 					{
@@ -146,6 +165,7 @@ const void*  DefaultBestSerializer::SerializeMessage(int32& len, IBestMessage* m
 						buffer->pos += tmp_len;
 					}
 				}
+				///
 				((DefaultBestHeadMessage*)headMessage)->ReleaseBuffer();//释放缓存内容
 			}
 			bestIterator->Next();
@@ -191,9 +211,36 @@ const void*  DefaultBestSerializer::SerializeHeadMessage(int32& len, IBestHeadMe
 		memcpy(best_buffer->buff, &(default_head_message->m_best_head_struct), sizeof(BestHeadStruct));
 		best_buffer->pos += sizeof(BestHeadStruct);
 		len = StepSerializer::SerialzeStep(best_buffer, default_head_message->m_best_field_map);
-	return best_buffer;
+		return best_buffer;
 	}
 };
+
+const void*  DefaultBestSerializer::SerializeDataHeadMessage(int32& len, IBestHeadMessage* head_message)
+{
+	DefaultBestDataHeadMessage* default_head_message = (DefaultBestDataHeadMessage*)head_message;
+	BestBuffer* best_buffer = DefaultMessagePool::AcquireBestBuffer(1024);
+	memcpy(best_buffer->buff, &(default_head_message->m_best_head_struct), sizeof(BestDataHeadStruct_t));
+	best_buffer->pos += sizeof(BestDataHeadStruct_t);
+	len = StepSerializer::SerialzeFixStep(best_buffer, default_head_message->m_best_field_map);
+	if(len != -1)
+	{
+		BestBuffer* tmp_buffer = DefaultMessagePool::AcquireBestBuffer(best_buffer->len);
+		tmp_buffer->pos = best_buffer->pos;
+		memcpy(tmp_buffer->buff, best_buffer->buff, best_buffer->len);
+		DefaultMessagePool::ReleaseBestBuffer(best_buffer);
+		return tmp_buffer;
+	}
+	else
+	{
+		DefaultMessagePool::ReleaseBestBuffer(best_buffer);
+		best_buffer = DefaultMessagePool::AcquireLargeBestBuffer(2048);
+		memcpy(best_buffer->buff, &(default_head_message->m_best_head_struct), sizeof(BestDataHeadStruct_t));
+		best_buffer->pos += sizeof(BestDataHeadStruct_t);
+		len = StepSerializer::SerialzeStep(best_buffer, default_head_message->m_best_field_map);
+		return best_buffer;
+	}
+}
+
 const void*  DefaultBestSerializer::SerializeDataMessage(int32& len, IBestDataMessage* data_message)
 {
 	return 0;
@@ -245,16 +292,23 @@ int DefaultBestSerializer::DeserializeMessage(IBestMessage* message, const void*
 		pos += bestHeadStruct->head_length;
 		if (bestHeadStruct->content_length > 0)
 		{
+			////
 			DefaultBestDataMessage* data_message = DefaultMessagePool::AcquireDefaultBestDataMessage();
 			/*const char* encoding = head_message->GetField(HEAD_CONTENENCODING)->GetString();
 			if (strcmp(encoding, "RAW") == 0)
 			{
 				data_message->SetProtocal(BEST_DATA_RAW);
 			}*/
-			data_message->SetBuffer(tmpbuff + pos, bestHeadStruct->content_length);
+			DefaultBestDataHeadMessage* data_head_message = (DefaultBestDataHeadMessage*)data_message->GetDataHeadMessage();
+			BestDataHeadStruct_t* bestDataHeadStruct = (BestDataHeadStruct_t*)(tmpbuff + pos);
+			data_head_message->SetBuffer(tmpbuff + pos, bestDataHeadStruct->head_length);
+			data_head_message->Deserialize();
+			pos += bestDataHeadStruct->head_length;
+			///
+			data_message->SetBuffer(tmpbuff + pos, bestDataHeadStruct->content_length);
 			data_message->Deserialize();
 			head_message->SetDataMessage(data_message);
-			pos += bestHeadStruct->content_length;
+			pos += bestDataHeadStruct->content_length;
 		}
 		default_message->AddHeadMessage(head_message);
 	}
@@ -263,6 +317,17 @@ int DefaultBestSerializer::DeserializeMessage(IBestMessage* message, const void*
 }
 int DefaultBestSerializer::DeserializeRpcMessage(IBestRPCHead* best_rpchead, const void* buffer, const int32& len)
 {
+	return 0;
+}
+
+int DefaultBestSerializer::DeserializeDataHeadMessage(IBestHeadMessage* head_message, const void* buffer, const int32& len)
+{
+	DefaultBestDataHeadMessage* default_head_message = (DefaultBestDataHeadMessage*)head_message;
+	int buff_len = len - sizeof(BestDataHeadStruct_t);
+	char* buff = (char*)buffer + sizeof(BestDataHeadStruct_t);
+	//BestHeadStruct* best_head_struct = (BestHeadStruct*)buffer;
+	this->SetProtocal(BEST_HEAD_STAMP);
+	StepSerializer::DeSerialzeStep(buff, buff_len, default_head_message->m_best_field_map);
 	return 0;
 }
 

@@ -14,12 +14,6 @@
 #import "UIColor+Y_StockChart.h"
 #import "AppDelegate.h"
 
-#define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-#define kScreenWidth [UIScreen mainScreen].bounds.size.width
-#define kScreenHeight [UIScreen mainScreen].bounds.size.height
-#define SCREEN_MAX_LENGTH MAX(kScreenWidth,kScreenHeight)
-#define IS_IPHONE_X (IS_IPHONE && SCREEN_MAX_LENGTH == 812.0)
-
 @interface Y_StockChartViewController ()<Y_StockChartViewDataSource>
 
 @property (nonatomic, strong) Y_StockChartView *stockChartView;

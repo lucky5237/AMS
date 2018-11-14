@@ -7,24 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		161F28D7218839130036E22B /* default_bestIteror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 161F28AD218839100036E22B /* default_bestIteror.cpp */; };
-		161F28D8218839130036E22B /* default_best_group.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 161F28AE218839100036E22B /* default_best_group.cpp */; };
-		161F28D9218839130036E22B /* default_best_record.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 161F28AF218839100036E22B /* default_best_record.cpp */; };
-		161F28DA218839130036E22B /* default_serializer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 161F28B0218839100036E22B /* default_serializer.cpp */; };
-		161F28DC218839130036E22B /* step_serializer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 161F28B3218839100036E22B /* step_serializer.cpp */; };
-		161F28DD218839130036E22B /* lib_best_msssage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 161F28B7218839110036E22B /* lib_best_msssage.cpp */; };
-		161F28DE218839130036E22B /* default_message.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 161F28B8218839110036E22B /* default_message.cpp */; };
-		161F28DF218839130036E22B /* default_best_field.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 161F28BB218839110036E22B /* default_best_field.cpp */; };
-		161F28E0218839130036E22B /* default_best_data_message.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 161F28C0218839110036E22B /* default_best_data_message.cpp */; };
-		161F28E1218839130036E22B /* default_message_pool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 161F28C6218839120036E22B /* default_message_pool.cpp */; };
-		161F28E2218839130036E22B /* qcstutils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 161F28C7218839120036E22B /* qcstutils.cpp */; };
-		161F28E3218839130036E22B /* memory_pool.inl in Resources */ = {isa = PBXBuildFile; fileRef = 161F28C9218839120036E22B /* memory_pool.inl */; };
-		161F28E4218839130036E22B /* default_best_rpchead.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 161F28CC218839120036E22B /* default_best_rpchead.cpp */; };
-		161F28E5218839130036E22B /* default_best_message.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 161F28CE218839120036E22B /* default_best_message.cpp */; };
-		161F28E6218839130036E22B /* default_best_message_factory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 161F28CF218839120036E22B /* default_best_message_factory.cpp */; };
-		161F28E7218839130036E22B /* qcmutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 161F28D1218839130036E22B /* qcmutex.cpp */; };
-		161F28E8218839130036E22B /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 161F28D4218839130036E22B /* stdafx.cpp */; };
-		161F28E9218839130036E22B /* default_head_message.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 161F28D6218839130036E22B /* default_head_message.cpp */; };
 		161F28F221883DC00036E22B /* MBProgressHUD+AMS.m in Sources */ = {isa = PBXBuildFile; fileRef = 161F28F021883DC00036E22B /* MBProgressHUD+AMS.m */; };
 		161F28F521883F680036E22B /* BestMessageUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 161F28F421883F680036E22B /* BestMessageUtil.mm */; };
 		161F28F7218844AD0036E22B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 161F28F6218844AC0036E22B /* Assets.xcassets */; };
@@ -55,7 +37,27 @@
 		166DDC29218AF57200D43461 /* Y_StockChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 166DDC28218AF57200D43461 /* Y_StockChartViewController.m */; };
 		166DDC2C218AF5C500D43461 /* NetWorking.m in Sources */ = {isa = PBXBuildFile; fileRef = 166DDC2B218AF5C400D43461 /* NetWorking.m */; };
 		167900352187F192008ECB31 /* UIButton+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 167900332187F192008ECB31 /* UIButton+Category.m */; };
-		167900382188253C008ECB31 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 167900372188253C008ECB31 /* DetailViewController.m */; };
+		167900382188253C008ECB31 /* DetailViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 167900372188253C008ECB31 /* DetailViewController.mm */; };
+		16879408219C13B600B989A2 /* TradeSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16879407219C13B600B989A2 /* TradeSettingViewController.m */; };
+		1687940B219C25E400B989A2 /* OrderPriceSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1687940A219C25E400B989A2 /* OrderPriceSettingViewController.m */; };
+		169180A421918D5D00BC1901 /* default_best_rpchead.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1691806E21918D4D00BC1901 /* default_best_rpchead.cpp */; };
+		169180A621918D5D00BC1901 /* step_serializer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1691807021918D4E00BC1901 /* step_serializer.cpp */; };
+		169180A721918D5D00BC1901 /* default_best_record.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1691807121918D4E00BC1901 /* default_best_record.cpp */; };
+		169180A821918D5D00BC1901 /* default_message.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1691807421918D4F00BC1901 /* default_message.cpp */; };
+		169180AD21918D5D00BC1901 /* default_best_message.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1691807D21918D5200BC1901 /* default_best_message.cpp */; };
+		169180B021918D5D00BC1901 /* lib_best_msssage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1691808021918D5300BC1901 /* lib_best_msssage.cpp */; };
+		169180B121918D5D00BC1901 /* default_best_group.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1691808321918D5400BC1901 /* default_best_group.cpp */; };
+		169180B221918D5D00BC1901 /* default_bestIteror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1691808521918D5400BC1901 /* default_bestIteror.cpp */; };
+		169180B421918D5D00BC1901 /* memory_pool.inl in Resources */ = {isa = PBXBuildFile; fileRef = 1691808721918D5500BC1901 /* memory_pool.inl */; };
+		169180B621918D5D00BC1901 /* default_best_data_message.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1691808B21918D5600BC1901 /* default_best_data_message.cpp */; };
+		169180B721918D5D00BC1901 /* qcmutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1691808C21918D5700BC1901 /* qcmutex.cpp */; };
+		169180B821918D5D00BC1901 /* default_head_message.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1691809321918D5800BC1901 /* default_head_message.cpp */; };
+		169180BA21918D5D00BC1901 /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1691809921918D5A00BC1901 /* stdafx.cpp */; };
+		169180BB21918D5D00BC1901 /* default_best_message_factory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1691809A21918D5B00BC1901 /* default_best_message_factory.cpp */; };
+		169180BE21918D5D00BC1901 /* default_message_pool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1691809F21918D5C00BC1901 /* default_message_pool.cpp */; };
+		169180BF21918D5D00BC1901 /* default_serializer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 169180A021918D5C00BC1901 /* default_serializer.cpp */; };
+		169180C021918D5D00BC1901 /* qcstutils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 169180A121918D5C00BC1901 /* qcstutils.cpp */; };
+		169180C221918D5D00BC1901 /* default_best_field.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 169180A321918D5D00BC1901 /* default_best_field.cpp */; };
 		1693ADF9218007FE00EDEEF6 /* AMSSocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1693ADF7218007FE00EDEEF6 /* AMSSocketManager.m */; };
 		169727C32186B45F009F6F65 /* AppDelegate+AppSevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 169727C22186B45F009F6F65 /* AppDelegate+AppSevice.m */; };
 		16BAC14721893F8B008F965E /* LeftMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16BAC14621893F8B008F965E /* LeftMenuViewController.m */; };
@@ -64,52 +66,24 @@
 		16D3D81E217F17A000793DF8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16D3D81C217F17A000793DF8 /* Main.storyboard */; };
 		16D3D823217F17A200793DF8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16D3D821217F17A200793DF8 /* LaunchScreen.storyboard */; };
 		16D3D826217F17A200793DF8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 16D3D825217F17A200793DF8 /* main.m */; };
-		CB9BCFB0F0BFACD895E94A9A /* libPods-AMS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C2CCC0A959292AE2C751B0EE /* libPods-AMS.a */; };
+		16D6E7FC219A9C97007B41B7 /* NewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16D6E7FB219A9C97007B41B7 /* NewsViewController.m */; };
+		16D6E803219A9EAE007B41B7 /* OptionalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16D6E802219A9EAE007B41B7 /* OptionalViewController.m */; };
+		16D6E806219A9F88007B41B7 /* MarketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16D6E805219A9F88007B41B7 /* MarketViewController.m */; };
+		16D6E809219A9FB1007B41B7 /* TradeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16D6E808219A9FB1007B41B7 /* TradeViewController.m */; };
+		16D6E80D219AB11F007B41B7 /* MarketTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 16D6E80C219AB11F007B41B7 /* MarketTableViewCell.m */; };
+		16D6E811219ABB91007B41B7 /* MarketModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 16D6E810219ABB91007B41B7 /* MarketModel.m */; };
+		16D6E814219AC79A007B41B7 /* MarketTableViewHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16D6E813219AC79A007B41B7 /* MarketTableViewHeaderView.m */; };
+		16D6E816219AC864007B41B7 /* MarketTableViewHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16D6E815219AC864007B41B7 /* MarketTableViewHeaderView.xib */; };
+		16D6E818219BCA26007B41B7 /* MarketCellMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16D6E817219BCA26007B41B7 /* MarketCellMenuView.xib */; };
+		16D6E81B219BCA3B007B41B7 /* MarketCellMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16D6E81A219BCA3B007B41B7 /* MarketCellMenuView.m */; };
+		16D6E820219BFCD6007B41B7 /* SettingMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16D6E81F219BFCD6007B41B7 /* SettingMainViewController.m */; };
+		16D6E822219C0546007B41B7 /* SettingHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16D6E821219C0546007B41B7 /* SettingHeaderView.xib */; };
+		16D6E826219C0569007B41B7 /* SettingHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16D6E825219C0569007B41B7 /* SettingHeaderView.m */; };
+		EB6723090429AED141100950 /* libPods-AMS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ED4F555FD2DABEE3B2C3E1 /* libPods-AMS.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0365014E1928517E8145E3AB /* Pods-AMS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AMS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AMS/Pods-AMS.debug.xcconfig"; sourceTree = "<group>"; };
-		161F28AD218839100036E22B /* default_bestIteror.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = default_bestIteror.cpp; sourceTree = "<group>"; };
-		161F28AE218839100036E22B /* default_best_group.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = default_best_group.cpp; sourceTree = "<group>"; };
-		161F28AF218839100036E22B /* default_best_record.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = default_best_record.cpp; sourceTree = "<group>"; };
-		161F28B0218839100036E22B /* default_serializer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = default_serializer.cpp; sourceTree = "<group>"; };
-		161F28B2218839100036E22B /* stdafx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stdafx.h; sourceTree = "<group>"; };
-		161F28B3218839100036E22B /* step_serializer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = step_serializer.cpp; sourceTree = "<group>"; };
-		161F28B4218839100036E22B /* step_serializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = step_serializer.h; sourceTree = "<group>"; };
-		161F28B5218839100036E22B /* default_best_group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = default_best_group.h; sourceTree = "<group>"; };
-		161F28B6218839110036E22B /* default_message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = default_message.h; sourceTree = "<group>"; };
-		161F28B7218839110036E22B /* lib_best_msssage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lib_best_msssage.cpp; sourceTree = "<group>"; };
-		161F28B8218839110036E22B /* default_message.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = default_message.cpp; sourceTree = "<group>"; };
-		161F28B9218839110036E22B /* object_pool_ts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = object_pool_ts.h; sourceTree = "<group>"; };
-		161F28BA218839110036E22B /* default_best_record.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = default_best_record.h; sourceTree = "<group>"; };
-		161F28BB218839110036E22B /* default_best_field.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = default_best_field.cpp; sourceTree = "<group>"; };
-		161F28BC218839110036E22B /* default_message_pool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = default_message_pool.h; sourceTree = "<group>"; };
-		161F28BD218839110036E22B /* default_best_message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = default_best_message.h; sourceTree = "<group>"; };
-		161F28BE218839110036E22B /* default_serializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = default_serializer.h; sourceTree = "<group>"; };
-		161F28BF218839110036E22B /* memory_pool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = memory_pool.h; sourceTree = "<group>"; };
-		161F28C0218839110036E22B /* default_best_data_message.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = default_best_data_message.cpp; sourceTree = "<group>"; };
-		161F28C1218839110036E22B /* targetver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = targetver.h; sourceTree = "<group>"; };
-		161F28C2218839110036E22B /* default_best_field.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = default_best_field.h; sourceTree = "<group>"; };
-		161F28C3218839110036E22B /* object_list.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = object_list.h; sourceTree = "<group>"; };
-		161F28C4218839110036E22B /* qcmutex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = qcmutex.h; sourceTree = "<group>"; };
-		161F28C5218839120036E22B /* default_bestIteror.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = default_bestIteror.h; sourceTree = "<group>"; };
-		161F28C6218839120036E22B /* default_message_pool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = default_message_pool.cpp; sourceTree = "<group>"; };
-		161F28C7218839120036E22B /* qcstutils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = qcstutils.cpp; sourceTree = "<group>"; };
-		161F28C8218839120036E22B /* default_best_data_message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = default_best_data_message.h; sourceTree = "<group>"; };
-		161F28C9218839120036E22B /* memory_pool.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = memory_pool.inl; sourceTree = "<group>"; };
-		161F28CA218839120036E22B /* object_pool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = object_pool.h; sourceTree = "<group>"; };
-		161F28CB218839120036E22B /* default_head_message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = default_head_message.h; sourceTree = "<group>"; };
-		161F28CC218839120036E22B /* default_best_rpchead.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = default_best_rpchead.cpp; sourceTree = "<group>"; };
-		161F28CD218839120036E22B /* best_message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = best_message.h; sourceTree = "<group>"; };
-		161F28CE218839120036E22B /* default_best_message.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = default_best_message.cpp; sourceTree = "<group>"; };
-		161F28CF218839120036E22B /* default_best_message_factory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = default_best_message_factory.cpp; sourceTree = "<group>"; };
-		161F28D0218839120036E22B /* atomic_count.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = atomic_count.h; sourceTree = "<group>"; };
-		161F28D1218839130036E22B /* qcmutex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = qcmutex.cpp; sourceTree = "<group>"; };
-		161F28D2218839130036E22B /* default_best_rpchead.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = default_best_rpchead.h; sourceTree = "<group>"; };
-		161F28D3218839130036E22B /* qcstutils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = qcstutils.h; sourceTree = "<group>"; };
-		161F28D4218839130036E22B /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stdafx.cpp; sourceTree = "<group>"; };
-		161F28D5218839130036E22B /* default_best_message_factory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = default_best_message_factory.h; sourceTree = "<group>"; };
-		161F28D6218839130036E22B /* default_head_message.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = default_head_message.cpp; sourceTree = "<group>"; };
 		161F28F021883DC00036E22B /* MBProgressHUD+AMS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+AMS.m"; sourceTree = "<group>"; };
 		161F28F121883DC00036E22B /* MBProgressHUD+AMS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+AMS.h"; sourceTree = "<group>"; };
 		161F28F321883F680036E22B /* BestMessageUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BestMessageUtil.h; sourceTree = "<group>"; };
@@ -172,7 +146,52 @@
 		167900332187F192008ECB31 /* UIButton+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Category.m"; sourceTree = "<group>"; };
 		167900342187F192008ECB31 /* UIButton+Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Category.h"; sourceTree = "<group>"; };
 		167900362188253C008ECB31 /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
-		167900372188253C008ECB31 /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		167900372188253C008ECB31 /* DetailViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DetailViewController.mm; sourceTree = "<group>"; };
+		16879406219C13B600B989A2 /* TradeSettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TradeSettingViewController.h; sourceTree = "<group>"; };
+		16879407219C13B600B989A2 /* TradeSettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TradeSettingViewController.m; sourceTree = "<group>"; };
+		16879409219C25E400B989A2 /* OrderPriceSettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderPriceSettingViewController.h; sourceTree = "<group>"; };
+		1687940A219C25E400B989A2 /* OrderPriceSettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderPriceSettingViewController.m; sourceTree = "<group>"; };
+		1691806E21918D4D00BC1901 /* default_best_rpchead.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = default_best_rpchead.cpp; sourceTree = "<group>"; };
+		1691807021918D4E00BC1901 /* step_serializer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = step_serializer.cpp; sourceTree = "<group>"; };
+		1691807121918D4E00BC1901 /* default_best_record.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = default_best_record.cpp; sourceTree = "<group>"; };
+		1691807221918D4E00BC1901 /* default_best_data_message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = default_best_data_message.h; sourceTree = "<group>"; };
+		1691807321918D4E00BC1901 /* default_serializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = default_serializer.h; sourceTree = "<group>"; };
+		1691807421918D4F00BC1901 /* default_message.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = default_message.cpp; sourceTree = "<group>"; };
+		1691807521918D4F00BC1901 /* object_list.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = object_list.h; sourceTree = "<group>"; };
+		1691807621918D4F00BC1901 /* default_message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = default_message.h; sourceTree = "<group>"; };
+		1691807821918D4F00BC1901 /* default_head_message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = default_head_message.h; sourceTree = "<group>"; };
+		1691807A21918D5200BC1901 /* memory_pool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = memory_pool.h; sourceTree = "<group>"; };
+		1691807D21918D5200BC1901 /* default_best_message.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = default_best_message.cpp; sourceTree = "<group>"; };
+		1691808021918D5300BC1901 /* lib_best_msssage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lib_best_msssage.cpp; sourceTree = "<group>"; };
+		1691808121918D5300BC1901 /* stdafx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stdafx.h; sourceTree = "<group>"; };
+		1691808221918D5400BC1901 /* default_best_rpchead.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = default_best_rpchead.h; sourceTree = "<group>"; };
+		1691808321918D5400BC1901 /* default_best_group.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = default_best_group.cpp; sourceTree = "<group>"; };
+		1691808421918D5400BC1901 /* qcmutex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = qcmutex.h; sourceTree = "<group>"; };
+		1691808521918D5400BC1901 /* default_bestIteror.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = default_bestIteror.cpp; sourceTree = "<group>"; };
+		1691808721918D5500BC1901 /* memory_pool.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = memory_pool.inl; sourceTree = "<group>"; };
+		1691808821918D5500BC1901 /* default_message_pool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = default_message_pool.h; sourceTree = "<group>"; };
+		1691808A21918D5600BC1901 /* default_bestIteror.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = default_bestIteror.h; sourceTree = "<group>"; };
+		1691808B21918D5600BC1901 /* default_best_data_message.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = default_best_data_message.cpp; sourceTree = "<group>"; };
+		1691808C21918D5700BC1901 /* qcmutex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = qcmutex.cpp; sourceTree = "<group>"; };
+		1691808D21918D5700BC1901 /* default_best_record.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = default_best_record.h; sourceTree = "<group>"; };
+		1691808E21918D5700BC1901 /* default_best_message_factory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = default_best_message_factory.h; sourceTree = "<group>"; };
+		1691808F21918D5700BC1901 /* atomic_count.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = atomic_count.h; sourceTree = "<group>"; };
+		1691809021918D5800BC1901 /* object_pool_ts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = object_pool_ts.h; sourceTree = "<group>"; };
+		1691809121918D5800BC1901 /* best_message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = best_message.h; sourceTree = "<group>"; };
+		1691809221918D5800BC1901 /* default_best_group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = default_best_group.h; sourceTree = "<group>"; };
+		1691809321918D5800BC1901 /* default_head_message.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = default_head_message.cpp; sourceTree = "<group>"; };
+		1691809421918D5900BC1901 /* object_pool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = object_pool.h; sourceTree = "<group>"; };
+		1691809621918D5900BC1901 /* step_serializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = step_serializer.h; sourceTree = "<group>"; };
+		1691809721918D5A00BC1901 /* targetver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = targetver.h; sourceTree = "<group>"; };
+		1691809821918D5A00BC1901 /* qcstutils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = qcstutils.h; sourceTree = "<group>"; };
+		1691809921918D5A00BC1901 /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stdafx.cpp; sourceTree = "<group>"; };
+		1691809A21918D5B00BC1901 /* default_best_message_factory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = default_best_message_factory.cpp; sourceTree = "<group>"; };
+		1691809B21918D5B00BC1901 /* default_best_field.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = default_best_field.h; sourceTree = "<group>"; };
+		1691809C21918D5B00BC1901 /* default_best_message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = default_best_message.h; sourceTree = "<group>"; };
+		1691809F21918D5C00BC1901 /* default_message_pool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = default_message_pool.cpp; sourceTree = "<group>"; };
+		169180A021918D5C00BC1901 /* default_serializer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = default_serializer.cpp; sourceTree = "<group>"; };
+		169180A121918D5C00BC1901 /* qcstutils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = qcstutils.cpp; sourceTree = "<group>"; };
+		169180A321918D5D00BC1901 /* default_best_field.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = default_best_field.cpp; sourceTree = "<group>"; };
 		1693ADF7218007FE00EDEEF6 /* AMSSocketManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMSSocketManager.m; sourceTree = "<group>"; };
 		1693ADF8218007FE00EDEEF6 /* AMSSocketManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMSSocketManager.h; sourceTree = "<group>"; };
 		169727C12186B45F009F6F65 /* AppDelegate+AppSevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+AppSevice.h"; sourceTree = "<group>"; };
@@ -189,7 +208,31 @@
 		16D3D822217F17A200793DF8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		16D3D824217F17A200793DF8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		16D3D825217F17A200793DF8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		C2CCC0A959292AE2C751B0EE /* libPods-AMS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AMS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		16D6E7FA219A9C97007B41B7 /* NewsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewsViewController.h; sourceTree = "<group>"; };
+		16D6E7FB219A9C97007B41B7 /* NewsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewsViewController.m; sourceTree = "<group>"; };
+		16D6E7FD219A9D5E007B41B7 /* AMSConstant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AMSConstant.h; sourceTree = "<group>"; };
+		16D6E801219A9EAE007B41B7 /* OptionalViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OptionalViewController.h; sourceTree = "<group>"; };
+		16D6E802219A9EAE007B41B7 /* OptionalViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OptionalViewController.m; sourceTree = "<group>"; };
+		16D6E804219A9F88007B41B7 /* MarketViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarketViewController.h; sourceTree = "<group>"; };
+		16D6E805219A9F88007B41B7 /* MarketViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarketViewController.m; sourceTree = "<group>"; };
+		16D6E807219A9FB1007B41B7 /* TradeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TradeViewController.h; sourceTree = "<group>"; };
+		16D6E808219A9FB1007B41B7 /* TradeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TradeViewController.m; sourceTree = "<group>"; };
+		16D6E80B219AB11F007B41B7 /* MarketTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarketTableViewCell.h; sourceTree = "<group>"; };
+		16D6E80C219AB11F007B41B7 /* MarketTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarketTableViewCell.m; sourceTree = "<group>"; };
+		16D6E80F219ABB91007B41B7 /* MarketModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarketModel.h; sourceTree = "<group>"; };
+		16D6E810219ABB91007B41B7 /* MarketModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarketModel.m; sourceTree = "<group>"; };
+		16D6E812219AC79A007B41B7 /* MarketTableViewHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarketTableViewHeaderView.h; sourceTree = "<group>"; };
+		16D6E813219AC79A007B41B7 /* MarketTableViewHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarketTableViewHeaderView.m; sourceTree = "<group>"; };
+		16D6E815219AC864007B41B7 /* MarketTableViewHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MarketTableViewHeaderView.xib; sourceTree = "<group>"; };
+		16D6E817219BCA26007B41B7 /* MarketCellMenuView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MarketCellMenuView.xib; sourceTree = "<group>"; };
+		16D6E819219BCA3B007B41B7 /* MarketCellMenuView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarketCellMenuView.h; sourceTree = "<group>"; };
+		16D6E81A219BCA3B007B41B7 /* MarketCellMenuView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarketCellMenuView.m; sourceTree = "<group>"; };
+		16D6E81E219BFCD6007B41B7 /* SettingMainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingMainViewController.h; sourceTree = "<group>"; };
+		16D6E81F219BFCD6007B41B7 /* SettingMainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingMainViewController.m; sourceTree = "<group>"; };
+		16D6E821219C0546007B41B7 /* SettingHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingHeaderView.xib; sourceTree = "<group>"; };
+		16D6E824219C0569007B41B7 /* SettingHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingHeaderView.h; sourceTree = "<group>"; };
+		16D6E825219C0569007B41B7 /* SettingHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingHeaderView.m; sourceTree = "<group>"; };
+		97ED4F555FD2DABEE3B2C3E1 /* libPods-AMS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AMS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE7A29FF76A97989127737E4 /* Pods-AMS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AMS.release.xcconfig"; path = "Pods/Target Support Files/Pods-AMS/Pods-AMS.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -198,7 +241,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB9BCFB0F0BFACD895E94A9A /* libPods-AMS.a in Frameworks */,
+				EB6723090429AED141100950 /* libPods-AMS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -411,47 +454,47 @@
 		16873FD621801FBA00422BC7 /* Lib_Best */ = {
 			isa = PBXGroup;
 			children = (
-				161F28D0218839120036E22B /* atomic_count.h */,
-				161F28CD218839120036E22B /* best_message.h */,
-				161F28C0218839110036E22B /* default_best_data_message.cpp */,
-				161F28C8218839120036E22B /* default_best_data_message.h */,
-				161F28BB218839110036E22B /* default_best_field.cpp */,
-				161F28C2218839110036E22B /* default_best_field.h */,
-				161F28AE218839100036E22B /* default_best_group.cpp */,
-				161F28B5218839100036E22B /* default_best_group.h */,
-				161F28CF218839120036E22B /* default_best_message_factory.cpp */,
-				161F28D5218839130036E22B /* default_best_message_factory.h */,
-				161F28CE218839120036E22B /* default_best_message.cpp */,
-				161F28BD218839110036E22B /* default_best_message.h */,
-				161F28AF218839100036E22B /* default_best_record.cpp */,
-				161F28BA218839110036E22B /* default_best_record.h */,
-				161F28CC218839120036E22B /* default_best_rpchead.cpp */,
-				161F28D2218839130036E22B /* default_best_rpchead.h */,
-				161F28AD218839100036E22B /* default_bestIteror.cpp */,
-				161F28C5218839120036E22B /* default_bestIteror.h */,
-				161F28D6218839130036E22B /* default_head_message.cpp */,
-				161F28CB218839120036E22B /* default_head_message.h */,
-				161F28C6218839120036E22B /* default_message_pool.cpp */,
-				161F28BC218839110036E22B /* default_message_pool.h */,
-				161F28B8218839110036E22B /* default_message.cpp */,
-				161F28B6218839110036E22B /* default_message.h */,
-				161F28B0218839100036E22B /* default_serializer.cpp */,
-				161F28BE218839110036E22B /* default_serializer.h */,
-				161F28B7218839110036E22B /* lib_best_msssage.cpp */,
-				161F28BF218839110036E22B /* memory_pool.h */,
-				161F28C9218839120036E22B /* memory_pool.inl */,
-				161F28C3218839110036E22B /* object_list.h */,
-				161F28B9218839110036E22B /* object_pool_ts.h */,
-				161F28CA218839120036E22B /* object_pool.h */,
-				161F28D1218839130036E22B /* qcmutex.cpp */,
-				161F28C4218839110036E22B /* qcmutex.h */,
-				161F28C7218839120036E22B /* qcstutils.cpp */,
-				161F28D3218839130036E22B /* qcstutils.h */,
-				161F28D4218839130036E22B /* stdafx.cpp */,
-				161F28B2218839100036E22B /* stdafx.h */,
-				161F28B3218839100036E22B /* step_serializer.cpp */,
-				161F28B4218839100036E22B /* step_serializer.h */,
-				161F28C1218839110036E22B /* targetver.h */,
+				1691808F21918D5700BC1901 /* atomic_count.h */,
+				1691809121918D5800BC1901 /* best_message.h */,
+				1691808B21918D5600BC1901 /* default_best_data_message.cpp */,
+				1691807221918D4E00BC1901 /* default_best_data_message.h */,
+				169180A321918D5D00BC1901 /* default_best_field.cpp */,
+				1691809B21918D5B00BC1901 /* default_best_field.h */,
+				1691808321918D5400BC1901 /* default_best_group.cpp */,
+				1691809221918D5800BC1901 /* default_best_group.h */,
+				1691809A21918D5B00BC1901 /* default_best_message_factory.cpp */,
+				1691808E21918D5700BC1901 /* default_best_message_factory.h */,
+				1691807D21918D5200BC1901 /* default_best_message.cpp */,
+				1691809C21918D5B00BC1901 /* default_best_message.h */,
+				1691807121918D4E00BC1901 /* default_best_record.cpp */,
+				1691808D21918D5700BC1901 /* default_best_record.h */,
+				1691806E21918D4D00BC1901 /* default_best_rpchead.cpp */,
+				1691808221918D5400BC1901 /* default_best_rpchead.h */,
+				1691808521918D5400BC1901 /* default_bestIteror.cpp */,
+				1691808A21918D5600BC1901 /* default_bestIteror.h */,
+				1691809321918D5800BC1901 /* default_head_message.cpp */,
+				1691807821918D4F00BC1901 /* default_head_message.h */,
+				1691809F21918D5C00BC1901 /* default_message_pool.cpp */,
+				1691808821918D5500BC1901 /* default_message_pool.h */,
+				1691807421918D4F00BC1901 /* default_message.cpp */,
+				1691807621918D4F00BC1901 /* default_message.h */,
+				169180A021918D5C00BC1901 /* default_serializer.cpp */,
+				1691807321918D4E00BC1901 /* default_serializer.h */,
+				1691808021918D5300BC1901 /* lib_best_msssage.cpp */,
+				1691807A21918D5200BC1901 /* memory_pool.h */,
+				1691808721918D5500BC1901 /* memory_pool.inl */,
+				1691807521918D4F00BC1901 /* object_list.h */,
+				1691809021918D5800BC1901 /* object_pool_ts.h */,
+				1691809421918D5900BC1901 /* object_pool.h */,
+				1691808C21918D5700BC1901 /* qcmutex.cpp */,
+				1691808421918D5400BC1901 /* qcmutex.h */,
+				169180A121918D5C00BC1901 /* qcstutils.cpp */,
+				1691809821918D5A00BC1901 /* qcstutils.h */,
+				1691809921918D5A00BC1901 /* stdafx.cpp */,
+				1691808121918D5300BC1901 /* stdafx.h */,
+				1691807021918D4E00BC1901 /* step_serializer.cpp */,
+				1691809621918D5900BC1901 /* step_serializer.h */,
+				1691809721918D5A00BC1901 /* targetver.h */,
 			);
 			path = Lib_Best;
 			sourceTree = "<group>";
@@ -495,6 +538,11 @@
 		169727C72186D77D009F6F65 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				16D6E81C219BFC96007B41B7 /* Setting(设置) */,
+				16D6E7F8219A9B6C007B41B7 /* Trade(交易) */,
+				16D6E7F7219A9B51007B41B7 /* Market(行情) */,
+				16D6E7F6219A9B3D007B41B7 /* News(资讯) */,
+				16D6E7F5219A9AED007B41B7 /* Optional(自选) */,
 				169727C82186D79B009F6F65 /* Main(首页) */,
 			);
 			path = Modules;
@@ -503,6 +551,7 @@
 		169727C82186D79B009F6F65 /* Main(首页) */ = {
 			isa = PBXGroup;
 			children = (
+				16D8659A218C2F0A000B7BC2 /* Model */,
 				169727C92186D7A5009F6F65 /* Controller */,
 			);
 			path = "Main(首页)";
@@ -516,7 +565,7 @@
 				16CCD3A621831456003D5BFD /* MainViewController.h */,
 				16CCD3A721831456003D5BFD /* MainViewController.m */,
 				167900362188253C008ECB31 /* DetailViewController.h */,
-				167900372188253C008ECB31 /* DetailViewController.m */,
+				167900372188253C008ECB31 /* DetailViewController.mm */,
 				16BAC14521893F8B008F965E /* LeftMenuViewController.h */,
 				16BAC14621893F8B008F965E /* LeftMenuViewController.m */,
 			);
@@ -547,6 +596,7 @@
 			isa = PBXGroup;
 			children = (
 				169727CD2186D92E009F6F65 /* UtilsMacros.h */,
+				16D6E7FD219A9D5E007B41B7 /* AMSConstant.h */,
 			);
 			path = Define;
 			sourceTree = "<group>";
@@ -589,6 +639,139 @@
 			path = AMS;
 			sourceTree = "<group>";
 		};
+		16D6E7F5219A9AED007B41B7 /* Optional(自选) */ = {
+			isa = PBXGroup;
+			children = (
+				16D6E7FE219A9E88007B41B7 /* Controller */,
+			);
+			path = "Optional(自选)";
+			sourceTree = "<group>";
+		};
+		16D6E7F6219A9B3D007B41B7 /* News(资讯) */ = {
+			isa = PBXGroup;
+			children = (
+				16D6E7F9219A9C5F007B41B7 /* Controller */,
+			);
+			path = "News(资讯)";
+			sourceTree = "<group>";
+		};
+		16D6E7F7219A9B51007B41B7 /* Market(行情) */ = {
+			isa = PBXGroup;
+			children = (
+				16D6E80E219ABB6C007B41B7 /* Model */,
+				16D6E80A219AB0EE007B41B7 /* View */,
+				16D6E7FF219A9E8D007B41B7 /* Controller */,
+			);
+			path = "Market(行情)";
+			sourceTree = "<group>";
+		};
+		16D6E7F8219A9B6C007B41B7 /* Trade(交易) */ = {
+			isa = PBXGroup;
+			children = (
+				16D6E800219A9E94007B41B7 /* Controller */,
+			);
+			path = "Trade(交易)";
+			sourceTree = "<group>";
+		};
+		16D6E7F9219A9C5F007B41B7 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				16D6E7FA219A9C97007B41B7 /* NewsViewController.h */,
+				16D6E7FB219A9C97007B41B7 /* NewsViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		16D6E7FE219A9E88007B41B7 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				16D6E801219A9EAE007B41B7 /* OptionalViewController.h */,
+				16D6E802219A9EAE007B41B7 /* OptionalViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		16D6E7FF219A9E8D007B41B7 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				16D6E804219A9F88007B41B7 /* MarketViewController.h */,
+				16D6E805219A9F88007B41B7 /* MarketViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		16D6E800219A9E94007B41B7 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				16D6E807219A9FB1007B41B7 /* TradeViewController.h */,
+				16D6E808219A9FB1007B41B7 /* TradeViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		16D6E80A219AB0EE007B41B7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				16D6E80B219AB11F007B41B7 /* MarketTableViewCell.h */,
+				16D6E80C219AB11F007B41B7 /* MarketTableViewCell.m */,
+				16D6E812219AC79A007B41B7 /* MarketTableViewHeaderView.h */,
+				16D6E813219AC79A007B41B7 /* MarketTableViewHeaderView.m */,
+				16D6E815219AC864007B41B7 /* MarketTableViewHeaderView.xib */,
+				16D6E817219BCA26007B41B7 /* MarketCellMenuView.xib */,
+				16D6E819219BCA3B007B41B7 /* MarketCellMenuView.h */,
+				16D6E81A219BCA3B007B41B7 /* MarketCellMenuView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		16D6E80E219ABB6C007B41B7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				16D6E80F219ABB91007B41B7 /* MarketModel.h */,
+				16D6E810219ABB91007B41B7 /* MarketModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		16D6E81C219BFC96007B41B7 /* Setting(设置) */ = {
+			isa = PBXGroup;
+			children = (
+				16D6E823219C0554007B41B7 /* View */,
+				16D6E81D219BFCAF007B41B7 /* Controller */,
+			);
+			path = "Setting(设置)";
+			sourceTree = "<group>";
+		};
+		16D6E81D219BFCAF007B41B7 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				16D6E81E219BFCD6007B41B7 /* SettingMainViewController.h */,
+				16D6E81F219BFCD6007B41B7 /* SettingMainViewController.m */,
+				16879406219C13B600B989A2 /* TradeSettingViewController.h */,
+				16879407219C13B600B989A2 /* TradeSettingViewController.m */,
+				16879409219C25E400B989A2 /* OrderPriceSettingViewController.h */,
+				1687940A219C25E400B989A2 /* OrderPriceSettingViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		16D6E823219C0554007B41B7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				16D6E821219C0546007B41B7 /* SettingHeaderView.xib */,
+				16D6E824219C0569007B41B7 /* SettingHeaderView.h */,
+				16D6E825219C0569007B41B7 /* SettingHeaderView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		16D8659A218C2F0A000B7BC2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		2465EB9DF04EA41444F3D41D /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -601,7 +784,7 @@
 		9EE503B72EC0E41BC628D4D6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C2CCC0A959292AE2C751B0EE /* libPods-AMS.a */,
+				97ED4F555FD2DABEE3B2C3E1 /* libPods-AMS.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -640,6 +823,7 @@
 				TargetAttributes = {
 					16D3D812217F17A000793DF8 = {
 						CreatedOnToolsVersion = 10.0;
+						LastSwiftMigration = 1010;
 					};
 				};
 			};
@@ -666,10 +850,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				161F28E3218839130036E22B /* memory_pool.inl in Resources */,
 				16D3D823217F17A200793DF8 /* LaunchScreen.storyboard in Resources */,
 				161F28F7218844AD0036E22B /* Assets.xcassets in Resources */,
+				169180B421918D5D00BC1901 /* memory_pool.inl in Resources */,
+				16D6E816219AC864007B41B7 /* MarketTableViewHeaderView.xib in Resources */,
 				16D3D81E217F17A000793DF8 /* Main.storyboard in Resources */,
+				16D6E822219C0546007B41B7 /* SettingHeaderView.xib in Resources */,
+				16D6E818219BCA26007B41B7 /* MarketCellMenuView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -700,9 +887,70 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-AMS/Pods-AMS-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/AXIndicatorView/AXIndicatorView.framework",
+				"${BUILT_PRODUCTS_DIR}/AXNavigationBackItemInjection/AXNavigationBackItemInjection.framework",
+				"${BUILT_PRODUCTS_DIR}/AXPracticalHUD/AXPracticalHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/AXWebViewController/AXWebViewController.framework",
+				"${BUILT_PRODUCTS_DIR}/Aspects/Aspects.framework",
+				"${BUILT_PRODUCTS_DIR}/CocoaAsyncSocket/CocoaAsyncSocket.framework",
+				"${BUILT_PRODUCTS_DIR}/DZNEmptyDataSet/DZNEmptyDataSet.framework",
+				"${BUILT_PRODUCTS_DIR}/ECSlidingViewController/ECSlidingViewController.framework",
+				"${BUILT_PRODUCTS_DIR}/FDFullscreenPopGesture/FDFullscreenPopGesture.framework",
+				"${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework",
+				"${BUILT_PRODUCTS_DIR}/Harpy/Harpy.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManager/IQKeyboardManager.framework",
+				"${BUILT_PRODUCTS_DIR}/JDStatusBarNotification/JDStatusBarNotification.framework",
+				"${BUILT_PRODUCTS_DIR}/JLRoutes/JLRoutes.framework",
+				"${BUILT_PRODUCTS_DIR}/JQFMDB/JQFMDB.framework",
+				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
+				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
+				"${BUILT_PRODUCTS_DIR}/NJKWebViewProgress/NJKWebViewProgress.framework",
+				"${BUILT_PRODUCTS_DIR}/RTRootNavigationController/RTRootNavigationController.framework",
+				"${BUILT_PRODUCTS_DIR}/ReactiveCocoa/ReactiveCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/ReactiveSwift/ReactiveSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/RealReachability/RealReachability.framework",
+				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/TextInputLimit/TextInputLimit.framework",
+				"${BUILT_PRODUCTS_DIR}/UITableView+FDTemplateLayoutCell/UITableView_FDTemplateLayoutCell.framework",
+				"${BUILT_PRODUCTS_DIR}/YYCategories/YYCategories.framework",
+				"${BUILT_PRODUCTS_DIR}/ZJKitTool/ZJKitTool.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AXIndicatorView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AXNavigationBackItemInjection.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AXPracticalHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AXWebViewController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Aspects.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaAsyncSocket.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DZNEmptyDataSet.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ECSlidingViewController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FDFullscreenPopGesture.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FMDB.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Harpy.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManager.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JDStatusBarNotification.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JLRoutes.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JQFMDB.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NJKWebViewProgress.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RTRootNavigationController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactiveCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactiveSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealReachability.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TextInputLimit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITableView_FDTemplateLayoutCell.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYCategories.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZJKitTool.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -719,6 +967,7 @@
 				"${PODS_ROOT}/AXIndicatorView/AXIndicatorView/Classes/AXIndicatorView.bundle",
 				"${PODS_ROOT}/AXPracticalHUD/AXPracticalHUD/AXPracticalHUD/AXPracticalHUD.bundle",
 				"${PODS_ROOT}/AXWebViewController/AXWebViewController/AXWebViewController/AXWebViewController.bundle",
+				"${PODS_ROOT}/Harpy/Harpy/Harpy.bundle",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 				"${PODS_ROOT}/ZJKitTool/ZJKitTool/ZJPickerView/ZJPickerViewBundle.bundle",
@@ -728,6 +977,7 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AXIndicatorView.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AXPracticalHUD.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AXWebViewController.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Harpy.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/IQKeyboardManager.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ZJPickerViewBundle.bundle",
@@ -748,55 +998,67 @@
 				166DDC03218AE34E00D43461 /* Y_StockChartView.m in Sources */,
 				166DDC09218AE34E00D43461 /* Y_KLineAccessory.m in Sources */,
 				166DDC0F218AE34E00D43461 /* Y_KLineVolumeView.m in Sources */,
+				16879408219C13B600B989A2 /* TradeSettingViewController.m in Sources */,
+				16D6E820219BFCD6007B41B7 /* SettingMainViewController.m in Sources */,
 				166DDB82218A9CDB00D43461 /* BaseTableViewController.m in Sources */,
 				166DDC06218AE34E00D43461 /* Y_StockChartRightYView.m in Sources */,
 				166DDC07218AE34E00D43461 /* Y_VolumeMAView.m in Sources */,
-				161F28E4218839130036E22B /* default_best_rpchead.cpp in Sources */,
+				169180A721918D5D00BC1901 /* default_best_record.cpp in Sources */,
+				169180B121918D5D00BC1901 /* default_best_group.cpp in Sources */,
 				166DDC14218AE34E00D43461 /* Y_StockChartSegmentView.m in Sources */,
-				161F28DD218839130036E22B /* lib_best_msssage.cpp in Sources */,
 				166DDC0C218AE34E00D43461 /* Y_KLineModel.m in Sources */,
+				16D6E809219A9FB1007B41B7 /* TradeViewController.m in Sources */,
+				16D6E803219A9EAE007B41B7 /* OptionalViewController.m in Sources */,
 				166DDC13218AE34E00D43461 /* Y_KLine.m in Sources */,
-				161F28E5218839130036E22B /* default_best_message.cpp in Sources */,
+				16D6E811219ABB91007B41B7 /* MarketModel.m in Sources */,
+				169180B821918D5D00BC1901 /* default_head_message.cpp in Sources */,
 				161F28F521883F680036E22B /* BestMessageUtil.mm in Sources */,
+				169180A621918D5D00BC1901 /* step_serializer.cpp in Sources */,
+				169180B221918D5D00BC1901 /* default_bestIteror.cpp in Sources */,
+				169180BB21918D5D00BC1901 /* default_best_message_factory.cpp in Sources */,
+				169180C221918D5D00BC1901 /* default_best_field.cpp in Sources */,
+				16D6E814219AC79A007B41B7 /* MarketTableViewHeaderView.m in Sources */,
 				166DDC0A218AE34E00D43461 /* Y_AccessoryMAView.m in Sources */,
 				166DDC0D218AE34E00D43461 /* Y_KLineGroupModel.m in Sources */,
-				161F28E6218839130036E22B /* default_best_message_factory.cpp in Sources */,
 				166DDC0B218AE34E00D43461 /* Y_KLinePositionModel.m in Sources */,
-				161F28E8218839130036E22B /* stdafx.cpp in Sources */,
+				169180BA21918D5D00BC1901 /* stdafx.cpp in Sources */,
 				166DDC01218AE34E00D43461 /* Y_StockChartGlobalVariable.m in Sources */,
+				169180A421918D5D00BC1901 /* default_best_rpchead.cpp in Sources */,
 				167900352187F192008ECB31 /* UIButton+Category.m in Sources */,
 				166DDC11218AE34E00D43461 /* Y_KLineMainView.m in Sources */,
-				161F28D8218839130036E22B /* default_best_group.cpp in Sources */,
-				161F28D7218839130036E22B /* default_bestIteror.cpp in Sources */,
 				166DDC29218AF57200D43461 /* Y_StockChartViewController.m in Sources */,
+				169180A821918D5D00BC1901 /* default_message.cpp in Sources */,
 				166DDC04218AE34E00D43461 /* Y_KLineMAView.m in Sources */,
+				16D6E80D219AB11F007B41B7 /* MarketTableViewCell.m in Sources */,
+				169180B621918D5D00BC1901 /* default_best_data_message.cpp in Sources */,
+				169180AD21918D5D00BC1901 /* default_best_message.cpp in Sources */,
 				16D3D826217F17A200793DF8 /* main.m in Sources */,
-				161F28E1218839130036E22B /* default_message_pool.cpp in Sources */,
 				166DDC02218AE34E00D43461 /* UIColor+Y_StockChart.m in Sources */,
-				161F28E7218839130036E22B /* qcmutex.cpp in Sources */,
-				161F28E2218839130036E22B /* qcstutils.cpp in Sources */,
-				167900382188253C008ECB31 /* DetailViewController.m in Sources */,
+				16D6E7FC219A9C97007B41B7 /* NewsViewController.m in Sources */,
+				167900382188253C008ECB31 /* DetailViewController.mm in Sources */,
+				169180BF21918D5D00BC1901 /* default_serializer.cpp in Sources */,
 				1693ADF9218007FE00EDEEF6 /* AMSSocketManager.m in Sources */,
+				169180BE21918D5D00BC1901 /* default_message_pool.cpp in Sources */,
 				166DDC12218AE34E00D43461 /* Y_MALine.m in Sources */,
+				16D6E81B219BCA3B007B41B7 /* MarketCellMenuView.m in Sources */,
 				16633A352181605000D450E8 /* AMSSocketClient.mm in Sources */,
+				1687940B219C25E400B989A2 /* OrderPriceSettingViewController.m in Sources */,
+				169180B021918D5D00BC1901 /* lib_best_msssage.cpp in Sources */,
+				169180B721918D5D00BC1901 /* qcmutex.cpp in Sources */,
 				166DDC05218AE34E00D43461 /* Y_KLineView.m in Sources */,
-				161F28DC218839130036E22B /* step_serializer.cpp in Sources */,
 				166DDC08218AE34E00D43461 /* Y_KLineAccessoryView.m in Sources */,
 				16D3D818217F17A000793DF8 /* AppDelegate.m in Sources */,
 				166DDC0E218AE34E00D43461 /* Y_KLineVolumePositionModel.m in Sources */,
 				161F28F221883DC00036E22B /* MBProgressHUD+AMS.m in Sources */,
 				166DDC2C218AF5C500D43461 /* NetWorking.m in Sources */,
-				161F28DF218839130036E22B /* default_best_field.cpp in Sources */,
-				161F28E0218839130036E22B /* default_best_data_message.cpp in Sources */,
+				16D6E826219C0569007B41B7 /* SettingHeaderView.m in Sources */,
 				16633A3F2181BE6C00D450E8 /* AMSUtil.m in Sources */,
-				161F28E9218839130036E22B /* default_head_message.cpp in Sources */,
 				169727C32186B45F009F6F65 /* AppDelegate+AppSevice.m in Sources */,
-				161F28D9218839130036E22B /* default_best_record.cpp in Sources */,
-				161F28DE218839130036E22B /* default_message.cpp in Sources */,
 				16633A3C21819D1A00D450E8 /* BaseViewController.m in Sources */,
+				16D6E806219A9F88007B41B7 /* MarketViewController.m in Sources */,
 				166DDC10218AE34E00D43461 /* Y_KLineVolume.m in Sources */,
+				169180C021918D5D00BC1901 /* qcstutils.cpp in Sources */,
 				16BAC14721893F8B008F965E /* LeftMenuViewController.m in Sources */,
-				161F28DA218839130036E22B /* default_serializer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -946,7 +1208,9 @@
 			baseConfigurationReference = 0365014E1928517E8145E3AB /* Pods-AMS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = GL5F37T932;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = AMS/PrefixHeader.pch;
@@ -963,6 +1227,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = jianlu.com.AMS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "AMS/ThridParty/AMS-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
@@ -973,7 +1240,9 @@
 			baseConfigurationReference = DE7A29FF76A97989127737E4 /* Pods-AMS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = GL5F37T932;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = AMS/PrefixHeader.pch;
@@ -990,6 +1259,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = jianlu.com.AMS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "AMS/ThridParty/AMS-Bridging-Header.h";
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};

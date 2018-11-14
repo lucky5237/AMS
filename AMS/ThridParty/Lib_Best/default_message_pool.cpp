@@ -29,6 +29,7 @@ static MemoryPool g_memory_64k;
 static MemoryPool g_memory_256k;
 static TS_Object_Pool<DefaultBestMessge> m_default_best_message_pool;
 static TS_Object_Pool<DefaultBestHeadMessage> m_default_best_head_message_pool;
+static TS_Object_Pool<DefaultBestDataHeadMessage> m_default_best_data_head_message_pool;
 static TS_Object_Pool<DefaultBestDataMessage> m_default_best_data_message_pool;
 static TS_Object_Pool<DefaultBestRPCHead> m_default_best_rpchead_pool;
 static TS_Object_Pool<DefaultBestGroup> m_default_best_group_pool;
@@ -265,6 +266,22 @@ void  DefaultMessagePool::ReleaseDefaultBestHeadMessage(DefaultBestHeadMessage* 
 	/*countorObject--;
 	printf("countorObject:%d\n", countorObject);*/
 	m_default_best_head_message_pool.release(default_head_message);
+}
+
+DefaultBestDataHeadMessage* DefaultMessagePool::AcquireDefaultBestDataHeadMessage()
+{
+	//countorObject++;
+	//printf("countorObject:%d\n", countorObject);
+	DefaultBestDataHeadMessage* default_head_message = m_default_best_data_head_message_pool.acquire();
+	default_head_message->AddRef();
+	return default_head_message;
+}
+
+void  DefaultMessagePool::ReleaseDefaultBestDataHeadMessage(DefaultBestDataHeadMessage* default_head_message)
+{
+	/*countorObject--;
+	printf("countorObject:%d\n", countorObject);*/
+	m_default_best_data_head_message_pool.release(default_head_message);
 }
 
 DefaultBestField* DefaultMessagePool::AcquireDefaultBestField()

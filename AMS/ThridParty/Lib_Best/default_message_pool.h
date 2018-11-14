@@ -7,6 +7,7 @@ class DefaultBestHeadMessage;
 class DefaultBestGroup;
 class DefaultBestRecord;
 class DefaultBestField;
+class DefaultBestDataHeadMessage;
 enum BESTBUFFER_TYPE {
 	BUFFER_NONE,
 	BUFFER_512,
@@ -34,6 +35,10 @@ public:
 	static void  ReleaseDefaultBestMessge(DefaultBestMessge* default_best_message);
 	static DefaultBestHeadMessage* AcquireDefaultBestHeadMessage();
 	static void  ReleaseDefaultBestHeadMessage(DefaultBestHeadMessage* default_head_message);
+	//
+	static DefaultBestDataHeadMessage* AcquireDefaultBestDataHeadMessage();
+	static void  ReleaseDefaultBestDataHeadMessage(DefaultBestDataHeadMessage* default_head_message);
+	//
 	static DefaultBestRPCHead* AcquireDefaultBestRPCHead();
 	static void ReleaseDefaultBestRPCHead(DefaultBestRPCHead* default_best_rpchead);
 	static DefaultBestDataMessage* AcquireDefaultBestDataMessage();

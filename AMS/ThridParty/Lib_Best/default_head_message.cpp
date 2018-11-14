@@ -126,10 +126,9 @@ uint64  DefaultBestHeadMessage::Release()
 			}
 			m_best_field_map.clear();
 			memset(&m_best_head_struct, 0, sizeof(BestHeadStruct));
-			
+
 			DefaultMessagePool::ReleaseDefaultBestHeadMessage(this);
 			m_status = 0;
-			
 		}
 	}
 	return 0;

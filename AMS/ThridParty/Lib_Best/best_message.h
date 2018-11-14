@@ -191,6 +191,7 @@ namespace best_protocol
 		virtual const void*  BEST_FUNCTION_CALL_MODE SerializeMessage(int32& len, IBestMessage* message) = 0;
 		virtual const void*  BEST_FUNCTION_CALL_MODE SerializeRpcMessage(int32& len, IBestRPCHead* bestRpchead) = 0;
 		virtual const void*  BEST_FUNCTION_CALL_MODE SerializeHeadMessage(int32& len, IBestHeadMessage* headMessage) = 0;
+		virtual const void*  BEST_FUNCTION_CALL_MODE SerializeDataHeadMessage(int32& len, IBestHeadMessage* head_message)=0;
 		virtual const void*  BEST_FUNCTION_CALL_MODE SerializeDataMessage(int32& len, IBestDataMessage* headMessage) = 0;
 		virtual const void*  BEST_FUNCTION_CALL_MODE SerializeGroup(int32& len,IBestGroup* bestGroup) = 0;
 		virtual const void*  BEST_FUNCTION_CALL_MODE SerializeRecord(int32& len, IBestRecord* bestRecord) = 0;
@@ -213,6 +214,7 @@ namespace best_protocol
 		virtual int BEST_FUNCTION_CALL_MODE DeserializeMessage(IBestMessage* message, const void* buffer, const int32& len) = 0;
 		virtual int BEST_FUNCTION_CALL_MODE DeserializeRpcMessage(IBestRPCHead* best_rpchead, const void* buffer, const int32& len) = 0;
 		virtual int BEST_FUNCTION_CALL_MODE DeserializeHeadMessage(IBestHeadMessage* headMessage, const void* buffer, const int32& len) = 0;
+		virtual int BEST_FUNCTION_CALL_MODE DeserializeDataHeadMessage(IBestHeadMessage* head_message, const void* buffer, const int32& len)=0;
 		virtual int BEST_FUNCTION_CALL_MODE DeserializeDataMessage(IBestDataMessage* dataMessage, const void* buffer, const int32& len) = 0;
 		virtual int BEST_FUNCTION_CALL_MODE DeserializeGroup(IBestGroup* group, const void* buffer, const int32& len)       = 0;
 		virtual int BEST_FUNCTION_CALL_MODE DeserializeRecord(IBestRecord* record, const void* buffer, const int32& len)    = 0;
@@ -363,6 +365,16 @@ namespace best_protocol
 
 		///获取字段迭代器
 		virtual BestIterator* BEST_FUNCTION_CALL_MODE GetIterator() = 0;
+
+		virtual int32	BEST_FUNCTION_CALL_MODE SetHeadBuffer(const void* buffer, const int32& len) = 0;
+		///获取头部流
+		virtual void*  BEST_FUNCTION_CALL_MODE GetHeadBuffer(int32* len) = 0;
+		///序列化头部对象
+		virtual const void*  BEST_FUNCTION_CALL_MODE SerializeHead(int32* len) = 0;
+		///反序列化头部
+		virtual int32 BEST_FUNCTION_CALL_MODE DeserializeHead() = 0;
+		///获取头部
+		virtual IBestHeadMessage* BEST_FUNCTION_CALL_MODE GetDataHeadMessage() = 0;
 		
 	};
 

@@ -9,7 +9,9 @@
 #import "AppDelegate.h"
 #import "AMSSocketManager.h"
 #import "AppDelegate+AppSevice.h"
-
+#import <JLRoutes.h>
+#import <JPFPSStatus.h>
+//#import <XHLaunchAd.h>
 @interface AppDelegate ()
 
 @end
@@ -25,9 +27,16 @@
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    //设置你工程的启动页使用的是:LaunchImage 还是 LaunchScreen.storyboard(不设置默认:LaunchImage)
     self.socketManager = [AMSSocketManager shareInstance];
     [self setUpRootViewController];
+    //    [self checkVersion];
     [self listenNetworkStatus];
+    [self initRoute];
+    #if defined(DEBUG)||defined(_DEBUG)
+        [[JPFPSStatus sharedInstance] open];
+    #endif
+    //    [self initDB];
     return YES;
 }
 
@@ -56,6 +65,12 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
+-(BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options{
+    return [JLRoutes routeURL:url];
+}
+
+
 
 
 @end

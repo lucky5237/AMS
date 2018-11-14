@@ -111,6 +111,7 @@ public:
 	virtual int32	BEST_FUNCTION_CALL_MODE SetBuffer(const void* buffer, const int32& len);
 	///获取流
 	virtual void*  BEST_FUNCTION_CALL_MODE GetBuffer(int32* len);
+
 	///返回流状态. 1:可用 0:不可用
 	virtual int32  BEST_FUNCTION_CALL_MODE Status(){ return m_status; }
 	///设置序列化器

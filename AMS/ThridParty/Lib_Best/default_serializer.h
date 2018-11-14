@@ -26,6 +26,7 @@ public:
 	const void*  BEST_FUNCTION_CALL_MODE SerializeMessage(int32& len, IBestMessage* message);
 	const void*  BEST_FUNCTION_CALL_MODE SerializeRpcMessage(int32& len, IBestRPCHead* best_rpchead);
 	const void*  BEST_FUNCTION_CALL_MODE SerializeHeadMessage(int32& len, IBestHeadMessage* head_message);
+	const void*  BEST_FUNCTION_CALL_MODE SerializeDataHeadMessage(int32& len, IBestHeadMessage* head_message);
 	const void*  BEST_FUNCTION_CALL_MODE SerializeDataMessage(int32& len, IBestDataMessage* data_message);
 	const void*  BEST_FUNCTION_CALL_MODE SerializeGroup(int32& len, IBestGroup* best_group);
 	const void*  BEST_FUNCTION_CALL_MODE SerializeRecord(int32& len, IBestRecord* best_record);
@@ -33,6 +34,7 @@ public:
 
 	int BEST_FUNCTION_CALL_MODE DeserializeMessage(IBestMessage* message, const void* buffer, const int32& len);
 	int BEST_FUNCTION_CALL_MODE DeserializeRpcMessage(IBestRPCHead* best_rpchead, const void* buffer, const int32& len);
+	int BEST_FUNCTION_CALL_MODE DeserializeDataHeadMessage(IBestHeadMessage* head_message, const void* buffer, const int32& len);
 	int BEST_FUNCTION_CALL_MODE DeserializeHeadMessage(IBestHeadMessage* head_message, const void* buffer, const int32& len);
 	int BEST_FUNCTION_CALL_MODE DeserializeDataMessage(IBestDataMessage* head_message, const void* buffer, const int32& len);
 	int BEST_FUNCTION_CALL_MODE DeserializeGroup(IBestGroup* group, const void* buffer, const int32& len);

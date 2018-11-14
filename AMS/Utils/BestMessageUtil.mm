@@ -27,7 +27,7 @@
     phase_best_head_message->GetField(1)->SetInt32(1);
     phase_best_message->AddHeadMessage(phase_best_head_message);
     phase_best_message->SetRpcHead(phase_best_rpc_head);
-    int32 msg_length = (int32)strlen([message UTF8String]);
+    int32 msg_length = 0;
     const void* data = phase_best_message->Serialize(&msg_length);
     NSData *sendData = [[NSData alloc] initWithBytes:data length:msg_length];
     return sendData;

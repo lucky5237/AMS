@@ -57,6 +57,7 @@ private:
 class DefaultBestMapIterator :public BestIterator
 {
 	friend class DefaultBestHeadMessage;
+	friend class DefaultBestDataHeadMessage;
 private:
 	void Initail(std::map<int32, IBestField*>* bestFieldMap);
 public:

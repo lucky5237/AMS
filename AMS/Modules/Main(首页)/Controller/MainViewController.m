@@ -32,6 +32,8 @@
     } touchUp:^(id sender) {
         Y_StockChartViewController *stockVc = [[Y_StockChartViewController alloc] init];
         [self.rt_navigationController pushViewController:stockVc animated:YES];
+//        DetailViewController *detailVc = [[DetailViewController alloc] init];
+//        [self.rt_navigationController pushViewController:detailVc animated:YES];
     }];
     UISwipeGestureRecognizer *upSwipeGR = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeFrom:)];
     [upSwipeGR setDirection:UISwipeGestureRecognizerDirectionUp];

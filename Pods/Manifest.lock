@@ -28,8 +28,16 @@ PODS:
   - DZNEmptyDataSet (1.8.1)
   - ECSlidingViewController (2.0.3)
   - FDFullscreenPopGesture (1.1)
+  - FMDB (2.7.5):
+    - FMDB/standard (= 2.7.5)
+  - FMDB/standard (2.7.5)
+  - Harpy (4.1.14)
   - IQKeyboardManager (4.0.11)
   - JDStatusBarNotification (1.6.0)
+  - JLRoutes (2.1)
+  - JPFPSStatus (0.1.1)
+  - JQFMDB (1.1.6):
+    - FMDB
   - Masonry (1.1.0)
   - MBProgressHUD (1.0.0)
   - MJRefresh (3.1.12)
@@ -38,6 +46,8 @@ PODS:
     - NJKWebViewProgress/ProgressView (= 0.2.3)
   - NJKWebViewProgress/Core (0.2.3)
   - NJKWebViewProgress/ProgressView (0.2.3)
+  - RDVTabBarController (1.2.0)
+  - ReactiveObjC (3.1.0)
   - RealReachability (1.1.9):
     - RealReachability/Connection (= 1.1.9)
     - RealReachability/Ping (= 1.1.9)
@@ -113,11 +123,17 @@ DEPENDENCIES:
   - DZNEmptyDataSet
   - ECSlidingViewController (~> 2.0.3)
   - FDFullscreenPopGesture (= 1.1)
+  - Harpy
   - IQKeyboardManager
   - JDStatusBarNotification
+  - JLRoutes (~> 2.1)
+  - JPFPSStatus (~> 0.1.1)
+  - JQFMDB
   - Masonry (~> 1.1)
   - MBProgressHUD
   - MJRefresh
+  - RDVTabBarController
+  - ReactiveObjC (~> 3.1.0)
   - RealReachability
   - RTRootNavigationController
   - SDWebImage (~> 4.0)
@@ -136,12 +152,19 @@ SPEC CHECKSUMS:
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   ECSlidingViewController: 6485c14f23b4487e9946535421ca8f111f86cc53
   FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
+  FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  Harpy: b2fbe6819f6a8932df32d7cd2fb20f442df86bbc
   IQKeyboardManager: 83eae5318483a34eb2069ef413d195b97605232e
   JDStatusBarNotification: 21b616e7432284fea6eb0ce9eadc37c8038a5544
+  JLRoutes: d755245322b94227662ea3e43492fdca94e05c5b
+  JPFPSStatus: 03f32aa3d4d7d0c5bf56f6f3e7cf8b7280a5f52c
+  JQFMDB: 39ab0d6d7c26fd30e51c4dd92edcb27506a34c3a
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
   NJKWebViewProgress: f481fd424cb5ecc27eacae11b5397db92fba9a4d
+  RDVTabBarController: b6d63a7fc49b00568ba07255c6171edc737ad833
+  ReactiveObjC: 2a38ea15335de4119d8b17caf1db1484f61db902
   RealReachability: a8c483900986a0f3305733961effbfbb00637a02
   RTRootNavigationController: d6aa6cbb78a3eaecea4f6e4df63f15dd887836b8
   SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
@@ -150,6 +173,6 @@ SPEC CHECKSUMS:
   YYCategories: 6bcd4314c6661a561410dce4a793379ebd306abd
   ZJKitTool: 997e3b28d233e8fa5752eb16251d960341b13cc6
 
-PODFILE CHECKSUM: ece003f454c2a7179e5d787910b0f499081d7ecb
+PODFILE CHECKSUM: d8a4723a6d92010fe9ed41a50a951217705e5745
 
 COCOAPODS: 1.4.0

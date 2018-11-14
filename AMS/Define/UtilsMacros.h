@@ -37,11 +37,14 @@
 //判断iPhoneXs Max
 #define IS_IPHONE_Xs_Max ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1242, 2688), [[UIScreen mainScreen] currentMode].size) && !kIsIPad : NO)
 
+#define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+#define SCREEN_MAX_LENGTH MAX(kScreenWidth,kScreenHeight)
+
 #define Iphone6ScaleWidth KScreenWidth/375.0
 #define Iphone6ScaleHeight KScreenHeight/667.0
 //根据ip6的屏幕来拉伸
-#define kRealValue(with) ((with)*(KScreenWidth/375.0f))
-
+#define kRealWidth(with) ((with)*(KScreenWidth/375.0f))
+#define kRealHeight(height) ((height)*(KScreenHeight/667.0))
 //强弱引用
 #define kWeakSelf(type)  __weak typeof(type) weak##type = type;
 #define kStrongSelf(type) __strong typeof(type) type = weak##type;
@@ -87,7 +90,8 @@
 #define NSStringFormat(format,...) [NSString stringWithFormat:format,##__VA_ARGS__]
 
 //颜色
-#define kBackGroundColor [UIColor whiteColor]
+#define kBackGroundColor [UIColor blackColor]
+#define kCellBackGroundColor [UIColor darkGrayColor]
 #define kRandomColor    KRGBColor(arc4random_uniform(256)/255.0,arc4random_uniform(256)/255.0,arc4random_uniform(256)/255.0)        //随机色生成
 
 //字体
@@ -99,7 +103,6 @@
 //定义UIImage对象
 #define ImageWithFile(_pointer) [UIImage imageWithContentsOfFile:([[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@@%dx", _pointer, (int)[UIScreen mainScreen].nativeScale] ofType:@"png"])]
 #define IMAGE_NAMED(name) [UIImage imageNamed:name]
-
 //数据验证
 #define StrValid(f) (f!=nil && [f isKindOfClass:[NSString class]] && ![f isEqualToString:@""])
 #define SafeStr(f) (StrValid(f) ? f:@"")

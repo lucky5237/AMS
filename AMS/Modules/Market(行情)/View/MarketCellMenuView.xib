@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MarketCellMenuView">
+            <rect key="frame" x="0.0" y="0.0" width="386" height="50"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HYw-Dh-6AX">
+                    <rect key="frame" x="193.5" y="10" width="182.5" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
+                    <state key="normal" title="下单" image="自选_normal"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mbo-C2-NZn">
+                    <rect key="frame" x="10" y="10" width="182.5" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
+                    <state key="normal" title="加入自选" image="资讯_normal"/>
+                    <state key="selected" title="删除自选" image="资讯_selected"/>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qGS-0q-UKC">
+                    <rect key="frame" x="192.5" y="10" width="1" height="30"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="1" id="yPd-UQ-aCf"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="HYw-Dh-6AX" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="OeE-Ye-LPi"/>
+                <constraint firstItem="Mbo-C2-NZn" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="Sly-8T-JMT"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="HYw-Dh-6AX" secondAttribute="trailing" constant="10" id="bYP-65-Lz3"/>
+                <constraint firstItem="HYw-Dh-6AX" firstAttribute="leading" secondItem="qGS-0q-UKC" secondAttribute="trailing" id="gMD-Oa-lcF"/>
+                <constraint firstItem="qGS-0q-UKC" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="10" id="hDo-CW-lx5"/>
+                <constraint firstItem="Mbo-C2-NZn" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="jHI-qb-h0A"/>
+                <constraint firstItem="HYw-Dh-6AX" firstAttribute="width" secondItem="Mbo-C2-NZn" secondAttribute="width" id="jfZ-24-nPb"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="qGS-0q-UKC" secondAttribute="bottom" constant="10" id="jiL-fX-ha9"/>
+                <constraint firstItem="qGS-0q-UKC" firstAttribute="leading" secondItem="Mbo-C2-NZn" secondAttribute="trailing" id="ze4-nW-Aym"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="collectBtn" destination="Mbo-C2-NZn" id="VrR-nf-a46"/>
+                <outlet property="goTradeBtn" destination="HYw-Dh-6AX" id="ETn-1B-Xaj"/>
+            </connections>
+            <point key="canvasLocation" x="91.200000000000003" y="107.94602698650675"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="自选_normal" width="30" height="30"/>
+        <image name="资讯_normal" width="30" height="30"/>
+        <image name="资讯_selected" width="30" height="30"/>
+    </resources>
+</document>
