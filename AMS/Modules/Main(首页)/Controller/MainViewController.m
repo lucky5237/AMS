@@ -13,7 +13,6 @@
 #import "OptionalViewController.h"
 #import "TradeViewController.h"
 #import "NewsViewController.h"
-#import "field_key.h"
 @interface MainViewController ()
 @end
 
@@ -21,7 +20,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"key is %d",FIELD_KEY_AbandonFrozen);
     
     //行情
     MarketViewController *marketVC = [[MarketViewController alloc] init];

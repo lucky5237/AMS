@@ -75,7 +75,7 @@
         Y_KLineGroupModel *groupModel = [Y_KLineGroupModel objectWithArray:responseObject type:Y_StockChartcenterViewTypeTimeLine];
         self.groupModel = groupModel;
         NSInteger minCount = 240;
-       [Y_StockChartGlobalVariable setTimeLineVolumeWidth:((self.kLineView.scrollView.bounds.size.width - (minCount - 1) * Y_StockTimeLineViewVolumeGap) / minCount)];
+       [Y_StockChartGlobalVariable setTimeLineVolumeWidth:((self.kLineView.scrollView.bounds.size.width - 10 - (minCount + 1) * Y_StockTimeLineViewVolumeGap) / minCount)];
         [self.kLineView setKLineModels:groupModel.models];
 //        self.kLineView.targetLineStatus = Y_StockChartTargetLineStatusAccessoryClose;
     } fail:^{
