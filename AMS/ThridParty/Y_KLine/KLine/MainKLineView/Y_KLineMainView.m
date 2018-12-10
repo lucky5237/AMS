@@ -315,7 +315,6 @@
     - (CGFloat)getExactXPositionWithOriginXPosition:(CGPoint)originPosition{
         CGFloat xPositoinInMainView = originPosition.x - self.parentScrollView.contentOffset.x;
         NSInteger startIndex = (NSInteger)((xPositoinInMainView - [self xPosition]) / ([Y_StockChartGlobalVariable kLineGap] + [Y_StockChartGlobalVariable kLineWidth]));
-        NSLog(@"选中了---startIndex = %ld",(long)startIndex);
         NSInteger arrCount = self.needDrawKLinePositionModels.count;
         for (NSInteger index = startIndex > 0 ? startIndex - 1 : 0; index < arrCount; ++index) {
             Y_KLinePositionModel *kLinePositionModel = self.needDrawKLinePositionModels[index];
@@ -359,7 +358,7 @@
             needDrawKLineStartIndex = [self getNeedDrawStartIndexWithScroll:YES];
         }
         
-        NSLog(@"这是模型开始的index-----------%lu",needDrawKLineStartIndex);
+//        NSLog(@"这是模型开始的index-----------%lu",needDrawKLineStartIndex);
         [self.needDrawKLineModels removeAllObjects];
         
         //赋值数组
@@ -725,16 +724,16 @@ static char *observerContext = NULL;
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
     if([keyPath isEqualToString:Y_StockChartContentOffsetKey])
     {
-        CGFloat difValue = ABS(self.parentScrollView.contentOffset.x - self.oldContentOffsetX);
-        if(difValue >= [Y_StockChartGlobalVariable kLineGap] + [Y_StockChartGlobalVariable kLineWidth])
-        {
-            self.oldContentOffsetX = self.parentScrollView.contentOffset.x;
+//        CGFloat difValue = ABS(self.parentScrollView.contentOffset.x - self.oldContentOffsetX);
+//        if(difValue >= [Y_StockChartGlobalVariable kLineGap] + [Y_StockChartGlobalVariable kLineWidth])
+//        {
+//            self.oldContentOffsetX = self.parentScrollView.contentOffset.x;
             [self drawMainView];
             [self mas_updateConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(self.parentScrollView).offset(self.parentScrollView.contentOffset.x);
                 make.width.equalTo(self.parentScrollView);
             }];
-        }
+//        }
     }
 }
 

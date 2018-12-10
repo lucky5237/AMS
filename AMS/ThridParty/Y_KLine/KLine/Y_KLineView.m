@@ -536,10 +536,10 @@
 #pragma mark 长按手势执行方法
 - (void)event_longPressMethod:(UILongPressGestureRecognizer *)longPress
 {
-    NSLog(@"进入长按");
-    
-    
-    NSLog(@"%f", [longPress locationInView:self.scrollView].x - self.scrollView.contentOffset.x);
+//    NSLog(@"进入长按");
+//
+//
+//    NSLog(@"%f", [longPress locationInView:self.scrollView].x - self.scrollView.contentOffset.x);
     
     
     static CGFloat oldPositionX = 0;
@@ -548,20 +548,6 @@
         CGPoint location = [longPress locationInView:self.scrollView];
         if (location.x < 0 || location.x > self.scrollView.contentSize.width) return;
         
-        //暂停滑动
-        oldPositionX = location.x;
-//        NSInteger startIndex = (NSInteger)((oldPositionX - [self xPosition] + ([Y_StockChartGlobalVariable kLineGap] + [Y_StockChartGlobalVariable kLineWidth])/2.f) / ([Y_StockChartGlobalVariable kLineGap] + [Y_StockChartGlobalVariable kLineWidth]));
-//
-//        if (startIndex < 0) startIndex = 0;
-//        if (startIndex >= self.needDrawKLineModels.count)
-//            startIndex = self.needDrawKLineModels.count - 1;
-//
-//        //长按位置没有数据则退出
-//        if (startIndex < 0) {
-//            return;
-//        }
-//        NSLog(@"选中了----- %ld",(long)startIndex);
-    static CGFloat oldPositionX = 0;
 
         if (self.MainViewType == Y_StockChartcenterViewTypeKline) {
             if(ABS(oldPositionX - location.x) < ([Y_StockChartGlobalVariable kLineWidth] + [Y_StockChartGlobalVariable kLineGap]))
@@ -574,13 +560,9 @@
         //暂停滑动
         self.scrollView.scrollEnabled = NO;
         oldPositionX = location.x;
-//        Y_KLineModel *model = self.needDrawKLineModels[startIndex];
-//        Y_KLinePositionModel *positionModel = self.needDrawKLinePositionModels[startIndex];
-//
-//        CGFloat x = self.scrollView.frame.origin.x + positionModel.ClosePoint.x - self.scrollView.contentOffset.x;
+
         //更新竖线位置
         CGFloat yValue = 0.f;
-        
         
         if (location.y >= CGRectGetMinY(self.kLineMainView.frame) && location.y <= CGRectGetMaxY(self.kLineMainView.frame)) {
             yValue = [self.kLineMainView getYValue:location.y];
@@ -788,22 +770,22 @@
     //        isNeedPostNotification = YES;
     //    }
 //     [self setNeedsDisplay];
-    static CGFloat oldPositionX = 0;
+//    static CGFloat oldPositionX = 0;
     
-    if (self.MainViewType == Y_StockChartcenterViewTypeKline) {
-        CGFloat minDistance = [Y_StockChartGlobalVariable kLineWidth] + [Y_StockChartGlobalVariable kLineGap];
-//        if (ABS(oldPositionX - scrollView.contentOffset.x) <= minDistance / 2) {
-//            self.scrollView.scrollEnabled = false;
+//    if (self.MainViewType == Y_StockChartcenterViewTypeKline) {
+//        CGFloat minDistance = [Y_StockChartGlobalVariable kLineWidth] + [Y_StockChartGlobalVariable kLineGap];
+////        if (ABS(oldPositionX - scrollView.contentOffset.x) <= minDistance / 2) {
+////            self.scrollView.scrollEnabled = false;
+////        }
+//        if(ABS(oldPositionX - scrollView.contentOffset.x) < minDistance && ABS(oldPositionX - scrollView.contentOffset.x) > minDistance / 2 )
+//        {
+////            self.scrollView.scrollEnabled = YES;
+//            [scrollView setContentOffset:CGPointMake(oldPositionX - scrollView.contentOffset.x > 0 ? oldPositionX - ([Y_StockChartGlobalVariable kLineWidth] + [Y_StockChartGlobalVariable kLineGap]) : oldPositionX +([Y_StockChartGlobalVariable kLineWidth] + [Y_StockChartGlobalVariable kLineGap]), 0)];
 //        }
-        if(ABS(oldPositionX - scrollView.contentOffset.x) < minDistance && ABS(oldPositionX - scrollView.contentOffset.x) > minDistance / 2 )
-        {
-//            self.scrollView.scrollEnabled = YES;
-            [scrollView setContentOffset:CGPointMake(oldPositionX - scrollView.contentOffset.x > 0 ? oldPositionX - ([Y_StockChartGlobalVariable kLineWidth] + [Y_StockChartGlobalVariable kLineGap]) : oldPositionX +([Y_StockChartGlobalVariable kLineWidth] + [Y_StockChartGlobalVariable kLineGap]), 0)];
-        }
-        
-    }
+//
+//    }
     //
-    oldPositionX = scrollView.contentOffset.x;
+//    oldPositionX = scrollView.contentOffset.x;
 }
 
 //-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{

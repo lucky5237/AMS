@@ -115,7 +115,7 @@
 -(void)didNeedUpdataParamInfo:(NSNotification*) noti{
     if (_paramView && _paramView.type!=NoneType) {
         Y_KLineModel* model = (Y_KLineModel*)noti.object;
-        NSLog(@"didNeedUpdataParamInfo------ %@",model.Date);
+//        NSLog(@"didNeedUpdataParamInfo------ %@",model.Date);
         [self.paramView maProfileWithModel:model];
     }
 }
