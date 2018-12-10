@@ -21,17 +21,20 @@
  */
 @property (nonatomic, strong) NSArray *needDrawKLineVolumePositionModels;
 
-/**
- *  Volume_MA7位置数组
- */
-@property (nonatomic, strong) NSMutableArray *Volume_MA7Positions;
+///**
+// *  Volume_MA7位置数组
+// */
+//@property (nonatomic, strong) NSMutableArray *Volume_MA7Positions;
+//
+//
+///**
+// *  Volume_MA7位置数组
+// */
+//@property (nonatomic, strong) NSMutableArray *Volume_MA30Positions;
+@property (nonatomic, assign) CGFloat unitValue;
 
-
-/**
- *  Volume_MA7位置数组
- */
-@property (nonatomic, strong) NSMutableArray *Volume_MA30Positions;
-
+@property (nonatomic, assign) CGFloat maxAssert;
+@property (nonatomic, assign) CGFloat minAssert;
 @end
 
 @implementation Y_KLineVolumeView
@@ -41,8 +44,8 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor backgroundColor];
-        self.Volume_MA7Positions = @[].mutableCopy;
-        self.Volume_MA30Positions = @[].mutableCopy;
+//        self.Volume_MA7Positions = @[].mutableCopy;
+//        self.Volume_MA30Positions = @[].mutableCopy;
     }
     return self;
 }
@@ -56,29 +59,47 @@
         return;
     }
     
+  
+    
     CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetStrokeColorWithColor(context, klineBgLineRedColor.CGColor);
+    CGContextSetLineWidth(context, 0.5);
+//    CGFloat unitHeight = (Y_StockChartKLineVolumeViewMaxY - Y_StockChartKLineVolumeViewMinY) / 2;
+    UIScrollView *scrollView = (UIScrollView *)self.superview;
+    const CGPoint line1[] = {CGPointMake(0, Y_StockChartKLineVolumeViewMinY),CGPointMake(scrollView.contentSize.width, Y_StockChartKLineVolumeViewMinY)};
+//    const CGPoint line2[] = {CGPointMake(0, Y_StockChartKLineVolumeViewMinY+unitHeight),CGPointMake(scrollView.contentSize.width, Y_StockChartKLineVolumeViewMinY+unitHeight)};
+    CGFloat lengths[] = {2,2};
+    CGContextSaveGState(context);
+    CGContextSetLineDash(context,0,lengths,2);
+    CGContextStrokeLineSegments(context, line1, 2);
+//    CGContextStrokeLineSegments(context, line2, 2);
+    CGContextRestoreGState(context);
+//
+//        const CGPoint line3[] = {CGPointMake(0, Y_StockChartKLineVolumeViewMaxY-unitHeight),CGPointMake(scrollView.contentSize.width, Y_StockChartKLineVolumeViewMaxY-unitHeight)};
+    
     Y_KLineVolume *kLineVolume = [[Y_KLineVolume alloc]initWithContext:context];
     
     [self.needDrawKLineVolumePositionModels enumerateObjectsUsingBlock:^(Y_KLineVolumePositionModel * _Nonnull volumePositionModel, NSUInteger idx, BOOL * _Nonnull stop) {
         kLineVolume.positionModel = volumePositionModel;
         kLineVolume.kLineModel = self.needDrawKLineModels[idx];
         kLineVolume.lineColor = self.kLineColors[idx];
+        kLineVolume.type = self.type;
         [kLineVolume draw];
     }];
     
-   if(self.targetLineStatus != Y_StockChartTargetLineStatusCloseMA){
-        Y_MALine *MALine = [[Y_MALine alloc]initWithContext:context];
-        
-        //画MA7线
-        MALine.MAType = Y_MA7Type;
-        MALine.MAPositions = self.Volume_MA7Positions;
-        [MALine draw];
-        
-        //画MA30线
-        MALine.MAType = Y_MA30Type;
-        MALine.MAPositions = self.Volume_MA30Positions;
-        [MALine draw];
-   }
+//   if(self.targetLineStatus != Y_StockChartTargetLineStatusCloseMA){
+//        Y_MALine *MALine = [[Y_MALine alloc]initWithContext:context];
+//        
+//        //画MA7线
+//        MALine.MAType = Y_MA7Type;
+//        MALine.MAPositions = self.Volume_MA7Positions;
+//        [MALine draw];
+//        
+//        //画MA30线
+//        MALine.MAType = Y_MA30Type;
+//        MALine.MAPositions = self.Volume_MA30Positions;
+//        [MALine draw];
+//   }
     
 }
 
@@ -117,77 +138,88 @@
         {
             maxVolume = model.Volume;
         }
-        if(model.Volume_MA7)
-        {
-            if (minVolume > model.Volume_MA7.floatValue) {
-                minVolume = model.Volume_MA7.floatValue;
-            }
-            if (maxVolume < model.Volume_MA7.floatValue) {
-                maxVolume = model.Volume_MA7.floatValue;
-            }
-        }
-        if(model.Volume_MA30)
-        {
-            if (minVolume > model.Volume_MA30.floatValue) {
-                minVolume = model.Volume_MA30.floatValue;
-            }
-            if (maxVolume < model.Volume_MA30.floatValue) {
-                maxVolume = model.Volume_MA30.floatValue;
-            }
-        }
+//        if(model.Volume_MA7)
+//        {
+//            if (minVolume > model.Volume_MA7.floatValue) {
+//                minVolume = model.Volume_MA7.floatValue;
+//            }
+//            if (maxVolume < model.Volume_MA7.floatValue) {
+//                maxVolume = model.Volume_MA7.floatValue;
+//            }
+//        }
+//        if(model.Volume_MA30)
+//        {
+//            if (minVolume > model.Volume_MA30.floatValue) {
+//                minVolume = model.Volume_MA30.floatValue;
+//            }
+//            if (maxVolume < model.Volume_MA30.floatValue) {
+//                maxVolume = model.Volume_MA30.floatValue;
+//            }
+//        }
     }];
+    
+    self.maxAssert = maxVolume;
+    self.minAssert = minVolume;
 
     CGFloat unitValue = (maxVolume - minVolume) / (maxY - minY);
+    if (unitValue == 0.f) {
+        unitValue = 0.01f;
+    }
+    self.unitValue = unitValue;
     
     NSMutableArray *volumePositionModels = @[].mutableCopy;
-    [self.Volume_MA7Positions removeAllObjects];
-    [self.Volume_MA30Positions removeAllObjects];
+//    [self.Volume_MA7Positions removeAllObjects];
+//    [self.Volume_MA30Positions removeAllObjects];
     
     [kLineModels enumerateObjectsUsingBlock:^(Y_KLineModel *  _Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
         Y_KLinePositionModel *kLinePositionModel = self.needDrawKLinePositionModels[idx];
         CGFloat xPosition = kLinePositionModel.HighPoint.x;
+//        if (model.price !=nil && model.price.floatValue !=0.f) {
+//
+//        }else{
         CGFloat yPosition = ABS(maxY - (model.Volume - minVolume)/unitValue);
-        if(ABS(yPosition - Y_StockChartKLineVolumeViewMaxY) < 0.5)
-        {
-            yPosition = Y_StockChartKLineVolumeViewMaxY - 1;
-        }
-        CGPoint startPoint = CGPointMake(xPosition, yPosition);
-        CGPoint endPoint = CGPointMake(xPosition, Y_StockChartKLineVolumeViewMaxY);
+        CGPoint startPoint = CGPointMake(xPosition, (ABS(yPosition - maxY) > 0 && ABS(yPosition - maxY) < 0.5) ? maxY - 0.5 : yPosition);
+        CGPoint endPoint = CGPointMake(xPosition, maxY);
         Y_KLineVolumePositionModel *volumePositionModel = [Y_KLineVolumePositionModel modelWithStartPoint:startPoint endPoint:endPoint];
         [volumePositionModels addObject:volumePositionModel];
+        //        }
         
-        //MA坐标转换
-        CGFloat ma7Y = maxY;
-        CGFloat ma30Y = maxY;
-        if(unitValue > 0.0000001)
-        {
-            if(model.Volume_MA7)
-            {
-                ma7Y = maxY - (model.Volume_MA7.floatValue - minVolume)/unitValue;
-            }
-            
-        }
-        if(unitValue > 0.0000001)
-        {
-            if(model.Volume_MA30)
-            {
-                ma30Y = maxY - (model.Volume_MA30.floatValue - minVolume)/unitValue;
-            }
-        }
         
-        NSAssert(!isnan(ma7Y) && !isnan(ma30Y), @"出现NAN值");
         
-        CGPoint ma7Point = CGPointMake(xPosition, ma7Y);
-        CGPoint ma30Point = CGPointMake(xPosition, ma30Y);
+       
         
-        if(model.Volume_MA7)
-        {
-            [self.Volume_MA7Positions addObject: [NSValue valueWithCGPoint: ma7Point]];
-        }
-        if(model.Volume_MA30)
-        {
-            [self.Volume_MA30Positions addObject: [NSValue valueWithCGPoint: ma30Point]];
-        }
+//        //MA坐标转换
+//        CGFloat ma7Y = maxY;
+//        CGFloat ma30Y = maxY;
+//        if(unitValue > 0.0000001)
+//        {
+//            if(model.Volume_MA7)
+//            {
+//                ma7Y = maxY - (model.Volume_MA7.floatValue - minVolume)/unitValue;
+//            }
+//
+//        }
+//        if(unitValue > 0.0000001)
+//        {
+//            if(model.Volume_MA30)
+//            {
+//                ma30Y = maxY - (model.Volume_MA30.floatValue - minVolume)/unitValue;
+//            }
+//        }
+//
+//        NSAssert(!isnan(ma7Y) && !isnan(ma30Y), @"出现NAN值");
+//
+//        CGPoint ma7Point = CGPointMake(xPosition, ma7Y);
+//        CGPoint ma30Point = CGPointMake(xPosition, ma30Y);
+//
+//        if(model.Volume_MA7)
+//        {
+//            [self.Volume_MA7Positions addObject: [NSValue valueWithCGPoint: ma7Point]];
+//        }
+//        if(model.Volume_MA30)
+//        {
+//            [self.Volume_MA30Positions addObject: [NSValue valueWithCGPoint: ma30Point]];
+//        }
     }];
     
     if(self.delegate && [self.delegate respondsToSelector:@selector(kLineVolumeViewCurrentMaxVolume:minVolume:)])
@@ -196,4 +228,12 @@
     }
     return volumePositionModels;
 }
+
+-(CGFloat) getYValue:(CGFloat)yPosition{
+    if (yPosition<= CGRectGetMaxY(self.frame) -Y_StockChartKLineVolumeViewMinY && yPosition >= CGRectGetMinY(self.frame) + Y_StockChartKLineVolumeViewMinY) {
+        return self.maxAssert - (yPosition - CGRectGetMinY(self.frame) - Y_StockChartKLineVolumeViewMinY) * self.unitValue;
+    }
+    return .0f;
+}
+
 @end

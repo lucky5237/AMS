@@ -45,6 +45,25 @@
     return _KDJ_J;
 }
 
+-(NSNumber *)MA5{
+    if([Y_StockChartGlobalVariable isEMALine] == Y_StockChartTargetLineStatusMA)
+    {
+        if (!_MA5) {
+            NSInteger index = [self.ParentGroupModel.models indexOfObject:self];
+            if (index >= 4) {
+                if (index > 4) {
+                    _MA5 = @((self.SumOfLastClose.floatValue - self.ParentGroupModel.models[index - 5].SumOfLastClose.floatValue) / 5);
+                } else {
+                    _MA5 = @(self.SumOfLastClose.floatValue / 5);
+                }
+            }
+        }
+    } else {
+        return self.EMA5;
+    }
+    return _MA5;
+}
+
 - (NSNumber *)MA7
 {
     if([Y_StockChartGlobalVariable isEMALine] == Y_StockChartTargetLineStatusMA)
@@ -63,6 +82,52 @@
         return self.EMA7;
     }
     return _MA7;
+}
+
+-(NSNumber *)MA10{
+    if([Y_StockChartGlobalVariable isEMALine] == Y_StockChartTargetLineStatusMA)
+    {
+        if (!_MA10) {
+            NSInteger index = [self.ParentGroupModel.models indexOfObject:self];
+            if (index >= 9) {
+                if (index > 9) {
+                    _MA10 = @((self.SumOfLastClose.floatValue - self.ParentGroupModel.models[index - 10].SumOfLastClose.floatValue) / 10);
+                } else {
+                    _MA10 = @(self.SumOfLastClose.floatValue / 10);
+                }
+            }
+        }
+    } else {
+        return self.EMA10;
+    }
+    return _MA10;
+}
+-(NSNumber *)MA40{
+    if (!_MA40) {
+        NSInteger index = [self.ParentGroupModel.models indexOfObject:self];
+        if (index >= 39) {
+            if (index > 39) {
+                _MA40 = @((self.SumOfLastClose.floatValue - self.ParentGroupModel.models[index - 40].SumOfLastClose.floatValue) / 40);
+            } else {
+                _MA40 = @(self.SumOfLastClose.floatValue / 40);
+            }
+        }
+    }
+    return _MA40;
+}
+
+-(NSNumber *)MA60{
+    if (!_MA60) {
+        NSInteger index = [self.ParentGroupModel.models indexOfObject:self];
+        if (index >= 59) {
+            if (index > 59) {
+                _MA60 = @((self.SumOfLastClose.floatValue - self.ParentGroupModel.models[index - 60].SumOfLastClose.floatValue) / 60);
+            } else {
+                _MA60 = @(self.SumOfLastClose.floatValue / 60);
+            }
+        }
+    }
+    return _MA60;
 }
 
 - (NSNumber *)Volume_MA7
@@ -91,13 +156,30 @@
     }
     return _Volume_EMA7;
 }
+//Y=[2*X+(N-1)*Y’]/(N+1)
 //// EMA（N）=2/（N+1）*（C-昨日EMA）+昨日EMA；
+
+-(NSNumber *)EMA5{
+    if(!_EMA5) {
+        _EMA5 = @((2 * self.Close.floatValue + 4 * self.PreviousKlineModel.EMA5.floatValue)/6);
+    }
+    return _EMA5;
+}
+
 - (NSNumber *)EMA7
 {
     if(!_EMA7) {
         _EMA7 = @((self.Close.floatValue + 3 * self.PreviousKlineModel.EMA7.floatValue)/4);
     }
     return _EMA7;
+}
+
+- (NSNumber *)EMA10
+{
+    if(!_EMA10) {
+        _EMA10 = @((2 * self.Close.floatValue + 9 * self.PreviousKlineModel.EMA10.floatValue)/11);
+    }
+    return _EMA10;
 }
 
 - (NSNumber *)EMA30
@@ -291,7 +373,7 @@
     return _MA20;
     
 }
-
+//中轨线MB=（N－1）日的MA
 - (NSNumber *)BOLL_MB {
     
     if(!_BOLL_MB) {
@@ -316,6 +398,7 @@
     return _BOLL_MB;
 }
 
+//标准差MD=平方根N日的（C－MA）的两次方之和除以N
 - (NSNumber *)BOLL_MD {
     
     if (!_BOLL_MD) {
@@ -335,6 +418,7 @@
     return _BOLL_MD;
 }
 
+//上轨线UP=MB+2×MD
 - (NSNumber *)BOLL_UP {
     if (!_BOLL_UP) {
         NSInteger index = [self.ParentGroupModel.models indexOfObject:self];
@@ -348,6 +432,7 @@
     return _BOLL_UP;
 }
 
+//下轨线DN=MB－2×MD
 - (NSNumber *)BOLL_DN {
     if (!_BOLL_DN) {
         NSInteger index = [self.ParentGroupModel.models indexOfObject:self];
@@ -405,10 +490,15 @@
         _PreviousKlineModel.DIF = @(0);
         _PreviousKlineModel.DEA = @(0);
         _PreviousKlineModel.MACD = @(0);
+        _PreviousKlineModel.MA5 = @(0);
         _PreviousKlineModel.MA7 = @(0);
+        _PreviousKlineModel.MA10 = @(0);
         _PreviousKlineModel.MA12 = @(0);
+        _PreviousKlineModel.MA20 = @(0);
         _PreviousKlineModel.MA26 = @(0);
         _PreviousKlineModel.MA30 = @(0);
+        _PreviousKlineModel.MA40 = @(0);
+        _PreviousKlineModel.MA60 = @(0);
         _PreviousKlineModel.EMA7 = @(0);
         _PreviousKlineModel.EMA12 = @(0);
         _PreviousKlineModel.EMA26 = @(0);
@@ -534,19 +624,36 @@
 {
     NSAssert(arr.count == 6, @"数组长度不足");
 
-    if (self)
-    {
+    if (self){
         _Date = arr[0];
         _Open = @([arr[1] floatValue]);
         _High = @([arr[2] floatValue]);
         _Low = @([arr[3] floatValue]);  
         _Close = @([arr[4] floatValue]);
-
         _Volume = [arr[5] floatValue];
         self.SumOfLastClose = @(_Close.floatValue + self.PreviousKlineModel.SumOfLastClose.floatValue);
         self.SumOfLastVolume = @(_Volume + self.PreviousKlineModel.SumOfLastVolume.floatValue);
-//        NSLog(@"%@======%@======%@------%@",_Close,self.MA7,self.MA30,_SumOfLastClose);
- 
+    }
+}
+
+- (void) initWithTimeLineArray:(NSArray *)arr;
+{
+    NSAssert(arr.count == 5, @"数组长度不足");
+    
+    if (self)
+    {
+        
+        _price = arr[0];
+        _average = @([arr[1] floatValue]);
+        _Volume = [arr[2] floatValue];
+        _storage = @([arr[3] floatValue]);
+        _Date = arr[4];
+        _Open = _price;
+        _High = _price;
+        _Low = _price;
+        _Close = _price;
+        
+        self.SumOfLastVolume = @(_Volume + self.PreviousKlineModel.SumOfLastVolume.floatValue);
     }
 }
 
@@ -561,6 +668,7 @@
         _Low = @([dict[@"low"] floatValue]);
         _Close = @([dict[@"close"] floatValue]);
         _Volume = [dict[@"vol"] floatValue];
+        _average = dict[@"average"] == nil ? @(0.f) : @([dict[@"average"] floatValue]);
         self.SumOfLastClose = @(_Close.floatValue + self.PreviousKlineModel.SumOfLastClose.floatValue);
         self.SumOfLastVolume = @(_Volume + self.PreviousKlineModel.SumOfLastVolume.floatValue);
         //        NSLog(@"%@======%@======%@------%@",_Close,self.MA7,self.MA30,_SumOfLastClose);
@@ -579,21 +687,21 @@
 //    _MA12 = _Close;
 //    _MA26 = _Close;
 //    _MA30 = _Close;
-    _EMA7 = _Close;
+//    _EMA7 = _Close;
     _EMA12 = _Close;
     _EMA26 = _Close;
-    _EMA30 = _Close;
-    _NineClocksMinPrice = _Low;
-    _NineClocksMaxPrice = _High;
+//    _EMA30 = _Close;
+//    _NineClocksMinPrice = _Low;
+//    _NineClocksMaxPrice = _High;
     [self DIF];
     [self DEA];
     [self MACD];
-    [self rangeLastNinePriceByArray:self.ParentGroupModel.models condition:NSOrderedAscending];
-    [self rangeLastNinePriceByArray:self.ParentGroupModel.models condition:NSOrderedDescending];
-    [self RSV_9];
-    [self KDJ_K];
-    [self KDJ_D];
-    [self KDJ_J];
+//    [self rangeLastNinePriceByArray:self.ParentGroupModel.models condition:NSOrderedAscending];
+//    [self rangeLastNinePriceByArray:self.ParentGroupModel.models condition:NSOrderedDescending];
+//    [self RSV_9];
+//    [self KDJ_K];
+//    [self KDJ_D];
+//    [self KDJ_J];
     
     [self MA20];
     [self BOLL_MD];
@@ -606,26 +714,31 @@
 }
 
 - (void)initData {
-    [self MA7];
-    [self MA12];
-    [self MA26];
-    [self MA30];
-    [self EMA7];
+    [self MA5];
+//    [self MA7];
+    [self MA10];
+//    [self MA12];
+//    [self MA26];
+    [self MA20];
+//    [self MA30];
+    [self MA40];
+    [self MA60];
+//    [self EMA7];
     [self EMA12];
     [self EMA26];
-    [self EMA30];
+//    [self EMA30];
     
     [self DIF];
     [self DEA];
     [self MACD];
-    [self NineClocksMaxPrice];
-    [self NineClocksMinPrice];
-    [self RSV_9];
-    [self KDJ_K];
-    [self KDJ_D];
-    [self KDJ_J];
+//    [self NineClocksMaxPrice];
+//    [self NineClocksMinPrice];
+//    [self RSV_9];
+//    [self KDJ_K];
+//    [self KDJ_D];
+//    [self KDJ_J];
     
-    [self MA20];
+//    [self MA20];
     [self BOLL_MD];
     [self BOLL_MB];
     [self BOLL_UP];

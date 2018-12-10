@@ -17,7 +17,7 @@
 /**
  *  长按显示手指按着的Y_KLinePosition和KLineModel
  */
-- (void)kLineMainViewLongPressKLinePositionModel:(Y_KLinePositionModel*)kLinePositionModel kLineModel:(Y_KLineModel *)kLineModel;
+- (void)kLineMainViewLongPressKLinePositionModel:(Y_KLinePositionModel*)kLinePositionModel kLineModel:(Y_KLineModel *)kLineModel originalPosition:(CGPoint)position;
 
 /**
  *  当前MainView的最大值和最小值
@@ -38,6 +38,11 @@
  *  当前需要绘制的K线颜色数组
  */
 - (void)kLineMainViewCurrentNeedDrawKLineColors:(NSArray *)kLineColors;
+
+/**
+ 点击事件
+ */
+-(void)kLineMainViewDidSingleTap;
 
 @end
 
@@ -80,6 +85,7 @@
  *  捏合点
  */
 @property (nonatomic, assign) NSInteger pinchStartIndex;
+
 #pragma event
 
 /**
@@ -103,10 +109,12 @@
 /**
  *  长按的时候根据原始的x位置获得精确的x的位置
  */
-- (CGFloat)getExactXPositionWithOriginXPosition:(CGFloat)originXPosition;
+- (CGFloat)getExactXPositionWithOriginXPosition:(CGPoint)originPosition;
 
 /**
  *  移除所有的监听事件
  */
 - (void)removeAllObserver;
+//获取y轴数值
+-(CGFloat) getYValue:(CGFloat)yPosition;
 @end

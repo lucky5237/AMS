@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MarketModel : NSObject
+@property(nonatomic,strong) NSNumber *marketId;
 @property(nonatomic,copy) NSString *name;//名字
 @property(nonatomic,strong) NSNumber *price;//最新
 @property(nonatomic,strong) NSNumber *fallRise;//涨跌

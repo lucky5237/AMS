@@ -27,6 +27,12 @@
  */
 #define Y_StockChartKLineTimeViewHeight 20
 
+
+/**
+ *  K线最小的厚度
+ */
+#define Y_StockChartKLineMinThick 0.5
+
 /**
  *  K线最大的宽度
  */
@@ -35,7 +41,7 @@
 /**
  *  K线图最小的宽度
  */
-#define Y_StockChartKLineMinWidth 2
+#define Y_StockChartKLineMinWidth 0.1
 
 /**
  *  K线图缩放界限
@@ -65,7 +71,7 @@
 /**
  *  分时线的timeLabelView的高度
  */
-#define Y_StockChartTimeLineTimeLabelViewHeight 19
+#define Y_StockChartTimeLineTimeLabelViewHeight 20
 
 /**
  *  时分线的成交量的线宽
@@ -80,7 +86,7 @@
 /**
  *  MA线的宽度
  */
-#define Y_StockChartMALineWidth 0.8
+#define Y_StockChartMALineWidth 1
 
 /**
  *  上下影线宽度
@@ -94,17 +100,17 @@
 /**
  *  K线图上可画区域最小的Y
  */
-#define Y_StockChartKLineMainViewMinY 20
+#define Y_StockChartKLineMainViewMinY 10
 
 /**
  *  K线图上可画区域最大的Y
  */
-#define Y_StockChartKLineMainViewMaxY (self.frame.size.height - 15)
+#define Y_StockChartKLineMainViewMaxY (self.frame.size.height - 10)
 
 /**
  *  K线图的成交量上最小的Y
  */
-#define Y_StockChartKLineVolumeViewMinY 20
+#define Y_StockChartKLineVolumeViewMinY 10
 
 /**
  *  K线图的成交量最大的Y
@@ -114,12 +120,12 @@
 /**
  *  K线图的副图上最小的Y
  */
-#define Y_StockChartKLineAccessoryViewMinY 20
+#define Y_StockChartKLineAccessoryViewMinY 10
 
 /**
  *  K线图的副图最大的Y
  */
-#define Y_StockChartKLineAccessoryViewMaxY (self.frame.size.height)
+#define Y_StockChartKLineAccessoryViewMaxY (self.frame.size.height -10)
 
 /**
  *  K线图的副图中间的Y
@@ -136,6 +142,11 @@
  *  时分线图的Above上最大的Y
  */
 #define Y_StockChartTimeLineMainViewMaxY (self.frame.size.height-Y_StockChartTimeLineTimeLabelViewHeight)
+
+/**
+ *  分时图成交量线的间距
+ */
+#define Y_StockTimeLineViewVolumeGap 0.1
 
 
 /**
@@ -176,7 +187,7 @@ typedef NS_ENUM(NSInteger, Y_StockChartTargetLineStatus) {
     Y_StockChartTargetLineStatusMACD = 100,    //MACD线
     Y_StockChartTargetLineStatusKDJ,    //KDJ线
     Y_StockChartTargetLineStatusAccessoryClose,    //关闭Accessory线
-    Y_StockChartTargetLineStatusMA , //MA线
+    Y_StockChartTargetLineStatusMA,
     Y_StockChartTargetLineStatusEMA,  //EMA线
     Y_StockChartTargetLineStatusBOLL,  //BOLL线
     Y_StockChartTargetLineStatusCloseMA  //MA关闭线

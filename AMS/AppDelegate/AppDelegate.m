@@ -70,6 +70,10 @@
     return [JLRoutes routeURL:url];
 }
 
+-(void)setTabBarHidden:(BOOL)push{
+    self.rdvTabBarController.hidesBottomBarWhenPushed = push;
+}
+
 
 
 

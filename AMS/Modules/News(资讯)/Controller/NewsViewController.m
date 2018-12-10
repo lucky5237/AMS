@@ -8,6 +8,7 @@
 
 #import "NewsViewController.h"
 #import <AXWebViewController.h>
+#import <RDVTabBarController.h>
 
 @interface NewsViewController ()
 
@@ -17,14 +18,27 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"资讯中心";
+    self.rt_navigationController.navigationBar.backgroundColor = kDarkGrayColor;
     // Do any additional setup after loading the view.
     AXWebViewController *newsVC = [[AXWebViewController alloc] initWithAddress:NEWS_URL];
     newsVC.showsToolBar = NO;
     newsVC.navigationController.navigationBar.translucent = NO;
-//    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0.100f green:0.100f blue:0.100f alpha:0.800f];
-//    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.996f green:0.867f blue:0.522f alpha:1.00f];
-//    [self.navigationController pushViewController:webVC animated:YES];
+  
+    newsVC.view.frame = self.view.bounds;
     [self addChildViewController:newsVC];
+    [self.view addSubview:newsVC.view];
+    [newsVC didMoveToParentViewController:self];
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.rdv_tabBarController.tabBarHidden = NO;
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.rdv_tabBarController.tabBarHidden = YES;
 }
 
 /*

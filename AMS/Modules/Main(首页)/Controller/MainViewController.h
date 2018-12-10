@@ -6,12 +6,10 @@
 //  Copyright © 2018 jianlu. All rights reserved.
 //
 
-#import "BaseViewController.h"
-
+#import <RDVTabBarController.h>
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MainViewController : BaseViewController
-
+@interface MainViewController : RDVTabBarController
 @end
 
 NS_ASSUME_NONNULL_END

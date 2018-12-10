@@ -56,4 +56,35 @@
     return superVC;
 }
 
++(UIImage *)imageWithColor:(UIColor *)color {
+    CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextFillRect(context, rect);
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
+}
+
++ (BOOL)isVaildMoney:(NSString *)moneyStr{
+    if (moneyStr.length == 0) {
+        return NO;
+    }
+    NSString *stringRegex = @"(([0]|(0[.]\\d{0,2}))|([1-9]\\d{0,5}(([.]\\d{0,2})?)))?";//一般格式 d{0,8} 控制位数
+    NSPredicate *money = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", stringRegex];
+    return  [money evaluateWithObject:moneyStr];
+}
+
++(void)drawCorner:(UIRectCorner)corners cornerRadii:(CGSize)cornerRadii view:(UIView*) view{
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:view.bounds byRoundingCorners:corners cornerRadii:cornerRadii];
+    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+    maskLayer.frame = view.bounds;
+    maskLayer.path = maskPath.CGPath;
+    view.layer.mask = maskLayer;
+}
+
 @end

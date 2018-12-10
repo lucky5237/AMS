@@ -21,7 +21,7 @@
     phase_best_rpc_head->SetPackType(best_protocol::PACKTTYPE_REQUEST);
     phase_best_rpc_head->SetSeqNum(123);
     phase_best_rpc_head->SetStatus(0);
-    phase_best_dataLayer->SetBuffer([message UTF8String],(int32)strlen([message UTF8String]));
+//    phase_best_dataLayer->SetBuffer([message UTF8String],(int32)strlen([message UTF8String]));
     phase_best_head_message->SetDataMessage(phase_best_dataLayer);
     phase_best_head_message->GetField(0)->SetString("linx");
     phase_best_head_message->GetField(1)->SetInt32(1);

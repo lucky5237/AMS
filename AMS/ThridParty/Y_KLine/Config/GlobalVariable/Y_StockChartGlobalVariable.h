@@ -17,6 +17,10 @@
 
 +(void)setkLineWith:(CGFloat)kLineWidth;
 
++(CGFloat)timeLineWidth;
+
++(void)setTimeLineWith:(CGFloat)timeLineWidth;
+
 /**
  *  K线图的间隔，默认1
  */
@@ -50,5 +54,17 @@
  */
 + (CGFloat)isBOLLLine;
 + (void)setisBOLLLine:(Y_StockChartTargetLineStatus)type;
+
+/**
+ 分时线的成交量线的宽度
+ */
++(CGFloat)timeLineVolumeWidth;
+
+/**
+ 设置分时线的成交量线的宽度
+ 
+ @param timeLineVolumeWidth 宽度
+ */
++(void)setTimeLineVolumeWidth:(CGFloat)timeLineVolumeWidth;
 
 @end

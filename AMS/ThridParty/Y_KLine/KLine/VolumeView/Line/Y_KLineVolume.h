@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Y_KLineVolumePositionModel.h"
 #import "Y_KLineModel.h"
+#import "Y_StockChartGlobalVariable.h"
 @interface Y_KLineVolume : NSObject
 
 /**
@@ -31,8 +32,11 @@
  */
 - (instancetype)initWithContext:(CGContextRef)context;
 
+@property(nonatomic,assign) Y_StockChartCenterViewType type;
+
 /**
  *  绘制成交量
  */
 - (void)draw;
+
 @end

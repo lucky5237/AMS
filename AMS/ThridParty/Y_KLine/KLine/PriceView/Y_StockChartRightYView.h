@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Y_StockChartGlobalVariable.h"
 
 @interface Y_StockChartRightYView : UIView
 @property(nonatomic,assign) CGFloat maxValue;
@@ -17,5 +18,6 @@
 
 @property(nonatomic,copy) NSString *minLabelText;
 
-
+@property(nonatomic,assign) Y_StockChartCenterViewType type;
+@property(nonatomic,assign) BOOL isRisePer;
 @end

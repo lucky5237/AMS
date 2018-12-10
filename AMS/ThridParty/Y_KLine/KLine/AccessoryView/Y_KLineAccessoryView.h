@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Y_KLinePositionModel.h"
+#import "Y_KLineModel.h"
 #import "Y_StockChartConstant.h"
 @protocol Y_KLineAccessoryViewDelegate <NSObject>
 
@@ -50,5 +52,7 @@
  *  绘制
  */
 - (void)draw;
+
+-(CGFloat) getYValue:(CGFloat)yPosition;
 
 @end

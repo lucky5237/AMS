@@ -66,12 +66,44 @@
         }
         
         
-    } else {
+    }else if (_MAType == Y_AVERAGET){
+        if (!self.AVERAGEPositions) {
+            return;
+        }
+        UIColor *lineColor = [UIColor ma20Color];
+        CGContextSetStrokeColorWithColor(self.context, lineColor.CGColor);
+        CGContextSetLineWidth(self.context, Y_StockChartMALineWidth);
+        
+        CGPoint firstPoint = [self.AVERAGEPositions.firstObject CGPointValue];
+        NSAssert(!isnan(firstPoint.x) && !isnan(firstPoint.y), @"出现NAN值：MA画线");
+        CGContextMoveToPoint(self.context, firstPoint.x, firstPoint.y);
+        
+        for (NSInteger idx = 1; idx < self.AVERAGEPositions.count ; idx++)
+        {
+            CGPoint point = [self.AVERAGEPositions[idx] CGPointValue];
+            CGContextAddLineToPoint(self.context, point.x, point.y);
+        }
+    }
+    
+    
+    else {
         if(!self.MAPositions) {
             return;
         }
         
-        UIColor *lineColor = self.MAType == Y_MA7Type ? [UIColor ma7Color] : (self.MAType == Y_MA30Type ? [UIColor ma30Color] : [UIColor mainTextColor]);
+        UIColor *lineColor = [UIColor mainTextColor];
+        if (self.MAType == Y_MA5Type) {
+            lineColor = [UIColor ma5Color];
+        }else if (self.MAType == Y_MA10Type){
+             lineColor = [UIColor ma10Color];
+        }else if (self.MAType == Y_MA20Type){
+             lineColor = [UIColor ma20Color];
+        }else if (self.MAType == Y_MA40Type){
+            lineColor = [UIColor ma40Color];
+        }else if (self.MAType == Y_MA60Type){
+            lineColor = [UIColor ma60Color];
+        }
+//        UIColor *lineColor = self.MAType == Y_MA7Type ? [UIColor ma7Color] : (self.MAType == Y_MA30Type ? [UIColor ma30Color] : [UIColor mainTextColor]);
         
         CGContextSetStrokeColorWithColor(self.context, lineColor.CGColor);
         

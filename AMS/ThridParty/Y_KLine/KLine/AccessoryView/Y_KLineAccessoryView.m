@@ -46,6 +46,11 @@
  */
 @property (nonatomic, strong) NSMutableArray *Accessory_KDJ_JPositions;
 
+@property (nonatomic, assign) CGFloat unitValue;
+
+@property (nonatomic, assign) CGFloat maxAssert;
+@property (nonatomic, assign) CGFloat minAssert;
+
 @end
 
 @implementation Y_KLineAccessoryView
@@ -95,14 +100,15 @@
         Y_MALine *MALine = [[Y_MALine alloc]initWithContext:context];
         
         //画DIF线
-        MALine.MAType = Y_MA7Type;
+        MALine.MAType = Y_MA5Type;
         MALine.MAPositions = self.Accessory_DIFPositions;
         [MALine draw];
         
         //画DEA线
-        MALine.MAType = Y_MA30Type;
+        MALine.MAType = Y_MA20Type;
         MALine.MAPositions = self.Accessory_DEAPositions;
         [MALine draw];
+        
     } else {
         /**
         KDJ
@@ -110,12 +116,12 @@
         Y_MALine *MALine = [[Y_MALine alloc]initWithContext:context];
         
         //画KDJ_K线
-        MALine.MAType = Y_MA7Type;
+        MALine.MAType = Y_MA5Type;
         MALine.MAPositions = self.Accessory_KDJ_KPositions;
         [MALine draw];
         
         //画KDJ_D线
-        MALine.MAType = Y_MA30Type;
+        MALine.MAType = Y_MA20Type;
         MALine.MAPositions = self.Accessory_KDJ_DPositions;
         [MALine draw];
         
@@ -151,7 +157,7 @@
     
     NSMutableArray *volumePositionModels = @[].mutableCopy;
 
-    if(self.targetLineStatus != Y_StockChartTargetLineStatusKDJ)
+    if(self.targetLineStatus != Y_StockChartTargetLineStatusAccessoryClose && self.targetLineStatus != Y_StockChartTargetLineStatusKDJ)
     {
         [kLineModels enumerateObjectsUsingBlock:^(Y_KLineModel *  _Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
             
@@ -185,7 +191,14 @@
             }
         }];
         
+        self.maxAssert = maxValue;
+        self.minAssert = minValue;
+        
         CGFloat unitValue = (maxValue - minValue) / (maxY - minY);
+        if (unitValue == 0.f) {
+            unitValue = 0.01f;
+        }
+        self.unitValue = unitValue;
         
         [self.Accessory_DIFPositions removeAllObjects];
         [self.Accessory_DEAPositions removeAllObjects];
@@ -339,5 +352,12 @@
         [self.delegate kLineAccessoryViewCurrentMaxValue:maxValue minValue:minValue];
     }
     return volumePositionModels;
+}
+
+-(CGFloat) getYValue:(CGFloat)yPosition{
+    if (yPosition<= CGRectGetMaxY(self.frame) -Y_StockChartKLineAccessoryViewMinY && yPosition >= CGRectGetMinY(self.frame) + Y_StockChartKLineAccessoryViewMinY) {
+        return self.maxAssert - (yPosition - CGRectGetMinY(self.frame) - Y_StockChartKLineAccessoryViewMinY) * self.unitValue;
+    }
+    return .0f;
 }
 @end

@@ -16,36 +16,38 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HYw-Dh-6AX">
-                    <rect key="frame" x="193.5" y="10" width="182.5" height="30"/>
+                    <rect key="frame" x="193.5" y="16.5" width="182.5" height="17"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
-                    <state key="normal" title="下单" image="自选_normal"/>
+                    <state key="normal" title="下单" image="下单"/>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mbo-C2-NZn">
-                    <rect key="frame" x="10" y="10" width="182.5" height="30"/>
+                    <rect key="frame" x="10" y="16.5" width="182.5" height="17"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
-                    <state key="normal" title="加入自选" image="资讯_normal"/>
-                    <state key="selected" title="删除自选" image="资讯_selected"/>
+                    <state key="normal" title="加入自选" image="加入自选">
+                        <color key="titleColor" red="0.99607843137254903" green="0.99607843137254903" blue="0.99607843137254903" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <state key="selected" title="删除自选" image="删除自选"/>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qGS-0q-UKC">
-                    <rect key="frame" x="192.5" y="10" width="1" height="30"/>
-                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <rect key="frame" x="192.5" y="8" width="1" height="34"/>
+                    <color key="backgroundColor" red="0.12941176470588234" green="0.12941176470588234" blue="0.1764705882352941" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="1" id="yPd-UQ-aCf"/>
                     </constraints>
                 </view>
             </subviews>
-            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color key="backgroundColor" red="0.78431372549019607" green="0.054901960784313725" blue="0.25882352941176467" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="HYw-Dh-6AX" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="OeE-Ye-LPi"/>
                 <constraint firstItem="Mbo-C2-NZn" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="Sly-8T-JMT"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="HYw-Dh-6AX" secondAttribute="trailing" constant="10" id="bYP-65-Lz3"/>
                 <constraint firstItem="HYw-Dh-6AX" firstAttribute="leading" secondItem="qGS-0q-UKC" secondAttribute="trailing" id="gMD-Oa-lcF"/>
-                <constraint firstItem="qGS-0q-UKC" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="10" id="hDo-CW-lx5"/>
+                <constraint firstItem="qGS-0q-UKC" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="8" id="hDo-CW-lx5"/>
                 <constraint firstItem="Mbo-C2-NZn" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="jHI-qb-h0A"/>
                 <constraint firstItem="HYw-Dh-6AX" firstAttribute="width" secondItem="Mbo-C2-NZn" secondAttribute="width" id="jfZ-24-nPb"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="qGS-0q-UKC" secondAttribute="bottom" constant="10" id="jiL-fX-ha9"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="qGS-0q-UKC" secondAttribute="bottom" constant="8" id="jiL-fX-ha9"/>
                 <constraint firstItem="qGS-0q-UKC" firstAttribute="leading" secondItem="Mbo-C2-NZn" secondAttribute="trailing" id="ze4-nW-Aym"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -58,8 +60,8 @@
         </view>
     </objects>
     <resources>
-        <image name="自选_normal" width="30" height="30"/>
-        <image name="资讯_normal" width="30" height="30"/>
-        <image name="资讯_selected" width="30" height="30"/>
+        <image name="下单" width="15" height="15"/>
+        <image name="删除自选" width="15" height="15"/>
+        <image name="加入自选" width="15" height="15"/>
     </resources>
 </document>

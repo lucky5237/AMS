@@ -35,7 +35,7 @@
     if (self.fallRiseBtn.tag == FallRise) {
         [self.fallRiseBtn setTitle:@"涨跌" forState:UIControlStateNormal];
     }else if (self.fallRiseBtn.tag == FallRisePer){
-        [self.fallRiseBtn setTitle:@"涨幅(%)" forState:UIControlStateNormal];
+        [self.fallRiseBtn setTitle:@"涨幅" forState:UIControlStateNormal];
     }
     if (self.fallRiseBtnBlock) {
         self.fallRiseBtnBlock(self.fallRiseBtn.tag);

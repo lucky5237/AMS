@@ -126,19 +126,19 @@
 
 - (void)reloadData
 {
-    NSMutableDictionary *param = [NSMutableDictionary dictionary];
-    param[@"type"] = self.type;
-    param[@"market"] = @"btc_usdt";
-    param[@"size"] = @"1000";
-    [NetWorking requestWithApi:@"http://api.bitkk.com/data/v1/kline" param:param thenSuccess:^(NSDictionary *responseObject) {
-        Y_KLineGroupModel *groupModel = [Y_KLineGroupModel objectWithArray:responseObject[@"data"]];
-        self.groupModel = groupModel;
-        [self.modelsDict setObject:groupModel forKey:self.type];
-        NSLog(@"%@",groupModel);
-        [self.stockChartView reloadData];
-    } fail:^{
-        
-    }];
+//    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+//    param[@"type"] = self.type;
+//    param[@"market"] = @"btc_usdt";
+//    param[@"size"] = @"1000";
+//    [NetWorking requestWithApi:@"http://api.bitkk.com/data/v1/kline" param:param thenSuccess:^(NSDictionary *responseObject) {
+//        Y_KLineGroupModel *groupModel = [Y_KLineGroupModel objectWithArray:responseObject[@"data"]];
+//        self.groupModel = groupModel;
+//        [self.modelsDict setObject:groupModel forKey:self.type];
+//        NSLog(@"%@",groupModel);
+//        [self.stockChartView reloadData];
+//    } fail:^{
+//        
+//    }];
 }
 - (Y_StockChartView *)stockChartView
 {

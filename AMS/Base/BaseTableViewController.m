@@ -28,13 +28,13 @@
 - (UITableView *)tableView{
     if (!_tableView) {
         _tableView = [UITableView zj_tableViewWithSuperview:self.view delegate:self style:UITableViewStylePlain constraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(kTopHeight);
+            make.top.mas_equalTo(0);
             make.left.right.bottom.mas_equalTo(self.view);
         }];
-        _tableView.backgroundColor = kBackGroundColor;
-        _tableView.separatorColor = kWhiteColor;
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-        _tableView.tableFooterView = [[UIView alloc] init];
+        _tableView.backgroundColor = kTableViewBackGroundColor;
+//        _tableView.separatorColor = kTableViewBackGroundColor;
+//        _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+//        _tableView.tableFooterView = [[UIView alloc] init];
         kWeakSelf(self);
         _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
             kStrongSelf(self);

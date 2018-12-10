@@ -31,6 +31,12 @@
 @property (nonatomic, assign) CGPoint LowPoint;
 
 /**
+ *  价格
+ */
+@property (nonatomic, assign) CGPoint pricePoint;
+
++(instancetype) modelWithPrice:(CGPoint) pricePoint;
+/**
  *  工厂方法
  */
 + (instancetype) modelWithOpen:(CGPoint)openPoint close:(CGPoint)closePoint high:(CGPoint)highPoint low:(CGPoint)lowPoint;

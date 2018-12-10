@@ -89,9 +89,7 @@
 //拼接字符串
 #define NSStringFormat(format,...) [NSString stringWithFormat:format,##__VA_ARGS__]
 
-//颜色
-#define kBackGroundColor [UIColor blackColor]
-#define kCellBackGroundColor [UIColor darkGrayColor]
+
 #define kRandomColor    KRGBColor(arc4random_uniform(256)/255.0,arc4random_uniform(256)/255.0,arc4random_uniform(256)/255.0)        //随机色生成
 
 //字体

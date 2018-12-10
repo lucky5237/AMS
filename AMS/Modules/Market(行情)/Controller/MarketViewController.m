@@ -12,8 +12,11 @@
 #import "MarketTableViewHeaderView.h"
 #import "MarketCellMenuView.h"
 #import "SettingMainViewController.h"
+#import "PullDownMenuView.h"
+#import "MarketDetailViewController.h"
+//#import "AppDelegate.h"
 
-@interface MarketViewController ()<UIScrollViewDelegate>
+@interface MarketViewController ()<UIScrollViewDelegate,UIGestureRecognizerDelegate>
 @property(nonatomic,strong) MarketTableViewHeaderView *headerView;
 @property(nonatomic,assign) FallRiseBtnType fallRiseBtnType;
 @property(nonatomic,assign) VolumeBtnType volumeBtnType;
@@ -21,6 +24,8 @@
 //当前选择的indexPath
 @property(nonatomic,assign) NSIndexPath *currentIndexPath;
 @property(nonatomic,strong) MarketModel *currentSelectModel;
+@property(nonatomic,strong) PullDownMenuView *pullDownMenuView;//下拉选择
+@property(nonatomic,strong) UIButton *arrowBtn;
 @end
 
 #define identifier @"MarketTableViewCell"
@@ -46,39 +51,69 @@
     return _headerView;
 }
 
+-(UIButton *)arrowBtn{
+    if (!_arrowBtn) {
+        _arrowBtn = [[UIButton alloc] init];
+        [_arrowBtn setTitle:@"主力合约" forState:UIControlStateNormal];
+        [_arrowBtn setTitleColor:kWhiteColor forState:UIControlStateNormal];
+        _arrowBtn.titleLabel.font = kFontSize(18);
+        [_arrowBtn setImage:[UIImage imageNamed:@"向下箭头"] forState:UIControlStateNormal];
+        _arrowBtn.semanticContentAttribute = [UIApplication sharedApplication].userInterfaceLayoutDirection == UIUserInterfaceLayoutDirectionRightToLeft ? UISemanticContentAttributeForceLeftToRight : UISemanticContentAttributeForceRightToLeft;
+        [_arrowBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, -12)];
+        [_arrowBtn zj_addBtnActionHandler:^{
+            if (self.pullDownMenuView.isShow) {
+                [self hideMenuView];
+            }else{
+                [self showMenuView];
+            }
+        }];
+    }
+    return _arrowBtn;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"主力合约";
-    self.rt_navigationController.navigationBar.backgroundColor = [UIColor darkGrayColor];
-    self.tableView.backgroundColor = kBlackColor;
+    
     [self.tableView registerClass:[MarketTableViewCell class] forCellReuseIdentifier:identifier];
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    self.tableView.separatorColor = kWhiteColor;
     self.tableView.tableFooterView = [[UIView alloc] init];
     //禁用下拉刷新上拉加载
     self.tableView.mj_header = nil;
     self.tableView.mj_footer = nil;
     
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tableViewDidTapped:)];
+    tap.delegate = self;
+    [self.tableView addGestureRecognizer:tap];
+    
     //添加长按事件
     UILongPressGestureRecognizer *longPressGecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(tableViewDidLongPressed:)];
     [self.tableView addGestureRecognizer:longPressGecognizer];
-    
-
-    //添加导航栏右侧菜单栏
-    UIBarButtonItem *barItem = [[UIBarButtonItem alloc] initWithImage:kImageName(@"交易_selected") style:UIBarButtonItemStylePlain target:self action:@selector(rightButtonItemTapped:)];
-    self.navigationItem.rightBarButtonItem = barItem;
     //获取数据
-    [self fetchData];
+    [self fetchData:self.isOption];
 }
 
+-(void)tableViewDidTapped:(UITapGestureRecognizer*)tap{
+    if (self.pullDownMenuView.isShow) {
+        [self hideMenuView];
+    }else{
+        [self disAppearOpView];
+    }
+}
+
+-(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
+    if (self.pullDownMenuView.isShow || self.menuView.isShow) {
+        return YES;
+    }
+    return NO;
+}
 
 /**
  获取数据
  */
--(void)fetchData{
+-(void)fetchData:(BOOL)isOption{
     //模拟数据
     for (int i = 0; i < 10; i++){
         MarketModel *model = [[MarketModel alloc] init];
+        model.marketId = @(i);
         model.name = [NSString stringWithFormat:@"期货名字%d",i];
         model.price = @(i+1);
         model.fallRise = @(6.0);
@@ -92,12 +127,58 @@
     [self.tableView reloadData];
 }
 
--(void)rightButtonItemTapped:(UIBarButtonItem*) barItem{
-    NSLog(@"点击了菜单栏");
-    SettingMainViewController *settingVC = [[SettingMainViewController alloc] init];
-    [self setHidesBottomBarWhenPushed:YES];
-    [self.rt_navigationController pushViewController:settingVC animated:YES];
-    
+/**
+ 显示下拉菜单
+ */
+-(void)showMenuView{
+    NSDictionary *alwaysInDict = @{@"id":@0,@"name":@"主力合约"};
+    NSArray *selectPlateArray = [kUserDefaults objectForKey:PLATE_SETTING_DICT];
+    NSMutableArray *selectArray = [NSMutableArray array];
+    [selectArray addObject:alwaysInDict];
+    [selectArray addObjectsFromArray:selectPlateArray];
+    if (self.pullDownMenuView == nil) {
+        PullDownMenuView *pullDownMenuView = [[PullDownMenuView alloc] initWithFrame:CGRectMake(1, 0, KScreenWidth, [PullDownMenuView heightOfMenuView:selectArray]) dataArray:selectArray];
+        pullDownMenuView.menuCellTapBlock = ^(NSDictionary * _Nonnull dict) {
+            [self.arrowBtn setTitle:dict[@"name"] forState:UIControlStateNormal];
+            [self.arrowBtn sizeToFit];
+            [self hideMenuView];
+        };
+        self.pullDownMenuView = pullDownMenuView;
+        self.pullDownMenuView.layer.shadowColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:1].CGColor;
+        self.pullDownMenuView.layer.shadowOffset = CGSizeMake(0,2);
+        self.pullDownMenuView.layer.shadowOpacity = 1;
+        self.pullDownMenuView.layer.shadowRadius = 5;
+        [self.pullDownMenuView ConfigData:selectArray firstShow:YES];
+    }else{
+        [self.pullDownMenuView ConfigData:selectArray firstShow:NO];
+        self.pullDownMenuView.frame = CGRectMake(1, 0, KScreenWidth, [PullDownMenuView heightOfMenuView:selectArray]);
+    }
+    [UIView beginAnimations:@"animation" context:nil];
+    [UIView setAnimationDuration:0.1];//时间
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];//效果
+    [UIView setAnimationTransition:UIViewAnimationTransitionNone forView:self.view cache:YES];
+    self.tableView.backgroundColor = kBlackColor;
+    self.tableView.alpha = 0.5;
+    [self.view addSubview:self.pullDownMenuView];//要做的事情
+    self.pullDownMenuView.isShow = YES;
+    [UIView commitAnimations];
+    [self.arrowBtn setImage:[UIImage imageNamed:@"向上箭头"] forState:UIControlStateNormal];
+}
+
+/**
+ 隐藏下拉菜单
+ */
+-(void)hideMenuView{
+    [UIView beginAnimations:@"animation" context:nil];
+    [UIView setAnimationDuration:0.1];//时间
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];//效果
+    [UIView setAnimationTransition:UIViewAnimationTransitionNone forView:self.view cache:YES];
+    [self.pullDownMenuView removeFromSuperview];//要做的事情
+    self.pullDownMenuView.isShow = NO;
+    self.tableView.backgroundColor = kTableViewBackGroundColor;
+    self.tableView.alpha = 1;
+    [UIView commitAnimations];
+    [self.arrowBtn setImage:[UIImage imageNamed:@"向下箭头"] forState:UIControlStateNormal];
 }
 
 /**
@@ -144,8 +225,9 @@
                 make.left.mas_equalTo(0);
                 make.top.mas_equalTo(cell.mas_bottom);
             }];
-             MarketModel *model = self.dataArray[self.currentIndexPath.row];
+            MarketModel *model = self.dataArray[self.currentIndexPath.row];
             [self.menuView.collectBtn setSelected:model.hasCollect];
+            self.menuView.isShow = YES;
         }
     }
 }
@@ -159,21 +241,17 @@
     MarketTableViewCell* cell = (MarketTableViewCell*)[self.tableView cellForRowAtIndexPath:self.currentIndexPath];
     [cell configSelection:false];
     self.currentIndexPath = nil;
+    self.menuView.isShow = false;
 }
 
 #pragma mark 滚动代理
--(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+-(void) scrollViewDidScroll:(UIScrollView *)scrollView{
     [self disAppearOpView];
 }
 
 #pragma mark tableView 代理
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    CGFloat height = [tableView fd_heightForCellWithIdentifier:identifier cacheByIndexPath:indexPath configuration:^(MarketTableViewCell* cell) {
-        MarketModel *model = self.dataArray[indexPath.row];
-        [cell configModel:model fallRiseType:self.fallRiseBtnType volumeType:self.volumeBtnType];
-    }];
-    return height;
+    return 44;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -192,17 +270,41 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 40;
+    return 44;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (self.currentIndexPath) {
         [self disAppearOpView];
     }else{
-        NSLog(@"点击了tableViewCell");
+        MarketDetailViewController *detailVC = [[MarketDetailViewController alloc] init];
+        detailVC.model = self.dataArray[indexPath.row];
+        [self.navigationController pushViewController:detailVC animated:YES];
     }
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.rdv_tabBarController.tabBarHidden = NO;
+    if (!self.isOption) {
+        //添加标题
+        [self.navigationController.navigationBar addSubview:self.arrowBtn];
+        [self.arrowBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.center.mas_equalTo(self.navigationController.navigationBar);
+            make.height.mas_equalTo(self.navigationController.navigationBar.mas_height);
+        }];
+    }else{
+        self.title = @"自选";
+    }
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.rdv_tabBarController.tabBarHidden = YES;
+    if (!_isOption) {
+        [self.arrowBtn removeFromSuperview];
+    }
+}
 
 /*
  #pragma mark - Navigation

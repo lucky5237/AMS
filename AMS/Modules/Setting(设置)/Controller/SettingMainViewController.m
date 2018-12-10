@@ -9,6 +9,9 @@
 #import "SettingMainViewController.h"
 #import "SettingHeaderView.h"
 #import "TradeSettingViewController.h"
+#import "PlateViewController.h"
+#import "AccountSettingViewController.h"
+#import "MessageCenterController.h"
 
 @interface SettingMainViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong) SettingHeaderView *headerView;
@@ -20,20 +23,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"设置";
-    self.view.backgroundColor = kBackGroundColor;
+    self.view.backgroundColor = kTableViewBackGroundColor;
     //tableView相关设置
     self.tableView.mj_header = nil;
     self.tableView.mj_footer = nil;
-    self.tableView.backgroundColor = kBackGroundColor;
     self.tableView.scrollEnabled = false;
     self.tableView.showsVerticalScrollIndicator = false;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.tableView.separatorColor = kTableViewBackGroundColor;
     
     //添加退出登录按钮
-    self.logOutBtn = [UIButton zj_buttonWithTitle:@"退出登录" titleColor:kWhiteColor backColor:kDarkGrayColor fontSize:14 isBold:false cornerRadius:0 supView:self.view constraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(kRealWidth(20));
-        make.right.mas_equalTo(-kRealWidth(20));
-        make.height.mas_equalTo(kRealHeight(44));
-        make.bottom.mas_equalTo(-kRealHeight(20));
+    self.logOutBtn = [UIButton zj_buttonWithTitle:@"退出登录" titleColor:kBlueTextColor backColor:kCellBackGroundColor fontSize:15 isBold:false cornerRadius:0 supView:self.view constraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(0);
+        make.right.mas_equalTo(0);
+        make.height.mas_equalTo(49);
+        make.bottom.mas_equalTo(-15);
     } touchUp:^(id sender) {
         [self logOut];
     }];
@@ -46,7 +50,7 @@
  //配置相关数据
  */
 -(void)configData{
-    [self.dataArray addObjectsFromArray:@[@"交易设置",@"板块设置",@"账号设置",@"帮助"]];
+    [self.dataArray addObjectsFromArray:@[@"交易设置",@"板块设置",@"账号设置",@"消息中心",@"帮助"]];
     [self.tableView reloadData];
     
 }
@@ -65,23 +69,26 @@
 -(SettingHeaderView *)headerView{
     if (!_headerView) {
         _headerView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([SettingHeaderView class]) owner:nil options:nil]lastObject];
+//        _headerView.backgroundColor = kCellBackGroundColor;
     }
     return _headerView;
 }
 
 #pragma mark tableView 代理相关
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-    cell.backgroundColor = kBackGroundColor;
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
+    cell.backgroundColor = kCellBackGroundColor;
+    cell.imageView.image = kImageName(self.dataArray[indexPath.row]);
+    cell.textLabel.font = kFontSize(14);
     cell.textLabel.text = self.dataArray[indexPath.row];
-    cell.textLabel.textColor = kWhiteColor;
+    cell.textLabel.textColor = kNormalTextColor;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 44;
+    return 49;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -89,15 +96,26 @@
     if (indexPath.row == 0) {
         //点击了交易设置
         TradeSettingViewController *tradeSettingVC = [[TradeSettingViewController alloc] init];
-        [self.rt_navigationController pushViewController:tradeSettingVC animated:YES];
+        tradeSettingVC.hideRightButton = YES;
+        [self.navigationController pushViewController:tradeSettingVC animated:YES];
     }else if (indexPath.row == 1){
         //点击了板块设置
+        PlateViewController *plateVC = [[PlateViewController alloc] init];
+        plateVC.hideRightButton = YES;
+        [self.navigationController pushViewController:plateVC animated:YES];
     }else if (indexPath.row == 2){
         //点击了账号设置
+        AccountSettingViewController *accountSettingVC = [[AccountSettingViewController alloc] init];
+        accountSettingVC.hideRightButton = YES;
+        [self.navigationController pushViewController:accountSettingVC animated:YES];
     }else if (indexPath.row == 3){
-        //点击了帮助
+        //点击了消息中心
+       MessageCenterController* msgCenterVC = [[MessageCenterController alloc] init];
+        msgCenterVC.hideRightButton = YES;
+        [self.navigationController pushViewController:msgCenterVC animated:YES];
+    }else if (indexPath.row == 4){
+        [MBProgressHUD showInfoMessage:@"点击了帮助"];
     }
-    
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
@@ -106,7 +124,7 @@
     return self.headerView;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return kRealHeight(90);
+    return 120;
 }
 
 

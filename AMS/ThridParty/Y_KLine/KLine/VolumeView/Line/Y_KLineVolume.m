@@ -32,7 +32,7 @@
     }
     CGContextRef context = self.context;
     CGContextSetStrokeColorWithColor(context, self.lineColor.CGColor);
-    CGContextSetLineWidth(context, [Y_StockChartGlobalVariable kLineWidth]);
+    CGContextSetLineWidth(context, self.type == Y_StockChartcenterViewTypeKline ? [Y_StockChartGlobalVariable kLineWidth] : Y_StockChartTimeLineLineWidth);
     
     const CGPoint solidPoints[] = {self.positionModel.StartPoint, self.positionModel.EndPoint};
     CGContextStrokeLineSegments(context, solidPoints, 2);

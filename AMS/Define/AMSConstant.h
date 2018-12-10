@@ -9,11 +9,31 @@
 #ifndef AMSConstant_h
 #define AMSConstant_h
 
-#define NEWS_URL @"http://baidu.com"
-#define MARKET_CELL_NAME_WIDTH (KScreenWidth - 10) / 4
-#define MARKET_CELL_PRICE_WIDTH (KScreenWidth - 10) / 4
-#define MARKET_CELL_FALLRISE_WIDTH (KScreenWidth - 10) / 4
-#define MARKET_CELL_VOLUME_WIDTH (KScreenWidth - 10) / 4
+#define NEWS_URL @"https://www.baidu.com/"
+#define MARKET_CELL_NAME_WIDTH (KScreenWidth - 20) / 4
+#define MARKET_CELL_PRICE_WIDTH (KScreenWidth - 20) / 4
+#define MARKET_CELL_FALLRISE_WIDTH (KScreenWidth - 20) / 4
+#define MARKET_CELL_VOLUME_WIDTH (KScreenWidth - 20) / 4
+//背景颜色
+#define kNavBackGroundColor [UIColor zj_colorWithHexString:@"#21212D" alpha:1]
+#define kBackGroundColor [UIColor zj_colorWithHexString:@"#1A1A26" alpha:1]
+#define kCellBackGroundColor [UIColor zj_colorWithHexString:@"#21212D" alpha:1]
+#define kTabBarBackGroundColor [UIColor zj_colorWithHexString:@"#21202E" alpha:1]
+#define kTabBarSelectTextColor [UIColor zj_colorWithHexString:@"#C80E42" alpha:1]
+#define kTabBarNormalTextColor [UIColor zj_colorWithHexString:@"#BFC0D2" alpha:1]
+#define kTableViewBackGroundColor kBackGroundColor
+#define kMenuRedBackGroundColor [UIColor zj_colorWithHexString:@"#C80E42" alpha:1]
+
+//字体颜色
+#define kNormalTextColor [UIColor zj_colorWithHexString:@"#BFC0D2" alpha:1]
+#define kYellowTextColor [UIColor zj_colorWithHexString:@"#D5AC0E" alpha:1]
+#define kGreenTextColor [UIColor zj_colorWithHexString:@"#1C9212" alpha:1]
+#define kRedTextColor [UIColor zj_colorWithHexString:@"#9F0C0C" alpha:1]
+#define kBlueTextColor [UIColor zj_colorWithHexString:@"#4899FF" alpha:1]
+#define kTableViewHeaderGrayTextColor [UIColor zj_colorWithHexString:@"#B9B8CA" alpha:1]
+#define klineBgLineRedColor [UIColor zj_colorWithHexString:@"#DA2638" alpha:1]
+#define TIME_OUT 60
+#define KEYBOARD_HEIGHT 265
 
 typedef NS_ENUM(NSInteger,FallRiseBtnType) {
     FallRise = 0,//涨跌
@@ -32,7 +52,57 @@ typedef NS_ENUM(NSInteger,OrderPlaceSettingType) {
     Lock//锁单
 };
 
+typedef NS_ENUM(NSInteger,TradeCellMenuBtnType) {
+    CloseBtn = 0,//平仓
+    ReverseBtn,//反手
+    LockBtn//锁单
+};
+
+//键盘相关
+typedef NS_ENUM(NSInteger,CustomKeyBoardBtnType) {
+    Zero = 0,
+    One,
+    Two,
+    Three,
+    Four,
+    Five,
+    Six,
+    Seven,
+    Eight,
+    Nine,
+    Decimal,//小数点
+    Cancel,//清空
+    Add,//加
+    Minus,//减
+    PaiDui_Price,//排队价
+    DuiShou_Price,//对手价
+    Shi_Price,//市价
+    New_Price,//最新价
+    Super_Price,//超价
+    Hide//隐藏键盘
+};
+
+typedef NS_ENUM(NSInteger,Y_KlineViewType) {
+   MainView = 0,//主图
+   VolView,//成交量
+   AccessoryView//辅助图
+};
+
+typedef NS_ENUM(NSInteger,ParamShowType) {
+    NoneType= 0,//未显示
+    LeftType,//在左边
+    RightType//在右边
+    
+};
+
+#define MAX_NUMBER_BEFORE_DECIMAL 6
+#define MAX_NUMBER_AFTER_DECIMAL 2
+
 //userDefaults 参数
+
+#pragma mark 交易设置相关
+
+#define CheckMark_Button_Tag 100
 //交易声音提示
 #define TRADE_SOUND_OPEN @"TRADE_SOUND_OPEN"
 //平仓下单价格
@@ -41,5 +111,35 @@ typedef NS_ENUM(NSInteger,OrderPlaceSettingType) {
 #define REVERSE_ORDER_PRICE @"REVERSE_ORDER_PRICE"
 //锁单下单价格
 #define LOCK_ORDER_PRICE @"LOCK_ORDER_PRICE"
+
+static NSString *kOrderPriceItems[4] = {
+    @"对价",
+    @"市价",
+    @"排队价",
+    @"最新价"
+};
+
+static NSString *kOrderPriceKeys[3] = {
+    CLOSE_ORDER_PRICE,
+    REVERSE_ORDER_PRICE,
+    LOCK_ORDER_PRICE
+};
+
+static NSString *kHandicapParamNames[20] = {
+    @"卖价",@"卖量",@"买价",@"买量",@"最新",@"涨跌",@"开盘",@"成交量",@"最高",@"持仓量",@"最低",@"日增仓",@"均价",@"外盘",@"结算",@"内盘",@"咋结",@"涨停",@"昨收",@"跌停"
+};
+
+#pragma mark 板块设置相关
+#define PLATE_SETTING_DICT @"PLATE_SETTING_DICT"
+
+#pragma mark k线图相关
+
+#define MAIN_MAVIEW_HEADER 25
+#define KLINE_PARAMVIEW_HEIGHT 368
+#define TIMELINE_PARAMVIEW_HEIGHT 288
+#define PARAMVIEW_WIDTH 83
+#define ANIMATION_TIME 0.2
+#define LeftXViewPadding 0
+#define kNotification_Name_Param_Update @"kNotification_Name_Param_Update"
 
 #endif /* AMSConstant_h */

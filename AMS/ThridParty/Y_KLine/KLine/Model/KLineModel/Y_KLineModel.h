@@ -80,6 +80,30 @@ typedef NS_ENUM(NSInteger, YCoinType) {
 @property (nonatomic, assign) CGFloat Volume;
 
 /**
+ *  均价
+ */
+@property (nonatomic, strong) NSNumber * average;
+
+/**
+ *  涨跌幅
+ */
+@property (nonatomic, strong) NSNumber * risePer;
+
+@property (nonatomic, assign) CGFloat yValue;
+
+/**
+ *  持仓量
+ */
+@property (nonatomic, strong) NSNumber *storage;
+
+/**
+ *  价格
+ */
+@property (nonatomic, assign) NSNumber *price;
+
+
+
+/**
  *  是否是某个月的第一个交易日
  */
 @property (nonatomic, assign) BOOL isFirstTradeDate;
@@ -88,9 +112,17 @@ typedef NS_ENUM(NSInteger, YCoinType) {
 //移动平均数分为MA（简单移动平均数）和EMA（指数移动平均数），其计算公式如下：［C为收盘价，N为周期数］：
 //MA（N）=（C1+C2+……CN）/N
 
-
+@property (nonatomic, copy) NSNumber *MA20;
 //MA（7）=（C1+C2+……CN）/7
 @property (nonatomic, copy) NSNumber *MA7;
+
+@property (nonatomic, copy) NSNumber *MA5;
+
+@property (nonatomic, copy) NSNumber *MA10;
+
+@property (nonatomic, copy) NSNumber *MA40;
+
+@property (nonatomic, copy) NSNumber *MA60;
 
 //MA（30）=（C1+C2+……CN）/30
 @property (nonatomic, copy) NSNumber *MA30;
@@ -108,8 +140,6 @@ typedef NS_ENUM(NSInteger, YCoinType) {
 @property (nonatomic, copy) NSNumber *Volume_EMA30;
 
 #pragma BOLL线
-
-@property (nonatomic, copy) NSNumber *MA20;
 
 // 标准差 二次方根【 下的 (n-1)天的 C-MA二次方 和】
 @property (nonatomic, copy) NSNumber *BOLL_MD;
@@ -148,6 +178,9 @@ typedef NS_ENUM(NSInteger, YCoinType) {
 //@property (nonatomic, assign) CGFloat EMA30;
 @property (nonatomic, copy) NSNumber *EMA26;
 
+@property (nonatomic, copy) NSNumber *EMA5;
+
+@property (nonatomic, copy) NSNumber *EMA10;
 //MACD主要是利用长短期的二条平滑平均线，计算两者之间的差离值，作为研判行情买卖之依据。MACD指标是基于均线的构造原理，对价格收盘价进行平滑处 理(求出算术平均值)后的一种趋向类指标。它主要由两部分组成，即正负差(DIF)、异同平均数(DEA)，其中，正负差是核心，DEA是辅助。DIF是 快速平滑移动平均线(EMA1)和慢速平滑移动平均线(EMA2)的差。
 
 //在现有的技术分析软件中，MACD常用参数是快速平滑移动平均线为12，慢速平滑移动平均线参数为26。此外，MACD还有一个辅助指标——柱状线 (BAR)。在大多数技术分析软件中，柱状线是有颜色的，在低于0轴以下是绿色，高于0轴以上是红色，前者代表趋势较弱，后者代表趋势较强。
@@ -212,6 +245,8 @@ typedef NS_ENUM(NSInteger, YCoinType) {
 
 //初始化Model
 - (void) initWithArray:(NSArray *)arr;
+
+- (void) initWithTimeLineArray:(NSArray *)arr;
 
 - (void) initWithDict:(NSDictionary *)dict;
 

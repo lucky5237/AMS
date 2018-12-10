@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <math.h>
+#import "Y_StockChartGlobalVariable.h"
 @class Y_KLineModel;
 
 @interface Y_KLineGroupModel : NSObject
@@ -16,7 +17,7 @@
 @property (nonatomic, copy) NSArray<Y_KLineModel *> *models;
 
 //初始化Model
-+ (instancetype) objectWithArray:(NSArray *)arr;
++ (instancetype) objectWithArray:(NSArray *)arr type:(Y_StockChartCenterViewType)type;
 @end
 
 //初始化第一个Model

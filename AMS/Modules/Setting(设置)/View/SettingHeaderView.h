@@ -13,7 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SettingHeaderView : UIView
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *levelLabel;
+@property (weak, nonatomic) IBOutlet UIButton *levelBtn;
+@property (weak, nonatomic) IBOutlet UIView *divider;
 
 -(void)configUserInfo:(NSDictionary*) userInfo;
 

@@ -67,9 +67,34 @@
 +(UIColor *)longPressLineColor;
 
 /**
- *  ma5的颜色
+ *  ma7的颜色
  */
 +(UIColor *)ma7Color;
+
+/**
+ *  ma5的颜色
+ */
++(UIColor *)ma5Color;
+
+/**
+ *  ma10的颜色
+ */
++(UIColor *)ma10Color;
+
+/**
+ *  ma20的颜色
+ */
++(UIColor *)ma20Color;
+
+/**
+ *  ma40的颜色
+ */
++(UIColor *)ma40Color;
+
+/**
+ *  ma60的颜色
+ */
++(UIColor *)ma60Color;
 
 /**
  *  ma30颜色
@@ -90,5 +115,10 @@
  *  BOLL_DN颜色
  */
 +(UIColor *)BOLL_DNColor;
+
+/**
+ *  背景线颜色
+ */
++(UIColor *)bgLineColor;
 
 @end

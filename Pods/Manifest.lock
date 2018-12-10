@@ -27,7 +27,6 @@ PODS:
   - CocoaAsyncSocket (7.6.1)
   - DZNEmptyDataSet (1.8.1)
   - ECSlidingViewController (2.0.3)
-  - FDFullscreenPopGesture (1.1)
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
@@ -122,7 +121,6 @@ DEPENDENCIES:
   - CocoaAsyncSocket
   - DZNEmptyDataSet
   - ECSlidingViewController (~> 2.0.3)
-  - FDFullscreenPopGesture (= 1.1)
   - Harpy
   - IQKeyboardManager
   - JDStatusBarNotification
@@ -151,7 +149,6 @@ SPEC CHECKSUMS:
   CocoaAsyncSocket: 7eadd3f59e1a6c84e2aefc93e9ff7b55156fe174
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   ECSlidingViewController: 6485c14f23b4487e9946535421ca8f111f86cc53
-  FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   Harpy: b2fbe6819f6a8932df32d7cd2fb20f442df86bbc
   IQKeyboardManager: 83eae5318483a34eb2069ef413d195b97605232e
@@ -173,6 +170,6 @@ SPEC CHECKSUMS:
   YYCategories: 6bcd4314c6661a561410dce4a793379ebd306abd
   ZJKitTool: 997e3b28d233e8fa5752eb16251d960341b13cc6
 
-PODFILE CHECKSUM: d8a4723a6d92010fe9ed41a50a951217705e5745
+PODFILE CHECKSUM: d1200b772ac223d3258396b2609934a801226122
 
 COCOAPODS: 1.4.0

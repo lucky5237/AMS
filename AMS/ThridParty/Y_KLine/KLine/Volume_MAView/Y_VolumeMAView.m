@@ -11,12 +11,14 @@
 #import "UIColor+Y_StockChart.h"
 #import "Y_KLineModel.h"
 @interface Y_VolumeMAView ()
-@property (strong, nonatomic) UILabel *VolumeMA7Label;
-
-@property (strong, nonatomic) UILabel *VolumeMA30Label;
-
-@property (strong, nonatomic) UILabel *volumeDescLabel;
-
+//@property (strong, nonatomic) UILabel *VolumeMA7Label;
+//
+//@property (strong, nonatomic) UILabel *VolumeMA30Label;
+//
+//@property (strong, nonatomic) UILabel *volumeDescLabel;
+@property (strong, nonatomic) UILabel *volumeLabel;
+@property (strong, nonatomic) UILabel *cjlLabel;
+@property (strong, nonatomic) UILabel *dpidLabel;
 @end
 @implementation Y_VolumeMAView
 
@@ -24,33 +26,36 @@
 {
     self = [super init];
     if (self) {
-        _VolumeMA7Label = [self private_createLabel];
-        _VolumeMA30Label = [self private_createLabel];
-        _volumeDescLabel = [self private_createLabel];
-
-
+        _volumeLabel = [self private_createLabel];
+        _cjlLabel = [self private_createLabel];
+        _dpidLabel = [self private_createLabel];
         
-        _VolumeMA7Label.textColor = [UIColor ma7Color];
-        _VolumeMA30Label.textColor = [UIColor ma30Color];
+        _volumeLabel.textColor = [UIColor whiteColor];
+        _cjlLabel.textColor = [UIColor ma20Color];
+        _dpidLabel.textColor = [UIColor whiteColor];
         
-        [_volumeDescLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.mas_left);
-            make.top.equalTo(self.mas_top);
-            make.bottom.equalTo(self.mas_bottom);
+        _cjlLabel.text = @"CJL";
+        
+        [_cjlLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(5);
+            make.top.mas_equalTo(self);
+            make.bottom.mas_equalTo(self);
+            make.width.mas_equalTo(72);
         }];
         
         
-        [_VolumeMA7Label mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(_volumeDescLabel.mas_right);
-            make.top.equalTo(self.mas_top);
-            make.bottom.equalTo(self.mas_bottom);
-            
+        [_volumeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(self.cjlLabel.mas_right);
+            make.top.mas_equalTo(self);
+            make.bottom.mas_equalTo(self);
+            make.width.mas_equalTo((KScreenWidth - 72)/2);
         }];
         
-        [_VolumeMA30Label mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(_VolumeMA7Label.mas_right);
-            make.top.equalTo(self.mas_top);
-            make.bottom.equalTo(self.mas_bottom);
+        [_dpidLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(self.volumeLabel.mas_right);
+            make.top.mas_equalTo(self);
+            make.bottom.mas_equalTo(self);
+            make.width.mas_equalTo((KScreenWidth - 72)/2);
         }];
         
     }
@@ -65,18 +70,18 @@
 }
 -(void)maProfileWithModel:(Y_KLineModel *)model
 {
-
-
-    _volumeDescLabel.text = [NSString stringWithFormat:@" 成交量(7,30):%.4f ",model.Volume];
- 
-    _VolumeMA7Label.text = [NSString stringWithFormat:@"  MA7：%.8f ",model.Volume_MA7.floatValue];
-    _VolumeMA30Label.text = [NSString stringWithFormat:@"  MA30：%.8f",model.Volume_MA30.floatValue];
+    _volumeLabel.text = [NSString stringWithFormat:@"VOL：%.2f（47：53）",model.Volume];
+    _dpidLabel.text = @"DPID：135102";
+//    _volumeDescLabel.text = [NSString stringWithFormat:@" 成交量(7,30):%.4f ",model.Volume];
+//
+//    _VolumeMA7Label.text = [NSString stringWithFormat:@"  MA7：%.8f ",model.Volume_MA7.floatValue];
+//    _VolumeMA30Label.text = [NSString stringWithFormat:@"  MA30：%.8f",model.Volume_MA30.floatValue];
 }
 - (UILabel *)private_createLabel
 {
     UILabel *label = [UILabel new];
-    label.font = [UIFont systemFontOfSize:10];
-    label.textColor = [UIColor assistTextColor];
+    label.font =kFontSize(11);
+    label.textColor = [UIColor whiteColor];
     [self addSubview:label];
     return label;
 }

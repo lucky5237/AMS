@@ -7,9 +7,38 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1603A7CA21A7D2A000BF3802 /* ModifyPasswordController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1603A7C821A7D2A000BF3802 /* ModifyPasswordController.m */; };
+		1603A7CB21A7D2A000BF3802 /* ModifyPasswordController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1603A7C921A7D2A000BF3802 /* ModifyPasswordController.xib */; };
+		160996A421A7EC420010D1D8 /* CustomPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 160996A321A7EC420010D1D8 /* CustomPopView.m */; };
+		160996A621A7EC4E0010D1D8 /* CustomPopView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 160996A521A7EC4E0010D1D8 /* CustomPopView.xib */; };
 		161F28F221883DC00036E22B /* MBProgressHUD+AMS.m in Sources */ = {isa = PBXBuildFile; fileRef = 161F28F021883DC00036E22B /* MBProgressHUD+AMS.m */; };
 		161F28F521883F680036E22B /* BestMessageUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 161F28F421883F680036E22B /* BestMessageUtil.mm */; };
 		161F28F7218844AD0036E22B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 161F28F6218844AC0036E22B /* Assets.xcassets */; };
+		162C246E21B919A100507022 /* Y_KStockScrollView.h in Sources */ = {isa = PBXBuildFile; fileRef = 165D503421B525AC00F1F031 /* Y_KStockScrollView.h */; };
+		1633D02A21A7F90F002E0FD0 /* ForgetPwdController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1633D02821A7F90F002E0FD0 /* ForgetPwdController.m */; };
+		1633D02B21A7F90F002E0FD0 /* ForgetPwdController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1633D02921A7F90F002E0FD0 /* ForgetPwdController.xib */; };
+		1633D02E21A8056B002E0FD0 /* MessageCenterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1633D02D21A8056B002E0FD0 /* MessageCenterController.m */; };
+		163DE91321A29B0200A29315 /* LMRStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 163DE90A21A29B0200A29315 /* LMRStyle.m */; };
+		163DE91421A29B0200A29315 /* LMReportView.m in Sources */ = {isa = PBXBuildFile; fileRef = 163DE90B21A29B0200A29315 /* LMReportView.m */; };
+		163DE91521A29B0200A29315 /* LMRGrid.m in Sources */ = {isa = PBXBuildFile; fileRef = 163DE90C21A29B0200A29315 /* LMRGrid.m */; };
+		163DE91621A29B0200A29315 /* LMRLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 163DE90D21A29B0200A29315 /* LMRLabel.m */; };
+		163DE91721A29B0200A29315 /* NSIndexPath+LMReport.m in Sources */ = {isa = PBXBuildFile; fileRef = 163DE90E21A29B0200A29315 /* NSIndexPath+LMReport.m */; };
+		163DE91C21A2AC4000A29315 /* PriceCustomKeyboardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 163DE91B21A2AC4000A29315 /* PriceCustomKeyboardView.xib */; };
+		163DE91F21A2C07200A29315 /* PriceCustomKeyboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 163DE91E21A2C07200A29315 /* PriceCustomKeyboardView.m */; };
+		16552EFF21ACE9AC00FA511D /* CustomStatusBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16552EFE21ACE9AC00FA511D /* CustomStatusBarView.m */; };
+		16552F0121ACE9BD00FA511D /* CustomStatusBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16552F0021ACE9BD00FA511D /* CustomStatusBarView.xib */; };
+		16552F0521AD111D00FA511D /* KLineSelectCycleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16552F0421AD111D00FA511D /* KLineSelectCycleView.xib */; };
+		16552F0821AD11F200FA511D /* KLineSelectCycleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16552F0721AD11F200FA511D /* KLineSelectCycleView.m */; };
+		16552F0C21AD145F00FA511D /* KlineSelectCycleCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 16552F0A21AD145F00FA511D /* KlineSelectCycleCollectionViewCell.m */; };
+		16552F0D21AD145F00FA511D /* KlineSelectCycleCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16552F0B21AD145F00FA511D /* KlineSelectCycleCollectionViewCell.xib */; };
+		16552F1021AD469A00FA511D /* KLineLongTapParamView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16552F0F21AD469A00FA511D /* KLineLongTapParamView.m */; };
+		16552F1221AD46AB00FA511D /* KLineLongTapParamView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16552F1121AD46AB00FA511D /* KLineLongTapParamView.xib */; };
+		16552F1521AE7E9400FA511D /* Y_KLine_TimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16552F1421AE7E9400FA511D /* Y_KLine_TimeView.m */; };
+		165D505821B525AD00F1F031 /* Y_KStockScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 165D503521B525AC00F1F031 /* Y_KStockScrollView.m */; };
+		165D506A21B52C0700F1F031 /* minuteData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 165D506821B52C0700F1F031 /* minuteData.plist */; };
+		165D506B21B52C0700F1F031 /* dayData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 165D506921B52C0700F1F031 /* dayData.plist */; };
+		16605EF421B61800008B19C7 /* Y_BollMAView.h in Sources */ = {isa = PBXBuildFile; fileRef = 16605EF221B6121E008B19C7 /* Y_BollMAView.h */; };
+		16605EF521B61800008B19C7 /* Y_BollMAView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16605EF321B6121E008B19C7 /* Y_BollMAView.m */; };
 		16633A352181605000D450E8 /* AMSSocketClient.mm in Sources */ = {isa = PBXBuildFile; fileRef = 16633A342181605000D450E8 /* AMSSocketClient.mm */; };
 		16633A3C21819D1A00D450E8 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16633A3B21819D1A00D450E8 /* BaseViewController.m */; };
 		16633A3F2181BE6C00D450E8 /* AMSUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 16633A3E2181BE6C00D450E8 /* AMSUtil.m */; };
@@ -38,8 +67,31 @@
 		166DDC2C218AF5C500D43461 /* NetWorking.m in Sources */ = {isa = PBXBuildFile; fileRef = 166DDC2B218AF5C400D43461 /* NetWorking.m */; };
 		167900352187F192008ECB31 /* UIButton+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 167900332187F192008ECB31 /* UIButton+Category.m */; };
 		167900382188253C008ECB31 /* DetailViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 167900372188253C008ECB31 /* DetailViewController.mm */; };
+		167D672A21AB89C3004431DC /* UIView+AZGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = 167D672921AB89C3004431DC /* UIView+AZGradient.m */; };
+		167E8A6721A3E13100096C93 /* ForbidPasteTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 167E8A6621A3E13100096C93 /* ForbidPasteTextField.m */; };
+		167E8A6A21A3F3A400096C93 /* MarketDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 167E8A6921A3F3A400096C93 /* MarketDetailViewController.m */; };
+		167E8A6D21A3F4AE00096C93 /* TimeChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 167E8A6C21A3F4AE00096C93 /* TimeChartViewController.m */; };
+		167E8A7021A3F50100096C93 /* KlineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 167E8A6F21A3F50100096C93 /* KlineViewController.m */; };
+		167E8A7321A3F59300096C93 /* HandicapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 167E8A7221A3F59300096C93 /* HandicapViewController.m */; };
+		167E8A7C21A4114B00096C93 /* HandicapCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 167E8A7A21A4114B00096C93 /* HandicapCollectionViewCell.m */; };
+		167E8A7D21A4114B00096C93 /* HandicapCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 167E8A7B21A4114B00096C93 /* HandicapCollectionViewCell.xib */; };
+		167E8A8121A4119800096C93 /* HandicapTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 167E8A7F21A4119800096C93 /* HandicapTableViewCell.m */; };
+		167E8A8221A4119800096C93 /* HandicapTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 167E8A8021A4119800096C93 /* HandicapTableViewCell.xib */; };
+		167E8A8521A4F91C00096C93 /* DealDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 167E8A8421A4F91C00096C93 /* DealDetailModel.m */; };
+		167E8A8821A53BCD00096C93 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 167E8A8721A53BCD00096C93 /* SearchViewController.m */; };
+		167E8A8C21A541CE00096C93 /* SearchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 167E8A8A21A541CE00096C93 /* SearchTableViewCell.m */; };
+		167E8A8D21A541CE00096C93 /* SearchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 167E8A8B21A541CE00096C93 /* SearchTableViewCell.xib */; };
+		167E8A9321A63F4F00096C93 /* ChartBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 167E8A9221A63F4F00096C93 /* ChartBottomView.m */; };
+		167E8A9521A63F5E00096C93 /* ChartBottomView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 167E8A9421A63F5E00096C93 /* ChartBottomView.xib */; };
 		16879408219C13B600B989A2 /* TradeSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16879407219C13B600B989A2 /* TradeSettingViewController.m */; };
 		1687940B219C25E400B989A2 /* OrderPriceSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1687940A219C25E400B989A2 /* OrderPriceSettingViewController.m */; };
+		1687940E219D0B5B00B989A2 /* PlateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1687940D219D0B5B00B989A2 /* PlateViewController.m */; };
+		16879411219D171600B989A2 /* AccountSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16879410219D171600B989A2 /* AccountSettingViewController.m */; };
+		16879414219D1AAF00B989A2 /* PullDownMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16879413219D1AAF00B989A2 /* PullDownMenuView.m */; };
+		1687941A219D1EA700B989A2 /* PullDownMenuCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 16879418219D1EA700B989A2 /* PullDownMenuCollectionViewCell.m */; };
+		1687941B219D1EA700B989A2 /* PullDownMenuCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16879419219D1EA700B989A2 /* PullDownMenuCollectionViewCell.xib */; };
+		16879422219E91E800B989A2 /* TradeHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16879421219E91E800B989A2 /* TradeHeaderView.m */; };
+		16879424219E921800B989A2 /* TradeHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16879423219E921800B989A2 /* TradeHeaderView.xib */; };
 		169180A421918D5D00BC1901 /* default_best_rpchead.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1691806E21918D4D00BC1901 /* default_best_rpchead.cpp */; };
 		169180A621918D5D00BC1901 /* step_serializer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1691807021918D4E00BC1901 /* step_serializer.cpp */; };
 		169180A721918D5D00BC1901 /* default_best_record.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1691807121918D4E00BC1901 /* default_best_record.cpp */; };
@@ -60,7 +112,12 @@
 		169180C221918D5D00BC1901 /* default_best_field.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 169180A321918D5D00BC1901 /* default_best_field.cpp */; };
 		1693ADF9218007FE00EDEEF6 /* AMSSocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1693ADF7218007FE00EDEEF6 /* AMSSocketManager.m */; };
 		169727C32186B45F009F6F65 /* AppDelegate+AppSevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 169727C22186B45F009F6F65 /* AppDelegate+AppSevice.m */; };
+		16AB268121BDFC8200755B81 /* field_key.h in Sources */ = {isa = PBXBuildFile; fileRef = 16AB268021BDFADD00755B81 /* field_key.h */; };
+		16B38ACB21A257D300681503 /* TradeCellMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B38ACA21A257D300681503 /* TradeCellMenuView.m */; };
+		16B38ACD21A2580A00681503 /* TradeCellMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16B38ACC21A2580A00681503 /* TradeCellMenuView.xib */; };
 		16BAC14721893F8B008F965E /* LeftMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16BAC14621893F8B008F965E /* LeftMenuViewController.m */; };
+		16CA589821B772F60010DC43 /* TimeLineLongTapParamView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16CA589521B772F50010DC43 /* TimeLineLongTapParamView.m */; };
+		16CA589921B77B680010DC43 /* TimeLineLongTapParamView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16CA589621B772F50010DC43 /* TimeLineLongTapParamView.xib */; };
 		16CCD3A821831456003D5BFD /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16CCD3A721831456003D5BFD /* MainViewController.m */; };
 		16D3D818217F17A000793DF8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 16D3D817217F17A000793DF8 /* AppDelegate.m */; };
 		16D3D81E217F17A000793DF8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16D3D81C217F17A000793DF8 /* Main.storyboard */; };
@@ -84,11 +141,56 @@
 
 /* Begin PBXFileReference section */
 		0365014E1928517E8145E3AB /* Pods-AMS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AMS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AMS/Pods-AMS.debug.xcconfig"; sourceTree = "<group>"; };
+		1603A7C721A7D2A000BF3802 /* ModifyPasswordController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModifyPasswordController.h; sourceTree = "<group>"; };
+		1603A7C821A7D2A000BF3802 /* ModifyPasswordController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ModifyPasswordController.m; sourceTree = "<group>"; };
+		1603A7C921A7D2A000BF3802 /* ModifyPasswordController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ModifyPasswordController.xib; sourceTree = "<group>"; };
+		160996A221A7EC420010D1D8 /* CustomPopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomPopView.h; sourceTree = "<group>"; };
+		160996A321A7EC420010D1D8 /* CustomPopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomPopView.m; sourceTree = "<group>"; };
+		160996A521A7EC4E0010D1D8 /* CustomPopView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomPopView.xib; sourceTree = "<group>"; };
 		161F28F021883DC00036E22B /* MBProgressHUD+AMS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+AMS.m"; sourceTree = "<group>"; };
 		161F28F121883DC00036E22B /* MBProgressHUD+AMS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+AMS.h"; sourceTree = "<group>"; };
 		161F28F321883F680036E22B /* BestMessageUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BestMessageUtil.h; sourceTree = "<group>"; };
 		161F28F421883F680036E22B /* BestMessageUtil.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = BestMessageUtil.mm; sourceTree = "<group>"; };
 		161F28F6218844AC0036E22B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1633D02721A7F90F002E0FD0 /* ForgetPwdController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForgetPwdController.h; sourceTree = "<group>"; };
+		1633D02821A7F90F002E0FD0 /* ForgetPwdController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForgetPwdController.m; sourceTree = "<group>"; };
+		1633D02921A7F90F002E0FD0 /* ForgetPwdController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ForgetPwdController.xib; sourceTree = "<group>"; };
+		1633D02C21A8056B002E0FD0 /* MessageCenterController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessageCenterController.h; sourceTree = "<group>"; };
+		1633D02D21A8056B002E0FD0 /* MessageCenterController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessageCenterController.m; sourceTree = "<group>"; };
+		163DE90821A29B0200A29315 /* NSIndexPath+LMReport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSIndexPath+LMReport.h"; sourceTree = "<group>"; };
+		163DE90921A29B0200A29315 /* LMReport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMReport.h; sourceTree = "<group>"; };
+		163DE90A21A29B0200A29315 /* LMRStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMRStyle.m; sourceTree = "<group>"; };
+		163DE90B21A29B0200A29315 /* LMReportView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMReportView.m; sourceTree = "<group>"; };
+		163DE90C21A29B0200A29315 /* LMRGrid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMRGrid.m; sourceTree = "<group>"; };
+		163DE90D21A29B0200A29315 /* LMRLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMRLabel.m; sourceTree = "<group>"; };
+		163DE90E21A29B0200A29315 /* NSIndexPath+LMReport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexPath+LMReport.m"; sourceTree = "<group>"; };
+		163DE90F21A29B0200A29315 /* LMRStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMRStyle.h; sourceTree = "<group>"; };
+		163DE91021A29B0200A29315 /* LMRLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMRLabel.h; sourceTree = "<group>"; };
+		163DE91121A29B0200A29315 /* LMRGrid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMRGrid.h; sourceTree = "<group>"; };
+		163DE91221A29B0200A29315 /* LMReportView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMReportView.h; sourceTree = "<group>"; };
+		163DE91B21A2AC4000A29315 /* PriceCustomKeyboardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PriceCustomKeyboardView.xib; sourceTree = "<group>"; };
+		163DE91D21A2C07200A29315 /* PriceCustomKeyboardView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PriceCustomKeyboardView.h; sourceTree = "<group>"; };
+		163DE91E21A2C07200A29315 /* PriceCustomKeyboardView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PriceCustomKeyboardView.m; sourceTree = "<group>"; };
+		16552EFD21ACE9AC00FA511D /* CustomStatusBarView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomStatusBarView.h; sourceTree = "<group>"; };
+		16552EFE21ACE9AC00FA511D /* CustomStatusBarView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomStatusBarView.m; sourceTree = "<group>"; };
+		16552F0021ACE9BD00FA511D /* CustomStatusBarView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomStatusBarView.xib; sourceTree = "<group>"; };
+		16552F0421AD111D00FA511D /* KLineSelectCycleView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KLineSelectCycleView.xib; sourceTree = "<group>"; };
+		16552F0621AD11F200FA511D /* KLineSelectCycleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KLineSelectCycleView.h; sourceTree = "<group>"; };
+		16552F0721AD11F200FA511D /* KLineSelectCycleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KLineSelectCycleView.m; sourceTree = "<group>"; };
+		16552F0921AD145F00FA511D /* KlineSelectCycleCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KlineSelectCycleCollectionViewCell.h; sourceTree = "<group>"; };
+		16552F0A21AD145F00FA511D /* KlineSelectCycleCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KlineSelectCycleCollectionViewCell.m; sourceTree = "<group>"; };
+		16552F0B21AD145F00FA511D /* KlineSelectCycleCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KlineSelectCycleCollectionViewCell.xib; sourceTree = "<group>"; };
+		16552F0E21AD469A00FA511D /* KLineLongTapParamView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KLineLongTapParamView.h; sourceTree = "<group>"; };
+		16552F0F21AD469A00FA511D /* KLineLongTapParamView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KLineLongTapParamView.m; sourceTree = "<group>"; };
+		16552F1121AD46AB00FA511D /* KLineLongTapParamView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KLineLongTapParamView.xib; sourceTree = "<group>"; };
+		16552F1321AE7E9400FA511D /* Y_KLine_TimeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Y_KLine_TimeView.h; sourceTree = "<group>"; };
+		16552F1421AE7E9400FA511D /* Y_KLine_TimeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Y_KLine_TimeView.m; sourceTree = "<group>"; };
+		165D503421B525AC00F1F031 /* Y_KStockScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Y_KStockScrollView.h; sourceTree = "<group>"; };
+		165D503521B525AC00F1F031 /* Y_KStockScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Y_KStockScrollView.m; sourceTree = "<group>"; };
+		165D506821B52C0700F1F031 /* minuteData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = minuteData.plist; sourceTree = "<group>"; };
+		165D506921B52C0700F1F031 /* dayData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = dayData.plist; sourceTree = "<group>"; };
+		16605EF221B6121E008B19C7 /* Y_BollMAView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Y_BollMAView.h; sourceTree = "<group>"; };
+		16605EF321B6121E008B19C7 /* Y_BollMAView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Y_BollMAView.m; sourceTree = "<group>"; };
 		16633A332181605000D450E8 /* AMSSocketClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AMSSocketClient.h; path = AMS/ThridParty/AMSSocketClient.h; sourceTree = SOURCE_ROOT; };
 		16633A342181605000D450E8 /* AMSSocketClient.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AMSSocketClient.mm; path = AMS/ThridParty/AMSSocketClient.mm; sourceTree = SOURCE_ROOT; };
 		16633A372181633600D450E8 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
@@ -147,10 +249,50 @@
 		167900342187F192008ECB31 /* UIButton+Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Category.h"; sourceTree = "<group>"; };
 		167900362188253C008ECB31 /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		167900372188253C008ECB31 /* DetailViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DetailViewController.mm; sourceTree = "<group>"; };
+		167D672821AB89C3004431DC /* UIView+AZGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+AZGradient.h"; sourceTree = "<group>"; };
+		167D672921AB89C3004431DC /* UIView+AZGradient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+AZGradient.m"; sourceTree = "<group>"; };
+		167E8A6521A3E13100096C93 /* ForbidPasteTextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForbidPasteTextField.h; sourceTree = "<group>"; };
+		167E8A6621A3E13100096C93 /* ForbidPasteTextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForbidPasteTextField.m; sourceTree = "<group>"; };
+		167E8A6821A3F3A400096C93 /* MarketDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarketDetailViewController.h; sourceTree = "<group>"; };
+		167E8A6921A3F3A400096C93 /* MarketDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarketDetailViewController.m; sourceTree = "<group>"; };
+		167E8A6B21A3F4AE00096C93 /* TimeChartViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimeChartViewController.h; sourceTree = "<group>"; };
+		167E8A6C21A3F4AE00096C93 /* TimeChartViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TimeChartViewController.m; sourceTree = "<group>"; };
+		167E8A6E21A3F50100096C93 /* KlineViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KlineViewController.h; sourceTree = "<group>"; };
+		167E8A6F21A3F50100096C93 /* KlineViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KlineViewController.m; sourceTree = "<group>"; };
+		167E8A7121A3F59300096C93 /* HandicapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HandicapViewController.h; sourceTree = "<group>"; };
+		167E8A7221A3F59300096C93 /* HandicapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HandicapViewController.m; sourceTree = "<group>"; };
+		167E8A7921A4114B00096C93 /* HandicapCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HandicapCollectionViewCell.h; sourceTree = "<group>"; };
+		167E8A7A21A4114B00096C93 /* HandicapCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HandicapCollectionViewCell.m; sourceTree = "<group>"; };
+		167E8A7B21A4114B00096C93 /* HandicapCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HandicapCollectionViewCell.xib; sourceTree = "<group>"; };
+		167E8A7E21A4119800096C93 /* HandicapTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HandicapTableViewCell.h; sourceTree = "<group>"; };
+		167E8A7F21A4119800096C93 /* HandicapTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HandicapTableViewCell.m; sourceTree = "<group>"; };
+		167E8A8021A4119800096C93 /* HandicapTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HandicapTableViewCell.xib; sourceTree = "<group>"; };
+		167E8A8321A4F91C00096C93 /* DealDetailModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DealDetailModel.h; sourceTree = "<group>"; };
+		167E8A8421A4F91C00096C93 /* DealDetailModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DealDetailModel.m; sourceTree = "<group>"; };
+		167E8A8621A53BCD00096C93 /* SearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
+		167E8A8721A53BCD00096C93 /* SearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
+		167E8A8921A541CE00096C93 /* SearchTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchTableViewCell.h; sourceTree = "<group>"; };
+		167E8A8A21A541CE00096C93 /* SearchTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchTableViewCell.m; sourceTree = "<group>"; };
+		167E8A8B21A541CE00096C93 /* SearchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchTableViewCell.xib; sourceTree = "<group>"; };
+		167E8A9121A63F4F00096C93 /* ChartBottomView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChartBottomView.h; sourceTree = "<group>"; };
+		167E8A9221A63F4F00096C93 /* ChartBottomView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChartBottomView.m; sourceTree = "<group>"; };
+		167E8A9421A63F5E00096C93 /* ChartBottomView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChartBottomView.xib; sourceTree = "<group>"; };
 		16879406219C13B600B989A2 /* TradeSettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TradeSettingViewController.h; sourceTree = "<group>"; };
 		16879407219C13B600B989A2 /* TradeSettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TradeSettingViewController.m; sourceTree = "<group>"; };
 		16879409219C25E400B989A2 /* OrderPriceSettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderPriceSettingViewController.h; sourceTree = "<group>"; };
 		1687940A219C25E400B989A2 /* OrderPriceSettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderPriceSettingViewController.m; sourceTree = "<group>"; };
+		1687940C219D0B5B00B989A2 /* PlateViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlateViewController.h; sourceTree = "<group>"; };
+		1687940D219D0B5B00B989A2 /* PlateViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlateViewController.m; sourceTree = "<group>"; };
+		1687940F219D171600B989A2 /* AccountSettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AccountSettingViewController.h; sourceTree = "<group>"; };
+		16879410219D171600B989A2 /* AccountSettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AccountSettingViewController.m; sourceTree = "<group>"; };
+		16879412219D1AAF00B989A2 /* PullDownMenuView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PullDownMenuView.h; sourceTree = "<group>"; };
+		16879413219D1AAF00B989A2 /* PullDownMenuView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PullDownMenuView.m; sourceTree = "<group>"; };
+		16879417219D1EA700B989A2 /* PullDownMenuCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PullDownMenuCollectionViewCell.h; sourceTree = "<group>"; };
+		16879418219D1EA700B989A2 /* PullDownMenuCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PullDownMenuCollectionViewCell.m; sourceTree = "<group>"; };
+		16879419219D1EA700B989A2 /* PullDownMenuCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PullDownMenuCollectionViewCell.xib; sourceTree = "<group>"; };
+		16879420219E91E800B989A2 /* TradeHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TradeHeaderView.h; sourceTree = "<group>"; };
+		16879421219E91E800B989A2 /* TradeHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TradeHeaderView.m; sourceTree = "<group>"; };
+		16879423219E921800B989A2 /* TradeHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TradeHeaderView.xib; sourceTree = "<group>"; };
 		1691806E21918D4D00BC1901 /* default_best_rpchead.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = default_best_rpchead.cpp; sourceTree = "<group>"; };
 		1691807021918D4E00BC1901 /* step_serializer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = step_serializer.cpp; sourceTree = "<group>"; };
 		1691807121918D4E00BC1901 /* default_best_record.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = default_best_record.cpp; sourceTree = "<group>"; };
@@ -197,8 +339,15 @@
 		169727C12186B45F009F6F65 /* AppDelegate+AppSevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+AppSevice.h"; sourceTree = "<group>"; };
 		169727C22186B45F009F6F65 /* AppDelegate+AppSevice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+AppSevice.m"; sourceTree = "<group>"; };
 		169727CD2186D92E009F6F65 /* UtilsMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UtilsMacros.h; sourceTree = "<group>"; };
+		16AB268021BDFADD00755B81 /* field_key.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = field_key.h; sourceTree = "<group>"; };
+		16B38AC921A257D300681503 /* TradeCellMenuView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TradeCellMenuView.h; sourceTree = "<group>"; };
+		16B38ACA21A257D300681503 /* TradeCellMenuView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TradeCellMenuView.m; sourceTree = "<group>"; };
+		16B38ACC21A2580A00681503 /* TradeCellMenuView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TradeCellMenuView.xib; sourceTree = "<group>"; };
 		16BAC14521893F8B008F965E /* LeftMenuViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LeftMenuViewController.h; sourceTree = "<group>"; };
 		16BAC14621893F8B008F965E /* LeftMenuViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LeftMenuViewController.m; sourceTree = "<group>"; };
+		16CA589521B772F50010DC43 /* TimeLineLongTapParamView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TimeLineLongTapParamView.m; sourceTree = "<group>"; };
+		16CA589621B772F50010DC43 /* TimeLineLongTapParamView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimeLineLongTapParamView.xib; sourceTree = "<group>"; };
+		16CA589721B772F60010DC43 /* TimeLineLongTapParamView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimeLineLongTapParamView.h; sourceTree = "<group>"; };
 		16CCD3A621831456003D5BFD /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		16CCD3A721831456003D5BFD /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		16D3D813217F17A000793DF8 /* AMS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AMS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -248,6 +397,42 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		162C246821B9192C00507022 /* ScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				165D503421B525AC00F1F031 /* Y_KStockScrollView.h */,
+				165D503521B525AC00F1F031 /* Y_KStockScrollView.m */,
+			);
+			path = ScrollView;
+			sourceTree = "<group>";
+		};
+		163DE90721A29B0200A29315 /* LMReport */ = {
+			isa = PBXGroup;
+			children = (
+				163DE90821A29B0200A29315 /* NSIndexPath+LMReport.h */,
+				163DE90921A29B0200A29315 /* LMReport.h */,
+				163DE90A21A29B0200A29315 /* LMRStyle.m */,
+				163DE90B21A29B0200A29315 /* LMReportView.m */,
+				163DE90C21A29B0200A29315 /* LMRGrid.m */,
+				163DE90D21A29B0200A29315 /* LMRLabel.m */,
+				163DE90E21A29B0200A29315 /* NSIndexPath+LMReport.m */,
+				163DE90F21A29B0200A29315 /* LMRStyle.h */,
+				163DE91021A29B0200A29315 /* LMRLabel.h */,
+				163DE91121A29B0200A29315 /* LMRGrid.h */,
+				163DE91221A29B0200A29315 /* LMReportView.h */,
+			);
+			path = LMReport;
+			sourceTree = "<group>";
+		};
+		16605EF121B611E1008B19C7 /* Boll_MAView */ = {
+			isa = PBXGroup;
+			children = (
+				16605EF221B6121E008B19C7 /* Y_BollMAView.h */,
+				16605EF321B6121E008B19C7 /* Y_BollMAView.m */,
+			);
+			path = Boll_MAView;
+			sourceTree = "<group>";
+		};
 		166DDB9A218AE34E00D43461 /* Y_KLine */ = {
 			isa = PBXGroup;
 			children = (
@@ -298,6 +483,8 @@
 		166DDBA6218AE34E00D43461 /* KLine */ = {
 			isa = PBXGroup;
 			children = (
+				162C246821B9192C00507022 /* ScrollView */,
+				16605EF121B611E1008B19C7 /* Boll_MAView */,
 				166DDBA7218AE34E00D43461 /* KLine_MAView */,
 				166DDBAA218AE34E00D43461 /* Y_KLineView.m */,
 				166DDBAB218AE34E00D43461 /* PriceView */,
@@ -309,6 +496,8 @@
 				166DDBC5218AE34E00D43461 /* VolumeView */,
 				166DDBCB218AE34E00D43461 /* MainKLineView */,
 				166DDBD3218AE34E00D43461 /* SegmentView */,
+				16552F1321AE7E9400FA511D /* Y_KLine_TimeView.h */,
+				16552F1421AE7E9400FA511D /* Y_KLine_TimeView.m */,
 			);
 			path = KLine;
 			sourceTree = "<group>";
@@ -443,6 +632,8 @@
 		167900322187EF70008ECB31 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				167D672821AB89C3004431DC /* UIView+AZGradient.h */,
+				167D672921AB89C3004431DC /* UIView+AZGradient.m */,
 				161F28F121883DC00036E22B /* MBProgressHUD+AMS.h */,
 				161F28F021883DC00036E22B /* MBProgressHUD+AMS.m */,
 				167900342187F192008ECB31 /* UIButton+Category.h */,
@@ -499,9 +690,33 @@
 			path = Lib_Best;
 			sourceTree = "<group>";
 		};
+		1687941F219E91D100B989A2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				16B38AC921A257D300681503 /* TradeCellMenuView.h */,
+				16B38ACA21A257D300681503 /* TradeCellMenuView.m */,
+				16B38ACC21A2580A00681503 /* TradeCellMenuView.xib */,
+				16879420219E91E800B989A2 /* TradeHeaderView.h */,
+				16879421219E91E800B989A2 /* TradeHeaderView.m */,
+				16879423219E921800B989A2 /* TradeHeaderView.xib */,
+				163DE91B21A2AC4000A29315 /* PriceCustomKeyboardView.xib */,
+				163DE91D21A2C07200A29315 /* PriceCustomKeyboardView.h */,
+				163DE91E21A2C07200A29315 /* PriceCustomKeyboardView.m */,
+				167E8A8921A541CE00096C93 /* SearchTableViewCell.h */,
+				167E8A8A21A541CE00096C93 /* SearchTableViewCell.m */,
+				167E8A8B21A541CE00096C93 /* SearchTableViewCell.xib */,
+				16552EFD21ACE9AC00FA511D /* CustomStatusBarView.h */,
+				16552F0021ACE9BD00FA511D /* CustomStatusBarView.xib */,
+				16552EFE21ACE9AC00FA511D /* CustomStatusBarView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		169727C02186B346009F6F65 /* AppDelegate */ = {
 			isa = PBXGroup;
 			children = (
+				165D506921B52C0700F1F031 /* dayData.plist */,
+				165D506821B52C0700F1F031 /* minuteData.plist */,
 				16D3D816217F17A000793DF8 /* AppDelegate.h */,
 				16D3D817217F17A000793DF8 /* AppDelegate.m */,
 				169727C12186B45F009F6F65 /* AppDelegate+AppSevice.h */,
@@ -520,6 +735,8 @@
 				16633A3E2181BE6C00D450E8 /* AMSUtil.m */,
 				161F28F321883F680036E22B /* BestMessageUtil.h */,
 				161F28F421883F680036E22B /* BestMessageUtil.mm */,
+				167E8A6521A3E13100096C93 /* ForbidPasteTextField.h */,
+				167E8A6621A3E13100096C93 /* ForbidPasteTextField.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -584,6 +801,7 @@
 		169727CB2186D8CB009F6F65 /* ThridParty */ = {
 			isa = PBXGroup;
 			children = (
+				163DE90721A29B0200A29315 /* LMReport */,
 				166DDB9A218AE34E00D43461 /* Y_KLine */,
 				16873FD621801FBA00422BC7 /* Lib_Best */,
 				16633A332181605000D450E8 /* AMSSocketClient.h */,
@@ -595,6 +813,7 @@
 		169727CC2186D912009F6F65 /* Define */ = {
 			isa = PBXGroup;
 			children = (
+				16AB268021BDFADD00755B81 /* field_key.h */,
 				169727CD2186D92E009F6F65 /* UtilsMacros.h */,
 				16D6E7FD219A9D5E007B41B7 /* AMSConstant.h */,
 			);
@@ -668,6 +887,7 @@
 		16D6E7F8219A9B6C007B41B7 /* Trade(交易) */ = {
 			isa = PBXGroup;
 			children = (
+				1687941F219E91D100B989A2 /* View */,
 				16D6E800219A9E94007B41B7 /* Controller */,
 			);
 			path = "Trade(交易)";
@@ -694,8 +914,16 @@
 		16D6E7FF219A9E8D007B41B7 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				167E8A6821A3F3A400096C93 /* MarketDetailViewController.h */,
+				167E8A6921A3F3A400096C93 /* MarketDetailViewController.m */,
 				16D6E804219A9F88007B41B7 /* MarketViewController.h */,
 				16D6E805219A9F88007B41B7 /* MarketViewController.m */,
+				167E8A6B21A3F4AE00096C93 /* TimeChartViewController.h */,
+				167E8A6C21A3F4AE00096C93 /* TimeChartViewController.m */,
+				167E8A6E21A3F50100096C93 /* KlineViewController.h */,
+				167E8A6F21A3F50100096C93 /* KlineViewController.m */,
+				167E8A7121A3F59300096C93 /* HandicapViewController.h */,
+				167E8A7221A3F59300096C93 /* HandicapViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -705,6 +933,8 @@
 			children = (
 				16D6E807219A9FB1007B41B7 /* TradeViewController.h */,
 				16D6E808219A9FB1007B41B7 /* TradeViewController.m */,
+				167E8A8621A53BCD00096C93 /* SearchViewController.h */,
+				167E8A8721A53BCD00096C93 /* SearchViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -720,6 +950,32 @@
 				16D6E817219BCA26007B41B7 /* MarketCellMenuView.xib */,
 				16D6E819219BCA3B007B41B7 /* MarketCellMenuView.h */,
 				16D6E81A219BCA3B007B41B7 /* MarketCellMenuView.m */,
+				16879412219D1AAF00B989A2 /* PullDownMenuView.h */,
+				16879413219D1AAF00B989A2 /* PullDownMenuView.m */,
+				16879417219D1EA700B989A2 /* PullDownMenuCollectionViewCell.h */,
+				16879418219D1EA700B989A2 /* PullDownMenuCollectionViewCell.m */,
+				16879419219D1EA700B989A2 /* PullDownMenuCollectionViewCell.xib */,
+				167E8A7921A4114B00096C93 /* HandicapCollectionViewCell.h */,
+				167E8A7A21A4114B00096C93 /* HandicapCollectionViewCell.m */,
+				167E8A7B21A4114B00096C93 /* HandicapCollectionViewCell.xib */,
+				167E8A7E21A4119800096C93 /* HandicapTableViewCell.h */,
+				167E8A7F21A4119800096C93 /* HandicapTableViewCell.m */,
+				167E8A8021A4119800096C93 /* HandicapTableViewCell.xib */,
+				167E8A9121A63F4F00096C93 /* ChartBottomView.h */,
+				167E8A9221A63F4F00096C93 /* ChartBottomView.m */,
+				167E8A9421A63F5E00096C93 /* ChartBottomView.xib */,
+				16552F0421AD111D00FA511D /* KLineSelectCycleView.xib */,
+				16552F0621AD11F200FA511D /* KLineSelectCycleView.h */,
+				16552F0721AD11F200FA511D /* KLineSelectCycleView.m */,
+				16552F1121AD46AB00FA511D /* KLineLongTapParamView.xib */,
+				16552F0921AD145F00FA511D /* KlineSelectCycleCollectionViewCell.h */,
+				16552F0A21AD145F00FA511D /* KlineSelectCycleCollectionViewCell.m */,
+				16CA589521B772F50010DC43 /* TimeLineLongTapParamView.m */,
+				16552F0B21AD145F00FA511D /* KlineSelectCycleCollectionViewCell.xib */,
+				16552F0E21AD469A00FA511D /* KLineLongTapParamView.h */,
+				16CA589621B772F50010DC43 /* TimeLineLongTapParamView.xib */,
+				16CA589721B772F60010DC43 /* TimeLineLongTapParamView.h */,
+				16552F0F21AD469A00FA511D /* KLineLongTapParamView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -729,6 +985,8 @@
 			children = (
 				16D6E80F219ABB91007B41B7 /* MarketModel.h */,
 				16D6E810219ABB91007B41B7 /* MarketModel.m */,
+				167E8A8321A4F91C00096C93 /* DealDetailModel.h */,
+				167E8A8421A4F91C00096C93 /* DealDetailModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -751,6 +1009,18 @@
 				16879407219C13B600B989A2 /* TradeSettingViewController.m */,
 				16879409219C25E400B989A2 /* OrderPriceSettingViewController.h */,
 				1687940A219C25E400B989A2 /* OrderPriceSettingViewController.m */,
+				1687940C219D0B5B00B989A2 /* PlateViewController.h */,
+				1687940D219D0B5B00B989A2 /* PlateViewController.m */,
+				1687940F219D171600B989A2 /* AccountSettingViewController.h */,
+				16879410219D171600B989A2 /* AccountSettingViewController.m */,
+				1603A7C721A7D2A000BF3802 /* ModifyPasswordController.h */,
+				1603A7C821A7D2A000BF3802 /* ModifyPasswordController.m */,
+				1603A7C921A7D2A000BF3802 /* ModifyPasswordController.xib */,
+				1633D02721A7F90F002E0FD0 /* ForgetPwdController.h */,
+				1633D02821A7F90F002E0FD0 /* ForgetPwdController.m */,
+				1633D02921A7F90F002E0FD0 /* ForgetPwdController.xib */,
+				1633D02C21A8056B002E0FD0 /* MessageCenterController.h */,
+				1633D02D21A8056B002E0FD0 /* MessageCenterController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -761,6 +1031,9 @@
 				16D6E821219C0546007B41B7 /* SettingHeaderView.xib */,
 				16D6E824219C0569007B41B7 /* SettingHeaderView.h */,
 				16D6E825219C0569007B41B7 /* SettingHeaderView.m */,
+				160996A221A7EC420010D1D8 /* CustomPopView.h */,
+				160996A321A7EC420010D1D8 /* CustomPopView.m */,
+				160996A521A7EC4E0010D1D8 /* CustomPopView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -850,11 +1123,29 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				16CA589921B77B680010DC43 /* TimeLineLongTapParamView.xib in Resources */,
+				1633D02B21A7F90F002E0FD0 /* ForgetPwdController.xib in Resources */,
+				160996A621A7EC4E0010D1D8 /* CustomPopView.xib in Resources */,
+				16B38ACD21A2580A00681503 /* TradeCellMenuView.xib in Resources */,
+				167E8A9521A63F5E00096C93 /* ChartBottomView.xib in Resources */,
+				16552F1221AD46AB00FA511D /* KLineLongTapParamView.xib in Resources */,
 				16D3D823217F17A200793DF8 /* LaunchScreen.storyboard in Resources */,
+				165D506A21B52C0700F1F031 /* minuteData.plist in Resources */,
+				16552F0D21AD145F00FA511D /* KlineSelectCycleCollectionViewCell.xib in Resources */,
+				167E8A7D21A4114B00096C93 /* HandicapCollectionViewCell.xib in Resources */,
 				161F28F7218844AD0036E22B /* Assets.xcassets in Resources */,
 				169180B421918D5D00BC1901 /* memory_pool.inl in Resources */,
+				1687941B219D1EA700B989A2 /* PullDownMenuCollectionViewCell.xib in Resources */,
+				16879424219E921800B989A2 /* TradeHeaderView.xib in Resources */,
+				16552F0121ACE9BD00FA511D /* CustomStatusBarView.xib in Resources */,
+				16552F0521AD111D00FA511D /* KLineSelectCycleView.xib in Resources */,
 				16D6E816219AC864007B41B7 /* MarketTableViewHeaderView.xib in Resources */,
 				16D3D81E217F17A000793DF8 /* Main.storyboard in Resources */,
+				165D506B21B52C0700F1F031 /* dayData.plist in Resources */,
+				167E8A8221A4119800096C93 /* HandicapTableViewCell.xib in Resources */,
+				163DE91C21A2AC4000A29315 /* PriceCustomKeyboardView.xib in Resources */,
+				1603A7CB21A7D2A000BF3802 /* ModifyPasswordController.xib in Resources */,
+				167E8A8D21A541CE00096C93 /* SearchTableViewCell.xib in Resources */,
 				16D6E822219C0546007B41B7 /* SettingHeaderView.xib in Resources */,
 				16D6E818219BCA26007B41B7 /* MarketCellMenuView.xib in Resources */,
 			);
@@ -994,37 +1285,59 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				16AB268121BDFC8200755B81 /* field_key.h in Sources */,
+				162C246E21B919A100507022 /* Y_KStockScrollView.h in Sources */,
+				16605EF421B61800008B19C7 /* Y_BollMAView.h in Sources */,
+				16605EF521B61800008B19C7 /* Y_BollMAView.m in Sources */,
 				16CCD3A821831456003D5BFD /* MainViewController.m in Sources */,
+				16552F1521AE7E9400FA511D /* Y_KLine_TimeView.m in Sources */,
+				1603A7CA21A7D2A000BF3802 /* ModifyPasswordController.m in Sources */,
 				166DDC03218AE34E00D43461 /* Y_StockChartView.m in Sources */,
+				167E8A7321A3F59300096C93 /* HandicapViewController.m in Sources */,
+				163DE91F21A2C07200A29315 /* PriceCustomKeyboardView.m in Sources */,
+				160996A421A7EC420010D1D8 /* CustomPopView.m in Sources */,
 				166DDC09218AE34E00D43461 /* Y_KLineAccessory.m in Sources */,
 				166DDC0F218AE34E00D43461 /* Y_KLineVolumeView.m in Sources */,
 				16879408219C13B600B989A2 /* TradeSettingViewController.m in Sources */,
+				16CA589821B772F60010DC43 /* TimeLineLongTapParamView.m in Sources */,
 				16D6E820219BFCD6007B41B7 /* SettingMainViewController.m in Sources */,
 				166DDB82218A9CDB00D43461 /* BaseTableViewController.m in Sources */,
 				166DDC06218AE34E00D43461 /* Y_StockChartRightYView.m in Sources */,
 				166DDC07218AE34E00D43461 /* Y_VolumeMAView.m in Sources */,
+				163DE91321A29B0200A29315 /* LMRStyle.m in Sources */,
+				167E8A6721A3E13100096C93 /* ForbidPasteTextField.m in Sources */,
 				169180A721918D5D00BC1901 /* default_best_record.cpp in Sources */,
 				169180B121918D5D00BC1901 /* default_best_group.cpp in Sources */,
 				166DDC14218AE34E00D43461 /* Y_StockChartSegmentView.m in Sources */,
+				163DE91521A29B0200A29315 /* LMRGrid.m in Sources */,
+				163DE91621A29B0200A29315 /* LMRLabel.m in Sources */,
 				166DDC0C218AE34E00D43461 /* Y_KLineModel.m in Sources */,
 				16D6E809219A9FB1007B41B7 /* TradeViewController.m in Sources */,
 				16D6E803219A9EAE007B41B7 /* OptionalViewController.m in Sources */,
+				16552F1021AD469A00FA511D /* KLineLongTapParamView.m in Sources */,
+				167E8A6D21A3F4AE00096C93 /* TimeChartViewController.m in Sources */,
 				166DDC13218AE34E00D43461 /* Y_KLine.m in Sources */,
 				16D6E811219ABB91007B41B7 /* MarketModel.m in Sources */,
 				169180B821918D5D00BC1901 /* default_head_message.cpp in Sources */,
 				161F28F521883F680036E22B /* BestMessageUtil.mm in Sources */,
 				169180A621918D5D00BC1901 /* step_serializer.cpp in Sources */,
 				169180B221918D5D00BC1901 /* default_bestIteror.cpp in Sources */,
+				167D672A21AB89C3004431DC /* UIView+AZGradient.m in Sources */,
 				169180BB21918D5D00BC1901 /* default_best_message_factory.cpp in Sources */,
+				167E8A6A21A3F3A400096C93 /* MarketDetailViewController.m in Sources */,
+				16879411219D171600B989A2 /* AccountSettingViewController.m in Sources */,
 				169180C221918D5D00BC1901 /* default_best_field.cpp in Sources */,
 				16D6E814219AC79A007B41B7 /* MarketTableViewHeaderView.m in Sources */,
+				167E8A8121A4119800096C93 /* HandicapTableViewCell.m in Sources */,
 				166DDC0A218AE34E00D43461 /* Y_AccessoryMAView.m in Sources */,
 				166DDC0D218AE34E00D43461 /* Y_KLineGroupModel.m in Sources */,
 				166DDC0B218AE34E00D43461 /* Y_KLinePositionModel.m in Sources */,
 				169180BA21918D5D00BC1901 /* stdafx.cpp in Sources */,
 				166DDC01218AE34E00D43461 /* Y_StockChartGlobalVariable.m in Sources */,
 				169180A421918D5D00BC1901 /* default_best_rpchead.cpp in Sources */,
+				1687941A219D1EA700B989A2 /* PullDownMenuCollectionViewCell.m in Sources */,
 				167900352187F192008ECB31 /* UIButton+Category.m in Sources */,
+				16552EFF21ACE9AC00FA511D /* CustomStatusBarView.m in Sources */,
 				166DDC11218AE34E00D43461 /* Y_KLineMainView.m in Sources */,
 				166DDC29218AF57200D43461 /* Y_StockChartViewController.m in Sources */,
 				169180A821918D5D00BC1901 /* default_message.cpp in Sources */,
@@ -1036,8 +1349,10 @@
 				166DDC02218AE34E00D43461 /* UIColor+Y_StockChart.m in Sources */,
 				16D6E7FC219A9C97007B41B7 /* NewsViewController.m in Sources */,
 				167900382188253C008ECB31 /* DetailViewController.mm in Sources */,
+				163DE91421A29B0200A29315 /* LMReportView.m in Sources */,
 				169180BF21918D5D00BC1901 /* default_serializer.cpp in Sources */,
 				1693ADF9218007FE00EDEEF6 /* AMSSocketManager.m in Sources */,
+				167E8A7C21A4114B00096C93 /* HandicapCollectionViewCell.m in Sources */,
 				169180BE21918D5D00BC1901 /* default_message_pool.cpp in Sources */,
 				166DDC12218AE34E00D43461 /* Y_MALine.m in Sources */,
 				16D6E81B219BCA3B007B41B7 /* MarketCellMenuView.m in Sources */,
@@ -1045,20 +1360,35 @@
 				1687940B219C25E400B989A2 /* OrderPriceSettingViewController.m in Sources */,
 				169180B021918D5D00BC1901 /* lib_best_msssage.cpp in Sources */,
 				169180B721918D5D00BC1901 /* qcmutex.cpp in Sources */,
+				165D505821B525AD00F1F031 /* Y_KStockScrollView.m in Sources */,
+				1687940E219D0B5B00B989A2 /* PlateViewController.m in Sources */,
+				16B38ACB21A257D300681503 /* TradeCellMenuView.m in Sources */,
+				1633D02A21A7F90F002E0FD0 /* ForgetPwdController.m in Sources */,
+				163DE91721A29B0200A29315 /* NSIndexPath+LMReport.m in Sources */,
 				166DDC05218AE34E00D43461 /* Y_KLineView.m in Sources */,
 				166DDC08218AE34E00D43461 /* Y_KLineAccessoryView.m in Sources */,
 				16D3D818217F17A000793DF8 /* AppDelegate.m in Sources */,
 				166DDC0E218AE34E00D43461 /* Y_KLineVolumePositionModel.m in Sources */,
 				161F28F221883DC00036E22B /* MBProgressHUD+AMS.m in Sources */,
+				167E8A8821A53BCD00096C93 /* SearchViewController.m in Sources */,
+				167E8A7021A3F50100096C93 /* KlineViewController.m in Sources */,
+				16552F0821AD11F200FA511D /* KLineSelectCycleView.m in Sources */,
+				16879414219D1AAF00B989A2 /* PullDownMenuView.m in Sources */,
 				166DDC2C218AF5C500D43461 /* NetWorking.m in Sources */,
 				16D6E826219C0569007B41B7 /* SettingHeaderView.m in Sources */,
 				16633A3F2181BE6C00D450E8 /* AMSUtil.m in Sources */,
+				167E8A9321A63F4F00096C93 /* ChartBottomView.m in Sources */,
 				169727C32186B45F009F6F65 /* AppDelegate+AppSevice.m in Sources */,
 				16633A3C21819D1A00D450E8 /* BaseViewController.m in Sources */,
 				16D6E806219A9F88007B41B7 /* MarketViewController.m in Sources */,
 				166DDC10218AE34E00D43461 /* Y_KLineVolume.m in Sources */,
+				16552F0C21AD145F00FA511D /* KlineSelectCycleCollectionViewCell.m in Sources */,
+				1633D02E21A8056B002E0FD0 /* MessageCenterController.m in Sources */,
 				169180C021918D5D00BC1901 /* qcstutils.cpp in Sources */,
+				167E8A8521A4F91C00096C93 /* DealDetailModel.m in Sources */,
+				16879422219E91E800B989A2 /* TradeHeaderView.m in Sources */,
 				16BAC14721893F8B008F965E /* LeftMenuViewController.m in Sources */,
+				167E8A8C21A541CE00096C93 /* SearchTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -14,7 +14,7 @@ target 'AMS' do
   pod 'Masonry', '~> 1.1'
   pod 'IQKeyboardManager'
   pod 'MJRefresh'
-  pod 'FDFullscreenPopGesture', '1.1'
+#  pod 'FDFullscreenPopGesture', '1.1'
   pod 'UITableView+FDTemplateLayoutCell', '~> 1.6'
   pod 'AXWebViewController', '~> 0.6.0'
 #  pod 'CYLTabBarController', '~> 1.17.4'   
@@ -38,4 +38,5 @@ target 'AMS' do
   pod 'ReactiveObjC', '~> 3.1.0'
   pod 'JPFPSStatus', '~> 0.1.1'
   pod 'RDVTabBarController'
+#  pod 'LMReport'
 end

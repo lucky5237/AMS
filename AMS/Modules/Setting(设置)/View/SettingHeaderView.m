@@ -21,13 +21,14 @@
 
 - (void)awakeFromNib{
     [super awakeFromNib];
+    self.backgroundColor = kCellBackGroundColor;
+    self.divider.backgroundColor = kTableViewBackGroundColor;
     [self.avatarImageView zj_cornerRadiusRoundingRect];
 }
 
 -(void)configUserInfo:(NSDictionary *)userInfo{
     [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:userInfo[@"image"]]];
     self.nameLabel.text = userInfo[@"name"];
-    self.levelLabel.text = userInfo[@"level"];
 }
 
 @end

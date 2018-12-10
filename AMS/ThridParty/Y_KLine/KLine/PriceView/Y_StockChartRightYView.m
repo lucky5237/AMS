@@ -10,13 +10,19 @@
 #import "UIColor+Y_StockChart.h"
 #import "Masonry.h"
 
+
 @interface Y_StockChartRightYView ()
 
-@property(nonatomic,strong) UILabel *maxValueLabel;
+@property(nonatomic,strong) UILabel *maxValueLabel; //1
+@property(nonatomic,strong) UILabel *secondmaxValueLabel;//2
+@property(nonatomic,strong) UILabel *thirdmaxValueLabel; //3
 
-@property(nonatomic,strong) UILabel *middleValueLabel;
+@property(nonatomic,strong) UILabel *middleValueLabel;//4
 
-@property(nonatomic,strong) UILabel *minValueLabel;
+@property(nonatomic,strong) UILabel *sencondMinLabel;//6
+@property(nonatomic,strong) UILabel *thirdMinLabel;//5
+@property(nonatomic,strong) UILabel *minValueLabel;//7
+
 
 @end
 
@@ -26,19 +32,37 @@
 -(void)setMaxValue:(CGFloat)maxValue
 {
     _maxValue = maxValue;
-    self.maxValueLabel.text = [NSString stringWithFormat:@"%.2f",maxValue];
+    if (self.type == Y_StockChartcenterViewTypeTimeLine) {
+        self.maxValueLabel.text = [NSString stringWithFormat:@"%.2f%@",maxValue,self.isRisePer ?  @"%":@""];
+    }else{
+        self.maxValueLabel.text = [NSString stringWithFormat:@"%.2f",maxValue];
+    }
 }
 
 -(void)setMiddleValue:(CGFloat)middleValue
 {
     _middleValue = middleValue;
-    self.middleValueLabel.text = [NSString stringWithFormat:@"%.2f",middleValue];
+    
+    if (self.type == Y_StockChartcenterViewTypeTimeLine) {
+        self.middleValueLabel.text = [NSString stringWithFormat:@"%.2f%@",middleValue,self.isRisePer ? @"%":@""];
+        CGFloat unit  = (_maxValue - _minValue) / 6;
+        self.secondmaxValueLabel.text = [NSString stringWithFormat:@"%.2f%@",self.maxValue - unit,self.isRisePer ?  @"%":@""];
+        self.thirdmaxValueLabel.text = [NSString stringWithFormat:@"%.2f%@",self.maxValue - unit*2,self.isRisePer ? @"%":@""];
+        self.thirdMinLabel.text = [NSString stringWithFormat:@"%.2f%@",self.maxValue - unit*4,self.isRisePer ?  @"%":@""];
+        self.sencondMinLabel.text = [NSString stringWithFormat:@"%.2f%@",self.maxValue - unit*5,self.isRisePer ?  @"%":@""];
+    }else{
+        self.middleValueLabel.text = [NSString stringWithFormat:@"%.2f",middleValue];
+    }
 }
 
 -(void)setMinValue:(CGFloat)minValue
 {
     _minValue = minValue;
-    self.minValueLabel.text = [NSString stringWithFormat:@"%.2f",minValue];
+    if (self.type == Y_StockChartcenterViewTypeTimeLine) {
+        self.minValueLabel.text = [NSString stringWithFormat:@"%.2f%@",minValue,self.isRisePer ?  @"%":@""];
+    }else{
+          self.minValueLabel.text = [NSString stringWithFormat:@"%.2f",minValue];
+    }
 }
 
 -(void)setMinLabelText:(NSString *)minLabelText
@@ -56,7 +80,7 @@
         [self addSubview:_maxValueLabel];
         [_maxValueLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.right.width.equalTo(self);
-            make.height.equalTo(@20);
+            make.height.equalTo(@10);
         }];
     }
     return _maxValueLabel;
@@ -69,9 +93,13 @@
         _middleValueLabel = [self private_createLabel];
         [self addSubview:_middleValueLabel];
         [_middleValueLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.right.equalTo(self);
+            make.centerY.equalTo(self).offset(-5);
+            make.right.equalTo(self);
             make.height.width.equalTo(self.maxValueLabel);
         }];
+    }
+    if (self.type == Y_StockChartcenterViewTypeTimeLine) {
+        _middleValueLabel.textColor = kWhiteColor;
     }
     return _middleValueLabel;
 }
@@ -83,11 +111,77 @@
         _minValueLabel = [self private_createLabel];
         [self addSubview:_minValueLabel];
         [_minValueLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.right.equalTo(self);
+            make.bottom.equalTo(self).offset(-10);
+            make.right.equalTo(self);
+            make.height.width.equalTo(self.maxValueLabel);
+        }];
+        if (self.type == Y_StockChartcenterViewTypeTimeLine) {
+            _minValueLabel.textColor = kGreenTextColor;
+        }
+    }
+    return _minValueLabel;
+}
+
+#pragma mark minPriceLabel的get方法
+-(UILabel *)secondmaxValueLabel
+{
+    if (!_secondmaxValueLabel && self.type == Y_StockChartcenterViewTypeTimeLine) {
+        _secondmaxValueLabel = [self private_createLabel];
+        [self addSubview:_secondmaxValueLabel];
+        [_secondmaxValueLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self.maxValueLabel.mas_bottom).offset((Y_StockChartKLineMainViewMaxY - Y_StockChartKLineMainViewMinY)/6);
+            make.right.equalTo(self);
             make.height.width.equalTo(self.maxValueLabel);
         }];
     }
-    return _minValueLabel;
+    return _secondmaxValueLabel;
+}
+
+#pragma mark minPriceLabel的get方法
+-(UILabel *)thirdmaxValueLabel
+{
+    if (!_thirdmaxValueLabel && self.type == Y_StockChartcenterViewTypeTimeLine) {
+        _thirdmaxValueLabel = [self private_createLabel];
+        [self addSubview:_thirdmaxValueLabel];
+        [_thirdmaxValueLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self.maxValueLabel.mas_bottom).offset((Y_StockChartKLineMainViewMaxY - Y_StockChartKLineMainViewMinY)/3);
+            make.right.equalTo(self);
+            make.height.width.equalTo(self.maxValueLabel);
+        }];
+    }
+    return _thirdmaxValueLabel;
+}
+
+#pragma mark minPriceLabel的get方法
+-(UILabel *)thirdMinLabel
+{
+    if (!_thirdMinLabel && self.type == Y_StockChartcenterViewTypeTimeLine) {
+        _thirdMinLabel = [self private_createLabel];
+        [self addSubview:_thirdMinLabel];
+        [_thirdMinLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self.maxValueLabel.mas_bottom).offset((Y_StockChartKLineMainViewMaxY - Y_StockChartKLineMainViewMinY) * 2 /3);
+            make.right.equalTo(self);
+            make.height.width.equalTo(self.maxValueLabel);
+        }];
+        _thirdMinLabel.textColor = kGreenTextColor;
+    }
+    return _thirdMinLabel;
+}
+
+#pragma mark minPriceLabel的get方法
+-(UILabel *)sencondMinLabel
+{
+    if (!_sencondMinLabel && self.type == Y_StockChartcenterViewTypeTimeLine) {
+        _sencondMinLabel = [self private_createLabel];
+        [self addSubview:_sencondMinLabel];
+        [_sencondMinLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self.maxValueLabel.mas_bottom).offset((Y_StockChartKLineMainViewMaxY - Y_StockChartKLineMainViewMinY) * 5 /6);
+            make.right.equalTo(self);
+            make.height.width.equalTo(self.maxValueLabel);
+        }];
+        _sencondMinLabel.textColor = kGreenTextColor;
+    }
+    return _sencondMinLabel;
 }
 
 #pragma mark - 私有方法
@@ -95,10 +189,11 @@
 - (UILabel *)private_createLabel
 {
     UILabel *label = [UILabel new];
-    label.font = [UIFont systemFontOfSize:10];
-    label.textColor = [UIColor assistTextColor];
+    label.font = [UIFont systemFontOfSize:11];
+    label.textColor = [UIColor zj_colorWithHexString:@"#C80E42" alpha:1];
     label.textAlignment = NSTextAlignmentLeft;
     label.adjustsFontSizeToFitWidth = YES;
+    //    label.backgroundColor = kOrangeColor;
     [self addSubview:label];
     return label;
 }

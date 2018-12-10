@@ -7,12 +7,13 @@
 //
 
 #import "MainViewController.h"
-#import <ECSlidingViewController.h>
-#import "AppDelegate+AppSevice.h"
-#import "DetailViewController.h"
-#import <AXWebViewController.h>
-#import "Y_StockChartViewController.h"
-
+#import <RDVTabBarController.h>
+#import <RDVTabBarItem.h>
+#import "MarketViewController.h"
+#import "OptionalViewController.h"
+#import "TradeViewController.h"
+#import "NewsViewController.h"
+#import "field_key.h"
 @interface MainViewController ()
 @end
 
@@ -20,66 +21,56 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UIBarButtonItem *rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"右边菜单" style:UIBarButtonItemStylePlain target:self action:@selector(rightBarItemTapped:)];
-    self.navigationItem.rightBarButtonItems = @[rightBarButtonItem];
+    NSLog(@"key is %d",FIELD_KEY_AbandonFrozen);
     
-    UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"左边菜单" style:UIBarButtonItemStylePlain target:self action:@selector(leftBarItemTapped:)];
-    self.navigationItem.leftBarButtonItems = @[leftBarButtonItem];
-    self.title = @"ams资管";
-    [UIButton zj_buttonWithTitle:@"测试网页" titleColor:kRedColor backColor:kBlueColor fontSize:18 isBold:YES cornerRadius:0 supView:self.view constraints:^(MASConstraintMaker *make) {
-        make.center.mas_equalTo(self.view);
-        make.size.mas_equalTo(CGSizeMake(100, 100));
-    } touchUp:^(id sender) {
-        Y_StockChartViewController *stockVc = [[Y_StockChartViewController alloc] init];
-        [self.rt_navigationController pushViewController:stockVc animated:YES];
-//        DetailViewController *detailVc = [[DetailViewController alloc] init];
-//        [self.rt_navigationController pushViewController:detailVc animated:YES];
-    }];
-    UISwipeGestureRecognizer *upSwipeGR = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeFrom:)];
-    [upSwipeGR setDirection:UISwipeGestureRecognizerDirectionUp];
-    [self.view addGestureRecognizer:upSwipeGR];
-    
-    UISwipeGestureRecognizer *downSwipeGR = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeFrom:)];
-    [downSwipeGR setDirection:UISwipeGestureRecognizerDirectionDown];
-    [self.view addGestureRecognizer:downSwipeGR];
-    
-    
-}
-
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    //    AppDelegate *delegate = [AppDelegate shareAppDelegate];
-}
-
--(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
+    //行情
+    MarketViewController *marketVC = [[MarketViewController alloc] init];
+    RTContainerNavigationController *marketNavVc = [[RTContainerNavigationController alloc] initWithRootViewController:marketVC];
+    //自选
+    MarketViewController *optionalVC = [[MarketViewController alloc] init];
+    optionalVC.isOption = YES;
+    RTContainerNavigationController *optionalNavVc = [[RTContainerNavigationController alloc] initWithRootViewController:optionalVC];
+    //交易
+    TradeViewController *tradeVC = [[TradeViewController alloc] init];
+    RTContainerNavigationController *tradeNavVc = [[RTContainerNavigationController alloc] initWithRootViewController:tradeVC];
+    //资讯
+    NewsViewController *newsVC = [[NewsViewController alloc] init];
+    RTContainerNavigationController *newsNavVc = [[RTContainerNavigationController alloc] initWithRootViewController:newsVC];
+    [self.tabBar setBackgroundColor:kTabBarBackGroundColor];
+    self.tabBar.layer.shadowColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:1].CGColor;
+    self.tabBar.layer.shadowOffset = CGSizeMake(0,2);
+    self.tabBar.layer.shadowOpacity = 1;
+    self.tabBar.layer.shadowRadius = 5;
+    [self setViewControllers:@[marketNavVc,optionalNavVc,tradeNavVc,newsNavVc]];
+    [self customizeTabBarForController:self];
     
 }
 
--(void)rightBarItemTapped:(UIBarButtonItem*)item{
-    AppDelegate *delegate = [AppDelegate shareAppDelegate];
-    [delegate.managerVc anchorTopViewToLeftAnimated:YES];
-}
-
--(void)leftBarItemTapped:(UIBarButtonItem*)item{
-    AppDelegate *delegate = [AppDelegate shareAppDelegate];
-    [delegate.managerVc anchorTopViewToRightAnimated:YES];
-}
-
--(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    AppDelegate *delegate = [AppDelegate shareAppDelegate];
-    [delegate.managerVc resetTopViewAnimated:YES];
-}
-
--(void)handleSwipeFrom:(UISwipeGestureRecognizer *)swipeGr{
-    if (swipeGr.direction == UISwipeGestureRecognizerDirectionUp) {
-        DLog(@"向上滑动了");
-    }
-    if (swipeGr.direction == UISwipeGestureRecognizerDirectionDown) {
-        DLog(@"向下滑动了");
+/**
+ 自定义tabbar样式
+ 
+ @param tabBarController 设置的tabBarController
+ */
+-(void)customizeTabBarForController:(RDVTabBarController *)tabBarController {
+    //    UIImage *finishedImage = [UIImage imageNamed:@"tabbar_selected_background"];
+    //    UIImage *unfinishedImage = [UIImage imageNamed:@"tabbar_normal_background"];
+    NSArray *tabBarItemImages = @[@"行情", @"自选", @"交易",@"资讯"];
+    NSInteger index = 0;
+    for (RDVTabBarItem *item in [[tabBarController tabBar] items]) {
+        [item setTitlePositionAdjustment:UIOffsetMake(0, 4)];
+        [item setTitle:tabBarItemImages[index]];
+        [item setBackgroundColor:kTabBarBackGroundColor];
+        [item setSelectedTitleAttributes:@{NSForegroundColorAttributeName:kTabBarSelectTextColor,NSFontAttributeName:kFontSize(11)}];
+        [item setUnselectedTitleAttributes:@{NSForegroundColorAttributeName:kTabBarNormalTextColor,NSFontAttributeName:kFontSize(11)}];
+        UIImage *selectedimage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_selected",
+                                                      [tabBarItemImages objectAtIndex:index]]];
+        UIImage *unselectedimage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_normal",
+                                                        [tabBarItemImages objectAtIndex:index]]];
+        [item setFinishedSelectedImage:selectedimage withFinishedUnselectedImage:unselectedimage];
+        
+        index++;
     }
 }
-
 
 
 /*

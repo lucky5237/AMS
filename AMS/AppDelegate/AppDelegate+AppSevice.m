@@ -10,19 +10,11 @@
 #import "MainViewController.h"
 #import <ECSlidingViewController.h>
 #import <RealReachability.h>
-#import "LeftMenuViewController.h"
-#import "MarketViewController.h"
-#import "OptionalViewController.h"
-#import "TradeViewController.h"
-#import "NewsViewController.h"
-#import <RTRootNavigationController.h>
 #import <JDStatusBarNotification.h>
-#import <RDVTabBarController.h>
 #import <Harpy.h>
 #import <JQFMDB.h>
 #import <JLRoutes.h>
-#import <RDVTabBarItem.h>
-//#import "DetailViewController.h"
+
 
 @implementation AppDelegate (AppSevice)
 
@@ -30,25 +22,11 @@
  初始化controller
  */
 -(void)setUpRootViewController{
-    //行情
-    MarketViewController *marketVC = [[MarketViewController alloc] init];
-    RTRootNavigationController *marketNavVc = [[RTRootNavigationController alloc] initWithRootViewController:marketVC];
-    //自选
-    OptionalViewController *optionalVC = [[OptionalViewController alloc] init];
-    RTRootNavigationController *optionalNavVc = [[RTRootNavigationController alloc] initWithRootViewController:optionalVC];
-    //交易
-    TradeViewController *tradeVC = [[TradeViewController alloc] init];
-    RTRootNavigationController *tradeNavVc = [[RTRootNavigationController alloc] initWithRootViewController:tradeVC];
-    //资讯
-    NewsViewController *newsVC = [[NewsViewController alloc] init];
-    
-    //RDV
-    RDVTabBarController *tabBarController = [[RDVTabBarController alloc] init];
-    [tabBarController.tabBar setBackgroundColor:[UIColor colorWithRed:38/255 green:38/255 blue:38/255 alpha:1]];
-    [tabBarController setViewControllers:@[marketNavVc,optionalNavVc,tradeNavVc,newsVC]];
-    [self customizeTabBarForController:tabBarController];
+   
+
+    MainViewController *mainVC = [[MainViewController alloc] init];
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    self.window.rootViewController = tabBarController;
+    self.window.rootViewController = mainVC;
     [self.window makeKeyAndVisible];
 }
 
@@ -110,33 +88,6 @@
         default:
             NSLog(@"未知网络连接");
             break;
-    }
-}
-
-
-/**
-自定义tabbar样式
-
- @param tabBarController 设置的tabBarController
- */
--(void)customizeTabBarForController:(RDVTabBarController *)tabBarController {
-//    UIImage *finishedImage = [UIImage imageNamed:@"tabbar_selected_background"];
-//    UIImage *unfinishedImage = [UIImage imageNamed:@"tabbar_normal_background"];
-    NSArray *tabBarItemImages = @[@"行情", @"自选", @"交易",@"资讯"];
-    
-    NSInteger index = 0;
-    for (RDVTabBarItem *item in [[tabBarController tabBar] items]) {
-        [item setTitle:tabBarItemImages[index]];
-        [item setBackgroundColor:[UIColor colorWithRed:38/255 green:38/255 blue:38/255 alpha:1]];
-        [item setSelectedTitleAttributes:@{NSForegroundColorAttributeName:kRedColor,NSFontAttributeName:kFontSize(12)}];
-        [item setUnselectedTitleAttributes:@{NSForegroundColorAttributeName:kWhiteColor,NSFontAttributeName:kFontSize(12)}];
-        UIImage *selectedimage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_selected",
-                                                      [tabBarItemImages objectAtIndex:index]]];
-        UIImage *unselectedimage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_normal",
-                                                        [tabBarItemImages objectAtIndex:index]]];
-        [item setFinishedSelectedImage:selectedimage withFinishedUnselectedImage:unselectedimage];
-        
-        index++;
     }
 }
 

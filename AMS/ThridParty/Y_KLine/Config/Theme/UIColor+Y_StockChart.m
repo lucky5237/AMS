@@ -24,7 +24,7 @@
 #pragma mark 所有图表的背景颜色
 +(UIColor *)backgroundColor
 {
-    return [UIColor colorWithRGBHex:0x181c20];
+    return kBackGroundColor;
 }
 
 #pragma mark 辅助背景色
@@ -43,6 +43,7 @@
 +(UIColor *)decreaseColor
 {
     return [UIColor colorWithRGBHex:0x00b07c];
+//    return [UIColor zj_colorWithHexString:@"#04705F" alpha:1];
 }
 
 #pragma mark 主文字颜色
@@ -76,10 +77,30 @@
     return [UIColor colorWithRGBHex:0xe1e2e6];
 }
 
++ (UIColor *)ma5Color{
+    return kWhiteColor;
+}
+
++(UIColor *)ma10Color{
+    return kGreenTextColor;
+}
+
++(UIColor *)ma20Color{
+    return [UIColor zj_colorWithHexString:@"#FFE400" alpha:1];
+}
+
++(UIColor *)ma40Color{
+    return [UIColor zj_colorWithHexString:@"#F717FA" alpha:1];
+}
+
++(UIColor *)ma60Color{
+    return [UIColor zj_colorWithHexString:@"#B9B8CA" alpha:1];
+}
+
 #pragma mark ma5的颜色
 +(UIColor *)ma7Color
 {
-    return [UIColor colorWithRGBHex:0xff783c];
+    return [UIColor colorWithRGBHex:0xffffff];
 }
 
 #pragma mark ma30颜色
@@ -97,13 +118,17 @@
 #pragma mark BOLL_UP的颜色
 +(UIColor *)BOLL_UPColor
 {
-    return [UIColor purpleColor];
+    return [UIColor ma20Color];
 }
 
 #pragma mark BOLL_DN的颜色
 +(UIColor *)BOLL_DNColor
 {
-    return [UIColor greenColor];
+    return [UIColor ma40Color];
+}
+
++(UIColor *)bgLineColor{
+    return klineBgLineRedColor;
 }
 
 @end

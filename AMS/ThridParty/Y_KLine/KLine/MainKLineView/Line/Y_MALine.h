@@ -9,11 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "Y_KLineModel.h"
 typedef NS_ENUM(NSInteger, Y_MAType){
-    Y_MA7Type = 0,
-    Y_MA30Type,
+    Y_MA5Type = 0,
+    Y_MA10Type,
+    Y_MA20Type,
+    Y_MA40Type,
+    Y_MA60Type,
     Y_BOLL_MB,
     Y_BOLL_UP,
-    Y_BOLL_DN
+    Y_BOLL_DN,
+    Y_AVERAGET
 };
 
 /**
@@ -24,6 +28,8 @@ typedef NS_ENUM(NSInteger, Y_MAType){
 @property (nonatomic, strong) NSArray *MAPositions;
 
 @property (nonatomic, strong) NSArray *BOLLPositions;
+
+@property (nonatomic, strong) NSArray *AVERAGEPositions;
 
 @property (nonatomic, assign) Y_MAType MAType;
 /**

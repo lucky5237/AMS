@@ -9,9 +9,12 @@
 #import "Y_KLineGroupModel.h"
 #import "Y_KLineModel.h"
 @implementation Y_KLineGroupModel
-+ (instancetype) objectWithArray:(NSArray *)arr {
-    
-    NSAssert([arr isKindOfClass:[NSArray class]], @"arr不是一个数组");
++ (instancetype) objectWithArray:(NSArray *)arr type:(Y_StockChartCenterViewType)type{
+    if (![arr isKindOfClass:[NSArray class]]) {
+        NSLog(@"arr不是一个数组");
+        return nil;
+    }
+//    NSAssert([arr isKindOfClass:[NSArray class]], @"arr不是一个数组");
     
     Y_KLineGroupModel *groupModel = [Y_KLineGroupModel new];
     NSMutableArray *mutableArr = @[].mutableCopy;
@@ -23,10 +26,13 @@
     {
         Y_KLineModel *model = [Y_KLineModel new];
         model.PreviousKlineModel = preModel;
-        [model initWithArray:item];
+        if (type == Y_StockChartcenterViewTypeKline) {
+           [model initWithArray:item];
+        }else{
+            [model initWithTimeLineArray:item];
+        }
         model.ParentGroupModel = groupModel;
         [mutableArr addObject:model];
-
         preModel = model;
     }
     
@@ -45,14 +51,17 @@
     
     groupModel.models = mutableArr;
     
-    //初始化第一个Model的数据
-    Y_KLineModel *firstModel = mutableArr[0];
-    [firstModel initFirstModel];
-    
-    //初始化其他Model的数据
-    [mutableArr enumerateObjectsUsingBlock:^(Y_KLineModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
-        [model initData];
-    }];
+    if(type == Y_StockChartcenterViewTypeKline){
+        //初始化第一个Model的数据
+        Y_KLineModel *firstModel = mutableArr[0];
+        [firstModel initFirstModel];
+        
+        //初始化其他Model的数据
+        [mutableArr enumerateObjectsUsingBlock:^(Y_KLineModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
+            [model initData];
+        }];
+    }
+   
 
     return groupModel;
 }

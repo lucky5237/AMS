@@ -8,25 +8,30 @@
 #import "Y_StockChartGlobalVariable.h"
 
 /**
- *  K线图的宽度，默认20
+ *  K线图的宽度，默认2
  */
 static CGFloat Y_StockChartKLineWidth = 2;
 
 /**
  *  K线图的间隔，默认1
  */
-static CGFloat Y_StockChartKLineGap = 1;
+static CGFloat Y_StockChartKLineGap = 1		;
 
 
 /**
  *  MainView的高度占比,默认为0.5
  */
-static CGFloat Y_StockChartKLineMainViewRadio = 0.5;
+static CGFloat Y_StockChartKLineMainViewRadio = 0.4;
+
+/**
+ 分时图成交量线宽度
+ */
+static CGFloat Y_StockTimeLineVolumeWidth = 1;
 
 /**
  *  VolumeView的高度占比,默认为0.5
  */
-static CGFloat Y_StockChartKLineVolumeViewRadio = 0.2;
+static CGFloat Y_StockChartKLineVolumeViewRadio = 0.178;
 
 
 /**
@@ -95,6 +100,22 @@ static Y_StockChartTargetLineStatus Y_StockChartKLineIsBOLLLine = Y_StockChartTa
 + (void)setkLineVolumeViewRadio:(CGFloat)radio
 {
     Y_StockChartKLineVolumeViewRadio = radio;
+}
+
+/**
+分时线的成交量线的宽度
+*/
++(CGFloat)timeLineVolumeWidth {
+    return Y_StockTimeLineVolumeWidth;
+}
+
+/**
+ 设置分时线的成交量线的宽度
+ 
+ @param timeLineVolumeWidth 宽度
+ */
++(void)setTimeLineVolumeWidth:(CGFloat)timeLineVolumeWidth {
+    Y_StockTimeLineVolumeWidth = timeLineVolumeWidth;
 }
 
 

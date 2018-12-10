@@ -47,8 +47,12 @@
  */
 @property (nonatomic, assign) Y_StockChartTargetLineStatus targetLineStatus;
 
+@property(nonatomic,assign) Y_StockChartCenterViewType type;
+
 /**
  *  绘制
  */
 - (void)draw;
+
+-(CGFloat) getYValue:(CGFloat)yPosition;
 @end

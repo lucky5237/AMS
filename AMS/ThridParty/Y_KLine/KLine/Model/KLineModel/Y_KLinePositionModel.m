@@ -20,4 +20,11 @@
     return model;
 }
 
++(instancetype) modelWithPrice:(CGPoint) pricePoint
+{
+    Y_KLinePositionModel *model = [Y_KLinePositionModel new];
+    model.pricePoint = pricePoint;
+    return model;
+}
+
 @end

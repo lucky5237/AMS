@@ -13,6 +13,7 @@
 @property(nonatomic,strong) UILabel *priceLabel;//价格
 @property(nonatomic,strong) UILabel *fallRiseLabel;//跌涨
 @property(nonatomic,strong) UILabel *volumeLabel;//成交量
+@property(nonatomic,strong) UIView *separator;//分割线
 @property(nonatomic,strong) MarketModel* model;
 @end
 
@@ -34,31 +35,39 @@
     [self.contentView addSubview:self.priceLabel];
     [self.contentView addSubview:self.fallRiseLabel];
     [self.contentView addSubview:self.volumeLabel];
+    [self.contentView addSubview:self.separator];
 }
 
 -(void)layout{
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(kRealWidth(5));
+        make.left.mas_equalTo(10);
         make.centerY.mas_equalTo(self.contentView);
-        make.width.mas_equalTo(kRealWidth(MARKET_CELL_NAME_WIDTH));
+        make.width.mas_equalTo(MARKET_CELL_NAME_WIDTH);
     }];
     
     [self.priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.nameLabel.mas_right);
         make.centerY.mas_equalTo(self.contentView);
-        make.width.mas_equalTo(kRealWidth(MARKET_CELL_PRICE_WIDTH));
+        make.width.mas_equalTo(MARKET_CELL_PRICE_WIDTH);
     }];
     
     [self.fallRiseLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.priceLabel.mas_right);
         make.centerY.mas_equalTo(self.contentView);
-        make.width.mas_equalTo(kRealWidth(MARKET_CELL_FALLRISE_WIDTH));
+        make.width.mas_equalTo(MARKET_CELL_FALLRISE_WIDTH);
     }];
     
     [self.volumeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.fallRiseLabel.mas_right);
         make.centerY.mas_equalTo(self.contentView);
-        make.width.mas_equalTo(kRealWidth(MARKET_CELL_VOLUME_WIDTH));
+        make.width.mas_equalTo(MARKET_CELL_VOLUME_WIDTH);
+    }];
+    
+    [self.separator mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(KScreenWidth);
+        make.height.mas_equalTo(1);
+        make.left.mas_equalTo(self.contentView);
+        make.top.mas_equalTo(self.contentView);
     }];
 }
 
@@ -95,19 +104,21 @@
         self.priceLabel.textColor = kWhiteColor;
         self.fallRiseLabel.textColor = kWhiteColor;
         self.volumeLabel.textColor = kWhiteColor;
-        self.backgroundColor = kOrangeColor;
+        self.separator.backgroundColor = kMenuRedBackGroundColor;
+        self.backgroundColor = kTableViewBackGroundColor;
     }else{
-        self.nameLabel.textColor = kYellowColor;
-        self.priceLabel.textColor = self.model.isRise ? kRedColor : kGreenColor;
+        self.separator.backgroundColor = kTableViewBackGroundColor;
+        self.nameLabel.textColor = kYellowTextColor;
+        self.priceLabel.textColor = self.model.isRise ? kRedTextColor : kGreenTextColor;
         if (self.model.fallRise.integerValue == 0) {
-            self.fallRiseLabel.textColor = kWhiteColor;
+            self.fallRiseLabel.textColor = kNormalTextColor;
         }else if (self.model.fallRise.integerValue > 0){
-            self.fallRiseLabel.textColor = kRedColor;
+            self.fallRiseLabel.textColor = kRedTextColor;
         }else{
-            self.fallRiseLabel.textColor = kGreenColor;
+            self.fallRiseLabel.textColor = kGreenTextColor;
         }
-        self.volumeLabel.textColor = kWhiteColor;
-        self.backgroundColor = kBlackColor;
+        self.volumeLabel.textColor = kNormalTextColor;
+        self.backgroundColor = kCellBackGroundColor;
     }
 }
 
@@ -116,8 +127,8 @@
 -(UILabel *)nameLabel{
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] init];
-        _nameLabel.textColor = kYellowColor;
-        _nameLabel.font = kFontSize(16);
+        _nameLabel.textColor = kYellowTextColor;
+        _nameLabel.font = kFontSize(15);
         _nameLabel.textAlignment = NSTextAlignmentLeft;
         _nameLabel.backgroundColor = kClearColor;
     }
@@ -127,9 +138,9 @@
 -(UILabel *)priceLabel{
     if (!_priceLabel) {
         _priceLabel = [[UILabel alloc] init];
-        _priceLabel.textColor = kRedColor;
-        _priceLabel.font = kFontSize(14);
-        _priceLabel.textAlignment = NSTextAlignmentRight;
+        _priceLabel.textColor = kRedTextColor;
+        _priceLabel.font = kFontSize(15);
+        _priceLabel.textAlignment = NSTextAlignmentCenter;
         _priceLabel.backgroundColor = kClearColor;
     }
     return _priceLabel;
@@ -138,9 +149,9 @@
 -(UILabel *)fallRiseLabel{
     if (!_fallRiseLabel) {
         _fallRiseLabel = [[UILabel alloc] init];
-        _fallRiseLabel.textColor = kGreenColor;
-        _fallRiseLabel.font = kFontSize(14);
-        _fallRiseLabel.textAlignment = NSTextAlignmentRight;
+        _fallRiseLabel.textColor = kGreenTextColor;
+        _fallRiseLabel.font = kFontSize(15);
+        _fallRiseLabel.textAlignment = NSTextAlignmentCenter;
         _fallRiseLabel.backgroundColor = kClearColor;
     }
     return _fallRiseLabel;
@@ -149,12 +160,20 @@
 -(UILabel *)volumeLabel{
     if (!_volumeLabel) {
         _volumeLabel = [[UILabel alloc] init];
-        _volumeLabel.textColor = kWhiteColor;
-        _volumeLabel.font = kFontSize(14);
-        _volumeLabel.textAlignment = NSTextAlignmentRight;
+        _volumeLabel.textColor = kNormalTextColor;
+        _volumeLabel.font = kFontSize(15);
+        _volumeLabel.textAlignment = NSTextAlignmentCenter;
         _volumeLabel.backgroundColor = kClearColor;
     }
     return _volumeLabel;
+}
+
+-(UIView *)separator{
+    if(!_separator){
+        _separator = [[UIView alloc] init];
+        _separator.backgroundColor = kTableViewBackGroundColor;
+    }
+    return _separator;
 }
 
 
