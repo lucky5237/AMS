@@ -87,4 +87,13 @@
     view.layer.mask = maskLayer;
 }
 
++(CGRect)rectOfNSString:(NSString *)string attribute:(NSDictionary *)attribute {
+    CGRect rect = [string boundingRectWithSize:CGSizeMake(MAXFLOAT, 0)
+                                       options:NSStringDrawingTruncatesLastVisibleLine |NSStringDrawingUsesLineFragmentOrigin |
+                   NSStringDrawingUsesFontLeading
+                                    attributes:attribute
+                                       context:nil];
+    return rect;
+}
+
 @end

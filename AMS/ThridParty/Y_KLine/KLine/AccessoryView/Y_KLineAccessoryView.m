@@ -50,6 +50,10 @@
 
 @property (nonatomic, assign) CGFloat maxAssert;
 @property (nonatomic, assign) CGFloat minAssert;
+@property (nonatomic, assign) CGFloat maxY;
+@property (nonatomic, assign) CGFloat minY;
+@property (nonatomic, assign) CGFloat zeroY;
+
 
 @end
 
@@ -80,6 +84,19 @@
     }
     
     CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetStrokeColorWithColor(context, klineBgLineRedColor.CGColor);
+    CGContextSetLineWidth(context, 0.5);
+    UIScrollView *scrollView = (UIScrollView *)self.superview;
+    const CGPoint line1[] = {CGPointMake(0, Y_StockChartKLineAccessoryViewMinY),CGPointMake(scrollView.contentSize.width, Y_StockChartKLineAccessoryViewMinY)};
+    const CGPoint line2[] = {CGPointMake(0, Y_StockChartKLineAccessoryViewMaxY),CGPointMake(scrollView.contentSize.width, Y_StockChartKLineAccessoryViewMaxY)};
+  
+    CGFloat lengths[] = {1,1};
+    CGContextSaveGState(context);
+    CGContextSetLineDash(context,0,lengths,2);
+    CGContextStrokeLineSegments(context, line1, 2);
+    CGContextStrokeLineSegments(context, line2, 2);
+    CGContextRestoreGState(context);
+    
     
     /**
      *  副图，需要区分是MACD线还是KDJ线，进而选择不同的数据源和绘制方法
@@ -109,6 +126,11 @@
         MALine.MAPositions = self.Accessory_DEAPositions;
         [MALine draw];
         
+//        const CGPoint line3[] = {CGPointMake(0, self.zeroY),CGPointMake(scrollView.contentSize.width, self.zeroY)};
+//         CGContextStrokeLineSegments(context, line3, 2);
+        NSDictionary *style = @{NSFontAttributeName:kFontSize(11),NSForegroundColorAttributeName:klineBgLineRedColor};
+        CGPoint zeroPoint = CGPointMake(0,self.zeroY - [AMSUtil rectOfNSString:@"0.00" attribute:style].size.height);
+        [@"0.00" drawAtPoint:zeroPoint withAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:11],NSForegroundColorAttributeName : klineBgLineRedColor}];
     } else {
         /**
         KDJ
@@ -199,6 +221,7 @@
             unitValue = 0.01f;
         }
         self.unitValue = unitValue;
+        self.zeroY = Y_StockChartKLineAccessoryViewMiddleY;
         
         [self.Accessory_DIFPositions removeAllObjects];
         [self.Accessory_DEAPositions removeAllObjects];

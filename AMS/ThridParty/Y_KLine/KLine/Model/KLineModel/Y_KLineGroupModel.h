@@ -16,8 +16,11 @@
 
 @property (nonatomic, copy) NSArray<Y_KLineModel *> *models;
 
+
 //初始化Model
 + (instancetype) objectWithArray:(NSArray *)arr type:(Y_StockChartCenterViewType)type;
+
++ (instancetype) objectWithArray:(NSArray *)arr type:(Y_StockChartCenterViewType)type lastDayClosePrice:(NSNumber*)price;
 @end
 
 //初始化第一个Model

@@ -50,12 +50,12 @@
         CGContextSetStrokeColorWithColor(ctx, [UIColor bgLineColor].CGColor);
         CGContextSetLineWidth(ctx, 0.5);
         CGFloat unitWidth = self.frame.size.width/4;
-        
-        const CGPoint line1[] = {CGPointMake(self.contentOffset.x, Y_StockChartKLineMainViewMinY),CGPointMake(self.contentOffset.x, self.frame.size.height - 20)};
-        const CGPoint line2[] = {CGPointMake(self.contentOffset.x+unitWidth, Y_StockChartKLineMainViewMinY),CGPointMake(self.contentOffset.x+unitWidth, self.frame.size.height - 20)};
-        const CGPoint line3[] = {CGPointMake(self.contentOffset.x+unitWidth *2, Y_StockChartKLineMainViewMinY),CGPointMake(self.contentOffset.x+unitWidth*2, self.frame.size.height - 20)};
-        const CGPoint line4[] = {CGPointMake(self.contentOffset.x+unitWidth *3, Y_StockChartKLineMainViewMinY),CGPointMake(self.contentOffset.x+unitWidth*3, self.frame.size.height - 20)};
-        const CGPoint line5[] = {CGPointMake(self.contentOffset.x+unitWidth *4, Y_StockChartKLineMainViewMinY),CGPointMake(self.contentOffset.x+unitWidth*4, self.frame.size.height - 20)};
+        CGFloat offset = self.targetLineStatus== Y_StockChartTargetLineStatusMACD ? 0 :25;
+        const CGPoint line1[] = {CGPointMake(self.contentOffset.x, Y_StockChartKLineMainViewMinY+ offset),CGPointMake(self.contentOffset.x, self.frame.size.height - 20)};
+        const CGPoint line2[] = {CGPointMake(self.contentOffset.x+unitWidth, Y_StockChartKLineMainViewMinY+ offset),CGPointMake(self.contentOffset.x+unitWidth, self.frame.size.height - 20)};
+        const CGPoint line3[] = {CGPointMake(self.contentOffset.x+unitWidth *2, Y_StockChartKLineMainViewMinY+ offset),CGPointMake(self.contentOffset.x+unitWidth*2, self.frame.size.height - 20)};
+        const CGPoint line4[] = {CGPointMake(self.contentOffset.x+unitWidth *3, Y_StockChartKLineMainViewMinY+ offset),CGPointMake(self.contentOffset.x+unitWidth*3, self.frame.size.height - 20)};
+        const CGPoint line5[] = {CGPointMake(self.contentOffset.x+unitWidth *4, Y_StockChartKLineMainViewMinY+ offset),CGPointMake(self.contentOffset.x+unitWidth*4, self.frame.size.height - 20)};
         CGFloat lengths[] = {1,1};
         CGContextSaveGState(ctx);
         CGContextSetLineDash(ctx,0,lengths,2);

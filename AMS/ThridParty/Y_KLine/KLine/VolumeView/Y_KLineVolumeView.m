@@ -31,10 +31,18 @@
 // *  Volume_MA7位置数组
 // */
 //@property (nonatomic, strong) NSMutableArray *Volume_MA30Positions;
+
+/**
+ *  持仓量均线
+ */
+@property (nonatomic, strong) NSMutableArray *storage_positions;
 @property (nonatomic, assign) CGFloat unitValue;
 
 @property (nonatomic, assign) CGFloat maxAssert;
 @property (nonatomic, assign) CGFloat minAssert;
+
+@property (nonatomic, assign) NSNumber* maxStorage;
+@property (nonatomic, assign) NSNumber* minStorage;
 @end
 
 @implementation Y_KLineVolumeView
@@ -44,6 +52,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor backgroundColor];
+        self.storage_positions = @[].mutableCopy;
 //        self.Volume_MA7Positions = @[].mutableCopy;
 //        self.Volume_MA30Positions = @[].mutableCopy;
     }
@@ -58,8 +67,6 @@
     {
         return;
     }
-    
-  
     
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetStrokeColorWithColor(context, klineBgLineRedColor.CGColor);
@@ -86,6 +93,21 @@
         kLineVolume.type = self.type;
         [kLineVolume draw];
     }];
+    if (self.type == Y_StockChartcenterViewTypeTimeLine) {
+        Y_MALine *MALine = [[Y_MALine alloc]initWithContext:context];
+        MALine.MAType = Y_MA5Type;
+        MALine.MAPositions = self.storage_positions;
+        [MALine draw];
+        
+        
+        //画最大值
+        [self.maxStorage.stringValue drawAtPoint:CGPointMake(self.frame.size.width - [AMSUtil rectOfNSString:self.maxStorage.stringValue attribute:@{NSForegroundColorAttributeName:[UIColor bgLineColor],NSFontAttributeName:kFontSize(10)}].size.width,0) withAttributes:@{NSForegroundColorAttributeName:[UIColor bgLineColor],NSFontAttributeName:kFontSize(10)}];
+        
+        [self.minStorage.stringValue drawAtPoint:CGPointMake(self.frame.size.width - [AMSUtil rectOfNSString:self.minStorage.stringValue attribute:@{NSForegroundColorAttributeName:[UIColor bgLineColor],NSFontAttributeName:kFontSize(10)}].size.width,Y_StockChartKLineVolumeViewMaxY - [AMSUtil rectOfNSString:self.minStorage.stringValue attribute:@{NSForegroundColorAttributeName:[UIColor bgLineColor],NSFontAttributeName:kFontSize(10)}].size.height) withAttributes:@{NSForegroundColorAttributeName:[UIColor bgLineColor],NSFontAttributeName:kFontSize(10)}];
+        
+//        [self.maxStorage.stringValue drawAtPoint:CGPointMake(self.frame.size.width - [AMSUtil rectOfNSString:self.maxStorage.stringValue attribute:@{NSForegroundColorAttributeName:[UIColor bgLineColor],NSFontAttributeName:kFontSize(10)}].size.width,Y_StockChartKLineVolumeViewMinY) withAttributes:@{NSForegroundColorAttributeName:[UIColor bgLineColor],NSFontAttributeName:kFontSize(10)}];
+       
+    }
     
 //   if(self.targetLineStatus != Y_StockChartTargetLineStatusCloseMA){
 //        Y_MALine *MALine = [[Y_MALine alloc]initWithContext:context];
@@ -127,6 +149,9 @@
     __block CGFloat minVolume = firstModel.Volume;
     __block CGFloat maxVolume = firstModel.Volume;
     
+    __block NSNumber *minStorage = firstModel.storage;
+    __block NSNumber *maxStorage = firstModel.storage;
+    
     [kLineModels enumerateObjectsUsingBlock:^(Y_KLineModel *  _Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
         
         if(model.Volume < minVolume)
@@ -137,6 +162,16 @@
         if(model.Volume > maxVolume)
         {
             maxVolume = model.Volume;
+        }
+        
+        if(model.storage)
+        {
+            if (minStorage.integerValue > model.storage.integerValue) {
+                minStorage = model.storage;
+            }
+            if (maxStorage.integerValue < model.storage.integerValue) {
+                maxStorage = model.storage;
+            }
         }
 //        if(model.Volume_MA7)
 //        {
@@ -160,15 +195,22 @@
     
     self.maxAssert = maxVolume;
     self.minAssert = minVolume;
+    
+    self.maxStorage = maxStorage;
+    self.minStorage = minStorage;
 
     CGFloat unitValue = (maxVolume - minVolume) / (maxY - minY);
+    CGFloat storageUnitValue = (maxStorage.integerValue - minStorage.integerValue) /(maxY - minY);
     if (unitValue == 0.f) {
         unitValue = 0.01f;
+    }
+    if (storageUnitValue == 0.f) {
+        storageUnitValue = 0.01f;
     }
     self.unitValue = unitValue;
     
     NSMutableArray *volumePositionModels = @[].mutableCopy;
-//    [self.Volume_MA7Positions removeAllObjects];
+    [self.storage_positions removeAllObjects];
 //    [self.Volume_MA30Positions removeAllObjects];
     
     [kLineModels enumerateObjectsUsingBlock:^(Y_KLineModel *  _Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -221,6 +263,19 @@
 //            [self.Volume_MA30Positions addObject: [NSValue valueWithCGPoint: ma30Point]];
 //        }
     }];
+    if (self.type == Y_StockChartcenterViewTypeTimeLine) {
+        [kLineModels enumerateObjectsUsingBlock:^(Y_KLineModel *  _Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
+            Y_KLinePositionModel *kLinePositionModel = self.needDrawKLinePositionModels[idx];
+            CGFloat xPosition = kLinePositionModel.HighPoint.x;
+            
+            CGFloat yPosition = ABS(maxY - (model.storage.integerValue - minStorage.integerValue)/storageUnitValue);
+        
+            CGPoint startPoint = CGPointMake(xPosition,yPosition);
+//            CGPoint endPoint = CGPointMake(xPosition, maxY);
+            [self.storage_positions addObject:[NSValue valueWithCGPoint:startPoint]];
+        }];
+    }
+    
     
     if(self.delegate && [self.delegate respondsToSelector:@selector(kLineVolumeViewCurrentMaxVolume:minVolume:)])
     {

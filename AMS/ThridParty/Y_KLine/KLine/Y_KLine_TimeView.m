@@ -35,13 +35,15 @@
 //            }];
             //
             __block CGPoint lastDrawDatePoint = CGPointZero;//fix
+            UIScrollView *scrollView = (UIScrollView *) self.superview;
             [self.needDrawKLinePositionModels enumerateObjectsUsingBlock:^(Y_KLinePositionModel * _Nonnull positionModel, NSUInteger idx, BOOL * _Nonnull stop) {
         
         
                 CGPoint point = positionModel.LowPoint;
                   Y_KLineModel *model = (Y_KLineModel *)self.needDrawKLineModels[idx];
-                 CGPoint drawPoint = CGPointMake(point.x - [Y_StockChartGlobalVariable kLineWidth] /2, 5);
-                if(CGPointEqualToPoint(lastDrawDatePoint, CGPointZero) || drawPoint.x - lastDrawDatePoint.x >= KScreenWidth / 4 )
+                 CGPoint drawPoint = CGPointMake(point.x, 5);
+            
+                if(CGPointEqualToPoint(lastDrawDatePoint, CGPointZero) || drawPoint.x - lastDrawDatePoint.x >= scrollView.bounds.size.width / 4 )
                 {
                     [model.Date drawAtPoint:drawPoint withAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:10],NSForegroundColorAttributeName : klineBgLineRedColor}];
                     lastDrawDatePoint = drawPoint;

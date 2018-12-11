@@ -159,8 +159,7 @@
         CGContextStrokeLineSegments(context, line6, 2);
         CGContextRestoreGState(context);
         CGContextStrokeLineSegments(context, line7, 2);
-        
-        //        self.needDrawKLineModels
+
     }else{
         CGContextSetStrokeColorWithColor(context, klineBgLineRedColor.CGColor);
         CGContextSetLineWidth(context, 0.5);
@@ -175,7 +174,6 @@
         CGContextStrokeLineSegments(context, lineMiddle, 2);
         CGContextStrokeLineSegments(context, lineBottom, 2);
         CGContextRestoreGState(context);
-        
     }
     
     
@@ -240,7 +238,17 @@
     } else {
         __block NSMutableArray *positions = @[].mutableCopy;
         [self.needDrawKLinePositionModels enumerateObjectsUsingBlock:^(Y_KLinePositionModel * _Nonnull positionModel, NSUInteger idx, BOOL * _Nonnull stop) {
-            UIColor *strokeColor = positionModel.OpenPoint.y < positionModel.ClosePoint.y ? [UIColor increaseColor] : [UIColor decreaseColor];
+            
+            UIColor *strokeColor = kWhiteColor;
+            if (idx >= 1) {
+                Y_KLineModel *preModel = self.needDrawKLineModels[idx - 1];
+                Y_KLineModel *currentModel = self.needDrawKLineModels[idx];
+                if (currentModel.price.floatValue > preModel.price.floatValue) {
+                    strokeColor = [UIColor increaseColor];
+                }else if (currentModel.price.floatValue < preModel.price.floatValue){
+                    strokeColor = [UIColor decreaseColor];
+                }
+            }
             [kLineColors addObject:strokeColor];
             [positions addObject:[NSValue valueWithCGPoint:positionModel.pricePoint]];
         }];

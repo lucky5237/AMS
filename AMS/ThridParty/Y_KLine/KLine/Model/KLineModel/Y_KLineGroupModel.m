@@ -9,7 +9,7 @@
 #import "Y_KLineGroupModel.h"
 #import "Y_KLineModel.h"
 @implementation Y_KLineGroupModel
-+ (instancetype) objectWithArray:(NSArray *)arr type:(Y_StockChartCenterViewType)type{
++ (instancetype) objectWithArray:(NSArray *)arr type:(Y_StockChartCenterViewType)type lastDayClosePrice:(NSNumber*)price{
     if (![arr isKindOfClass:[NSArray class]]) {
         NSLog(@"arr不是一个数组");
         return nil;
@@ -29,7 +29,7 @@
         if (type == Y_StockChartcenterViewTypeKline) {
            [model initWithArray:item];
         }else{
-            [model initWithTimeLineArray:item];
+            [model initWithTimeLineArray:item lastDayClosePrise:price.floatValue];
         }
         model.ParentGroupModel = groupModel;
         [mutableArr addObject:model];
@@ -64,5 +64,9 @@
    
 
     return groupModel;
+}
+
++ (instancetype) objectWithArray:(NSArray *)arr type:(Y_StockChartCenterViewType)type{
+    return [self objectWithArray:arr type:type lastDayClosePrice:nil];
 }
 @end

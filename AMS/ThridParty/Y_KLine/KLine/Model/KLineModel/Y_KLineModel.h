@@ -246,7 +246,7 @@ typedef NS_ENUM(NSInteger, YCoinType) {
 //初始化Model
 - (void) initWithArray:(NSArray *)arr;
 
-- (void) initWithTimeLineArray:(NSArray *)arr;
+- (void) initWithTimeLineArray:(NSArray *)arr lastDayClosePrise:(CGFloat)closePrise;
 
 - (void) initWithDict:(NSDictionary *)dict;
 

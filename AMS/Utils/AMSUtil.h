@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 +(UIImage *)imageWithColor:(UIColor *)color;
 +(BOOL) isVaildMoney:(NSString *) money;//验证交易界面金额的输入
 +(void)drawCorner:(UIRectCorner)corners cornerRadii:(CGSize)cornerRadii view:(UIView*) view;
++(CGRect)rectOfNSString:(NSString *)string attribute:(NSDictionary *)attribute;
 @end
 
 NS_ASSUME_NONNULL_END

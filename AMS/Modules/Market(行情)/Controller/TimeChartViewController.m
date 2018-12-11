@@ -25,8 +25,15 @@
 @property(nonatomic,strong) UIView *verticalView;
 @property (nonatomic,assign) BOOL isAnimation;
 @property(nonatomic,assign) CGPoint lastRecognizedInterval;
+@property(nonatomic,strong) Y_KLineModel *selectedModel;
 @end
 #define Bottom_Height 100
+#define Origin_left_frame CGRectMake(-PARAMVIEW_WIDTH,CGRectGetMinY(self.kLineView.kLineMainView.frame) + 10, PARAMVIEW_WIDTH,TIMELINE_PARAMVIEW_HEIGHT)
+#define Show_left_frame CGRectMake(0, CGRectGetMinY(self.kLineView.kLineMainView.frame) + 10, PARAMVIEW_WIDTH, TIMELINE_PARAMVIEW_HEIGHT)
+
+#define Origin_right_frame CGRectMake(KScreenWidth, CGRectGetMinY(self.kLineView.kLineMainView.frame) + 10, PARAMVIEW_WIDTH, TIMELINE_PARAMVIEW_HEIGHT);
+
+#define Show_right_frame CGRectMake(KScreenWidth - PARAMVIEW_WIDTH, CGRectGetMinY(self.kLineView.kLineMainView.frame) + 10, PARAMVIEW_WIDTH, TIMELINE_PARAMVIEW_HEIGHT);
 @implementation TimeChartViewController
 
 - (void)viewDidLoad {
@@ -72,24 +79,26 @@
 //    param[@"market"] = @"btc_usdt";
 //    param[@"size"] = @"1000";
     [NetWorking request:@"http://stock2.finance.sina.com.cn/futures/api/json.php/IndexService.getInnerFuturesMinLine?symbol=M0" param:nil thenSuccess:^(NSArray *responseObject) {
-        Y_KLineGroupModel *groupModel = [Y_KLineGroupModel objectWithArray:responseObject type:Y_StockChartcenterViewTypeTimeLine];
+        Y_KLineGroupModel *groupModel = [Y_KLineGroupModel objectWithArray:responseObject type:Y_StockChartcenterViewTypeTimeLine lastDayClosePrice:@2000];
         self.groupModel = groupModel;
         NSInteger minCount = 241;
        [Y_StockChartGlobalVariable setTimeLineVolumeWidth:((self.kLineView.scrollView.bounds.size.width -  (minCount + 1) * Y_StockTimeLineViewVolumeGap) / minCount)];
+        self.kLineView.lastDayClosepPrice = @2000;
         [self.kLineView setKLineModels:groupModel.models];
-//        self.kLineView.targetLineStatus = Y_StockChartTargetLineStatusAccessoryClose;
+
     } fail:^{
         NSLog(@"fail");
     }];
 }
 
 -(void)didNeedUpdataParamInfo:(NSNotification*) noti{
-    if (_paramView && _paramView.type!=NoneType) {
-        Y_KLineModel *model = (Y_KLineModel*)noti.object;
-        [self.paramView maProfileWithModel:model];
-    }
+     Y_KLineModel *model = (Y_KLineModel*)noti.object;
+//    if (_paramView && _paramView.type!=NoneType) {
+//        [self.paramView maProfileWithModel:model];
+//    }else{
+        self.selectedModel = model;
+//    }
 }
-
 
 -(TimeLineLongTapParamView *)paramView{
     if (!_paramView) {
@@ -206,7 +215,6 @@
         _paramView = [TimeLineLongTapParamView timeLineLongTapParamView];
         
         [self.view addSubview:_paramView];
-        [self.paramView maProfileWithModel:model];
         if ([self touchInsideLeftArea:rightXPosition]) {
             [self showFromRightEdge];
         }else{
@@ -232,11 +240,12 @@
                 }
             }
         }
-        
-        
     }
 
     self.paramView.hidden = false;
+    if (self.selectedModel) {
+        [self.paramView maProfileWithModel:self.selectedModel];
+    }
 }
 
 -(BOOL)touchInsideLeftArea:(CGFloat)positionX{
@@ -252,9 +261,9 @@
     self.isAnimation = YES;
     self.paramView.hidden = false;
     self.paramView.alpha = 0;
-    self.paramView.frame = CGRectMake(-PARAMVIEW_WIDTH,1, PARAMVIEW_WIDTH,TIMELINE_PARAMVIEW_HEIGHT);
+    self.paramView.frame = Origin_left_frame;
     [UIView animateWithDuration:ANIMATION_TIME animations:^{
-        self.paramView.frame = CGRectMake(0, 1, PARAMVIEW_WIDTH, TIMELINE_PARAMVIEW_HEIGHT);
+        self.paramView.frame = Show_left_frame;
         self.paramView.alpha = 1;
     } completion:^(BOOL finished) {
         if (finished) {
@@ -268,9 +277,9 @@
     self.isAnimation = YES;
     self.paramView.hidden = false;
     self.paramView.alpha = 0;
-    self.paramView.frame = CGRectMake( KScreenWidth, 1, PARAMVIEW_WIDTH, TIMELINE_PARAMVIEW_HEIGHT);
+    self.paramView.frame = Origin_right_frame;
     [UIView animateWithDuration:ANIMATION_TIME animations:^{
-        self.paramView.frame = CGRectMake( KScreenWidth - PARAMVIEW_WIDTH, 1, PARAMVIEW_WIDTH, TIMELINE_PARAMVIEW_HEIGHT);
+        self.paramView.frame = Show_right_frame;
         self.paramView.alpha = 1;
     } completion:^(BOOL finished) {
         if (finished) {
@@ -283,7 +292,7 @@
 -(void)hideToLeftEdge{
     self.isAnimation = YES;
     [UIView animateWithDuration:ANIMATION_TIME animations:^{
-        self.paramView.frame = CGRectMake( - PARAMVIEW_WIDTH,1, PARAMVIEW_WIDTH,TIMELINE_PARAMVIEW_HEIGHT);
+        self.paramView.frame = Origin_left_frame;
         self.paramView.alpha = 0;
     } completion:^(BOOL finished) {
         if (finished) {
@@ -297,7 +306,7 @@
 -(void)hideToRightEdge{
     self.isAnimation = YES;
     [UIView animateWithDuration:ANIMATION_TIME animations:^{
-        self.paramView.frame = CGRectMake(KScreenWidth, 1, PARAMVIEW_WIDTH, TIMELINE_PARAMVIEW_HEIGHT);
+        self.paramView.frame = Origin_right_frame;
         self.paramView.alpha = 0;
     } completion:^(BOOL finished) {
         if (finished) {
@@ -311,13 +320,13 @@
 -(void)hideRightAndShowLeft{
     self.isAnimation = YES;
     [UIView animateWithDuration:ANIMATION_TIME animations:^{
-        self.paramView.frame = CGRectMake( KScreenWidth, 1, PARAMVIEW_WIDTH, TIMELINE_PARAMVIEW_HEIGHT);
+        self.paramView.frame = Origin_right_frame;
         self.paramView.alpha = 0;
     } completion:^(BOOL finished) {
         if (finished) {
-            self.paramView.frame = CGRectMake(- PARAMVIEW_WIDTH,1, PARAMVIEW_WIDTH,TIMELINE_PARAMVIEW_HEIGHT);
+            self.paramView.frame = Origin_left_frame;
             [UIView animateWithDuration:ANIMATION_TIME animations:^{
-                self.paramView.frame = CGRectMake(0, 1, PARAMVIEW_WIDTH, TIMELINE_PARAMVIEW_HEIGHT);
+                self.paramView.frame = Show_left_frame;
                 self.paramView.alpha = 1;
             } completion:^(BOOL finished) {
                 if (finished) {
@@ -332,13 +341,13 @@
 -(void)hideLeftAndShowRight{
     self.isAnimation = YES;
     [UIView animateWithDuration:ANIMATION_TIME animations:^{
-        self.paramView.frame = CGRectMake(- PARAMVIEW_WIDTH,1, PARAMVIEW_WIDTH,TIMELINE_PARAMVIEW_HEIGHT);
+        self.paramView.frame = Origin_left_frame;
         self.paramView.alpha = 0;
     } completion:^(BOOL finished) {
         if (finished) {
-            self.paramView.frame = CGRectMake(KScreenWidth, 1, PARAMVIEW_WIDTH, TIMELINE_PARAMVIEW_HEIGHT);
+            self.paramView.frame = Origin_right_frame;
             [UIView animateWithDuration:ANIMATION_TIME animations:^{
-                self.paramView.frame = CGRectMake(KScreenWidth - PARAMVIEW_WIDTH, 1, PARAMVIEW_WIDTH, TIMELINE_PARAMVIEW_HEIGHT);
+                self.paramView.frame = Show_right_frame;
                 self.paramView.alpha = 1;
             } completion:^(BOOL finished) {
                 if (finished) {

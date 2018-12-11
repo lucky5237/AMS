@@ -97,7 +97,8 @@ typedef NS_ENUM(NSInteger,ParamShowType) {
 typedef NS_ENUM(NSInteger,ChartType) {
     PriceType = 0,//价格
     RisePerType,//涨跌幅
-    VolumeType//成交量
+    VolumeType,//成交量
+    MACDType,
 };
 #define MAX_NUMBER_BEFORE_DECIMAL 6
 #define MAX_NUMBER_AFTER_DECIMAL 2

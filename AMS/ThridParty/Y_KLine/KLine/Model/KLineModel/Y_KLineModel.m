@@ -636,7 +636,7 @@
     }
 }
 
-- (void) initWithTimeLineArray:(NSArray *)arr;
+- (void) initWithTimeLineArray:(NSArray *)arr lastDayClosePrise:(CGFloat)closePrise;
 {
     NSAssert(arr.count == 5, @"数组长度不足");
     
@@ -647,12 +647,12 @@
         _average = @([arr[1] floatValue]);
         _Volume = [arr[2] floatValue];
         _storage = @([arr[3] floatValue]);
+        _risePer = @((_price.floatValue - closePrise) * 100 /closePrise);
         _Date = arr[4];
         _Open = _price;
         _High = _price;
         _Low = _price;
         _Close = _price;
-        
         self.SumOfLastVolume = @(_Volume + self.PreviousKlineModel.SumOfLastVolume.floatValue);
     }
 }

@@ -112,6 +112,7 @@
     if(!_scrollView)
     {
         _scrollView = [Y_KStockScrollView new];
+
         _scrollView.stockType = self.MainViewType;
         _scrollView.showsVerticalScrollIndicator = NO;
         _scrollView.showsHorizontalScrollIndicator = NO;
@@ -213,7 +214,7 @@
 //成交量指标
 - (Y_BollMAView *)kBollMAView
 {
-    if (!_kBollMAView) {
+    if (!_kBollMAView && self.MainViewType == Y_StockChartcenterViewTypeKline) {
         _kBollMAView = [Y_BollMAView view];
         _kBollMAView.backgroundColor = [UIColor backgroundColor];
         [self addSubview:_kBollMAView];
@@ -370,6 +371,7 @@
     if(!_accessoryView && self.MainViewType ==  Y_StockChartcenterViewTypeKline)
     {
         _accessoryView = [Y_StockChartRightYView new];
+        _accessoryView.chartType = MACDType;
         [self insertSubview:_accessoryView aboveSubview:self.scrollView];
         [_accessoryView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.kLineAccessoryView.mas_top).offset(LeftXViewPadding);
@@ -447,24 +449,29 @@
     if (_targetLineStatus == Y_StockChartTargetLineStatusBOLL) {
         [self.kBollMAView setHidden:NO];
         [self.kLineMAView setHidden:YES];
+        [self reDraw];
         [self.kLineMainView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(MAIN_MAVIEW_HEADER + 1);
         }];
-        [self reDraw];
     }else if(_targetLineStatus == Y_StockChartTargetLineStatusMA){
         [self.kBollMAView setHidden:YES];
         [self.kLineMAView setHidden:NO];
-        [self.kLineMainView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(MAIN_MAVIEW_HEADER + 1);
-        }];
         [self reDraw];
+        [self.kLineMainView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(self).offset(MAIN_MAVIEW_HEADER + 1);
+        }];
     }else if(_targetLineStatus == Y_StockChartTargetLineStatusMACD){
-        [self.kBollMAView setHidden:YES];
-        [self.kLineMAView setHidden:YES];
-        [self.kLineMainView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(1);
-        }];
+        if (_kBollMAView !=nil) {
+             [self.kBollMAView setHidden:YES];
+        }
+        if (_kLineMAView !=nil) {
+            [self.kLineMAView setHidden:YES];
+        }
+        
         [self reDraw];
+        [self.kLineMainView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(self).offset(1);
+        }];
     }
     
 //    [self reDraw];
@@ -749,12 +756,14 @@
 }
 -(void)kLineMainViewLongPressKLinePositionModel:(Y_KLinePositionModel *)kLinePositionModel kLineModel:(Y_KLineModel *)kLineModel originalPosition:(CGPoint)position{
     kLineModel.yValue = position.y;
-    if (self.targetLineStatus == Y_StockChartTargetLineStatusBOLL) {
+    [self.volumeMAView maProfileWithModel:kLineModel];
+    [kNotificationCenter postNotificationName:kNotification_Name_Param_Update object:kLineModel];
+    if (self.MainViewType == Y_StockChartcenterViewTypeKline) {
+        [self.accessoryMAView maProfileWithModel:kLineModel];
+    }
+    if (self.targetLineStatus == Y_StockChartTargetLineStatusMA) {
         [self.kLineMAView maProfileWithModel:kLineModel];
     }
-    [self.volumeMAView maProfileWithModel:kLineModel];
-    [self.accessoryMAView maProfileWithModel:kLineModel];
-    [kNotificationCenter postNotificationName:kNotification_Name_Param_Update object:kLineModel];
     if (self.targetLineStatus == Y_StockChartTargetLineStatusBOLL) {
         [self.kBollMAView maProfileWithModel:kLineModel];
     }

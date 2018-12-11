@@ -12,6 +12,6 @@
 
 
 @property (nonatomic, assign) Y_StockChartCenterViewType stockType;
-
+@property (nonatomic, assign) Y_StockChartTargetLineStatus targetLineStatus;
 @property (nonatomic, assign) BOOL isShowBgLine;
 @end

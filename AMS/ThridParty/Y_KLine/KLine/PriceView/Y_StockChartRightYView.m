@@ -53,7 +53,7 @@
     }else{
         self.middleValueLabel.text = [NSString stringWithFormat:@"%.2f",middleValue];
     }
-    self.middleValueLabel.hidden = self.chartType == VolumeType;
+    self.middleValueLabel.hidden = (self.chartType == VolumeType || self.chartType == MACDType);
 }
 
 -(void)setMinValue:(CGFloat)minValue
@@ -95,7 +95,7 @@
         _middleValueLabel = [self private_createLabel];
         [self addSubview:_middleValueLabel];
         [_middleValueLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(self).offset(-5);
+            make.centerY.equalTo(self).offset(0);
             make.right.equalTo(self);
             make.height.width.equalTo(self.maxValueLabel);
         }];
@@ -113,7 +113,7 @@
         _minValueLabel = [self private_createLabel];
         [self addSubview:_minValueLabel];
         [_minValueLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self).offset(-10);
+            make.bottom.equalTo(self).offset(0);
             make.right.equalTo(self);
             make.height.width.equalTo(self.maxValueLabel);
         }];
