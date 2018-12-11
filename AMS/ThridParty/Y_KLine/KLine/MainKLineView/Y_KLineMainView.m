@@ -109,7 +109,10 @@
 #pragma mark drawRect方法
 - (void)drawRect:(CGRect)rect{
     [super drawRect:rect];
-    
+    if (self.MainViewType == Y_StockChartcenterViewTypeKline) {
+        [self.parentScrollView layoutIfNeeded];
+        [self.parentScrollView setNeedsDisplay];
+    }
     //如果数组为空，则不进行绘制，直接设置本view为背景
     CGContextRef context = UIGraphicsGetCurrentContext();
     if(!self.kLineModels)
@@ -122,13 +125,13 @@
     
     //设置View的背景颜色
     NSMutableArray *kLineColors = @[].mutableCopy;
-//    CGContextClearRect(context, rect);
-//    CGContextSetFillColorWithColor(context, [UIColor clearColor].CGColor);
-//    CGContextFillRect(context, rect);
-  
+    //    CGContextClearRect(context, rect);
+    //    CGContextSetFillColorWithColor(context, [UIColor clearColor].CGColor);
+    //    CGContextFillRect(context, rect);
+    
     
     if (self.MainViewType == Y_StockChartcenterViewTypeTimeLine) {
-//        CGContextRef ctx = UIGraphicsGetCurrentContext();
+        //        CGContextRef ctx = UIGraphicsGetCurrentContext();
         CGContextSetStrokeColorWithColor(context, klineBgLineRedColor.CGColor);
         CGContextSetLineWidth(context, 0.5);
         CGFloat unitHeight = (Y_StockChartKLineMainViewMaxY - Y_StockChartKLineMainViewMinY) / 6;
@@ -142,7 +145,7 @@
         
         const CGPoint line7[] = {CGPointMake(0, Y_StockChartKLineMainViewMaxY),CGPointMake(self.parentScrollView.contentSize.width,Y_StockChartKLineMainViewMaxY)};
         
-        CGFloat lengths[] = {2,2};
+        CGFloat lengths[] = {1,1};
         CGContextStrokeLineSegments(context, line1, 2);
         CGContextSaveGState(context);
         CGContextSetLineDash(context,0,lengths,2);
@@ -157,15 +160,15 @@
         CGContextRestoreGState(context);
         CGContextStrokeLineSegments(context, line7, 2);
         
-//        self.needDrawKLineModels
+        //        self.needDrawKLineModels
     }else{
         CGContextSetStrokeColorWithColor(context, klineBgLineRedColor.CGColor);
         CGContextSetLineWidth(context, 0.5);
         CGFloat unitHeight = (Y_StockChartKLineMainViewMaxY - Y_StockChartKLineMainViewMinY) / 2;
-         const CGPoint lineTop[] = {CGPointMake(0, Y_StockChartKLineMainViewMinY),CGPointMake(self.parentScrollView.contentSize.width, Y_StockChartKLineMainViewMinY)};
-         const CGPoint lineMiddle[] = {CGPointMake(0, Y_StockChartKLineMainViewMinY+unitHeight),CGPointMake(self.parentScrollView.contentSize.width, Y_StockChartKLineMainViewMinY+unitHeight)};
+        const CGPoint lineTop[] = {CGPointMake(0, Y_StockChartKLineMainViewMinY),CGPointMake(self.parentScrollView.contentSize.width, Y_StockChartKLineMainViewMinY)};
+        const CGPoint lineMiddle[] = {CGPointMake(0, Y_StockChartKLineMainViewMinY+unitHeight),CGPointMake(self.parentScrollView.contentSize.width, Y_StockChartKLineMainViewMinY+unitHeight)};
         const CGPoint lineBottom[] = {CGPointMake(0, Y_StockChartKLineMainViewMaxY),CGPointMake(self.parentScrollView.contentSize.width,Y_StockChartKLineMainViewMaxY)};
-        CGFloat lengths[] = {2,2};
+        CGFloat lengths[] = {1,1};
         CGContextSaveGState(context);
         CGContextSetLineDash(context,0,lengths,2);
         CGContextStrokeLineSegments(context, lineTop, 2);
@@ -174,7 +177,7 @@
         CGContextRestoreGState(context);
         
     }
-   
+    
     
     Y_MALine *MALine = [[Y_MALine alloc]initWithContext:context];
     
@@ -300,40 +303,51 @@
         make.width.equalTo(self.parentScrollView);
         make.left.equalTo(self.parentScrollView).offset(self.parentScrollView.contentOffset.x);
     }];
-
-
+    
+    
     [self layoutIfNeeded];
     
     //更新scrollview的contentsize
     self.parentScrollView.contentSize = CGSizeMake(kLineViewWidth, self.parentScrollView.contentSize.height);
-
+    
 }
 
 /**
  *  长按的时候根据原始的x位置获得精确的x的位置
  */
-    - (CGFloat)getExactXPositionWithOriginXPosition:(CGPoint)originPosition{
-        CGFloat xPositoinInMainView = originPosition.x - self.parentScrollView.contentOffset.x;
-        NSInteger startIndex = (NSInteger)((xPositoinInMainView - [self xPosition]) / ([Y_StockChartGlobalVariable kLineGap] + [Y_StockChartGlobalVariable kLineWidth]));
-        NSInteger arrCount = self.needDrawKLinePositionModels.count;
-        for (NSInteger index = startIndex > 0 ? startIndex - 1 : 0; index < arrCount; ++index) {
-            Y_KLinePositionModel *kLinePositionModel = self.needDrawKLinePositionModels[index];
-            
-            CGFloat minX = kLinePositionModel.HighPoint.x - ([Y_StockChartGlobalVariable kLineGap] + [Y_StockChartGlobalVariable kLineWidth]/2);
-            CGFloat maxX = kLinePositionModel.HighPoint.x + ([Y_StockChartGlobalVariable kLineGap] + [Y_StockChartGlobalVariable kLineWidth]/2);
-            
-            if(xPositoinInMainView > minX && xPositoinInMainView < maxX)
-            {
-                if(self.delegate && [self.delegate respondsToSelector:@selector(kLineMainViewLongPressKLinePositionModel:kLineModel:originalPosition:)])
-                {
-                    [self.delegate kLineMainViewLongPressKLinePositionModel:self.needDrawKLinePositionModels[index] kLineModel:self.needDrawKLineModels[index] originalPosition:originPosition];
-                }
-                return kLinePositionModel.HighPoint.x;
-            }
-            
-        }
-        return 0.f;
+- (CGFloat)getExactXPositionWithOriginXPosition:(CGPoint)originPosition{
+    CGFloat xPositoinInMainView = originPosition.x - self.parentScrollView.contentOffset.x;
+    NSInteger startIndex;
+    if (self.MainViewType == Y_StockChartcenterViewTypeKline) {
+        startIndex= (NSInteger)((xPositoinInMainView - [self xPosition]) / ([Y_StockChartGlobalVariable kLineGap] + [Y_StockChartGlobalVariable kLineWidth]));
+    }else{
+        startIndex = 0;
     }
+    NSInteger arrCount = self.needDrawKLinePositionModels.count;
+    for (NSInteger index = startIndex > 0 ? startIndex - 1 : 0; index < arrCount; ++index) {
+        Y_KLinePositionModel *kLinePositionModel = self.needDrawKLinePositionModels[index];
+        CGFloat minX,maxX;
+        if (self.MainViewType == Y_StockChartcenterViewTypeKline) {
+            minX = kLinePositionModel.HighPoint.x - ([Y_StockChartGlobalVariable kLineGap] + [Y_StockChartGlobalVariable kLineWidth]/2);
+            maxX = kLinePositionModel.HighPoint.x + ([Y_StockChartGlobalVariable kLineGap] + [Y_StockChartGlobalVariable kLineWidth]/2);
+        }else{
+            minX = kLinePositionModel.HighPoint.x - (Y_StockTimeLineViewVolumeGap + [Y_StockChartGlobalVariable timeLineVolumeWidth]/2);
+            maxX = kLinePositionModel.HighPoint.x + (Y_StockTimeLineViewVolumeGap + [Y_StockChartGlobalVariable timeLineVolumeWidth]/2);
+        }
+       
+        
+        if(xPositoinInMainView > minX && xPositoinInMainView < maxX)
+        {
+            if(self.delegate && [self.delegate respondsToSelector:@selector(kLineMainViewLongPressKLinePositionModel:kLineModel:originalPosition:)])
+            {
+                [self.delegate kLineMainViewLongPressKLinePositionModel:self.needDrawKLinePositionModels[index] kLineModel:self.needDrawKLineModels[index] originalPosition:originPosition];
+            }
+            return kLinePositionModel.HighPoint.x;
+        }
+        
+    }
+    return 0.f;
+}
 
 #pragma mark 私有方法
 //提取需要绘制的数组
@@ -358,7 +372,6 @@
             needDrawKLineStartIndex = [self getNeedDrawStartIndexWithScroll:YES];
         }
         
-//        NSLog(@"这是模型开始的index-----------%lu",needDrawKLineStartIndex);
         [self.needDrawKLineModels removeAllObjects];
         
         //赋值数组
@@ -544,15 +557,15 @@
     {
         //K线坐标转换
         Y_KLineModel *kLineModel = kLineModels[idx];
-//        CGFloat xPosition = [self xPosition] + idx * ([Y_StockChartGlobalVariable kLineWidth] + [Y_StockChartGlobalVariable kLineGap]);
+        //        CGFloat xPosition = [self xPosition] + idx * ([Y_StockChartGlobalVariable kLineWidth] + [Y_StockChartGlobalVariable kLineGap]);
         CGFloat xPosition = 0.f;
         if (self.MainViewType == Y_StockChartcenterViewTypeKline) {
-             xPosition = [self xPosition] + idx * ([Y_StockChartGlobalVariable kLineWidth] + [Y_StockChartGlobalVariable kLineGap]);
+            xPosition = [self xPosition] + idx * ([Y_StockChartGlobalVariable kLineWidth] + [Y_StockChartGlobalVariable kLineGap]);
         }else if(self.MainViewType == Y_StockChartcenterViewTypeTimeLine){
-            xPosition =  idx * ([Y_StockChartGlobalVariable timeLineVolumeWidth] + Y_StockTimeLineViewVolumeGap);
+            xPosition = Y_StockTimeLineViewVolumeGap +idx * ([Y_StockChartGlobalVariable timeLineVolumeWidth] + Y_StockTimeLineViewVolumeGap);
         }
         
-       
+        
         if (xPosition > self.parentScrollView.contentSize.width) {
             NSLog(@"当前需要绘制 超出边界----- %f",xPosition);
         }
@@ -637,7 +650,7 @@
         }
         
         if (self.MainViewType == Y_StockChartcenterViewTypeTimeLine) {
-           
+            
             CGPoint pricePoint = CGPointMake(xPosition, maxY - (kLineModel.price.floatValue - minAssert)/unitValue);
             Y_KLinePositionModel *kLinePositionModel = [Y_KLinePositionModel modelWithOpen:pricePoint close:pricePoint high:pricePoint low:pricePoint];
             kLinePositionModel.pricePoint = pricePoint;
@@ -670,10 +683,10 @@ static char *observerContext = NULL;
 }
 #pragma mark - setter,getter方法
 - (NSInteger)xPosition {
-//    NSInteger leftArrCount = [self startIndex];
-//    CGFloat startXPosition = (leftArrCount + 1) * [Y_StockChartGlobalVariable kLineGap] + leftArrCount * [Y_StockChartGlobalVariable kLineWidth] + [Y_StockChartGlobalVariable kLineWidth]/2;
-//    return startXPosition;
-    return [Y_StockChartGlobalVariable kLineWidth]/2;
+    //    NSInteger leftArrCount = [self startIndex];
+    //    CGFloat startXPosition = (leftArrCount + 1) * [Y_StockChartGlobalVariable kLineGap] + leftArrCount * [Y_StockChartGlobalVariable kLineWidth] + [Y_StockChartGlobalVariable kLineWidth]/2;
+    //    return startXPosition;
+    return [Y_StockChartGlobalVariable kLineGap] + [Y_StockChartGlobalVariable kLineWidth]/2;
 }
 
 - (NSInteger)startIndex {
@@ -724,16 +737,16 @@ static char *observerContext = NULL;
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
     if([keyPath isEqualToString:Y_StockChartContentOffsetKey])
     {
-//        CGFloat difValue = ABS(self.parentScrollView.contentOffset.x - self.oldContentOffsetX);
-//        if(difValue >= [Y_StockChartGlobalVariable kLineGap] + [Y_StockChartGlobalVariable kLineWidth])
-//        {
-//            self.oldContentOffsetX = self.parentScrollView.contentOffset.x;
-            [self drawMainView];
-            [self mas_updateConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(self.parentScrollView).offset(self.parentScrollView.contentOffset.x);
-                make.width.equalTo(self.parentScrollView);
-            }];
-//        }
+        //        CGFloat difValue = ABS(self.parentScrollView.contentOffset.x - self.oldContentOffsetX);
+        //        if(difValue >= [Y_StockChartGlobalVariable kLineGap] + [Y_StockChartGlobalVariable kLineWidth])
+        //        {
+        //            self.oldContentOffsetX = self.parentScrollView.contentOffset.x;
+        [self drawMainView];
+        [self mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.parentScrollView).offset(self.parentScrollView.contentOffset.x);
+            make.width.equalTo(self.parentScrollView);
+        }];
+        //        }
     }
 }
 

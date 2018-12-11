@@ -137,7 +137,7 @@
         [_scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self);
             make.right.equalTo(self).offset(0);
-            make.left.equalTo(self.mas_left);
+            make.left.equalTo(self.mas_left).offset(0);
             make.bottom.equalTo(self.mas_bottom);
         }];
         
@@ -150,6 +150,7 @@
 {
     if (!_kLineMAView && self.MainViewType == Y_StockChartcenterViewTypeKline) {
         _kLineMAView = [Y_KLineMAView view];
+        _kLineMAView.backgroundColor =[UIColor backgroundColor];
         [self addSubview:_kLineMAView];
         [_kLineMAView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self);
@@ -214,6 +215,7 @@
 {
     if (!_kBollMAView) {
         _kBollMAView = [Y_BollMAView view];
+        _kBollMAView.backgroundColor = [UIColor backgroundColor];
         [self addSubview:_kBollMAView];
         [_kBollMAView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self);
@@ -231,6 +233,7 @@
     {
         _kLineVolumeView = [Y_KLineVolumeView new];
         _kLineVolumeView.delegate = self;
+        _kLineVolumeView.backgroundColor = kClearColor;
         _kLineVolumeView.type = self.MainViewType;
         [_kLineVolumeView zj_addTapGestureWithCallback:^(UITapGestureRecognizer *gesture) {
             if ([self.delegate respondsToSelector:@selector(y_KlineViewDidtapEvent: )]) {
@@ -274,6 +277,7 @@
     if(!_kLineAccessoryView && self.MainViewType == Y_StockChartcenterViewTypeKline)
     {
         _kLineAccessoryView = [Y_KLineAccessoryView new];
+        _kLineAccessoryView.backgroundColor = kClearColor;
         _kLineAccessoryView.delegate = self;
         [_kLineAccessoryView zj_addTapGestureWithCallback:^(UITapGestureRecognizer *gesture) {
             if ([self.delegate respondsToSelector:@selector(y_KlineViewDidtapEvent: )]) {
@@ -349,6 +353,7 @@
     if(!_volumeView)
     {
         _volumeView = [Y_StockChartRightYView new];
+        _volumeView.chartType = VolumeType;
         [self insertSubview:_volumeView aboveSubview:self.scrollView];
         [_volumeView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.kLineVolumeView.mas_top).offset(LeftXViewPadding);
@@ -549,13 +554,13 @@
         if (location.x < 0 || location.x > self.scrollView.contentSize.width) return;
         
 
-        if (self.MainViewType == Y_StockChartcenterViewTypeKline) {
-            if(ABS(oldPositionX - location.x) < ([Y_StockChartGlobalVariable kLineWidth] + [Y_StockChartGlobalVariable kLineGap]))
-            {
-                return;
-            }
-
-        }
+//        if (self.MainViewType == Y_StockChartcenterViewTypeKline) {
+//            if(ABS(oldPositionX - location.x) < ([Y_StockChartGlobalVariable kLineWidth] + [Y_StockChartGlobalVariable kLineGap]))
+//            {
+//                return;
+//            }
+//
+//        }
 //
         //暂停滑动
         self.scrollView.scrollEnabled = NO;
@@ -602,23 +607,23 @@
 }
 }
 
-- (NSInteger)xPosition {
-    NSInteger leftArrCount = [self startIndex];
-    CGFloat startXPosition = (leftArrCount + 1) * [Y_StockChartGlobalVariable kLineGap] + leftArrCount * [Y_StockChartGlobalVariable kLineWidth] + [Y_StockChartGlobalVariable kLineWidth]/2;
-    return startXPosition;
-}
-
-- (NSInteger)startIndex {
-    CGFloat offsetX = self.scrollView.contentOffset.x < 0 ? 0 : self.scrollView.contentOffset.x;
-    //    NSUInteger leftCount = ABS(offsetX - [Y_StockChartGlobalVariable kLineGap]) / ([Y_StockChartGlobalVariable kLineGap] + [Y_StockChartGlobalVariable kLineWidth]);
-    //    NSUInteger leftCount = ceilf((offsetX - [Y_StockChartGlobalVariable kLineGap]) / ([Y_StockChartGlobalVariable kLineGap] + [Y_StockChartGlobalVariable kLineWidth]));
-    NSUInteger leftCount = ABS(offsetX) / ([Y_StockChartGlobalVariable kLineGap] + [Y_StockChartGlobalVariable kLineWidth]);
-    
-    if (leftCount > self.kLineModels.count) {
-        leftCount = self.kLineModels.count - 1;
-    }
-    return leftCount;
-}
+//- (NSInteger)xPosition {
+//    NSInteger leftArrCount = [self startIndex];
+//    CGFloat startXPosition = (leftArrCount + 1) * [Y_StockChartGlobalVariable kLineGap] + leftArrCount * [Y_StockChartGlobalVariable kLineWidth] + [Y_StockChartGlobalVariable kLineWidth]/2;
+//    return startXPosition;
+//}
+//
+//- (NSInteger)startIndex {
+//    CGFloat offsetX = self.scrollView.contentOffset.x < 0 ? 0 : self.scrollView.contentOffset.x;
+//    //    NSUInteger leftCount = ABS(offsetX - [Y_StockChartGlobalVariable kLineGap]) / ([Y_StockChartGlobalVariable kLineGap] + [Y_StockChartGlobalVariable kLineWidth]);
+//    //    NSUInteger leftCount = ceilf((offsetX - [Y_StockChartGlobalVariable kLineGap]) / ([Y_StockChartGlobalVariable kLineGap] + [Y_StockChartGlobalVariable kLineWidth]));
+//    NSUInteger leftCount = ABS(offsetX) / ([Y_StockChartGlobalVariable kLineGap] + [Y_StockChartGlobalVariable kLineWidth]);
+//
+//    if (leftCount > self.kLineModels.count) {
+//        leftCount = self.kLineModels.count - 1;
+//    }
+//    return leftCount;
+//}
 
 #pragma mark 重绘
 - (void)reDraw

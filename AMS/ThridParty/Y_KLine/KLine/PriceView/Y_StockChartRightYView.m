@@ -53,6 +53,7 @@
     }else{
         self.middleValueLabel.text = [NSString stringWithFormat:@"%.2f",middleValue];
     }
+    self.middleValueLabel.hidden = self.chartType == VolumeType;
 }
 
 -(void)setMinValue:(CGFloat)minValue
@@ -63,6 +64,7 @@
     }else{
           self.minValueLabel.text = [NSString stringWithFormat:@"%.2f",minValue];
     }
+    self.minValueLabel.hidden = self.chartType == VolumeType;
 }
 
 -(void)setMinLabelText:(NSString *)minLabelText

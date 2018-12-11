@@ -74,8 +74,8 @@
     [NetWorking request:@"http://stock2.finance.sina.com.cn/futures/api/json.php/IndexService.getInnerFuturesMinLine?symbol=M0" param:nil thenSuccess:^(NSArray *responseObject) {
         Y_KLineGroupModel *groupModel = [Y_KLineGroupModel objectWithArray:responseObject type:Y_StockChartcenterViewTypeTimeLine];
         self.groupModel = groupModel;
-        NSInteger minCount = 240;
-       [Y_StockChartGlobalVariable setTimeLineVolumeWidth:((self.kLineView.scrollView.bounds.size.width - 10 - (minCount + 1) * Y_StockTimeLineViewVolumeGap) / minCount)];
+        NSInteger minCount = 241;
+       [Y_StockChartGlobalVariable setTimeLineVolumeWidth:((self.kLineView.scrollView.bounds.size.width -  (minCount + 1) * Y_StockTimeLineViewVolumeGap) / minCount)];
         [self.kLineView setKLineModels:groupModel.models];
 //        self.kLineView.targetLineStatus = Y_StockChartTargetLineStatusAccessoryClose;
     } fail:^{
@@ -86,7 +86,6 @@
 -(void)didNeedUpdataParamInfo:(NSNotification*) noti{
     if (_paramView && _paramView.type!=NoneType) {
         Y_KLineModel *model = (Y_KLineModel*)noti.object;
-        NSLog(@"didNeedUpdataParamInfo------ %@",model.Date);
         [self.paramView maProfileWithModel:model];
     }
 }

@@ -68,7 +68,7 @@
     UIScrollView *scrollView = (UIScrollView *)self.superview;
     const CGPoint line1[] = {CGPointMake(0, Y_StockChartKLineVolumeViewMinY),CGPointMake(scrollView.contentSize.width, Y_StockChartKLineVolumeViewMinY)};
 //    const CGPoint line2[] = {CGPointMake(0, Y_StockChartKLineVolumeViewMinY+unitHeight),CGPointMake(scrollView.contentSize.width, Y_StockChartKLineVolumeViewMinY+unitHeight)};
-    CGFloat lengths[] = {2,2};
+    CGFloat lengths[] = {1,1};
     CGContextSaveGState(context);
     CGContextSetLineDash(context,0,lengths,2);
     CGContextStrokeLineSegments(context, line1, 2);

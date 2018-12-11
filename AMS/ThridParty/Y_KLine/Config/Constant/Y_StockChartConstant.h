@@ -146,7 +146,7 @@
 /**
  *  分时图成交量线的间距
  */
-#define Y_StockTimeLineViewVolumeGap 0.1
+#define Y_StockTimeLineViewVolumeGap 1
 
 
 /**
