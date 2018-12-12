@@ -78,11 +78,11 @@ typedef NS_ENUM(NSUInteger, LMRPart) {
     _topRightScroll.showsVerticalScrollIndicator = NO;
     
     _bottomLeftScroll = [[UIScrollView alloc] init];
-    _bottomLeftScroll.backgroundColor = [UIColor clearColor];
+    _bottomLeftScroll.backgroundColor = [UIColor redColor];
     _bottomLeftScroll.scrollEnabled = NO;
     
     _bottomRightScroll = [[UIScrollView alloc] init];
-    _bottomRightScroll.backgroundColor = [UIColor clearColor];
+    _bottomRightScroll.backgroundColor = [UIColor orangeColor];
     _bottomRightScroll.bounces = NO;
     _bottomRightScroll.directionalLockEnabled = YES;
     _bottomRightScroll.delegate = self;
@@ -390,6 +390,14 @@ typedef NS_ENUM(NSUInteger, LMRPart) {
     rect.origin = CGPointZero;
     _bottomRightView.frame = rect;
     _bottomRightScroll.contentSize = rect.size;
+//    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0,rect.size.height - 10 , rect.size.width, rect.size.height)];
+//    view.backgroundColor = kPurpleColor;
+//    [_bottomRightScroll addSubview:view];
+//    [view mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.bottom.mas_equalTo(-10);
+//        make.left.right.mas_equalTo(0);
+//        make.height.mas_equalTo(10);
+//    }];
 }
 
 - (void)p_getLabel:(LMRLabel **)label forGrid:(LMRGrid *)grid inPart:(LMRPart)part {
@@ -434,6 +442,7 @@ typedef NS_ENUM(NSUInteger, LMRPart) {
     theLabel.text = grid.text;
     theLabel.lineBreakMode = NSLineBreakByCharWrapping;
     theLabel.numberOfLines = 0;
+//    theLabel.adjustsFontSizeToFitWidth = YES;
     theLabel.underline = grid.underline;
     *label = theLabel;
 }
@@ -569,7 +578,7 @@ typedef NS_ENUM(NSUInteger, LMRPart) {
 #pragma mark - ScrollView delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (scrollView == _bottomRightScroll) {
+	    if (scrollView == _bottomRightScroll) {
         _topRightScroll.delegate = nil;
         _topRightScroll.contentOffset = CGPointMake(_bottomRightScroll.contentOffset.x, 0);
         _bottomLeftScroll.contentOffset = CGPointMake(0, _bottomRightScroll.contentOffset.y);
@@ -585,6 +594,7 @@ typedef NS_ENUM(NSUInteger, LMRPart) {
         self.lMReportViewDidScrollBlock(scrollView,scrollView == _bottomRightScroll);
     }
 }
+
 
 #pragma mark - handle gesture recognizer
 

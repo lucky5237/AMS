@@ -83,9 +83,9 @@ typedef NS_ENUM(NSInteger,CustomKeyBoardBtnType) {
 };
 
 typedef NS_ENUM(NSInteger,Y_KlineViewType) {
-   MainView = 0,//主图
-   VolView,//成交量
-   AccessoryView//辅助图
+    MainView = 0,//主图
+    VolView,//成交量
+    AccessoryView//辅助图
 };
 
 typedef NS_ENUM(NSInteger,ParamShowType) {
@@ -99,6 +99,13 @@ typedef NS_ENUM(NSInteger,ChartType) {
     RisePerType,//涨跌幅
     VolumeType,//成交量
     MACDType,
+};
+
+typedef NS_ENUM(NSInteger,TradeReportViewType){
+    ChiChangType,
+    GuaDanType,
+    WeiTuoType,
+    ChengjiaoType
 };
 #define MAX_NUMBER_BEFORE_DECIMAL 6
 #define MAX_NUMBER_AFTER_DECIMAL 2
@@ -146,5 +153,7 @@ static NSString *kHandicapParamNames[20] = {
 #define ANIMATION_TIME 0.2
 #define LeftXViewPadding 0
 #define kNotification_Name_Param_Update @"kNotification_Name_Param_Update"
+//交易表格宽度
+#define REPORT_VIEW_BOARDER_WIDTH 1
 
 #endif /* AMSConstant_h */

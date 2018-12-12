@@ -519,6 +519,7 @@
     CGFloat difValue = pinch.scale - oldScale;
     if(ABS(difValue) > Y_StockChartScaleBound) {
         CGFloat oldKLineWidth = [Y_StockChartGlobalVariable kLineWidth];
+        CGFloat oldKLineGap = [Y_StockChartGlobalVariable kLineGap];
         if (oldKLineWidth == Y_StockChartKLineMinWidth && difValue <= 0)
         {
             return;

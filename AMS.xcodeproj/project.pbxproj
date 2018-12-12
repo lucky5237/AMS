@@ -35,8 +35,6 @@
 		16552F1221AD46AB00FA511D /* KLineLongTapParamView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16552F1121AD46AB00FA511D /* KLineLongTapParamView.xib */; };
 		16552F1521AE7E9400FA511D /* Y_KLine_TimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16552F1421AE7E9400FA511D /* Y_KLine_TimeView.m */; };
 		165D505821B525AD00F1F031 /* Y_KStockScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 165D503521B525AC00F1F031 /* Y_KStockScrollView.m */; };
-		165D506A21B52C0700F1F031 /* minuteData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 165D506821B52C0700F1F031 /* minuteData.plist */; };
-		165D506B21B52C0700F1F031 /* dayData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 165D506921B52C0700F1F031 /* dayData.plist */; };
 		16605EF421B61800008B19C7 /* Y_BollMAView.h in Sources */ = {isa = PBXBuildFile; fileRef = 16605EF221B6121E008B19C7 /* Y_BollMAView.h */; };
 		16605EF521B61800008B19C7 /* Y_BollMAView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16605EF321B6121E008B19C7 /* Y_BollMAView.m */; };
 		16633A352181605000D450E8 /* AMSSocketClient.mm in Sources */ = {isa = PBXBuildFile; fileRef = 16633A342181605000D450E8 /* AMSSocketClient.mm */; };
@@ -113,6 +111,7 @@
 		1693ADF9218007FE00EDEEF6 /* AMSSocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1693ADF7218007FE00EDEEF6 /* AMSSocketManager.m */; };
 		169727C32186B45F009F6F65 /* AppDelegate+AppSevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 169727C22186B45F009F6F65 /* AppDelegate+AppSevice.m */; };
 		16AB268121BDFC8200755B81 /* field_key.h in Sources */ = {isa = PBXBuildFile; fileRef = 16AB268021BDFADD00755B81 /* field_key.h */; };
+		16AB268521C0B30700755B81 /* LrReportContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16AB268421C0B30700755B81 /* LrReportContainerView.m */; };
 		16B38ACB21A257D300681503 /* TradeCellMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B38ACA21A257D300681503 /* TradeCellMenuView.m */; };
 		16B38ACD21A2580A00681503 /* TradeCellMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16B38ACC21A2580A00681503 /* TradeCellMenuView.xib */; };
 		16BAC14721893F8B008F965E /* LeftMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16BAC14621893F8B008F965E /* LeftMenuViewController.m */; };
@@ -187,8 +186,6 @@
 		16552F1421AE7E9400FA511D /* Y_KLine_TimeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Y_KLine_TimeView.m; sourceTree = "<group>"; };
 		165D503421B525AC00F1F031 /* Y_KStockScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Y_KStockScrollView.h; sourceTree = "<group>"; };
 		165D503521B525AC00F1F031 /* Y_KStockScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Y_KStockScrollView.m; sourceTree = "<group>"; };
-		165D506821B52C0700F1F031 /* minuteData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = minuteData.plist; sourceTree = "<group>"; };
-		165D506921B52C0700F1F031 /* dayData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = dayData.plist; sourceTree = "<group>"; };
 		16605EF221B6121E008B19C7 /* Y_BollMAView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Y_BollMAView.h; sourceTree = "<group>"; };
 		16605EF321B6121E008B19C7 /* Y_BollMAView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Y_BollMAView.m; sourceTree = "<group>"; };
 		16633A332181605000D450E8 /* AMSSocketClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AMSSocketClient.h; path = AMS/ThridParty/AMSSocketClient.h; sourceTree = SOURCE_ROOT; };
@@ -340,6 +337,8 @@
 		169727C22186B45F009F6F65 /* AppDelegate+AppSevice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+AppSevice.m"; sourceTree = "<group>"; };
 		169727CD2186D92E009F6F65 /* UtilsMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UtilsMacros.h; sourceTree = "<group>"; };
 		16AB268021BDFADD00755B81 /* field_key.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = field_key.h; sourceTree = "<group>"; };
+		16AB268321C0B30700755B81 /* LrReportContainerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LrReportContainerView.h; sourceTree = "<group>"; };
+		16AB268421C0B30700755B81 /* LrReportContainerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LrReportContainerView.m; sourceTree = "<group>"; };
 		16B38AC921A257D300681503 /* TradeCellMenuView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TradeCellMenuView.h; sourceTree = "<group>"; };
 		16B38ACA21A257D300681503 /* TradeCellMenuView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TradeCellMenuView.m; sourceTree = "<group>"; };
 		16B38ACC21A2580A00681503 /* TradeCellMenuView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TradeCellMenuView.xib; sourceTree = "<group>"; };
@@ -715,8 +714,6 @@
 		169727C02186B346009F6F65 /* AppDelegate */ = {
 			isa = PBXGroup;
 			children = (
-				165D506921B52C0700F1F031 /* dayData.plist */,
-				165D506821B52C0700F1F031 /* minuteData.plist */,
 				16D3D816217F17A000793DF8 /* AppDelegate.h */,
 				16D3D817217F17A000793DF8 /* AppDelegate.m */,
 				169727C12186B45F009F6F65 /* AppDelegate+AppSevice.h */,
@@ -728,6 +725,7 @@
 		169727C42186D733009F6F65 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				16AB268221C0B2C100755B81 /* View */,
 				166DDC2A218AF5C400D43461 /* NetWorking.h */,
 				166DDC2B218AF5C400D43461 /* NetWorking.m */,
 				167900322187EF70008ECB31 /* Category */,
@@ -735,8 +733,6 @@
 				16633A3E2181BE6C00D450E8 /* AMSUtil.m */,
 				161F28F321883F680036E22B /* BestMessageUtil.h */,
 				161F28F421883F680036E22B /* BestMessageUtil.mm */,
-				167E8A6521A3E13100096C93 /* ForbidPasteTextField.h */,
-				167E8A6621A3E13100096C93 /* ForbidPasteTextField.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -818,6 +814,17 @@
 				169727CD2186D92E009F6F65 /* UtilsMacros.h */,
 			);
 			path = Define;
+			sourceTree = "<group>";
+		};
+		16AB268221C0B2C100755B81 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				167E8A6521A3E13100096C93 /* ForbidPasteTextField.h */,
+				167E8A6621A3E13100096C93 /* ForbidPasteTextField.m */,
+				16AB268321C0B30700755B81 /* LrReportContainerView.h */,
+				16AB268421C0B30700755B81 /* LrReportContainerView.m */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		16D3D80A217F179F00793DF8 = {
@@ -1130,7 +1137,6 @@
 				167E8A9521A63F5E00096C93 /* ChartBottomView.xib in Resources */,
 				16552F1221AD46AB00FA511D /* KLineLongTapParamView.xib in Resources */,
 				16D3D823217F17A200793DF8 /* LaunchScreen.storyboard in Resources */,
-				165D506A21B52C0700F1F031 /* minuteData.plist in Resources */,
 				16552F0D21AD145F00FA511D /* KlineSelectCycleCollectionViewCell.xib in Resources */,
 				167E8A7D21A4114B00096C93 /* HandicapCollectionViewCell.xib in Resources */,
 				161F28F7218844AD0036E22B /* Assets.xcassets in Resources */,
@@ -1141,7 +1147,6 @@
 				16552F0521AD111D00FA511D /* KLineSelectCycleView.xib in Resources */,
 				16D6E816219AC864007B41B7 /* MarketTableViewHeaderView.xib in Resources */,
 				16D3D81E217F17A000793DF8 /* Main.storyboard in Resources */,
-				165D506B21B52C0700F1F031 /* dayData.plist in Resources */,
 				167E8A8221A4119800096C93 /* HandicapTableViewCell.xib in Resources */,
 				163DE91C21A2AC4000A29315 /* PriceCustomKeyboardView.xib in Resources */,
 				1603A7CB21A7D2A000BF3802 /* ModifyPasswordController.xib in Resources */,
@@ -1360,6 +1365,7 @@
 				1687940B219C25E400B989A2 /* OrderPriceSettingViewController.m in Sources */,
 				169180B021918D5D00BC1901 /* lib_best_msssage.cpp in Sources */,
 				169180B721918D5D00BC1901 /* qcmutex.cpp in Sources */,
+				16AB268521C0B30700755B81 /* LrReportContainerView.m in Sources */,
 				165D505821B525AD00F1F031 /* Y_KStockScrollView.m in Sources */,
 				1687940E219D0B5B00B989A2 /* PlateViewController.m in Sources */,
 				16B38ACB21A257D300681503 /* TradeCellMenuView.m in Sources */,

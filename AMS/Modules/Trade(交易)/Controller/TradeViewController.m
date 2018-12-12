@@ -16,12 +16,13 @@
 #import "UIView+AZGradient.h"
 #import <JDStatusBarNotification.h>
 #import "CustomStatusBarView.h"
-@interface TradeViewController ()<LMReportViewDatasource,LMReportViewDelegate,UITextFieldDelegate>
+#import "LrReportContainerView.h"
+@interface TradeViewController ()<LrReportContainerViewDelegate,UITextFieldDelegate>
 @property(nonatomic,strong) TradeHeaderView *headerView;
 @property(nonatomic,strong) UISegmentedControl *segmentedControl;
 @property(nonatomic,strong) NSArray *itemArray;
 @property(nonatomic,strong) NSArray *headerTitleArray;
-@property(nonatomic,strong) LMReportView *reportView;
+//@property(nonatomic,strong) LMReportView *reportView;
 @property(nonatomic,strong) TradeCellMenuView *menuView;
 @property(nonatomic,strong) NSIndexPath *currentSelectIndexPath;
 @property(nonatomic,strong) PriceCustomKeyboardView *keyboardView;
@@ -30,6 +31,7 @@
 @property(nonatomic,assign) BOOL isLock;//是否锁定价格
 @property(nonatomic,strong) UIImageView *underLineView;
 @property(nonatomic,strong) CustomStatusBarView *statusBar;
+@property(nonatomic,strong) LrReportContainerView *containerView;
 @end
 
 #define Header_Height  210
@@ -39,8 +41,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.itemArray = @[@"持仓",@"持仓明细",@"委托",@"成交",@"资金"];
-    self.headerTitleArray = @[@[@"合约号",@"品种",@"多空",@"属性",@"持仓",@"可用"],@[@"持仓明细1",@"持仓明细2",@"持仓明细3",@"持仓明细4",@"持仓明细5",@"持仓明细6",@"持仓明细7"],@[@"委托1",@"委托2",@"委托3",@"委托4",@"委托5",@"委托6"],@[@"成交1",@"成交2",@"成交3",@"成交4",@"成交5"],@[@"资金1",@"资金2",@"资金3",@"资金3",@"资金4",@"资金5",@"资金6"]];
+    self.itemArray = @[@"持仓",@"挂单",@"委托",@"成交"];
+    self.headerTitleArray = @[@[@"合约名称",@"多空",@"总仓",@"可用",@"开仓均价",@"逐笔浮盈"],@[@"合约名称",@"开平",@"委托价",@"委托量",@"挂单量"],@[@"合约名称",@"状态",@"开平",@"委托价",@"委托量",@"已成交",@"已撤单",@"委托时间"],@[@"合约名称",@"开平",@"成交价",@"成交量",@"成交时间"]];
     [self.view addSubview:self.headerView];
     [self.view addSubview:self.segmentedControl];
     [self.view addSubview:self.underLineView];
@@ -50,16 +52,25 @@
         make.height.mas_equalTo(2);
         make.bottom.mas_equalTo(self.segmentedControl.mas_bottom);
     }];
-    [self.view addSubview:self.reportView];
+//    [self.view addSubview:self.reportView];
+//
+////    [self.reportView mas_makeConstraints:^(MASConstraintMaker *make) {
+////        make.top.mas_equalTo(self.segmentedControl.mas_bottom);
+////        make.left.mas_offset(0);
+////        make.right.mas_equalTo(0);
+////        make.bottom.mas_equalTo(self.view);
+////    }];
+//    [self.reportView reloadData];
+//    [self.tableArray addObject:self.reportView];
+    [self.view addSubview:self.containerView];
+    [self fetchReportViewData:ChiChangType];
+    self.containerView.currentSelectIndex = ChiChangType;
+}
+
+-(void)fetchReportViewData:(NSInteger)index{
+    NSArray *array = @[@[@[@"泸金190yi",@"多",@1,@1,@280.35,@650],@[@"泸金1906",@"空",@1,@1,@280.45,@-550],@[@"IH1812",@"多",@1,@1,@2493.2,@-19860]],@[@[@"泸金1906",@"开多",@280.35,@650,@650],@[@"泸金1906",@"开多",@280.35,@650,@650],@[@"泸金1906",@"开多",@280.35,@650,@650]],@[@[@"泸金1901",@"状态",@"开多",@280.35,@650,@1,@1,@"2018-12-12 10:00:58"],@[@"泸金1902",@"状态",@"开多",@280.35,@650,@1,@1,@"2018-12-12 10:00:58"],@[@"泸金1903",@"状态",@"开多",@280.35,@650,@1,@1,@"2018-12-12 10:00:58"],@[@"泸金1904",@"状态",@"开多",@280.35,@650,@1,@1,@"2018-12-12 10:00:58"],@[@"泸金1907",@"状态",@"开多",@280.35,@650,@1,@1,@"2018-12-12 10:00:58"],@[@"泸金1908",@"状态",@"开多",@280.35,@650,@1,@1,@"2018-12-12 10:00:58"],@[@"泸金1909",@"状态",@"开多",@280.35,@650,@1,@1,@"2018-12-12 10:00:58"],@[@"泸金1910",@"状态",@"开多",@280.35,@650,@1,@1,@"2018-12-12 10:00:58"],@[@"泸金1911",@"状态",@"开多",@280.35,@650,@1,@1,@"2019-12-12 10:02:58"]],@[@[@"泸金1906",@"开多",@280.35,@650,@"2018-12-12 12:02:28"],@[@"泸金1906",@"开多",@280.35,@650,@"2018-12-12 12:02:28"],@[@"泸金1906",@"开多",@280.35,@650,@"2018-12-12 10:02:28"]]];
+    [self.containerView dataArray:array[index] forIndex:index];
     
-//    [self.reportView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.mas_equalTo(self.segmentedControl.mas_bottom);
-//        make.left.mas_offset(0);
-//        make.right.mas_equalTo(0);
-//        make.bottom.mas_equalTo(self.view);
-//    }];
-    [self.reportView reloadData];
-    [self.tableArray addObject:self.reportView];
 }
 #pragma mark 懒加载
 
@@ -77,27 +88,45 @@
     return _underLineView;
 }
 
--(LMReportView *)reportView{
-    if (!_reportView) {
-        _reportView = [[LMReportView alloc] initWithFrame:CGRectMake(0,  Header_Height+SegmentedControl_Height+1, KScreenWidth, KScreenHeight - (Header_Height+SegmentedControl_Height+1))];
-        _reportView.datasource = self;
-        _reportView.delegate = self;
-        _reportView.style.spacing = 0;
-        _reportView.backgroundColor = kCellBackGroundColor;
-        _reportView.style.borderInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+//-(LMReportView *)reportView{
+//    if (!_reportView) {
+//        _reportView = [[LMReportView alloc] initWithFrame:CGRectMake(0,  Header_Height+SegmentedControl_Height+1, KScreenWidth, KScreenHeight - (Header_Height+SegmentedControl_Height+1))];
+//        _reportView.datasource = self;
+//        _reportView.delegate = self;
+//        _reportView.style.spacing = 0.5;
+//        _reportView.style.borderColor = [UIColor grayColor];
+//        _reportView.backgroundColor = kCellBackGroundColor;
+//        _reportView.style.borderInsets = UIEdgeInsetsMake(0.5, 0, 0.5, 0);
+//        kWeakSelf(self);
+//        _reportView.lMReportViewDidScrollBlock = ^(UIScrollView *scrollView, BOOL isMainScrollView) {
+//            kStrongSelf(self);
+//            if (isMainScrollView) {
+//                self.reportView.contentOffSet = scrollView.contentOffset.y;
+//            }
+//            [self.headerView.priceTf resignFirstResponder];
+//            [self.headerView.numTf resignFirstResponder];
+//            [self disAppearOpView];
+//        };
+////       _reportView.style.stripeBackgroundColor = kLightGrayColor;
+//    }
+//    return _reportView;
+//}
+
+-(LrReportContainerView *)containerView{
+    if (!_containerView) {
+        _containerView = [[LrReportContainerView alloc] init];
+        _containerView.titleItemArray = self.headerTitleArray;
+        _containerView.frame =CGRectMake(0,  Header_Height+SegmentedControl_Height+1, KScreenWidth, KScreenHeight - (Header_Height+SegmentedControl_Height+1));
         kWeakSelf(self);
-        _reportView.lMReportViewDidScrollBlock = ^(UIScrollView *scrollView, BOOL isMainScrollView) {
+        _containerView.delegate = self;
+        _containerView.lMReportViewDidScrollBlock = ^(UIScrollView *scrollView, BOOL isMainScrollView) {
             kStrongSelf(self);
-            if (isMainScrollView) {
-                self.reportView.contentOffSet = scrollView.contentOffset.y;
-            }
             [self.headerView.priceTf resignFirstResponder];
             [self.headerView.numTf resignFirstResponder];
             [self disAppearOpView];
         };
-//       _reportView.style.stripeBackgroundColor = kLightGrayColor;
     }
-    return _reportView;
+    return _containerView;
 }
 
 -(TradeHeaderView *)headerView{
@@ -209,7 +238,7 @@
         }
         self.currentSelectIndexPath = nil;
         self.menuView.isShowing = false;
-        [self.reportView reloadData];
+        [self.containerView reloadData];
     }
 }
 
@@ -299,10 +328,10 @@
     [self.underLineView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo((KScreenWidth/(self.itemArray.count * 2)) * (2*control.selectedSegmentIndex +1) - 14/2);
     }];
-    self.reportView.frame = CGRectMake(0,  Header_Height+SegmentedControl_Height, KScreenWidth, KScreenHeight - ( +Header_Height+SegmentedControl_Height));
-    [self.reportView reloadData];
-    
-    
+//    self.reportView.frame = CGRectMake(0,Header_Height+SegmentedControl_Height, KScreenWidth, KScreenHeight - ( +Header_Height+SegmentedControl_Height));
+//    [self.reportView reloadData];
+    [self fetchReportViewData:control.selectedSegmentIndex];
+    self.containerView.currentSelectIndex = control.selectedSegmentIndex;
 }
 
 #pragma mark 代理回调事件
@@ -344,37 +373,37 @@
 
 #pragma mark - <LMReportViewDatasource>
 
-- (NSInteger)numberOfRowsInReportView:(LMReportView *)reportView {
-    return 5*(self.segmentedControl.selectedSegmentIndex + 1);
-}
+//- (NSInteger)numberOfRowsInReportView:(LMReportView *)reportView {
+//    return 5*(self.segmentedControl.selectedSegmentIndex + 1);
+//}
+//
+//- (NSInteger)numberOfColsInReportView:(LMReportView *)reportView {
+//    NSArray *currentHeaderArray = self.headerTitleArray[self.segmentedControl.selectedSegmentIndex];
+//    return currentHeaderArray.count;
+//}
 
-- (NSInteger)numberOfColsInReportView:(LMReportView *)reportView {
-    NSArray *currentHeaderArray = self.headerTitleArray[self.segmentedControl.selectedSegmentIndex];
-    return currentHeaderArray.count;
-}
-
-- (LMRGrid *)reportView:(LMReportView *)reportView gridAtIndexPath:(NSIndexPath *)indexPath {
-    LMRGrid *grid = [[LMRGrid alloc] init];
-    if (indexPath.row == 0) {
-        grid.backgroundColor = kTableViewBackGroundColor;
-        grid.textColor = kNormalTextColor;
-        grid.text = self.headerTitleArray[self.segmentedControl.selectedSegmentIndex][indexPath.col];
-        grid.font = kFontSize(13);
-    }else{
-        
-//        if (indexPath.row == self.currentSelectIndexPath.row) {
-//             grid.backgroundColor = kOrangeColor;
-//        }else{
-//            grid.backgroundColor = kCellBackGroundColor;
-//        }
-        grid.backgroundColor = kCellBackGroundColor;
-        grid.textColor = kWhiteColor;
-        grid.text = [NSString stringWithFormat:@"%@-%ld-%ld",self.itemArray[self.segmentedControl.selectedSegmentIndex], indexPath.row, indexPath.col];
-        grid.font = kFontSize(15);
-    }
-    
-    return grid;
-}
+//- (LMRGrid *)reportView:(LMReportView *)reportView gridAtIndexPath:(NSIndexPath *)indexPath {
+//    LMRGrid *grid = [[LMRGrid alloc] init];
+//    if (indexPath.row == 0) {
+//        grid.backgroundColor = kTableViewBackGroundColor;
+//        grid.textColor = kNormalTextColor;
+//        grid.text = self.headerTitleArray[self.segmentedControl.selectedSegmentIndex][indexPath.col];
+//        grid.font = kFontSize(13);
+//    }else{
+//
+////        if (indexPath.row == self.currentSelectIndexPath.row) {
+////             grid.backgroundColor = kOrangeColor;
+////        }else{
+////            grid.backgroundColor = kCellBackGroundColor;
+////        }
+//        grid.backgroundColor = kCellBackGroundColor;
+//        grid.textColor = kWhiteColor;
+//        grid.text = [NSString stringWithFormat:@"%@-%ld-%ld",self.itemArray[self.segmentedControl.selectedSegmentIndex], indexPath.row, indexPath.col];
+//        grid.font = kFontSize(15);
+//    }
+//
+//    return grid;
+//}
 
 -(void)reportView:(LMReportView *)reportView didLongPressLabel:(LMRLabel *)label{
 //    NSLog(@"长按了---");
@@ -387,16 +416,21 @@
     }else{
         self.currentSelectIndexPath = indexPath;
         NSLog(@"frame is %@",NSStringFromCGRect(label.frame));
-        [self.reportView addSubview:self.menuView];
-        self.menuView.frame = CGRectMake(0, label.frame.origin.y + 88 -self.reportView.contentOffSet, KScreenWidth, 44);
-        self.menuView.isShowing = YES;
-        [self.reportView reloadData];
+        [self.containerView.currentReportView addSubview:self.menuView];
+//        self.menuView.alpha = 0.f;
+        	[UIView animateWithDuration:0.1 animations:^{
+            self.menuView.frame = CGRectMake(0, CGRectGetMaxY(label.frame) + 44 - (indexPath.row + 1) * REPORT_VIEW_BOARDER_WIDTH    - self.containerView.currentReportView.contentOffSet, KScreenWidth, 44);
+            [self.containerView.currentReportView addSubview:self.menuView];
+            self.menuView.isShowing = YES;
+//            self.menuView.alpha = 1;
+        }];
+        
+        [self.containerView reloadData];
     }
     
 }
 
 -(void)reportView:(LMReportView *)reportView didTapLabel:(LMRLabel *)label{
-    NSLog(@"单击了----");
     [self.headerView.priceTf resignFirstResponder];
     [self.headerView.numTf resignFirstResponder];
     if (self.menuView.isShowing) {
@@ -406,12 +440,16 @@
     }
 }
 
--(CGFloat)reportView:(LMReportView *)reportView heightOfRow:(NSInteger)row{
-    if (row == 0) {
-        return 38;
-    }
-    return 44;
-}
+//-(CGFloat)reportView:(LMReportView *)reportView heightOfRow:(NSInteger)row{
+//    if (row == 0) {
+//        return 38;
+//    }
+//    return 44;
+//}
+//
+//-(CGFloat)reportView:(LMReportView *)reportView widthOfCol:(NSInteger)col{
+//    return col %2 == 0 ? 50 : 70;
+//}
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];

@@ -11,6 +11,7 @@
 
 - (void)drawRect:(CGRect)rect {
     
+    
     if (self.image) {        
         self.clipsToBounds = YES;
         [self.image drawInRect:rect];
