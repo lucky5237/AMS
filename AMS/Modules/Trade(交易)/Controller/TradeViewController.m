@@ -44,7 +44,18 @@
     self.itemArray = @[@"持仓",@"挂单",@"委托",@"成交"];
     self.headerTitleArray = @[@[@"合约名称",@"多空",@"总仓",@"可用",@"开仓均价",@"逐笔浮盈"],@[@"合约名称",@"开平",@"委托价",@"委托量",@"挂单量"],@[@"合约名称",@"状态",@"开平",@"委托价",@"委托量",@"已成交",@"已撤单",@"委托时间"],@[@"合约名称",@"开平",@"成交价",@"成交量",@"成交时间"]];
     [self.view addSubview:self.headerView];
+    _headerView.frame = CGRectMake(0, 1, KScreenWidth,500);
+    [self.headerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(1);
+        make.left.mas_equalTo(0);
+        make.size.mas_equalTo(CGSizeMake(KScreenWidth, Header_Height));
+    }];
     [self.view addSubview:self.segmentedControl];
+    [self.segmentedControl mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(1);
+        make.top.mas_equalTo(self.headerView.mas_bottom).offset(1);
+        make.size.mas_equalTo(CGSizeMake(KScreenWidth, SegmentedControl_Height));
+    }];
     [self.view addSubview:self.underLineView];
     [self.underLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(KScreenWidth/(self.itemArray.count * 2) -14/2);
@@ -60,9 +71,16 @@
 ////        make.right.mas_equalTo(0);
 ////        make.bottom.mas_equalTo(self.view);
 ////    }];
-//    [self.reportView reloadData];
-//    [self.tableArray addObject:self.reportView];
+    //    [self.reportView reloadData];
     [self.view addSubview:self.containerView];
+    [self.containerView setNeedsLayout];
+    [self.containerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.segmentedControl.mas_bottom).offset(1);
+        make.left.mas_equalTo(0);
+        make.width.mas_equalTo(KScreenWidth);
+        make.bottom.mas_equalTo(0);
+    }];
+    [self.containerView layoutIfNeeded];
     [self fetchReportViewData:ChiChangType];
     self.containerView.currentSelectIndex = ChiChangType;
 }
@@ -116,7 +134,7 @@
     if (!_containerView) {
         _containerView = [[LrReportContainerView alloc] init];
         _containerView.titleItemArray = self.headerTitleArray;
-        _containerView.frame =CGRectMake(0,  Header_Height+SegmentedControl_Height+1, KScreenWidth, KScreenHeight - (Header_Height+SegmentedControl_Height+1));
+//        _containerView.frame =CGRectMake(0,  Header_Height+SegmentedControl_Height+1, KScreenWidth, KScreenHeight - (Header_Height+SegmentedControl_Height+1+kTabBarHeight));
         kWeakSelf(self);
         _containerView.delegate = self;
         _containerView.lMReportViewDidScrollBlock = ^(UIScrollView *scrollView, BOOL isMainScrollView) {
@@ -132,7 +150,7 @@
 -(TradeHeaderView *)headerView{
     if (!_headerView) {
         _headerView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([TradeHeaderView class]) owner:nil options:nil]lastObject];
-        _headerView.frame = CGRectMake(0, 1, KScreenWidth,500);
+//        _headerView.frame = CGRectMake(0, 1, KScreenWidth,500);
         //点击买多
         kWeakSelf(self);
         [_headerView.buyMoreView zj_addTapGestureWithCallback:^(UITapGestureRecognizer *gesture) {
@@ -190,7 +208,7 @@
         [_segmentedControl setBackgroundImage:[AMSUtil imageWithColor:kCellBackGroundColor] forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
         [_segmentedControl setBackgroundImage:[AMSUtil imageWithColor:kCellBackGroundColor] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
         _segmentedControl.selectedSegmentIndex = 0;
-        _segmentedControl.frame = CGRectMake(0, Header_Height+1, KScreenWidth, SegmentedControl_Height);
+       
        
     }
     return _segmentedControl;
@@ -417,15 +435,24 @@
         self.currentSelectIndexPath = indexPath;
         NSLog(@"frame is %@",NSStringFromCGRect(label.frame));
         [self.containerView.currentReportView addSubview:self.menuView];
-//        self.menuView.alpha = 0.f;
-        	[UIView animateWithDuration:0.1 animations:^{
-            self.menuView.frame = CGRectMake(0, CGRectGetMaxY(label.frame) + 44 - (indexPath.row + 1) * REPORT_VIEW_BOARDER_WIDTH    - self.containerView.currentReportView.contentOffSet, KScreenWidth, 44);
+         self.menuView.frame = CGRectMake(0, CGRectGetMaxY(label.frame)  - self.containerView.currentReportView.contentOffSet, KScreenWidth, 45);
+        self.menuView.alpha = 0.f;
+        	[UIView animateWithDuration:0.2 animations:^{
+              
+                if (CGRectGetMaxY(label.frame) + 41  - self.containerView.currentReportView.contentOffSet >=self.containerView.bounds.size.height) {
+                    NSLog(@"超出屏幕");
+                    self.menuView.frame = CGRectMake(0, CGRectGetMaxY(label.frame) - self.containerView.currentReportView.contentOffSet - 4, KScreenWidth, 45);
+                }else{
+                      self.menuView.frame = CGRectMake(0, CGRectGetMaxY(label.frame) + 41  - self.containerView.currentReportView.contentOffSet, KScreenWidth, 45);
+                }
+//            self.menuView.frame = CGRectMake(0, CGRectGetMaxY(label.frame) + 41  - self.containerView.currentReportView.contentOffSet, KScreenWidth, 45);
             [self.containerView.currentReportView addSubview:self.menuView];
             self.menuView.isShowing = YES;
-//            self.menuView.alpha = 1;
+            self.menuView.alpha = 1;
         }];
-        
+       
         [self.containerView reloadData];
+        [self.containerView bringSubviewToFront:self.menuView];
     }
     
 }

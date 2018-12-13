@@ -10,7 +10,7 @@
 
 @interface LrReportContainerView ()<UIScrollViewDelegate,LMReportViewDelegate,LMReportViewDatasource>
 @property(nonatomic,strong) UIScrollView *scrollView;
-@property(nonatomic,copy) NSMutableArray *dataArray;
+
 
 @end
 @implementation LrReportContainerView
@@ -176,9 +176,6 @@
         grid.backgroundColor = kCellBackGroundColor;
         grid.textColor = kWhiteColor;
         grid.text = [NSString stringWithFormat:@"%@",self.dataArray[reportView.tag - 1][indexPath.row-1] [indexPath.col]];
-        if(indexPath.row > 8){
-            NSLog(@"indexPath.row 滴滴滴滴 = %ld col= %ld text = %@",indexPath.row,indexPath.col,grid.text);
-        }
         grid.font = kFontSize(15);
     }
     return grid;

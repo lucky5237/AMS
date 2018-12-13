@@ -25,6 +25,7 @@ typedef void(^LMReportViewDidScrollBlock)(UIScrollView *scrollView,BOOL isMainSc
 @property(nonatomic,copy)LMReportViewDidScrollBlock lMReportViewDidScrollBlock;
 @property(nonatomic,weak) id<LrReportContainerViewDelegate> delegate;
 @property(nonatomic,strong,readonly) LMReportView *currentReportView;
+@property(nonatomic,copy) NSMutableArray *dataArray;
 -(void)dataArray:(NSArray*)dataArray forIndex:(NSInteger)index;
 -(void)reloadData;
 
