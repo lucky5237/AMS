@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,assign) BOOL useRdvTab;
 @property(nonatomic,strong) UIBarButtonItem *extraRightButtonItem;
 @property(nonatomic,strong) UIBarButtonItem *menuBtnItem;
+-(void)didReceiveSocketData:(NSNotification *)noti;
 @end
 
 NS_ASSUME_NONNULL_END

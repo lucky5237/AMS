@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface AMSSocketManager : NSObject
 
 +(AMSSocketManager*) shareInstance;
--(void)addSocketClient:(NSString*)tag withHost:(NSString*)host withPort:(NSUInteger)port;//添加tcp连接
+-(AMSSocketClient *)addSocketClient:(NSString*)tag withHost:(NSString*)host withPort:(NSUInteger)port;//添加tcp连接
 -(void)removeSocketClient:(NSString*)tag;//断开tcp连接
 -(AMSSocketClient*)socketClient:(NSString*)tag;//获取tcp连接
 -(void)writeData:(NSData*)data toSocket:(NSString*)tag;//给socket写数据

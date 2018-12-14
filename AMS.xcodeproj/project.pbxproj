@@ -108,16 +108,28 @@
 		169180BF21918D5D00BC1901 /* default_serializer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 169180A021918D5C00BC1901 /* default_serializer.cpp */; };
 		169180C021918D5D00BC1901 /* qcstutils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 169180A121918D5C00BC1901 /* qcstutils.cpp */; };
 		169180C221918D5D00BC1901 /* default_best_field.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 169180A321918D5D00BC1901 /* default_best_field.cpp */; };
-		1693ADF9218007FE00EDEEF6 /* AMSSocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1693ADF7218007FE00EDEEF6 /* AMSSocketManager.m */; };
+		1693ADF9218007FE00EDEEF6 /* AMSSocketManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1693ADF7218007FE00EDEEF6 /* AMSSocketManager.mm */; };
 		169727C32186B45F009F6F65 /* AppDelegate+AppSevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 169727C22186B45F009F6F65 /* AppDelegate+AppSevice.m */; };
 		16AB268121BDFC8200755B81 /* field_key.h in Sources */ = {isa = PBXBuildFile; fileRef = 16AB268021BDFADD00755B81 /* field_key.h */; };
 		16AB268521C0B30700755B81 /* LrReportContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16AB268421C0B30700755B81 /* LrReportContainerView.m */; };
+		16AB268E21C2295900755B81 /* LoginViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 16AB268C21C2295900755B81 /* LoginViewController.mm */; };
+		16AB268F21C2295900755B81 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16AB268D21C2295900755B81 /* LoginViewController.xib */; };
+		16AB269421C2341C00755B81 /* LoginRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 16AB269321C2341C00755B81 /* LoginRequestModel.m */; };
+		16AB269721C2346200755B81 /* BaseRequsetModel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 16AB269621C2346200755B81 /* BaseRequsetModel.mm */; };
+		16AB269A21C2361100755B81 /* LoginOutRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 16AB269921C2361100755B81 /* LoginOutRequestModel.m */; };
+		16AB269D21C236D400755B81 /* BaseResponseModel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 16AB269C21C236D400755B81 /* BaseResponseModel.mm */; };
+		16AB26A221C2389000755B81 /* LoginResponseModel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 16AB26A121C2389000755B81 /* LoginResponseModel.mm */; };
+		16AB26A521C239CA00755B81 /* LoginOutResponse.mm in Sources */ = {isa = PBXBuildFile; fileRef = 16AB26A421C239CA00755B81 /* LoginOutResponse.mm */; };
+		16AB26A721C2609D00755B81 /* best_sdk_define.h in Sources */ = {isa = PBXBuildFile; fileRef = 16AB26A621C2608B00755B81 /* best_sdk_define.h */; };
+		16AB26AA21C2650A00755B81 /* SocketRequestManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 16AB26A921C2650A00755B81 /* SocketRequestManager.mm */; };
 		16B38ACB21A257D300681503 /* TradeCellMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B38ACA21A257D300681503 /* TradeCellMenuView.m */; };
 		16B38ACD21A2580A00681503 /* TradeCellMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16B38ACC21A2580A00681503 /* TradeCellMenuView.xib */; };
 		16BAC14721893F8B008F965E /* LeftMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16BAC14621893F8B008F965E /* LeftMenuViewController.m */; };
 		16CA589821B772F60010DC43 /* TimeLineLongTapParamView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16CA589521B772F50010DC43 /* TimeLineLongTapParamView.m */; };
 		16CA589921B77B680010DC43 /* TimeLineLongTapParamView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16CA589621B772F50010DC43 /* TimeLineLongTapParamView.xib */; };
-		16CCD3A821831456003D5BFD /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16CCD3A721831456003D5BFD /* MainViewController.m */; };
+		16CB71B521C39F650063F39B /* SocketResponseManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 16CB71B421C39F650063F39B /* SocketResponseManager.mm */; };
+		16CB71BE21C3B7220063F39B /* QryKLineResponseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 16CB71BD21C3B7220063F39B /* QryKLineResponseModel.m */; };
+		16CCD3A821831456003D5BFD /* MainViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 16CCD3A721831456003D5BFD /* MainViewController.mm */; };
 		16D3D818217F17A000793DF8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 16D3D817217F17A000793DF8 /* AppDelegate.m */; };
 		16D3D81E217F17A000793DF8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16D3D81C217F17A000793DF8 /* Main.storyboard */; };
 		16D3D823217F17A200793DF8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16D3D821217F17A200793DF8 /* LaunchScreen.storyboard */; };
@@ -331,7 +343,7 @@
 		169180A021918D5C00BC1901 /* default_serializer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = default_serializer.cpp; sourceTree = "<group>"; };
 		169180A121918D5C00BC1901 /* qcstutils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = qcstutils.cpp; sourceTree = "<group>"; };
 		169180A321918D5D00BC1901 /* default_best_field.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = default_best_field.cpp; sourceTree = "<group>"; };
-		1693ADF7218007FE00EDEEF6 /* AMSSocketManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMSSocketManager.m; sourceTree = "<group>"; };
+		1693ADF7218007FE00EDEEF6 /* AMSSocketManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AMSSocketManager.mm; sourceTree = "<group>"; };
 		1693ADF8218007FE00EDEEF6 /* AMSSocketManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMSSocketManager.h; sourceTree = "<group>"; };
 		169727C12186B45F009F6F65 /* AppDelegate+AppSevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+AppSevice.h"; sourceTree = "<group>"; };
 		169727C22186B45F009F6F65 /* AppDelegate+AppSevice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+AppSevice.m"; sourceTree = "<group>"; };
@@ -339,6 +351,24 @@
 		16AB268021BDFADD00755B81 /* field_key.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = field_key.h; sourceTree = "<group>"; };
 		16AB268321C0B30700755B81 /* LrReportContainerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LrReportContainerView.h; sourceTree = "<group>"; };
 		16AB268421C0B30700755B81 /* LrReportContainerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LrReportContainerView.m; sourceTree = "<group>"; };
+		16AB268B21C2295900755B81 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		16AB268C21C2295900755B81 /* LoginViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = LoginViewController.mm; sourceTree = "<group>"; };
+		16AB268D21C2295900755B81 /* LoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		16AB269221C2341C00755B81 /* LoginRequestModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginRequestModel.h; sourceTree = "<group>"; };
+		16AB269321C2341C00755B81 /* LoginRequestModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginRequestModel.m; sourceTree = "<group>"; };
+		16AB269521C2346200755B81 /* BaseRequsetModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseRequsetModel.h; sourceTree = "<group>"; };
+		16AB269621C2346200755B81 /* BaseRequsetModel.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = BaseRequsetModel.mm; sourceTree = "<group>"; };
+		16AB269821C2361100755B81 /* LoginOutRequestModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginOutRequestModel.h; sourceTree = "<group>"; };
+		16AB269921C2361100755B81 /* LoginOutRequestModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginOutRequestModel.m; sourceTree = "<group>"; };
+		16AB269B21C236D400755B81 /* BaseResponseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseResponseModel.h; sourceTree = "<group>"; };
+		16AB269C21C236D400755B81 /* BaseResponseModel.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = BaseResponseModel.mm; sourceTree = "<group>"; };
+		16AB26A021C2389000755B81 /* LoginResponseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginResponseModel.h; sourceTree = "<group>"; };
+		16AB26A121C2389000755B81 /* LoginResponseModel.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = LoginResponseModel.mm; sourceTree = "<group>"; };
+		16AB26A321C239CA00755B81 /* LoginOutResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginOutResponse.h; sourceTree = "<group>"; };
+		16AB26A421C239CA00755B81 /* LoginOutResponse.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = LoginOutResponse.mm; sourceTree = "<group>"; };
+		16AB26A621C2608B00755B81 /* best_sdk_define.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = best_sdk_define.h; sourceTree = "<group>"; };
+		16AB26A821C2650A00755B81 /* SocketRequestManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SocketRequestManager.h; sourceTree = "<group>"; };
+		16AB26A921C2650A00755B81 /* SocketRequestManager.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SocketRequestManager.mm; sourceTree = "<group>"; };
 		16B38AC921A257D300681503 /* TradeCellMenuView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TradeCellMenuView.h; sourceTree = "<group>"; };
 		16B38ACA21A257D300681503 /* TradeCellMenuView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TradeCellMenuView.m; sourceTree = "<group>"; };
 		16B38ACC21A2580A00681503 /* TradeCellMenuView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TradeCellMenuView.xib; sourceTree = "<group>"; };
@@ -347,8 +377,12 @@
 		16CA589521B772F50010DC43 /* TimeLineLongTapParamView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TimeLineLongTapParamView.m; sourceTree = "<group>"; };
 		16CA589621B772F50010DC43 /* TimeLineLongTapParamView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimeLineLongTapParamView.xib; sourceTree = "<group>"; };
 		16CA589721B772F60010DC43 /* TimeLineLongTapParamView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimeLineLongTapParamView.h; sourceTree = "<group>"; };
+		16CB71B321C39F650063F39B /* SocketResponseManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SocketResponseManager.h; sourceTree = "<group>"; };
+		16CB71B421C39F650063F39B /* SocketResponseManager.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SocketResponseManager.mm; sourceTree = "<group>"; };
+		16CB71BC21C3B7220063F39B /* QryKLineResponseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QryKLineResponseModel.h; sourceTree = "<group>"; };
+		16CB71BD21C3B7220063F39B /* QryKLineResponseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QryKLineResponseModel.m; sourceTree = "<group>"; };
 		16CCD3A621831456003D5BFD /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
-		16CCD3A721831456003D5BFD /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		16CCD3A721831456003D5BFD /* MainViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MainViewController.mm; sourceTree = "<group>"; };
 		16D3D813217F17A000793DF8 /* AMS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AMS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		16D3D816217F17A000793DF8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		16D3D817217F17A000793DF8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -744,6 +778,10 @@
 				16633A3B21819D1A00D450E8 /* BaseViewController.m */,
 				166DDB80218A9CDB00D43461 /* BaseTableViewController.h */,
 				166DDB81218A9CDB00D43461 /* BaseTableViewController.m */,
+				16AB269521C2346200755B81 /* BaseRequsetModel.h */,
+				16AB269621C2346200755B81 /* BaseRequsetModel.mm */,
+				16AB269B21C236D400755B81 /* BaseResponseModel.h */,
+				16AB269C21C236D400755B81 /* BaseResponseModel.mm */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -776,11 +814,14 @@
 				166DDC27218AF57100D43461 /* Y_StockChartViewController.h */,
 				166DDC28218AF57200D43461 /* Y_StockChartViewController.m */,
 				16CCD3A621831456003D5BFD /* MainViewController.h */,
-				16CCD3A721831456003D5BFD /* MainViewController.m */,
+				16CCD3A721831456003D5BFD /* MainViewController.mm */,
 				167900362188253C008ECB31 /* DetailViewController.h */,
 				167900372188253C008ECB31 /* DetailViewController.mm */,
 				16BAC14521893F8B008F965E /* LeftMenuViewController.h */,
 				16BAC14621893F8B008F965E /* LeftMenuViewController.m */,
+				16AB268B21C2295900755B81 /* LoginViewController.h */,
+				16AB268C21C2295900755B81 /* LoginViewController.mm */,
+				16AB268D21C2295900755B81 /* LoginViewController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -789,7 +830,11 @@
 			isa = PBXGroup;
 			children = (
 				1693ADF8218007FE00EDEEF6 /* AMSSocketManager.h */,
-				1693ADF7218007FE00EDEEF6 /* AMSSocketManager.m */,
+				1693ADF7218007FE00EDEEF6 /* AMSSocketManager.mm */,
+				16AB26A821C2650A00755B81 /* SocketRequestManager.h */,
+				16AB26A921C2650A00755B81 /* SocketRequestManager.mm */,
+				16CB71B321C39F650063F39B /* SocketResponseManager.h */,
+				16CB71B421C39F650063F39B /* SocketResponseManager.mm */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -809,6 +854,7 @@
 		169727CC2186D912009F6F65 /* Define */ = {
 			isa = PBXGroup;
 			children = (
+				16AB26A621C2608B00755B81 /* best_sdk_define.h */,
 				16AB268021BDFADD00755B81 /* field_key.h */,
 				16D6E7FD219A9D5E007B41B7 /* AMSConstant.h */,
 				169727CD2186D92E009F6F65 /* UtilsMacros.h */,
@@ -825,6 +871,45 @@
 				16AB268421C0B30700755B81 /* LrReportContainerView.m */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		16AB269021C2309B00755B81 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				16AB269121C230BD00755B81 /* Login(登录相关) */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		16AB269121C230BD00755B81 /* Login(登录相关) */ = {
+			isa = PBXGroup;
+			children = (
+				16AB269F21C2387200755B81 /* response */,
+				16AB269E21C2386500755B81 /* request */,
+			);
+			path = "Login(登录相关)";
+			sourceTree = "<group>";
+		};
+		16AB269E21C2386500755B81 /* request */ = {
+			isa = PBXGroup;
+			children = (
+				16AB269221C2341C00755B81 /* LoginRequestModel.h */,
+				16AB269321C2341C00755B81 /* LoginRequestModel.m */,
+				16AB269821C2361100755B81 /* LoginOutRequestModel.h */,
+				16AB269921C2361100755B81 /* LoginOutRequestModel.m */,
+			);
+			path = request;
+			sourceTree = "<group>";
+		};
+		16AB269F21C2387200755B81 /* response */ = {
+			isa = PBXGroup;
+			children = (
+				16AB26A021C2389000755B81 /* LoginResponseModel.h */,
+				16AB26A121C2389000755B81 /* LoginResponseModel.mm */,
+				16AB26A321C239CA00755B81 /* LoginOutResponse.h */,
+				16AB26A421C239CA00755B81 /* LoginOutResponse.mm */,
+			);
+			path = response;
 			sourceTree = "<group>";
 		};
 		16D3D80A217F179F00793DF8 = {
@@ -853,6 +938,7 @@
 				169727CB2186D8CB009F6F65 /* ThridParty */,
 				169727CA2186D7E0009F6F65 /* Manager */,
 				169727C72186D77D009F6F65 /* Modules */,
+				16AB269021C2309B00755B81 /* Models */,
 				169727C62186D75C009F6F65 /* Base */,
 				169727C42186D733009F6F65 /* Utils */,
 				169727C02186B346009F6F65 /* AppDelegate */,
@@ -887,6 +973,8 @@
 				16D6E80E219ABB6C007B41B7 /* Model */,
 				16D6E80A219AB0EE007B41B7 /* View */,
 				16D6E7FF219A9E8D007B41B7 /* Controller */,
+				16CB71BC21C3B7220063F39B /* QryKLineResponseModel.h */,
+				16CB71BD21C3B7220063F39B /* QryKLineResponseModel.m */,
 			);
 			path = "Market(行情)";
 			sourceTree = "<group>";
@@ -1138,6 +1226,7 @@
 				16552F1221AD46AB00FA511D /* KLineLongTapParamView.xib in Resources */,
 				16D3D823217F17A200793DF8 /* LaunchScreen.storyboard in Resources */,
 				16552F0D21AD145F00FA511D /* KlineSelectCycleCollectionViewCell.xib in Resources */,
+				16AB268F21C2295900755B81 /* LoginViewController.xib in Resources */,
 				167E8A7D21A4114B00096C93 /* HandicapCollectionViewCell.xib in Resources */,
 				161F28F7218844AD0036E22B /* Assets.xcassets in Resources */,
 				169180B421918D5D00BC1901 /* memory_pool.inl in Resources */,
@@ -1290,11 +1379,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				16AB26A721C2609D00755B81 /* best_sdk_define.h in Sources */,
 				16AB268121BDFC8200755B81 /* field_key.h in Sources */,
 				162C246E21B919A100507022 /* Y_KStockScrollView.h in Sources */,
 				16605EF421B61800008B19C7 /* Y_BollMAView.h in Sources */,
 				16605EF521B61800008B19C7 /* Y_BollMAView.m in Sources */,
-				16CCD3A821831456003D5BFD /* MainViewController.m in Sources */,
+				16CB71BE21C3B7220063F39B /* QryKLineResponseModel.m in Sources */,
+				16CCD3A821831456003D5BFD /* MainViewController.mm in Sources */,
 				16552F1521AE7E9400FA511D /* Y_KLine_TimeView.m in Sources */,
 				1603A7CA21A7D2A000BF3802 /* ModifyPasswordController.m in Sources */,
 				166DDC03218AE34E00D43461 /* Y_StockChartView.m in Sources */,
@@ -1316,6 +1407,7 @@
 				166DDC14218AE34E00D43461 /* Y_StockChartSegmentView.m in Sources */,
 				163DE91521A29B0200A29315 /* LMRGrid.m in Sources */,
 				163DE91621A29B0200A29315 /* LMRLabel.m in Sources */,
+				16AB268E21C2295900755B81 /* LoginViewController.mm in Sources */,
 				166DDC0C218AE34E00D43461 /* Y_KLineModel.m in Sources */,
 				16D6E809219A9FB1007B41B7 /* TradeViewController.m in Sources */,
 				16D6E803219A9EAE007B41B7 /* OptionalViewController.m in Sources */,
@@ -1328,13 +1420,16 @@
 				169180A621918D5D00BC1901 /* step_serializer.cpp in Sources */,
 				169180B221918D5D00BC1901 /* default_bestIteror.cpp in Sources */,
 				167D672A21AB89C3004431DC /* UIView+AZGradient.m in Sources */,
+				16AB269A21C2361100755B81 /* LoginOutRequestModel.m in Sources */,
 				169180BB21918D5D00BC1901 /* default_best_message_factory.cpp in Sources */,
 				167E8A6A21A3F3A400096C93 /* MarketDetailViewController.m in Sources */,
 				16879411219D171600B989A2 /* AccountSettingViewController.m in Sources */,
 				169180C221918D5D00BC1901 /* default_best_field.cpp in Sources */,
 				16D6E814219AC79A007B41B7 /* MarketTableViewHeaderView.m in Sources */,
+				16AB26AA21C2650A00755B81 /* SocketRequestManager.mm in Sources */,
 				167E8A8121A4119800096C93 /* HandicapTableViewCell.m in Sources */,
 				166DDC0A218AE34E00D43461 /* Y_AccessoryMAView.m in Sources */,
+				16AB269721C2346200755B81 /* BaseRequsetModel.mm in Sources */,
 				166DDC0D218AE34E00D43461 /* Y_KLineGroupModel.m in Sources */,
 				166DDC0B218AE34E00D43461 /* Y_KLinePositionModel.m in Sources */,
 				169180BA21918D5D00BC1901 /* stdafx.cpp in Sources */,
@@ -1350,13 +1445,15 @@
 				16D6E80D219AB11F007B41B7 /* MarketTableViewCell.m in Sources */,
 				169180B621918D5D00BC1901 /* default_best_data_message.cpp in Sources */,
 				169180AD21918D5D00BC1901 /* default_best_message.cpp in Sources */,
+				16AB26A221C2389000755B81 /* LoginResponseModel.mm in Sources */,
 				16D3D826217F17A200793DF8 /* main.m in Sources */,
 				166DDC02218AE34E00D43461 /* UIColor+Y_StockChart.m in Sources */,
 				16D6E7FC219A9C97007B41B7 /* NewsViewController.m in Sources */,
 				167900382188253C008ECB31 /* DetailViewController.mm in Sources */,
 				163DE91421A29B0200A29315 /* LMReportView.m in Sources */,
+				16AB269421C2341C00755B81 /* LoginRequestModel.m in Sources */,
 				169180BF21918D5D00BC1901 /* default_serializer.cpp in Sources */,
-				1693ADF9218007FE00EDEEF6 /* AMSSocketManager.m in Sources */,
+				1693ADF9218007FE00EDEEF6 /* AMSSocketManager.mm in Sources */,
 				167E8A7C21A4114B00096C93 /* HandicapCollectionViewCell.m in Sources */,
 				169180BE21918D5D00BC1901 /* default_message_pool.cpp in Sources */,
 				166DDC12218AE34E00D43461 /* Y_MALine.m in Sources */,
@@ -1378,9 +1475,11 @@
 				161F28F221883DC00036E22B /* MBProgressHUD+AMS.m in Sources */,
 				167E8A8821A53BCD00096C93 /* SearchViewController.m in Sources */,
 				167E8A7021A3F50100096C93 /* KlineViewController.m in Sources */,
+				16AB26A521C239CA00755B81 /* LoginOutResponse.mm in Sources */,
 				16552F0821AD11F200FA511D /* KLineSelectCycleView.m in Sources */,
 				16879414219D1AAF00B989A2 /* PullDownMenuView.m in Sources */,
 				166DDC2C218AF5C500D43461 /* NetWorking.m in Sources */,
+				16AB269D21C236D400755B81 /* BaseResponseModel.mm in Sources */,
 				16D6E826219C0569007B41B7 /* SettingHeaderView.m in Sources */,
 				16633A3F2181BE6C00D450E8 /* AMSUtil.m in Sources */,
 				167E8A9321A63F4F00096C93 /* ChartBottomView.m in Sources */,
@@ -1393,6 +1492,7 @@
 				169180C021918D5D00BC1901 /* qcstutils.cpp in Sources */,
 				167E8A8521A4F91C00096C93 /* DealDetailModel.m in Sources */,
 				16879422219E91E800B989A2 /* TradeHeaderView.m in Sources */,
+				16CB71B521C39F650063F39B /* SocketResponseManager.mm in Sources */,
 				16BAC14721893F8B008F965E /* LeftMenuViewController.m in Sources */,
 				167E8A8C21A541CE00096C93 /* SearchTableViewCell.m in Sources */,
 			);

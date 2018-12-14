@@ -23,8 +23,14 @@
 #import <ZJKitTool.h>
 #import <RTRootNavigationController.h>
 #import <ReactiveObjC.h>
-//#import "field_key.h"
+#import <YYModel.h>
+
 
 #endif
 
+#ifdef __cpluscplus
+#import "field_key.h"
+#import "best_sdk_define.h"
+#import "SocketRequestManager.h"
 #endif /* AMSPrefixHeader_pch */
+#endif

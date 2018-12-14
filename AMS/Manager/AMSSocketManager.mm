@@ -9,6 +9,11 @@
 #import "AMSSocketManager.h"
 #import "AMSSocketClient.h"
 #import <GCDAsyncSocket.h>
+#import "field_key.h"
+#import "best_sdk_define.h"
+#import "BestMessageUtil.h"
+#import "LoginResponseModel.h"
+#import "SocketResponseManager.h"
 
 @interface AMSSocketManager()<GCDAsyncSocketDelegate>
 
@@ -61,10 +66,10 @@
  @param host 主机host
  @param port 主机port
  */
--(void)addSocketClient:(NSString *)tag withHost:(NSString *)host withPort:(NSUInteger)port{
+-(AMSSocketClient *)addSocketClient:(NSString *)tag withHost:(NSString *)host withPort:(NSUInteger)port{
     if (tag == nil || tag.length == 0 ) {
         NSLog(@"客户端Tag标识符不能为空");
-        return;
+        return nil;
     }
     if([[self.socketClientDict allKeys] containsObject:tag]){
         AMSSocketClient *socketClient = [self socketClient:tag];
@@ -74,10 +79,12 @@
         }else{
             NSLog(@"socketClient已连接");
         }
+        return socketClient;
     }else{
         AMSSocketClient *socketClient = [[AMSSocketClient alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
         [socketClient setTag:tag withHost:host withPort:port];
         [socketClient socketConnectHost];
+        return socketClient;
     }
 }
 
@@ -91,13 +98,16 @@
         NSLog(@"获取socket连接---Tag不能为空");
         return nil;
     }
-    
+    AMSSocketClient *socketClient;
     if (![[self.socketClientDict allKeys] containsObject:tag]) {
         NSLog(@"获取socket连接---key为%@的socket为空",tag);
-        return nil;
+        if ([tag isEqualToString:SOCKET_NAME_DEFAULT]) {
+            socketClient = [self addSocketClient:tag withHost:SOCKET_HOST_DEFAULT withPort:SOCKET_PORT_DEFAULT];
+        }
+    }else{
+        socketClient = (AMSSocketClient *)[self.socketClientDict objectForKey:tag];
     }
     
-    AMSSocketClient *socketClient = (AMSSocketClient *)[self.socketClientDict objectForKey:tag];
     return socketClient;
 }
 
@@ -123,7 +133,7 @@
 
 /**
  socket写数据
-
+ 
  @param data 要写的数据
  @param tag 要写的socket的tag
  */
@@ -133,7 +143,7 @@
         return;
     }
     if (toClient.isConnected == YES) {
-        NSLog(@"发送数据----%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+        NSLog(@"发送数据成功");
         // withTimeout -1 : 无穷大,一直等
         // tag : 消息标记
         [toClient writeData:data withTimeout:- 1 tag:0];
@@ -149,13 +159,13 @@
 #pragma mark GCDAsyncSocketDelegate 代理相关
 /**socket连接成功*/
 - (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(uint16_t)port{
-   
+    
     //连接成功开启定时器
     AMSSocketClient *client = (AMSSocketClient *)sock;
     client.reconnectCount = 1;
     client.offlineType = AMSSocketOfflineOutTime;
     [self.socketClientDict setObject:client forKey:sock.userData];
-     NSLog(@"socket(tag = %@)连接成功，host=%@，port=%d ,当前共有%ld个连接",client.userData,host,port,self.socketClientDict.count);
+    NSLog(@"socket(tag = %@)连接成功，host=%@，port=%d ,当前共有%ld个连接",client.userData,host,port,self.socketClientDict.count);
     [client startTimer];
     //连接后开始读取服务端数据
     [client readDataWithTimeout:-1 tag:0];
@@ -187,10 +197,54 @@
 /**读取到服务端数据*/
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag{
     AMSSocketClient *client = (AMSSocketClient*) sock;
-    NSString *text = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
-    NSLog(@"socket(tag = %@)读取到数据----- %@",sock.userData,text);
-    //发送名字为tag的通知
-    [[NSNotificationCenter defaultCenter] postNotificationName:sock.userData object:data];
+    
+//    NSLog(@"socket(tag = %@)读取到数据----- %@",sock.userData,text);
+    best_protocol::IBestMessge* bestMessage = [BestMessageUtil packMessage:data];
+    best_protocol::IBestDataMessage* dataMessage = [BestMessageUtil GetBestMessageDataMessage:bestMessage index:0];
+    if (dataMessage) {
+        //rsp != null
+        if(dataMessage->GetField(FIELD_KEY_is_RspInfo_null)->GetInt8() == 0 && dataMessage->GetField(FIELD_KEY_ErrorID_in_RspInfo)->GetInt8() != 0){
+            //	说明错误,展示错误信息
+                NSString *errorMsg = [NSString stringWithUTF8String:dataMessage->GetField(FIELD_KEY_ErrorMsg_in_RspInfo)->GetString()];
+                if (errorMsg.length > 0) {
+                    //发送名字为tag的通知
+                    [[NSNotificationCenter defaultCenter] postNotificationName:SOCKET_RESPONSE_ERROR_NOTIFICATION_NAME object:errorMsg];
+                    NSLog(@"RESPONSE有错误--- %@",errorMsg);
+                }else{
+                    NSLog(@"RESPONSE有错误消息为空");
+                }
+        }else{
+            //说明正确，解析数据
+            int32 functionNo = bestMessage->GetRpcHead()->GetFuncNo();
+            NSString *responseJson;
+            switch (functionNo) {
+                    //登录响应
+                case AS_SDK_USER_ONRSPUSERLOGIN:{
+                    LoginResponseModel* loginResponse = (LoginResponseModel*)[BestMessageUtil modelWithDataMessage:dataMessage modelClass:[LoginResponseModel class]];
+                    responseJson = [LoginResponseModel yy_modelToJSONString];
+                    break;
+                }
+            
+                default:
+                    break;
+            }
+            [[NSNotificationCenter defaultCenter] postNotificationName:sock.userData object:responseJson];
+        }
+//        else{
+//            bestMessage ->GetRpcHead()->GetFuncNo();
+//            //RESPONSE 正确，解析数据
+//            NSDictionary *responseDict = @{};
+        
+//        }
+//        const char* username= routeHead->GetField(FIELD_KEY_UserID)->GetString();
+//        const char* password = routeHead->GetField(FIELD_KEY_Password)->GetString();
+//
+//        NSLog(@"username = %s ,password = %s",username,password);
+        
+    }
+   
+    
+   
     // 读取到服务端数据值后,能再次读取
     [client readDataWithTimeout:- 1 tag:0];
 }

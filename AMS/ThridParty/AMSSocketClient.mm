@@ -7,7 +7,8 @@
 //
 
 #import "AMSSocketClient.h"
-#define AMSSocketHost @"10.131.11.161"//Host地址
+//#define AMSSocketHost @"10.131.11.161"//Host地址
+#define AMSSocketHost @"192.168.189.134"//Host地址
 #define AMSSocketPort 1234 //端口号
 
 @interface AMSSocketClient()
@@ -99,8 +100,8 @@
 - (void)socketTimerConnectSocket{
     //与后台定义发送心跳包
     NSLog(@"模拟发送心跳包");
-    NSString *heartPackPrama = @"heartBeat";
-    [self writeData: [heartPackPrama dataUsingEncoding:NSUTF8StringEncoding] withTimeout:1 tag:1];
+//    NSString *heartPackPrama = @"heartBeat";
+//    [self writeData: [heartPackPrama dataUsingEncoding:NSUTF8StringEncoding] withTimeout:1 tag:1];
 }
 
 

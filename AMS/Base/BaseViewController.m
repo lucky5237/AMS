@@ -9,6 +9,7 @@
 #import "BaseViewController.h"
 #import "AppDelegate.h"
 #import "SettingMainViewController.h"
+//#import "de"
 
 @interface BaseViewController ()
 
@@ -41,6 +42,8 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [kNotificationCenter addObserver:self selector:@selector(didReceiveSocketData:) name:SOCKET_NAME_DEFAULT object:nil];
+    [kNotificationCenter addObserver:self selector:@selector(didResponseErrorOccurs:) name:SOCKET_RESPONSE_ERROR_NOTIFICATION_NAME object:nil];
     if (!_hideRightButton) {
         //添加导航栏右侧菜单栏
 //        if (_extraRightButtonItem != nil) {
@@ -58,6 +61,8 @@
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
+    [kNotificationCenter removeObserver:self name:SOCKET_NAME_DEFAULT object:nil];
+    [kNotificationCenter removeObserver:self name:SOCKET_RESPONSE_ERROR_NOTIFICATION_NAME object:nil];
     if (!_hideRightButton) {
         if (_useRdvTab) {
             self.rdv_tabBarController.navigationItem.rightBarButtonItem = nil;
@@ -86,6 +91,21 @@
 
 -(void)backButtonItemTapped:(UIBarButtonItem *) barItem{
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(void)didReceiveSocketData:(NSNotification *)noti{
+    
+    NSLog(@"%@收到通知",NSStringFromClass([self class]));
+//    NSData *data = (NSData*) noti;
+    
+    
+}
+
+-(void)didResponseErrorOccurs:(NSNotification *)noti{
+    
+    NSLog(@"%@恢复出错",NSStringFromClass([self class]));
+    NSString *errorMsg = noti.object;
+    [MBProgressHUD showErrorMessage:errorMsg];
 }
 /*
  #pragma mark - Navigation

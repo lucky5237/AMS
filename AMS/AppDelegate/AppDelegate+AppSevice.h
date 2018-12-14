@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)checkVersion;//版本检查更新
 -(void)initDB;//数据库操作
 -(void)initRoute;//初始化路由
+-(void)initConfig;//初始化配置
 @end
 
 NS_ASSUME_NONNULL_END

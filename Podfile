@@ -38,5 +38,6 @@ target 'AMS' do
   pod 'ReactiveObjC', '~> 3.1.0'
   pod 'JPFPSStatus', '~> 0.1.1'
   pod 'RDVTabBarController'
+  pod 'YYModel'
 #  pod 'LMReport'
 end

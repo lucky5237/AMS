@@ -28,7 +28,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //设置你工程的启动页使用的是:LaunchImage 还是 LaunchScreen.storyboard(不设置默认:LaunchImage)
-    self.socketManager = [AMSSocketManager shareInstance];
+//    self.socketManager = [AMSSocketManager shareInstance];
+//    [self.socketManager addSocketClient:SOCKET_NAME_DEFAULT withHost:SOCKET_HOST_DEFAULT withPort:SOCKET_PORT_DEFAULT];
+    [self initConfig];
     [self setUpRootViewController];
     //    [self checkVersion];
     [self listenNetworkStatus];
@@ -36,7 +38,9 @@
     #if defined(DEBUG)||defined(_DEBUG)
         [[JPFPSStatus sharedInstance] open];
     #endif
-    //    [self initDB];
+    
+    //添加socket连接 默认
+    [[AMSSocketManager shareInstance] addSocketClient:SOCKET_NAME_DEFAULT withHost:SOCKET_HOST_DEFAULT withPort:SOCKET_PORT_DEFAULT];
     return YES;
 }
 

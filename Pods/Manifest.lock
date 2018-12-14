@@ -63,6 +63,7 @@ PODS:
   - YYCategories (1.0.4):
     - YYCategories/no-arc (= 1.0.4)
   - YYCategories/no-arc (1.0.4)
+  - YYModel (1.0.4)
   - ZJKitTool (2.3.4):
     - Masonry
     - MBProgressHUD
@@ -137,6 +138,7 @@ DEPENDENCIES:
   - SDWebImage (~> 4.0)
   - TextInputLimit (~> 1.0.2)
   - UITableView+FDTemplateLayoutCell (~> 1.6)
+  - YYModel
   - ZJKitTool
 
 SPEC CHECKSUMS:
@@ -168,8 +170,9 @@ SPEC CHECKSUMS:
   TextInputLimit: 8ab7e524fee7c62334296e19e4c73acc9526ce65
   UITableView+FDTemplateLayoutCell: 5c949b4a5059c404b442926c0e80f81d10a2d66f
   YYCategories: 6bcd4314c6661a561410dce4a793379ebd306abd
+  YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
   ZJKitTool: 997e3b28d233e8fa5752eb16251d960341b13cc6
 
-PODFILE CHECKSUM: d1200b772ac223d3258396b2609934a801226122
+PODFILE CHECKSUM: e05819fb69c12f63409d2f93c9be0aff0b70ef81
 
 COCOAPODS: 1.4.0

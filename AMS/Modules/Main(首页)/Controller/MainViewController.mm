@@ -13,6 +13,7 @@
 #import "OptionalViewController.h"
 #import "TradeViewController.h"
 #import "NewsViewController.h"
+#import "BestMessageUtil.h"
 @interface MainViewController ()
 @end
 

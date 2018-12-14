@@ -9,6 +9,16 @@
 #ifndef AMSConstant_h
 #define AMSConstant_h
 
+#define SOCKET_NAME_DEFAULT @"SOCKET_NAME_DEFAULT"
+#define SOCKET_RESPONSE_ERROR_NOTIFICATION_NAME @"SOCKET_RESPONSE_ERROR_NOTIFICATION_NAME"
+#define SOCKET_HOST_DEFAULT @"10.131.11.161"//公司
+#define SOCKET_PORT_DEFAULT 1234
+//#define SOCKET_HOST_DEFAULT @"192.168.189.134"//家
+//#define SOCKET_PORT_DEFAULT 1234
+//#define SOCKET_HOST_DEFAULT @"10.131.4.157"//huangjie
+//#define SOCKET_PORT_DEFAULT 1235
+
+
 #define NEWS_URL @"https://www.baidu.com/"
 #define MARKET_CELL_NAME_WIDTH (KScreenWidth - 20) / 4
 #define MARKET_CELL_PRICE_WIDTH (KScreenWidth - 20) / 4
@@ -141,6 +151,7 @@ static NSString *kHandicapParamNames[20] = {
     @"卖价",@"卖量",@"买价",@"买量",@"最新",@"涨跌",@"开盘",@"成交量",@"最高",@"持仓量",@"最低",@"日增仓",@"均价",@"外盘",@"结算",@"内盘",@"咋结",@"涨停",@"昨收",@"跌停"
 };
 
+
 #pragma mark 板块设置相关
 #define PLATE_SETTING_DICT @"PLATE_SETTING_DICT"
 
@@ -156,4 +167,9 @@ static NSString *kHandicapParamNames[20] = {
 //交易表格宽度
 #define REPORT_VIEW_BOARDER_WIDTH 1
 
+//socket Response key define
+#define function_FuncNo_key @"function_FuncNo"
+#define packet_type_key @"packet_type"
+//#define nRequestID @"packet_type"
+//#define packet_type_key @"packet_type"
 #endif /* AMSConstant_h */

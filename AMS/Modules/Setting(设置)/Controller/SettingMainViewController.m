@@ -12,6 +12,7 @@
 #import "PlateViewController.h"
 #import "AccountSettingViewController.h"
 #import "MessageCenterController.h"
+#import "LoginViewController.h"
 
 @interface SettingMainViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong) SettingHeaderView *headerView;
@@ -59,7 +60,9 @@
  退出登录
  */
 -(void)logOut{
-    NSLog(@"点击了退出登录按钮");
+//    NSLog(@"点击了退出登录按钮");
+    LoginViewController *loginVc = [[LoginViewController alloc] init];
+    [self.navigationController pushViewController:loginVc animated:YES];
 }
 
 /**

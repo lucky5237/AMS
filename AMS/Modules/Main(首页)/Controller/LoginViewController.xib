@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController">
+            <connections>
+                <outlet property="loginBtn" destination="1Uq-tf-gvw" id="vTb-Ys-UuV"/>
+                <outlet property="passwordTf" destination="X9i-eJ-P9g" id="uRL-eF-X6A"/>
+                <outlet property="userNameTf" destination="7Ip-Lr-ETc" id="cMh-8C-4wc"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="用户名" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7Ip-Lr-ETc">
+                    <rect key="frame" x="155.5" y="318.5" width="64" height="30"/>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="X9i-eJ-P9g">
+                    <rect key="frame" x="162.5" y="368.5" width="50" height="30"/>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Uq-tf-gvw">
+                    <rect key="frame" x="172" y="418.5" width="31" height="30"/>
+                    <state key="normal" title="登录"/>
+                    <connections>
+                        <action selector="loginBtnTapped:" destination="-1" eventType="touchUpInside" id="jBv-3z-VqQ"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="1Uq-tf-gvw" firstAttribute="top" secondItem="X9i-eJ-P9g" secondAttribute="bottom" constant="20" id="42b-he-W7g"/>
+                <constraint firstItem="X9i-eJ-P9g" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="7Zg-AE-GrC"/>
+                <constraint firstItem="7Ip-Lr-ETc" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="PX8-h9-oYv"/>
+                <constraint firstItem="X9i-eJ-P9g" firstAttribute="top" secondItem="7Ip-Lr-ETc" secondAttribute="bottom" constant="20" id="bEb-79-7ko"/>
+                <constraint firstItem="7Ip-Lr-ETc" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="krZ-iY-Wie"/>
+                <constraint firstItem="1Uq-tf-gvw" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="tTC-TZ-iaf"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+        </view>
+    </objects>
+</document>
