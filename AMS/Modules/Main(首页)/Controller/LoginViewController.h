@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LoginViewController : BaseViewController
 
+@property(nonatomic,strong) UIViewController *destinationVC;
+
 @end
 
 NS_ASSUME_NONNULL_END

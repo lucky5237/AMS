@@ -61,10 +61,10 @@
     
     self.priceLabel.text = [NSString stringWithFormat:@"%.2f",model.Close.floatValue];
     self.aveargePriceLabel.text = [NSString stringWithFormat:@"%.2f",[model.average floatValue]];
-    self.riseChangeLabel.text = [NSString stringWithFormat:@"%.2f",[model.risePer floatValue]];
-    self.riseChangePerLabel.text = [NSString stringWithFormat:@"%.2f%%",model.risePer.floatValue];
-    self.volumeLabel.text = [NSString stringWithFormat:@"%.2f",model.Volume];
-    self.volumeChangeLabel.text = [NSString stringWithFormat:@"%.2f",model.Volume];
+    self.riseChangeLabel.text = model.risePer;
+    self.riseChangePerLabel.text = model.risePer;
+    self.volumeLabel.text = [NSString stringWithFormat:@"%@",model.Volume];
+    self.volumeChangeLabel.text = [NSString stringWithFormat:@"%@",model.Volume];
     self.storageNumLabel.text = [NSString stringWithFormat:@"%.2f",model.storage.floatValue];
     self.storageChangeLabel.text = [NSString stringWithFormat:@"%.2f",model.storage.floatValue];
 }

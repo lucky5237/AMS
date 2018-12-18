@@ -30,12 +30,19 @@
 @implementation Y_StockChartRightYView
 
 -(void)setMaxValue:(CGFloat)maxValue
+
 {
     _maxValue = maxValue;
-    if (self.type == Y_StockChartcenterViewTypeTimeLine) {
-        self.maxValueLabel.text = [NSString stringWithFormat:@"%.2f%@",maxValue,self.isRisePer ?  @"%":@""];
+    if (self.chartType == VolumeType) {
+
+        self.maxValueLabel.text = [NSString stringWithFormat:@"%ld",(long)maxValue];
     }else{
-        self.maxValueLabel.text = [NSString stringWithFormat:@"%.2f",maxValue];
+        if (self.type == Y_StockChartcenterViewTypeTimeLine) {
+            self.maxValueLabel.text = [NSString stringWithFormat:@"%.2f%@",maxValue,self.isRisePer ?  @"%":@""];
+            
+        }else{
+            self.maxValueLabel.text = [NSString stringWithFormat:@"%.2f",maxValue];
+        }
     }
 }
 

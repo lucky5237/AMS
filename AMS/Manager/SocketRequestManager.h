@@ -10,13 +10,15 @@
 #import "default_message.h"
 
 NS_ASSUME_NONNULL_BEGIN
-@class LoginRequestModel;
+@class User_Requserlogin;
+@class User_Reqqryinstrument;
 @interface SocketRequestManager : NSObject
 +(SocketRequestManager*) shareInstance;
 +(NSDictionary *)responseDictWithBestMessage:(best_protocol::IBestMessage *)bestMessage;
--(void)doLogin:(LoginRequestModel *)model;
--(void)loginOut;
 
+-(void)doLogin:(User_Requserlogin *)model;
+-(void)loginOut;
+-(void)qryInstrument:(User_Reqqryinstrument *)model;
 @end
 
 NS_ASSUME_NONNULL_END

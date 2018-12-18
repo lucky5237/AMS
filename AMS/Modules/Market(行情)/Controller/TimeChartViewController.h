@@ -7,11 +7,11 @@
 //
 
 #import "BaseViewController.h"
-@class MarketModel;
-NS_ASSUME_NONNULL_BEGIN
 
+NS_ASSUME_NONNULL_BEGIN
+@class AMSLdatum;
 @interface TimeChartViewController : BaseViewController
-@property(nonatomic,strong) MarketModel *model;
+@property(nonatomic,strong) AMSLdatum *model;
 @end
 
 NS_ASSUME_NONNULL_END

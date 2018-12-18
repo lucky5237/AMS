@@ -17,6 +17,7 @@
 #import <JDStatusBarNotification.h>
 #import "CustomStatusBarView.h"
 #import "LrReportContainerView.h"
+#import "QryQuotationResponseModel.h"
 @interface TradeViewController ()<LrReportContainerViewDelegate,UITextFieldDelegate>
 @property(nonatomic,strong) TradeHeaderView *headerView;
 @property(nonatomic,strong) UISegmentedControl *segmentedControl;

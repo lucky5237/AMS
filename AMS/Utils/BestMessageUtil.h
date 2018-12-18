@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 +(int32)generateRequestID;
 +(best_protocol::IBestHeadMessage*)generateCommonField;
 +(id)modelWithDataMessage:(best_protocol::IBestDataMessage*)dataMessage modelClass:(Class) clazz;
++(NSData *)generateHeartBeatMessage;
 @end
 
 NS_ASSUME_NONNULL_END

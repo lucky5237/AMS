@@ -24,13 +24,14 @@
 #import <RTRootNavigationController.h>
 #import <ReactiveObjC.h>
 #import <YYModel.h>
-
+#import "AppDelegate.h"
+#import "NetWorking.h"
 
 #endif
 
 #ifdef __cpluscplus
+#import "SocketRequestManager.h"
 #import "field_key.h"
 #import "best_sdk_define.h"
-#import "SocketRequestManager.h"
 #endif /* AMSPrefixHeader_pch */
 #endif

@@ -79,6 +79,10 @@
     return  [money evaluateWithObject:moneyStr];
 }
 
++(BOOL)isUserLogin{
+    return [kUserDefaults objectForKey:UserDefaults_User_ID_key] != nil;
+}
+
 +(void)drawCorner:(UIRectCorner)corners cornerRadii:(CGSize)cornerRadii view:(UIView*) view{
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:view.bounds byRoundingCorners:corners cornerRadii:cornerRadii];
     CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];

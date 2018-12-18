@@ -7,11 +7,11 @@
 //
 
 #import "BaseViewController.h"
-@class MarketModel;
+@class AMSLdatum;
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TradeViewController : BaseViewController
-@property(nonatomic,strong) MarketModel *model;
+@property(nonatomic,strong) AMSLdatum *model;
 @end
 
 NS_ASSUME_NONNULL_END

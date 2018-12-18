@@ -16,6 +16,7 @@
 #import "KLineLongTapParamView.h"
 #import "UIColor+Y_StockChart.h"
 #import "Y_StockChartGlobalVariable.h"
+#import "QryKLineResponseModel.h"
 #define kMinimumPanDistance [Y_StockChartGlobalVariable kLineWidth] + [Y_StockChartGlobalVariable kLineGap]
 @interface KlineViewController ()<Y_KlineEventDelegete,UIGestureRecognizerDelegate>
 @property(nonatomic,strong) ChartBottomView *chartBottomView;
@@ -58,9 +59,10 @@
         make.left.right.mas_equalTo(0);
         make.bottom.mas_equalTo(self.chartBottomView.mas_top);
     }];
-    self.selectCycleViewItemsArray = @[@{@"name":@"1m",@"id":@1},@{@"name":@"3m",@"id":@2},@{@"name":@"5m",@"id":@3},@{@"name":@"10m",@"id":@4},@{@"name":@"15m",@"id":@5},@{@"name":@"30m",@"id":@6},@{@"name":@"1h",@"id":@7},@{@"name":@"2h",@"id":@8},@{@"name":@"3h",@"id":@9},@{@"name":@"4h",@"id":@10},@{@"name":@"1day",@"id":@11},@{@"name":@"1week",@"id":@12},@{@"name":@"1month",@"id":@13}];
+    //1-1min 2-5min 3-15min
+    self.selectCycleViewItemsArray = @[@{@"name":@"1m",@"id":@1},@{@"name":@"3m",@"id":@2},@{@"name":@"5m",@"id":@2},@{@"name":@"10m",@"id":@4},@{@"name":@"15m",@"id":@3},@{@"name":@"30m",@"id":@6},@{@"name":@"1h",@"id":@7},@{@"name":@"2h",@"id":@8},@{@"name":@"3h",@"id":@9},@{@"name":@"4h",@"id":@10},@{@"name":@"1day",@"id":@11},@{@"name":@"1week",@"id":@12},@{@"name":@"1month",@"id":@13}];
     self.isFirstLoad = YES;
-    [self fetchData:@"1min"];
+    [self fetchData:@"sc1903" type:1];
     // Do any additional setup after loading the view.
 }
 
@@ -84,25 +86,45 @@
     return _kLineView;
 }
 
-- (void)fetchData:(NSString *)type{
+- (void)fetchData:(NSString *)symbol type:(NSInteger)type{
 //    NSMutableDictionary *param = [NSMutableDictionary dictionary];
 //    param[@"type"] =  type;
 //    param[@"market"] = @"btc_usdt";
 //    param[@"size"] = @"1000";
-    [NetWorking request:@"http://stock2.finance.sina.com.cn/futures/api/json.php/IndexService.getInnerFuturesDailyKLine?symbol=M0" param:nil thenSuccess:^(NSArray *responseObject) {
-        
-            Y_KLineGroupModel *groupModel = [Y_KLineGroupModel objectWithArray:responseObject type:Y_StockChartcenterViewTypeKline];
-            self.groupModel = groupModel;
+//    [NetWorking request:@"http://stock2.finance.sina.com.cn/futures/api/json.php/IndexService.getInnerFuturesDailyKLine?symbol=M0" param:nil thenSuccess:^(NSArray *responseObject) {
+//
+//            Y_KLineGroupModel *groupModel = [Y_KLineGroupModel objectWithArray:responseObject type:Y_StockChartcenterViewTypeKline];
+//            self.groupModel = groupModel;
+//            [self.kLineView setKLineModels:groupModel.models];
+//            if (self.isFirstLoad) {
+//                self.kLineView.scrollView.targetLineStatus = Y_StockChartTargetLineStatusMACD;
+//                self.kLineView.targetLineStatus = Y_StockChartTargetLineStatusMACD;
+//                self.isFirstLoad = false;
+//            }
+//
+//
+//    } fail:^{
+//        NSLog(@"fail");
+//    }];
+    NSDictionary *dict = @{@"symbol":symbol,@"type":@(type)};
+    [NetWorking requestWithApi:[NSString stringWithFormat:@"%@%@",BaseUrl,QryKLine_URL] reqeustType:POST_Type param:dict thenSuccess:^(NSDictionary *responseObject) {
+        QryKLineResponseModel *model = [QryKLineResponseModel yy_modelWithDictionary:responseObject];
+        NSArray<AMSList *> *dataList = model.mdata.list;
+        if (dataList.count> 0) {
+
+            Y_KLineGroupModel *groupModel = [Y_KLineGroupModel objectWithArray:dataList type:Y_StockChartcenterViewTypeKline];
             [self.kLineView setKLineModels:groupModel.models];
             if (self.isFirstLoad) {
                 self.kLineView.scrollView.targetLineStatus = Y_StockChartTargetLineStatusMACD;
                 self.kLineView.targetLineStatus = Y_StockChartTargetLineStatusMACD;
                 self.isFirstLoad = false;
             }
-            
+        }else{
+           [MBProgressHUD showErrorMessage:@"暂无数据"];
+        }
         
-    } fail:^{
-        NSLog(@"fail");
+    } fail:^(NSString *str) {
+        
     }];
 }
 
@@ -140,7 +162,8 @@
             NSLog(@"select -----%@",dict[@"name"]);
             [self.selectCycleView hide];
             [self.leftTimeLabelBarButton setTitle:dict[@"name"]];
-            [self fetchData:dict[@"name"]];
+            NSNumber *type = dict[@"id"];		
+            [self fetchData:@"sc1903" type:type.integerValue];
         };
     }
     return _selectCycleView;

@@ -9,6 +9,8 @@
 #import "Y_KLineModel.h"
 #import "Y_KLineGroupModel.h"
 #import "Y_StockChartGlobalVariable.h"
+#import "QryMinuteLineResponseModel.h"
+#import "QryKLineResponseModel.h"
 @implementation Y_KLineModel
 
 - (NSNumber *)RSV_9
@@ -152,7 +154,7 @@
 - (NSNumber *)Volume_EMA7
 {
     if(!_Volume_EMA7) {
-        _Volume_EMA7 = @((self.Volume + 3 * self.PreviousKlineModel.Volume_EMA7.floatValue)/4);
+        _Volume_EMA7 = @((self.Volume.integerValue + 3 * self.PreviousKlineModel.Volume_EMA7.floatValue)/4);
     }
     return _Volume_EMA7;
 }
@@ -249,7 +251,7 @@
 - (NSNumber *)Volume_EMA30
 {
     if(!_Volume_EMA30) {
-        _Volume_EMA30 = @((2 * self.Volume + 29 * self.PreviousKlineModel.Volume_EMA30.floatValue)/31);
+        _Volume_EMA30 = @((2 * self.Volume.integerValue + 29 * self.PreviousKlineModel.Volume_EMA30.floatValue)/31);
     }
     return _Volume_EMA30;
 }
@@ -294,7 +296,7 @@
 - (NSNumber *)SumOfLastVolume
 {
     if(!_SumOfLastVolume) {
-        _SumOfLastVolume = @(self.PreviousKlineModel.SumOfLastVolume.floatValue + self.Volume);
+        _SumOfLastVolume = @(self.PreviousKlineModel.SumOfLastVolume.integerValue + self.Volume.integerValue);
     }
     return _SumOfLastVolume;
 }
@@ -620,40 +622,48 @@
     }
 }
 
-- (void) initWithArray:(NSArray *)arr;
+- (void) initWithArray:(AMSList *)data;
 {
-    NSAssert(arr.count == 6, @"数组长度不足");
+//    NSAssert(arr.count == 6, @"数组长度不足");
 
     if (self){
-        _Date = arr[0];
-        _Open = @([arr[1] floatValue]);
-        _High = @([arr[2] floatValue]);
-        _Low = @([arr[3] floatValue]);  
-        _Close = @([arr[4] floatValue]);
-        _Volume = [arr[5] floatValue];
+        _Date = data.tradeDate;
+        _Open = @(data.openPrice);
+        _High = @(data.highPrice);
+        _Low = @(data.lowPrice);
+        _Close = @(data.closePrice);
+        _Volume = @(data.amount);
+        _MA5 = [NSNumber numberWithFloat:data.ma5.floatValue] ?: @0.00;
+        _MA10 = [NSNumber numberWithFloat:data.ma10.floatValue] ?: @0.00;
+        _MA20 = [NSNumber numberWithFloat:data.ma20.floatValue] ?: @0.00;
+        _MA30 = [NSNumber numberWithFloat:data.ma30.floatValue] ?: @0.00;
+        _EMA12 = [NSNumber numberWithFloat:data.ema12.floatValue] ?: @0.00;
+        _EMA26 = [NSNumber numberWithFloat:data.ema26.floatValue] ?: @0.00;
+        _MACD = [NSNumber numberWithFloat:data.macd.floatValue] ?: @0.00;
+        _DEA = [NSNumber numberWithFloat:data.dea.floatValue] ?: @0.00;
+        _DIF = [NSNumber numberWithFloat:data.dif.floatValue] ?: @0.00;
         self.SumOfLastClose = @(_Close.floatValue + self.PreviousKlineModel.SumOfLastClose.floatValue);
-        self.SumOfLastVolume = @(_Volume + self.PreviousKlineModel.SumOfLastVolume.floatValue);
+        self.SumOfLastVolume = @(_Volume.integerValue + self.PreviousKlineModel.SumOfLastVolume.integerValue);
     }
 }
 
-- (void) initWithTimeLineArray:(NSArray *)arr lastDayClosePrise:(CGFloat)closePrise;
-{
-    NSAssert(arr.count == 5, @"数组长度不足");
+- (void) initWithTimeLineArray:(AMSPeriodDatum *)data lastDayClosePrise:(CGFloat)closePrise{
+   
     
     if (self)
     {
         
-        _price = arr[0];
-        _average = @([arr[1] floatValue]);
-        _Volume = [arr[2] floatValue];
-        _storage = @([arr[3] floatValue]);
-        _risePer = @((_price.floatValue - closePrise) * 100 /closePrise);
-        _Date = arr[4];
+        _price = data.closePrice;
+//        _average = @([arr[1] floatValue]);
+        _Volume = @(data.volume);
+//        _storage = @([arr[3] floatValue]);
+        _risePer = data.rateOfChange ?:@"0.00%" ;
+        _Date = data.minute;
         _Open = _price;
         _High = _price;
         _Low = _price;
         _Close = _price;
-        self.SumOfLastVolume = @(_Volume + self.PreviousKlineModel.SumOfLastVolume.floatValue);
+        self.SumOfLastVolume = @(_Volume.integerValue + self.PreviousKlineModel.SumOfLastVolume.integerValue);
     }
 }
 
@@ -667,10 +677,10 @@
         _High = @([dict[@"high"] floatValue]);
         _Low = @([dict[@"low"] floatValue]);
         _Close = @([dict[@"close"] floatValue]);
-        _Volume = [dict[@"vol"] floatValue];
+        _Volume = @([dict[@"vol"] integerValue]);
         _average = dict[@"average"] == nil ? @(0.f) : @([dict[@"average"] floatValue]);
         self.SumOfLastClose = @(_Close.floatValue + self.PreviousKlineModel.SumOfLastClose.floatValue);
-        self.SumOfLastVolume = @(_Volume + self.PreviousKlineModel.SumOfLastVolume.floatValue);
+        self.SumOfLastVolume = @(_Volume.integerValue + self.PreviousKlineModel.SumOfLastVolume.integerValue);
         //        NSLog(@"%@======%@======%@------%@",_Close,self.MA7,self.MA30,_SumOfLastClose);
         
     }

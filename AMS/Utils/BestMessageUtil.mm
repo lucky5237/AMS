@@ -8,17 +8,18 @@
 
 #import "BestMessageUtil.h"
 #import "BaseResponseModel.h"
-#import "BaseRequsetModel.h"
+#import "BaseRequestModel.h"
 #import <objc/runtime.h>
 #import "AMSUtil.h"
 #import "field_key.h"
 #import "AppDelegate.h"
+#import "best_sdk_define.h"
 @implementation BestMessageUtil
 
 static int requestId = 0;
 
 +(NSData *)generateBestMsg:(uint32)fucntionType modelClass:(id)model{
-    if (![[model class] isSubclassOfClass:[BaseRequsetModel class]]) {
+    if (![[model class] isSubclassOfClass:[BaseRequestModel class]]) {
         NSLog(@"非法入参，必须为BaseRequsetModel的子类");
         return nil;
     }
@@ -58,30 +59,44 @@ static int requestId = 0;
             field->SetString(proValue.UTF8String);
             phase_best_data_message->SetField((int32)fieldKey.integerValue, field);
         }
-        int32 nRequestId = [BestMessageUtil generateRequestID];
-        auto requestField = m_factory ->CreateBestField();
-        requestField->SetInt32(nRequestId);
-        phase_best_data_message->SetField(FIELD_KEY_nRequestID, requestField);
     }
+    int32 nRequestId = [BestMessageUtil generateRequestID];
+    auto requestField = m_factory ->CreateBestField();
+    requestField->SetInt32(nRequestId);
+    phase_best_data_message->SetField(FIELD_KEY_nRequestID, requestField);
     //c语言的函数，所以要去手动的去释放内存
       free(propertyList);
-//    [dict enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-//        IBestField *field = m_factory ->CreateBestField();
-//        if ([obj isKindOfClass:[NSNumber class]]) {
-//            NSNumber *value = (NSNumber *)obj;
-//            field ->SetInt32((int32)value.integerValue);
-//        }else if([obj isKindOfClass:[NSString class]]){
-//            NSString *value = (NSString *)obj;
-//            field ->SetString([value UTF8String]);
-//        }
-//        NSNumber *fieldKey = (NSNumber*)key;
-//        phase_best_head_message ->SetField((int32)fieldKey.integerValue, field);
-//    }];
-//    IBestField *requestIdField = m_factory ->CreateBestField();
-//    requestIdField->SetInt32([BestMessageUtil generateRequestID]);
-//    phase_best_head_message ->SetField(FIELD_KEY_nRequestID, requestIdField);
     phase_best_head_message->SetDataMessage(phase_best_data_message);
+    
+//    //测试
+//    auto mField = m_factory ->CreateBestField();
+//    mField->SetString("21212121212");
+//    phase_best_head_message ->SetField(21, mField);
+    
     phase_best_message->AddHeadMessage(phase_best_head_message);
+    phase_best_message->SetRpcHead(phase_best_rpc_head);
+    int32 msg_length = 0;
+    const void* data = phase_best_message->Serialize(&msg_length);
+    NSData *sendData = [[NSData alloc] initWithBytes:data length:msg_length];
+    return sendData;
+}
+
++(NSData *)generateHeartBeatMessage{
+    InitBestMessge();
+    best_protocol::IBestMessgeFactory *m_factory = CreateBestMessgeFactrotyInstance();
+    best_protocol::IBestMessge* phase_best_message = m_factory->CreateBestMessage();
+    best_protocol::IBestRPCHead * phase_best_rpc_head = m_factory->CreateRpcHead();//创建RPC头
+//    best_protocol::IBestHeadMessage* phase_best_head_message = m_factory->CreateHeadMessage();//创建路由体
+//    best_protocol::IBestDataMessage* phase_best_data_message= m_factory->CreateDataMessage(best_protocol::BEST_DATA_RAW);//创建数据体
+    phase_best_rpc_head->SetFuncNo(AS_SDK_USER_HEARTBEAT);
+//    phase_best_rpc_head->SetPackType(best_protocol::PACKTTYPE_REQUEST);
+    
+//    int32 nRequestId = [BestMessageUtil generateRequestID];
+//    auto requestField = m_factory ->CreateBestField();
+//    requestField->SetInt32(nRequestId);
+//    phase_best_data_message->SetField(FIELD_KEY_nRequestID, requestField);
+//    phase_best_head_message->SetDataMessage(phase_best_data_message);
+//    phase_best_message->AddHeadMessage(phase_best_head_message);
     phase_best_message->SetRpcHead(phase_best_rpc_head);
     int32 msg_length = 0;
     const void* data = phase_best_message->Serialize(&msg_length);

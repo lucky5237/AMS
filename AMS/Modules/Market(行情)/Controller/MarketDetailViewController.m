@@ -13,7 +13,7 @@
 #import "HandicapViewController.h"
 #import "SettingMainViewController.h"
 #import <RDVTabBarItem.h>
-#import "MarketModel.h"
+#import "QryQuotationResponseModel.h"
 @interface MarketDetailViewController()
 @property(nonatomic,strong) UIBarButtonItem *menuBtnItem;
 @property(nonatomic,strong) UIBarButtonItem *timeBtnItem;
@@ -23,7 +23,7 @@
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-    self.title = self.model.name;
+    self.title = self.model.stockName;
     self.view.backgroundColor = kBackGroundColor;
     if (@available(iOS 11.0, *)){
         [[UIScrollView appearance] setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentNever];

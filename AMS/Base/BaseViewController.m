@@ -9,7 +9,7 @@
 #import "BaseViewController.h"
 #import "AppDelegate.h"
 #import "SettingMainViewController.h"
-//#import "de"
+#import "LoginViewController.h"
 
 @interface BaseViewController ()
 
@@ -102,11 +102,13 @@
 }
 
 -(void)didResponseErrorOccurs:(NSNotification *)noti{
-    
+//    [MBProgressHUD hideHUD];
     NSLog(@"%@恢复出错",NSStringFromClass([self class]));
     NSString *errorMsg = noti.object;
     [MBProgressHUD showErrorMessage:errorMsg];
 }
+
+
 /*
  #pragma mark - Navigation
  

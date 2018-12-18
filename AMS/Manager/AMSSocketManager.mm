@@ -12,8 +12,11 @@
 #import "field_key.h"
 #import "best_sdk_define.h"
 #import "BestMessageUtil.h"
-#import "LoginResponseModel.h"
-#import "SocketResponseManager.h"
+#import "User_Onrspuserlogin.h"
+#import "User_Onrspqryinstrument.h"
+#import "AMSConstant.h"
+#import "AppDelegate.h"
+//#import "SocketResponseManager.h"
 
 @interface AMSSocketManager()<GCDAsyncSocketDelegate>
 
@@ -143,10 +146,8 @@
         return;
     }
     if (toClient.isConnected == YES) {
-        NSLog(@"发送数据成功");
-        // withTimeout -1 : 无穷大,一直等
-        // tag : 消息标记
         [toClient writeData:data withTimeout:- 1 tag:0];
+        NSLog(@"发送数据成功");
     }else{
         NSLog(@"socket未连接，无法发送数据");
     }
@@ -175,76 +176,99 @@
 -(void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err{
     AMSSocketClient *client = (AMSSocketClient*) sock;
     [self.socketClientDict removeObjectForKey:sock.userData];
-    NSLog(@"socket (tag = %@)断开连接，%@",sock.userData,err);
-    //判断网络，网络不好的情况下不重连
-    if(client.offlineType == AMSSocketOfflineCutByUser){
-        client.delegate = nil;
-        client = nil;
-        NSLog(@"用户主动切断网络断开，不重连");
-    }else{
-        if (client.reconnectCount >= AMSReconnectTime) {
-            NSLog(@"连接超过最大限度%d次数,不再重连",AMSReconnectTime);
-            client.delegate = nil;
-            client = nil;
-        }else{
-            client.reconnectCount++;
-            NSLog(@"正尝试第%ld次重连",(long)client.reconnectCount);
-            [client socketConnectHost];
-        }
-    }
+    NSLog(@"socket (tag = %@)断开连接，%@",sock.userData,err.description);
+    client.delegate = nil;
+    client = nil;
+//    //判断网络，网络不好的情况下不重连
+//    if(client.offlineType == AMSSocketOfflineCutByUser){
+//        client.delegate = nil;
+//        client = nil;
+//        NSLog(@"用户主动切断网络断开，不重连");
+//    }else{
+//        if (client.reconnectCount >= AMSReconnectTime) {
+//            NSLog(@"连接超过最大限度%d次数,不再重连",AMSReconnectTime);
+//            client.delegate = nil;
+//            client = nil;
+//        }else{
+//            client.reconnectCount++;
+//            NSLog(@"正尝试第%ld次重连",(long)client.reconnectCount);
+//            [client socketConnectHost];
+//        }
+//    }
 }
 
 /**读取到服务端数据*/
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag{
     AMSSocketClient *client = (AMSSocketClient*) sock;
-    
-//    NSLog(@"socket(tag = %@)读取到数据----- %@",sock.userData,text);
-    best_protocol::IBestMessge* bestMessage = [BestMessageUtil packMessage:data];
-    best_protocol::IBestDataMessage* dataMessage = [BestMessageUtil GetBestMessageDataMessage:bestMessage index:0];
-    if (dataMessage) {
-        //rsp != null
-        if(dataMessage->GetField(FIELD_KEY_is_RspInfo_null)->GetInt8() == 0 && dataMessage->GetField(FIELD_KEY_ErrorID_in_RspInfo)->GetInt8() != 0){
-            //	说明错误,展示错误信息
-                NSString *errorMsg = [NSString stringWithUTF8String:dataMessage->GetField(FIELD_KEY_ErrorMsg_in_RspInfo)->GetString()];
+    dispatch_async(dispatch_get_main_queue(), ^{
+      
+        //    NSLog(@"socket(tag = %@)读取到数据----- %@",sock.userData,text);
+        best_protocol::IBestMessge* bestMessage = [BestMessageUtil packMessage:data];
+        auto rpcHeader = bestMessage ->GetRpcHead();
+        if (rpcHeader != NULL) {
+            auto functionNo = rpcHeader->GetFuncNo();
+            if(functionNo != 0){
+                NSLog(@"fuctionNo  is  %u",functionNo);
+            }else{
+                NSLog(@"fuctionNo  is  0");
+            }
+        }else{
+            NSLog(@"rpcHeader is NULL");
+        }
+        auto dataMessage = [BestMessageUtil GetBestMessageDataMessage:bestMessage index:0];
+        
+        if (dataMessage) {
+            //rsp != null
+//            NSLog(@"response error message is %s",dataMessage->GetField(FIELD_KEY_ErrorMsg_in_RspInfo)->GetString());
+            if(dataMessage->GetField(FIELD_KEY_is_RspInfo_null)->GetInt32() == 0 && dataMessage->GetField(FIELD_KEY_ErrorID_in_RspInfo)->GetInt32() != 0){
+                //    说明错误,展示错误信息
+                
+                const char * errorMessage = dataMessage ->GetField(FIELD_KEY_ErrorMsg_in_RspInfo) ->GetString();
+                NSData *data = [[NSData alloc] initWithBytes:errorMessage length:strlen(errorMessage)];
+                 NSStringEncoding gbkEncoding = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+                NSString * errorMsg = [[NSString alloc] initWithCString:errorMessage encoding:gbkEncoding];
                 if (errorMsg.length > 0) {
                     //发送名字为tag的通知
                     [[NSNotificationCenter defaultCenter] postNotificationName:SOCKET_RESPONSE_ERROR_NOTIFICATION_NAME object:errorMsg];
+                    
                     NSLog(@"RESPONSE有错误--- %@",errorMsg);
                 }else{
-                    NSLog(@"RESPONSE有错误消息为空");
+                    NSLog(@"RESPONSE有错误 消息为空");
                 }
-        }else{
-            //说明正确，解析数据
-            int32 functionNo = bestMessage->GetRpcHead()->GetFuncNo();
-            NSString *responseJson;
-            switch (functionNo) {
-                    //登录响应
-                case AS_SDK_USER_ONRSPUSERLOGIN:{
-                    LoginResponseModel* loginResponse = (LoginResponseModel*)[BestMessageUtil modelWithDataMessage:dataMessage modelClass:[LoginResponseModel class]];
-                    responseJson = [LoginResponseModel yy_modelToJSONString];
-                    break;
+            }else{
+                //说明正确，解析数据
+                int32 functionNo = bestMessage->GetRpcHead()->GetFuncNo();
+                NSString *responseJson;
+                if(functionNo == AS_SDK_USER_HEARTBEAT){
+                    [client resetHeartBeatTime];
+                }else{
+                    NSArray *array = [kAppDelegate.BESTSDKDEFINE_DICTS allKeysForObject:@(functionNo)];
+                    if (array != nil && array.count > 0) {
+                        NSString *key = array[0];
+                        NSString *prefix = Best_message_filed_key_prefix;
+                        if ([key hasPrefix:prefix]) {
+                            key = [key substringFromIndex:prefix.length];
+                            key = [key capitalizedString];
+                            Class clazz = NSClassFromString(key);
+                            id model = [[clazz alloc] init];
+                            if (clazz !=nil) {
+                                model = [BestMessageUtil modelWithDataMessage:dataMessage modelClass:clazz];
+                                responseJson = [model yy_modelToJSONString];
+                            }
+                        }
+                    }
                 }
-            
-                default:
-                    break;
+                if(responseJson.length > 0){
+                    NSLog(@"读取到数据 --- %@",responseJson);
+                    [[NSNotificationCenter defaultCenter] postNotificationName:sock.userData object:responseJson];
+                }else{
+                    NSLog(@"responseJson IS NULL");
+                }
             }
-            [[NSNotificationCenter defaultCenter] postNotificationName:sock.userData object:responseJson];
+        }else{
+            NSLog(@"response DATA MESSAGE is NULL");
         }
-//        else{
-//            bestMessage ->GetRpcHead()->GetFuncNo();
-//            //RESPONSE 正确，解析数据
-//            NSDictionary *responseDict = @{};
-        
-//        }
-//        const char* username= routeHead->GetField(FIELD_KEY_UserID)->GetString();
-//        const char* password = routeHead->GetField(FIELD_KEY_Password)->GetString();
-//
-//        NSLog(@"username = %s ,password = %s",username,password);
-        
-    }
-   
-    
-   
+    });	
     // 读取到服务端数据值后,能再次读取
     [client readDataWithTimeout:- 1 tag:0];
 }

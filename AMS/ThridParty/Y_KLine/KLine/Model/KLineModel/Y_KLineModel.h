@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 @class Y_KLineGroupModel;
+@class AMSPeriodDatum;
+@class AMSList;
 
 typedef NS_ENUM(NSInteger, YCoinType) {
     CoinTypeBTC = 1,   //比特币
@@ -77,7 +79,7 @@ typedef NS_ENUM(NSInteger, YCoinType) {
 /**
  *  成交量
  */
-@property (nonatomic, assign) CGFloat Volume;
+@property (nonatomic, strong) NSNumber* Volume;
 
 /**
  *  均价
@@ -87,7 +89,7 @@ typedef NS_ENUM(NSInteger, YCoinType) {
 /**
  *  涨跌幅
  */
-@property (nonatomic, strong) NSNumber * risePer;
+@property (nonatomic, strong) NSString *risePer;
 
 @property (nonatomic, assign) CGFloat yValue;
 
@@ -244,9 +246,9 @@ typedef NS_ENUM(NSInteger, YCoinType) {
 
 
 //初始化Model
-- (void) initWithArray:(NSArray *)arr;
+- (void) initWithArray:(AMSList *)data;
 
-- (void) initWithTimeLineArray:(NSArray *)arr lastDayClosePrise:(CGFloat)closePrise;
+- (void) initWithTimeLineArray:(AMSPeriodDatum *)data lastDayClosePrise:(CGFloat)closePrise;
 
 - (void) initWithDict:(NSDictionary *)dict;
 

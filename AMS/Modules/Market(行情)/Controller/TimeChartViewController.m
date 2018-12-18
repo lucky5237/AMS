@@ -15,6 +15,8 @@
 #import "TimeLineLongTapParamView.h"
 #import "UIColor+Y_StockChart.h"
 #import "Y_StockChartGlobalVariable.h"
+#import "QryMinuteLineResponseModel.h"
+#import "QryQuotationResponseModel.h"
 #define kMinimumPanDistance [Y_StockChartGlobalVariable kLineWidth] + [Y_StockChartGlobalVariable kLineGap]
 @interface TimeChartViewController ()<UIGestureRecognizerDelegate,Y_KlineEventDelegete>
 @property(nonatomic,strong) ChartBottomView *chartBottomView;
@@ -74,30 +76,50 @@
 }
 
 - (void)fetchData{
-//    NSMutableDictionary *param = [NSMutableDictionary dictionary];
-//    param[@"type"] =  @"1min";
-//    param[@"market"] = @"btc_usdt";
-//    param[@"size"] = @"1000";
-    [NetWorking request:@"http://stock2.finance.sina.com.cn/futures/api/json.php/IndexService.getInnerFuturesMinLine?symbol=M0" param:nil thenSuccess:^(NSArray *responseObject) {
-        Y_KLineGroupModel *groupModel = [Y_KLineGroupModel objectWithArray:responseObject type:Y_StockChartcenterViewTypeTimeLine lastDayClosePrice:@2000];
-        self.groupModel = groupModel;
-        NSInteger minCount = 241;
-       [Y_StockChartGlobalVariable setTimeLineVolumeWidth:((self.kLineView.scrollView.bounds.size.width -  (minCount + 1) * Y_StockTimeLineViewVolumeGap) / minCount)];
-        self.kLineView.lastDayClosepPrice = @2000;
-        [self.kLineView setKLineModels:groupModel.models];
-
-    } fail:^{
-        NSLog(@"fail");
+    //    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    //    param[@"type"] =  @"1min";
+    //    param[@"market"] = @"btc_usdt";
+    //    param[@"size"] = @"1000";
+    //    [NetWorking request:@"http://stock2.finance.sina.com.cn/futures/api/json.php/IndexService.getInnerFuturesMinLine?symbol=M0" param:nil thenSuccess:^(NSArray *responseObject) {
+    //        Y_KLineGroupModel *groupModel = [Y_KLineGroupModel objectWithArray:responseObject type:Y_StockChartcenterViewTypeTimeLine lastDayClosePrice:@2000];
+    //        self.groupModel = groupModel;
+    //        NSInteger minCount = 241;
+    //       [Y_StockChartGlobalVariable setTimeLineVolumeWidth:((self.kLineView.scrollView.bounds.size.width -  (minCount + 1) * Y_StockTimeLineViewVolumeGap) / minCount)];
+    //        self.kLineView.lastDayClosepPrice = @2000;
+    //        [self.kLineView setKLineModels:groupModel.models];
+    //
+    //    } fail:^{
+    //        NSLog(@"fail");
+    //    }];
+    NSDictionary *dict = @{@"symbol":@"sc1903"};
+    [NetWorking requestWithApi:[NSString stringWithFormat:@"%@%@",BaseUrl,QryMinuteLine_URL] reqeustType:POST_Type param:dict thenSuccess:^(NSDictionary *responseObject) {
+        QryMinuteLineResponseModel *model = [QryMinuteLineResponseModel yy_modelWithDictionary:responseObject];
+        NSArray *timeSharingListArray = model.mdata.timeSharingList;
+        if (timeSharingListArray.count> 0) {
+            
+            AMSTimeSharingList *timeSharingList = [AMSTimeSharingList yy_modelWithDictionary:timeSharingListArray.firstObject];
+            NSArray *perionDataArray = timeSharingList.periodData;
+            NSInteger minCount = MAX(perionDataArray.count, 241);
+            [Y_StockChartGlobalVariable setTimeLineVolumeWidth:((self.kLineView.scrollView.bounds.size.width -  (minCount + 1) * Y_StockTimeLineViewVolumeGap) / minCount)];
+            Y_KLineGroupModel *groupModel = [Y_KLineGroupModel objectWithArray:perionDataArray type:Y_StockChartcenterViewTypeTimeLine lastDayClosePrice:@2000];
+            [self.kLineView setKLineModels:groupModel.models];
+        }else{
+//            NSLog(@"暂无数据");
+            [MBProgressHUD showErrorMessage:@"暂无数据"];
+        }
+        
+    } fail:^(NSString *str) {
+        
     }];
 }
 
 -(void)didNeedUpdataParamInfo:(NSNotification*) noti{
-     Y_KLineModel *model = (Y_KLineModel*)noti.object;
-//    if (_paramView && _paramView.type!=NoneType) {
-//        [self.paramView maProfileWithModel:model];
-//    }else{
-        self.selectedModel = model;
-//    }
+    Y_KLineModel *model = (Y_KLineModel*)noti.object;
+    //    if (_paramView && _paramView.type!=NoneType) {
+    //        [self.paramView maProfileWithModel:model];
+    //    }else{
+    self.selectedModel = model;
+    //    }
 }
 
 -(TimeLineLongTapParamView *)paramView{
@@ -143,11 +165,11 @@
 -(void)event_panMethod:(UIPanGestureRecognizer *)panGesture{
     
     if (self.paramView.type != NoneType) {
-//        CGPoint thisInterval = [panGesture translationInView:self.view];
+        //        CGPoint thisInterval = [panGesture translationInView:self.view];
         CGPoint location = [panGesture locationInView:self.view];
         //更新竖线位置
         CGFloat rightXPosition = location.x;
-//        CGFloat realX = [self.kLineView.kLineMainView getExactXPositionWithOriginXPosition:location.x+self.kLineView.scrollView.contentOffset.x];
+        //        CGFloat realX = [self.kLineView.kLineMainView getExactXPositionWithOriginXPosition:location.x+self.kLineView.scrollView.contentOffset.x];
         
         CGFloat yValue = 0.f;
         
@@ -158,26 +180,26 @@
         }
         
         CGFloat realX = [self.kLineView.kLineMainView getExactXPositionWithOriginXPosition:CGPointMake(location.x + self.kLineView.scrollView.contentOffset.x, yValue)];
-//        if(location.y >= 1+ Y_StockChartKLineMainViewMinY  && location.y <= KScreenHeight - Bottom_Height - 20 ){
-            [self.horizontalView mas_updateConstraints:^(MASConstraintMaker *make) {
-                make.top.mas_equalTo(location.y);
-            }];
-//        }
+        //        if(location.y >= 1+ Y_StockChartKLineMainViewMinY  && location.y <= KScreenHeight - Bottom_Height - 20 ){
+        [self.horizontalView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(location.y);
+        }];
+        //        }
         
         self.verticalView.hidden = NO;
         
         self.horizontalView.hidden = NO;
         
-//        if (fabs(_lastRecognizedInterval.x - thisInterval.x) < kMinimumPanDistance) {
-//            return;
-//        }
+        //        if (fabs(_lastRecognizedInterval.x - thisInterval.x) < kMinimumPanDistance) {
+        //            return;
+        //        }
         //        CGFloat distance = thisInterval.x - self.lastRecognizedInterval.x > 0 ? kMinimumPanDistance : -kMinimumPanDistance;
         
         [self.verticalView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(location.x);
         }];
         
-//        _lastRecognizedInterval = thisInterval;
+        //        _lastRecognizedInterval = thisInterval;
         //        CGPoint transition = [panGesture translationInView:self.view];
         //
         [self configParamAnimation:self.kLineView.scrollView.contentOffset.x+ rightXPosition data:self.kLineView.kLineModels.lastObject];
@@ -194,7 +216,7 @@
 
 -(void)y_klineDidReachEdges:(CGPoint)location data:(Y_KLineModel *)model realX:(CGFloat)x{
     //更新竖线位置
-//    CGFloat realX = [self.kLineView.kLineMainView getExactXPositionWithOriginXPosition:location.x];
+    //    CGFloat realX = [self.kLineView.kLineMainView getExactXPositionWithOriginXPosition:location.x];
     [self.verticalView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(location.x - self.kLineView.scrollView.contentOffset.x);
     }];
@@ -241,7 +263,7 @@
             }
         }
     }
-
+    
     self.paramView.hidden = false;
     if (self.selectedModel) {
         [self.paramView maProfileWithModel:self.selectedModel];
@@ -383,16 +405,16 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:kYellowTextColor,NSFontAttributeName:kFontSize(18)}];
-//    self.rdv_tabBarController.navigationItem.rightBarButtonItem = self.menuBtnItem;
-      [kNotificationCenter addObserver:self selector:@selector(didNeedUpdataParamInfo:) name:kNotification_Name_Param_Update object:nil];
+    //    self.rdv_tabBarController.navigationItem.rightBarButtonItem = self.menuBtnItem;
+    [kNotificationCenter addObserver:self selector:@selector(didNeedUpdataParamInfo:) name:kNotification_Name_Param_Update object:nil];
 }
 
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:kWhiteColor,NSFontAttributeName:kFontSize(18)}];
-//    self.rdv_tabBarController.navigationItem.rightBarButtonItem = nil;
-     [kNotificationCenter removeObserver:self];
+    //    self.rdv_tabBarController.navigationItem.rightBarButtonItem = nil;
+    [kNotificationCenter removeObserver:self];
 }
 
 -(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
@@ -404,13 +426,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

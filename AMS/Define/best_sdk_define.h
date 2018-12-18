@@ -453,7 +453,7 @@ const int AS_SDK_USER_ONRTNOPENACCOUNTBYBANK                       = 20300;
 const int AS_SDK_USER_ONRTNCANCELACCOUNTBYBANK                     = 20301;
 //银行发起变更银行账号通知
 const int AS_SDK_USER_ONRTNCHANGEACCOUNTBYBANK                     = 20302;
-
+const int AS_SDK_USER_HEARTBEAT                     = 20500;
 //行情推送
 const int AS_SDK_ONRTNDEPTHMARKETDATA                              = 30001;
 

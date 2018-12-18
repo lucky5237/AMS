@@ -8,6 +8,8 @@
 
 #import "Y_KLineGroupModel.h"
 #import "Y_KLineModel.h"
+#import "QryMinuteLineResponseModel.h"
+#import "QryKLineResponseModel.h"
 @implementation Y_KLineGroupModel
 + (instancetype) objectWithArray:(NSArray *)arr type:(Y_StockChartCenterViewType)type lastDayClosePrice:(NSNumber*)price{
     if (![arr isKindOfClass:[NSArray class]]) {
@@ -16,38 +18,32 @@
     }
 //    NSAssert([arr isKindOfClass:[NSArray class]], @"arr不是一个数组");
     
-    Y_KLineGroupModel *groupModel = [Y_KLineGroupModel new];
+    Y_KLineGroupModel *groupModel = [[Y_KLineGroupModel alloc]init];
     NSMutableArray *mutableArr = @[].mutableCopy;
     __block Y_KLineModel *preModel = [[Y_KLineModel alloc]init];
     
-    //设置数据 1或2 选择一个即可
-    // 数组类型的源数据
-    for (NSArray *item in arr)
-    {
-        Y_KLineModel *model = [Y_KLineModel new];
-        model.PreviousKlineModel = preModel;
-        if (type == Y_StockChartcenterViewTypeKline) {
-           [model initWithArray:item];
-        }else{
-            [model initWithTimeLineArray:item lastDayClosePrise:price.floatValue];
+    if (type == Y_StockChartcenterViewTypeKline) {
+        for (AMSList *item in arr)
+        {
+            Y_KLineModel *model = [Y_KLineModel new];
+            model.PreviousKlineModel = preModel;
+            [model initWithArray:item];
+            model.ParentGroupModel = groupModel;
+            [mutableArr addObject:model];
+            preModel = model;
         }
-        model.ParentGroupModel = groupModel;
-        [mutableArr addObject:model];
-        preModel = model;
+    }else{
+        for (AMSPeriodDatum *item in arr)
+        {
+            Y_KLineModel *model = [Y_KLineModel new];
+            model.PreviousKlineModel = preModel;
+            [model initWithTimeLineArray:item lastDayClosePrise:400];
+            model.ParentGroupModel = groupModel;
+            [mutableArr addObject:model];
+            preModel = model;
+        }
     }
-    
-    // 字典类型的源数据
-//    for (NSDictionary *dict in arr)
-//    {
-//        Y_KLineModel *model = [Y_KLineModel new];
-//        model.PreviousKlineModel = preModel;
-//        [model initWithDict:dict];
-//        model.ParentGroupModel = groupModel;
-//
-//        [mutableArr addObject:model];
-//
-//        preModel = model;
-//    }
+
     
     groupModel.models = mutableArr;
     
@@ -69,4 +65,6 @@
 + (instancetype) objectWithArray:(NSArray *)arr type:(Y_StockChartCenterViewType)type{
     return [self objectWithArray:arr type:type lastDayClosePrice:nil];
 }
+
+
 @end

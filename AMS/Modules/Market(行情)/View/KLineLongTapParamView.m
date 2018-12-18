@@ -58,7 +58,7 @@
     self.lowPriceLabel.text = [NSString stringWithFormat:@"%.2f",model.Low.floatValue];
     self.highPriceLabel.text = [NSString stringWithFormat:@"%.2f",model.High.floatValue];
     self.closePriceLabel.text = [NSString stringWithFormat:@"%.2f",model.Close.floatValue];
-    self.volumeLabel.text = [NSString stringWithFormat:@"%.2f",model.Volume];
+    self.volumeLabel.text = [NSString stringWithFormat:@"%@",model.Volume];
 }
 
 @end

@@ -31,6 +31,7 @@
 //    self.socketManager = [AMSSocketManager shareInstance];
 //    [self.socketManager addSocketClient:SOCKET_NAME_DEFAULT withHost:SOCKET_HOST_DEFAULT withPort:SOCKET_PORT_DEFAULT];
     [self initConfig];
+    [self initDB];
     [self setUpRootViewController];
     //    [self checkVersion];
     [self listenNetworkStatus];

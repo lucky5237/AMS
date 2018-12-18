@@ -7,6 +7,7 @@
 //
 
 #import "MarketTableViewCell.h"
+#import "QryQuotationResponseModel.h"
 
 @interface MarketTableViewCell()
 @property(nonatomic,strong) UILabel *nameLabel;//名字
@@ -14,7 +15,7 @@
 @property(nonatomic,strong) UILabel *fallRiseLabel;//跌涨
 @property(nonatomic,strong) UILabel *volumeLabel;//成交量
 @property(nonatomic,strong) UIView *separator;//分割线
-@property(nonatomic,strong) MarketModel* model;
+@property(nonatomic,strong) AMSLdatum* model;
 @end
 
 //static const float width = (KScreenWidth - 10) / 4;
@@ -71,34 +72,40 @@
     }];
 }
 
--(void)configModel:(MarketModel *)model fallRiseType:(FallRiseBtnType)fallRiseType volumeType:(VolumeBtnType)volumeType{
+-(void)configModel:(AMSLdatum *)model fallRiseType:(FallRiseBtnType)fallRiseType volumeType:(VolumeBtnType)volumeType{
     self.model = model;
-    self.nameLabel.text = model.name;
-    self.priceLabel.text = [NSString stringWithFormat:@"%@",model.price];
-//    self.priceLabel.textColor = model.isRise ? kRedColor : kGreenColor;
-    
+    self.nameLabel.text = model.stockCodeInternal;
+    self.priceLabel.text = model.latestPrice;
     if (fallRiseType == FallRise) {
-        self.fallRiseLabel.text = [NSString stringWithFormat:@"%@",model.fallRise];
+        self.fallRiseLabel.text = [NSString stringWithFormat:@"%@",model.priceChange];
+        if ([model.priceChange hasPrefix:@"-"]) {
+            self.fallRiseLabel.textColor = kGreenTextColor;
+        }else if ([model.priceChange floatValue] == 0.00f){
+            self.fallRiseLabel.textColor = kWhiteColor;
+        }else{
+            self.fallRiseLabel.textColor = kRedTextColor;
+        }
     }else if (fallRiseType == FallRisePer){
-         self.fallRiseLabel.text = [NSString stringWithFormat:@"%@",model.fallRisePer];
+         self.fallRiseLabel.text = [NSString stringWithFormat:@"%@",model.priceChangeRate];
+        if ([model.priceChangeRate hasPrefix:@"-"]) {
+            self.fallRiseLabel.textColor = kGreenTextColor;
+        }else if ([model.priceChangeRate floatValue] == 0.00f){
+            self.fallRiseLabel.textColor = kWhiteColor;
+        }else{
+            self.fallRiseLabel.textColor = kRedTextColor;
+        }
     }
-//    if (model.fallRise.integerValue == 0) {
-//        self.fallRiseLabel.textColor = kWhiteColor;
-//    }else if (model.fallRise.integerValue > 0){
-//        self.fallRiseLabel.textColor = kRedColor;
-//    }else{
-//        self.fallRiseLabel.textColor = kGreenColor;
-//    }
+    self.priceLabel.textColor = self.fallRiseLabel.textColor;
     if (volumeType == Volume) {
-        self.volumeLabel.text = [NSString stringWithFormat:@"%@",model.volume];
+        self.volumeLabel.text = [NSString stringWithFormat:@"%ld",model.dealAmount];
     }else if (volumeType == OpenInterest){
         self.volumeLabel.text = [NSString stringWithFormat:@"%@",model.openInterest];
     }else if (volumeType == DailyIncrement){
-        self.volumeLabel.text = [NSString stringWithFormat:@"%@",model.dailyIncrement];
+        self.volumeLabel.text = [NSString stringWithFormat:@"%ld",model.dealAmount];
     }
 }
 
--(void)configSelection:(BOOL)isSelect{
+-(void)configSelection:(BOOL)isSelect fallRiseType:(FallRiseBtnType)fallRiseType volumeType:(VolumeBtnType)volumeType{
     if (isSelect) {
         self.nameLabel.textColor = kWhiteColor;
         self.priceLabel.textColor = kWhiteColor;
@@ -109,14 +116,26 @@
     }else{
         self.separator.backgroundColor = kTableViewBackGroundColor;
         self.nameLabel.textColor = kYellowTextColor;
-        self.priceLabel.textColor = self.model.isRise ? kRedTextColor : kGreenTextColor;
-        if (self.model.fallRise.integerValue == 0) {
-            self.fallRiseLabel.textColor = kNormalTextColor;
-        }else if (self.model.fallRise.integerValue > 0){
-            self.fallRiseLabel.textColor = kRedTextColor;
-        }else{
-            self.fallRiseLabel.textColor = kGreenTextColor;
+        if (fallRiseType == FallRise) {
+//            self.fallRiseLabel.text = [NSString stringWithFormat:@"%@",self.model.priceChange];
+            if ([self.model.priceChange hasPrefix:@"-"]) {
+                self.fallRiseLabel.textColor = kGreenTextColor;
+            }else if ([self.model.priceChange floatValue] == 0.00f){
+                self.fallRiseLabel.textColor = kWhiteColor;
+            }else{
+                self.fallRiseLabel.textColor = kRedTextColor;
+            }
+        }else if (fallRiseType == FallRisePer){
+//            self.fallRiseLabel.text = [NSString stringWithFormat:@"%@",self.model.priceChangeRate];
+            if ([self.model.priceChangeRate hasPrefix:@"-"]) {
+                self.fallRiseLabel.textColor = kGreenTextColor;
+            }else if ([self.model.priceChangeRate floatValue] == 0.00f){
+                self.fallRiseLabel.textColor = kWhiteColor;
+            }else{
+                self.fallRiseLabel.textColor = kRedTextColor;
+            }
         }
+        self.priceLabel.textColor = self.fallRiseLabel.textColor;
         self.volumeLabel.textColor = kNormalTextColor;
         self.backgroundColor = kCellBackGroundColor;
     }

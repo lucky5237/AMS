@@ -7,9 +7,8 @@
 //
 
 #import "AMSSocketClient.h"
-//#define AMSSocketHost @"10.131.11.161"//Host地址
-#define AMSSocketHost @"192.168.189.134"//Host地址
-#define AMSSocketPort 1234 //端口号
+#import "BestMessageUtil.h"
+#import "AMSSocketManager.h"
 
 @interface AMSSocketClient()
 
@@ -35,6 +34,7 @@
 -(instancetype)initWithDelegate:(id<GCDAsyncSocketDelegate>)aDelegate delegateQueue:(dispatch_queue_t)dq{
     if (self = [super initWithDelegate:aDelegate delegateQueue:dq]) {
         self.reconnectCount = 0;
+        self.heartBeatCount = 0;
         self.offlineType = AMSSocketOfflineOutTime;
     }
     return self;
@@ -99,11 +99,23 @@
  */
 - (void)socketTimerConnectSocket{
     //与后台定义发送心跳包
-    NSLog(@"模拟发送心跳包");
+//    NSLog(@"模拟发送心跳包");
+//    if (self.heartBeatCount < AMSHeartBeatTime) {
+//        self.heartBeatCount ++;
+//        [[AMSSocketManager shareInstance] writeData: [BestMessageUtil generateHeartBeatMessage]toSocket:self.userData];
+////        [se writeData: [BestMessageUtil generateHeartBeatMessage] withTimeout:1 tag:1];
+//
+//    }else{
+//        NSLog(@"心跳连接超出最大次数，断开连接");
+//        [self cutOffSocket];
+//    }
 //    NSString *heartPackPrama = @"heartBeat";
 //    [self writeData: [heartPackPrama dataUsingEncoding:NSUTF8StringEncoding] withTimeout:1 tag:1];
 }
 
+-(void)resetHeartBeatTime{
+    self.heartBeatCount = 0;
+}
 
 
 @end

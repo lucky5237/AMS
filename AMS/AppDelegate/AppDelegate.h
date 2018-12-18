@@ -17,6 +17,7 @@
 @property (strong, nonatomic) AMSSocketManager *socketManager;
 @property (strong, nonatomic) ECSlidingViewController *managerVc;
 @property (strong,nonatomic) NSDictionary *FIELD_KEY_DICTS;
+@property (strong,nonatomic) NSDictionary *BESTSDKDEFINE_DICTS;
 +(AppDelegate*) shareAppDelegate;//单例
 -(void)setTabBarHidden:(BOOL)push;
 @end

@@ -7,14 +7,15 @@
 //
 
 #import "LoginViewController.h"
-#import "LoginRequestModel.h"
-#import "LoginResponseModel.h"
+#import "User_Requserlogin.h"
+#import "User_Onrspuserlogin.h"
 #import "SocketRequestManager.h"
 
 @interface LoginViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *userNameTf;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTf;
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
+@property (weak, nonatomic) IBOutlet UILabel *registerLabel;
 
 @end
 
@@ -22,22 +23,34 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"登录";
+    [self.registerLabel zj_addTapGestureWithCallback:^(UITapGestureRecognizer *gesture) {
+        NSLog(@"点击了注册按钮");
+    }];
 
 }
 - (IBAction)loginBtnTapped:(UIButton *)sender {
-    LoginRequestModel *loginModel = [[LoginRequestModel alloc] init];
+    User_Requserlogin *loginModel = [[User_Requserlogin alloc] init];
     loginModel.UserID = self.userNameTf.text;
     loginModel.Password = self.passwordTf.text;
+    [MBProgressHUD showActivityMessageInWindow:@""];
     [[SocketRequestManager shareInstance]doLogin:loginModel];
-
 }
 
 -(void)didReceiveSocketData:(NSNotification *)noti{
     [super didReceiveSocketData:noti];
     NSString *response = noti.object;
-    LoginResponseModel *model = (LoginResponseModel *)[LoginResponseModel yy_modelWithJSON:response];
     NSLog(@"登录响应-- %@",response);
-    
+    User_Onrspuserlogin *model = (User_Onrspuserlogin *)[User_Onrspuserlogin yy_modelWithJSON:response];
+    if(model != nil){
+        [MBProgressHUD hideHUD];
+//        [MBProgressHUD showSuccessMessage:@"登录成功"];
+        [kUserDefaults setObject:model.UserID forKey:UserDefaults_User_ID_key];
+        [self.navigationController popViewControllerAnimated:YES];
+        if (self.destinationVC != nil) {
+            [self.navigationController pushViewController:self.destinationVC animated:YES];
+        }
+    }
 }
 
 /*

@@ -11,12 +11,12 @@
 
 #define SOCKET_NAME_DEFAULT @"SOCKET_NAME_DEFAULT"
 #define SOCKET_RESPONSE_ERROR_NOTIFICATION_NAME @"SOCKET_RESPONSE_ERROR_NOTIFICATION_NAME"
-#define SOCKET_HOST_DEFAULT @"10.131.11.161"//公司
-#define SOCKET_PORT_DEFAULT 1234
+//#define SOCKET_HOST_DEFAULT @"10.131.11.161"//公司
+//#define SOCKET_PORT_DEFAULT 1234
 //#define SOCKET_HOST_DEFAULT @"192.168.189.134"//家
 //#define SOCKET_PORT_DEFAULT 1234
-//#define SOCKET_HOST_DEFAULT @"10.131.4.157"//huangjie
-//#define SOCKET_PORT_DEFAULT 1235
+#define SOCKET_HOST_DEFAULT @"10.131.4.157"//huangjie
+#define SOCKET_PORT_DEFAULT 2235
 
 
 #define NEWS_URL @"https://www.baidu.com/"
@@ -117,6 +117,11 @@ typedef NS_ENUM(NSInteger,TradeReportViewType){
     WeiTuoType,
     ChengjiaoType
 };
+
+typedef NS_ENUM(NSInteger,RequestType) {
+    GET_Type,
+    POST_Type
+};
 #define MAX_NUMBER_BEFORE_DECIMAL 6
 #define MAX_NUMBER_AFTER_DECIMAL 2
 
@@ -168,8 +173,17 @@ static NSString *kHandicapParamNames[20] = {
 #define REPORT_VIEW_BOARDER_WIDTH 1
 
 //socket Response key define
+#define Best_message_filed_key_prefix @"AS_SDK_"
 #define function_FuncNo_key @"function_FuncNo"
 #define packet_type_key @"packet_type"
 //#define nRequestID @"packet_type"
 //#define packet_type_key @"packet_type"
+
+
+#pragma mark userdefaults
+#define UserDefaults_User_ID_key @"UserDefaults_User_ID_key"
+
+
+#pragma mark db相关
+#define DB_NAME @"AMS.db"
 #endif /* AMSConstant_h */

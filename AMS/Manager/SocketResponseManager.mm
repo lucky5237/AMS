@@ -9,7 +9,6 @@
 #import "SocketResponseManager.h"
 #import "best_message.h"
 #import "field_key.h"
-#import "LoginResponseModel.h"
 #import "best_sdk_define.h"
 #import "BestMessageUtil.h"
 

@@ -9,12 +9,17 @@
 #import "SearchViewController.h"
 #import "SearchTableViewCell.h"
 #import <UITableView+FDTemplateLayoutCell.h>
+#import "QryQuotationResponseModel.h"
+#import "CollectQuatationDBModel.h"
+#import "AMSDBManager.h"
+
 
 @interface SearchViewController ()<UISearchBarDelegate,UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong) UISearchBar *searchBar;
 @property(nonatomic,strong) UITableView *tableView;
 @property(nonatomic,strong) NSMutableArray *dataArray;
 @property(nonatomic,strong) UIView *navView;
+
 @end
 #define identifier @"SearchTableViewCell"
 @implementation SearchViewController
@@ -105,10 +110,14 @@
 #pragma mark 实例方法
 -(void)doSearch:(NSString*)keyWord{
     [self.dataArray removeAllObjects];
-    for (int i =0; i<keyWord.length; i++) {
-        NSDictionary *dict = @{@"name":[NSString stringWithFormat:@"期货%d",i+1],@"id":@(i+1),@"hasCollect":@(i%2==0)};
-        [self.dataArray addObject:dict];
-    }
+//    for (int i =0; i<keyWord.length; i++) {
+//
+//
+//    }
+    AMSLdatum *data = [[AMSLdatum alloc] init];
+    data.stockCodeInternal = @"1111";
+    data.stockName = @"sc1903";
+    [self.dataArray addObject:data];
     [self.tableView reloadData];
 }
 
@@ -124,21 +133,35 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     SearchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-    NSMutableDictionary *dict = self.dataArray[indexPath.row];
-    cell.nameLabel.text = dict[@"name"];
+    AMSLdatum *model = self.dataArray[indexPath.row];
+    cell.nameLabel.text = model.stockName;
     cell.backgroundColor = kCellBackGroundColor;
-    NSNumber *hasCollect = dict[@"hasCollect"];
-    [cell.collectBtn setSelected:hasCollect.boolValue];
+//    NSNumber *hasCollect = dict[@"hasCollect"];
+    [cell.collectBtn setSelected:[[AMSDBManager shareInstance]isQuotationCollected:model.stockName]];
     [cell.collectBtn setZj_onTouchUp:^(UIButton* sender) {
         if (sender.selected) {//取消收藏
 //            dict[@"hasCollect"] = @0;
-            sender.selected = !sender.selected;
-//            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            [MBProgressHUD showInfoMessage:@"取消收藏成功"];
+            
+            if ([[AMSDBManager shareInstance] deleteQuotation:model.stockCodeInternal]) {
+                [MBProgressHUD showSuccessMessage:@"删除自选成功"];
+                sender.selected = !sender.selected;
+            }else{
+                NSLog(@"删除数据失败--");
+            }
+           
         }else{
-            sender.selected = !sender.selected;
+           
 //            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            [MBProgressHUD showInfoMessage:@"收藏成功"];
+            
+            CollectQuatationDBModel *dbModel = [[CollectQuatationDBModel alloc] init];
+            dbModel.instrumentID = model.stockCodeInternal;
+            dbModel.instrumentName = model.stockName;
+            if ([[AMSDBManager shareInstance] addQuotations:dbModel]) {
+                 sender.selected = !sender.selected;
+                [MBProgressHUD showSuccessMessage:[NSString stringWithFormat:@"%@已加入自选",model.stockName]];
+            }else{
+                NSLog(@"添加数据失败--");
+            }
         }
     }];
     return cell;
