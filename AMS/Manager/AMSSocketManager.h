@@ -13,13 +13,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface AMSSocketManager : NSObject
 
-+(AMSSocketManager*) shareInstance;
++(AMSSocketManager*)shareInstance;
 -(AMSSocketClient *)addSocketClient:(NSString*)tag withHost:(NSString*)host withPort:(NSUInteger)port;//添加tcp连接
--(void)removeSocketClient:(NSString*)tag;//断开tcp连接
+-(void)cutOffSocketClient:(NSString*)tag;//断开tcp连接
 -(AMSSocketClient*)socketClient:(NSString*)tag;//获取tcp连接
 -(void)writeData:(NSData*)data toSocket:(NSString*)tag;//给socket写数据
 -(void)showSocketDictInfo;//打印当前socket字典的信息
-
+-(void)cutOffAllClient;//断开所有tcp连接
 @end
 
 NS_ASSUME_NONNULL_END

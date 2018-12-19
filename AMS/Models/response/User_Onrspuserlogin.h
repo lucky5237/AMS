@@ -19,5 +19,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy) NSString *FFEXTime;//中金所时间
 @property(nonatomic,copy) NSString *INETime;//能源中心时间
 
+
 NS_ASSUME_NONNULL_END
 @end

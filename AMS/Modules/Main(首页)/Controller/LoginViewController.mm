@@ -10,6 +10,7 @@
 #import "User_Requserlogin.h"
 #import "User_Onrspuserlogin.h"
 #import "SocketRequestManager.h"
+#import "best_sdk_define.h"
 
 @interface LoginViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *userNameTf;
@@ -39,18 +40,19 @@
 
 -(void)didReceiveSocketData:(NSNotification *)noti{
     [super didReceiveSocketData:noti];
-    NSString *response = noti.object;
-    NSLog(@"登录响应-- %@",response);
-    User_Onrspuserlogin *model = (User_Onrspuserlogin *)[User_Onrspuserlogin yy_modelWithJSON:response];
-    if(model != nil){
-        [MBProgressHUD hideHUD];
-//        [MBProgressHUD showSuccessMessage:@"登录成功"];
-        [kUserDefaults setObject:model.UserID forKey:UserDefaults_User_ID_key];
-        [self.navigationController popViewControllerAnimated:YES];
-        if (self.destinationVC != nil) {
-            [self.navigationController pushViewController:self.destinationVC animated:YES];
+    if ((int32)self.funtionNo.intValue == AS_SDK_USER_ONRSPUSERLOGIN) {
+        User_Onrspuserlogin *model = self.response.firstObject;
+        if(model != nil){
+            [MBProgressHUD hideHUD];
+            //        [MBProgressHUD showSuccessMessage:@"登录成功"];
+            [kUserDefaults setObject:model.UserID forKey:UserDefaults_User_ID_key];
+            [self.navigationController popViewControllerAnimated:YES];
+            if (self.destinationVC != nil) {
+                [self.navigationController pushViewController:self.destinationVC animated:YES];
+            }
         }
     }
+    
 }
 
 /*

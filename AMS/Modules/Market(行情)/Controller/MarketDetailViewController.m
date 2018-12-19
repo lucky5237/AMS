@@ -57,7 +57,9 @@
     self.tabBar.layer.shadowRadius = 5;
     [self setViewControllers:@[timeVC,klineVC,tradeVC,handicapVC]];
     [self customizeTabBarForController];
+    [self tabBar:self.tabBar didSelectItemAtIndex:self.selectIndex];
     self.navigationController.rt_disableInteractivePop = YES;
+    
 }
 
 -(void)menuBtnItemTapped:(UIBarButtonItem*) barItem{
@@ -83,9 +85,13 @@
         UIImage *unselectedimage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_normal",
                                                         [tabBarItemImages objectAtIndex:index]]];
         [item setFinishedSelectedImage:selectedimage withFinishedUnselectedImage:unselectedimage];
+        if (index == self.selectIndex) {
+            [self.tabBar setSelectedItem:item];
+        }
+
         
         index++;
-    }
+            }
 }
 
 

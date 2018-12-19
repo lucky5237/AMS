@@ -58,16 +58,20 @@
  连接Socket
  */
 -(void)socketConnectHost{
+     NSLog(@"----开始连接tag为%@的socket----",self.userData);
     if(self.isConnected){
-        NSLog(@"socket 已连接");
+        NSLog(@"tag为的%@socket已处于连接状态",self.userData);
         return;
     }
-    NSLog(@"socket 正在连接---");
-    [self cutOffSocket];
+    NSLog(@"----tag为%@的socket正在连接----",self.userData);
+    if (self.socketTimer) {
+        [self.socketTimer invalidate];
+        self.socketTimer = nil;
+    }
     NSError *error;
     [self connectToHost:self.socketHost onPort:self.socketPort viaInterface:nil withTimeout:-1 error:&error];
     if (error) {
-        NSLog(@"socket连接出错--%@",error);
+        NSLog(@"tag为%@的socket连接出错----%@",self.userData,error);
     }
 }
 
@@ -75,7 +79,7 @@
  切断Socket
  */
 -(void)cutOffSocket{
-    [self disconnect];
+    [self disconnectAfterReadingAndWriting];
     if (self.socketTimer) {
         [self.socketTimer invalidate];
         self.socketTimer = nil;
@@ -99,7 +103,7 @@
  */
 - (void)socketTimerConnectSocket{
     //与后台定义发送心跳包
-//    NSLog(@"模拟发送心跳包");
+//    NSLog(@"----Socket(%@)发送心跳包----",self.userData);
 //    if (self.heartBeatCount < AMSHeartBeatTime) {
 //        self.heartBeatCount ++;
 //        [[AMSSocketManager shareInstance] writeData: [BestMessageUtil generateHeartBeatMessage]toSocket:self.userData];

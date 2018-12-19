@@ -38,6 +38,7 @@
         self.navigationController.navigationBar.backIndicatorImage = [UIImage new];
         self.navigationController.navigationBar.backIndicatorTransitionMaskImage = [UIImage new];
     }
+    [kNotificationCenter addObserver:self selector:@selector(didConnectSocket:) name:SOCKET_DID_CONNECT_NOTIFICATION_NAME object:nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -97,15 +98,21 @@
     
     NSLog(@"%@收到通知",NSStringFromClass([self class]));
 //    NSData *data = (NSData*) noti;
-    
-    
+    NSDictionary *responseData = noti.object;
+    self.funtionNo = [responseData objectForKey:@"funtionNo"];
+    self.response = [responseData objectForKey:@"response"];
 }
 
 -(void)didResponseErrorOccurs:(NSNotification *)noti{
 //    [MBProgressHUD hideHUD];
-    NSLog(@"%@恢复出错",NSStringFromClass([self class]));
+    NSLog(@"%@答复出错",NSStringFromClass([self class]));
     NSString *errorMsg = noti.object;
     [MBProgressHUD showErrorMessage:errorMsg];
+}
+
+-(void)didConnectSocket:(NSNotification *)noti{
+    NSString *tag = noti.object;
+    NSLog(@"socket（%@）连接成功",tag);
 }
 
 

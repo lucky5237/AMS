@@ -13,10 +13,12 @@ NS_ASSUME_NONNULL_BEGIN
 @interface BaseViewController : UIViewController
 @property(nonatomic,assign) BOOL hideRightButton;
 @property(nonatomic,assign) BOOL useRdvTab;
+@property(nonatomic,strong) NSNumber *funtionNo;
+@property(nonatomic,copy) NSArray *response;
 @property(nonatomic,strong) UIBarButtonItem *extraRightButtonItem;
 @property(nonatomic,strong) UIBarButtonItem *menuBtnItem;
 -(void)didReceiveSocketData:(NSNotification *)noti;
-//-(void)launchIfLogin;
+-(void)didConnectSocket:(NSNotification *)noti;
 @end
 
 NS_ASSUME_NONNULL_END

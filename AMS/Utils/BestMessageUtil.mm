@@ -18,7 +18,7 @@
 
 static int requestId = 0;
 
-+(NSData *)generateBestMsg:(uint32)fucntionType modelClass:(id)model{
++(NSData *)generateBestMsg:(uint32)fucntionType model:(id)model{
     if (![[model class] isSubclassOfClass:[BaseRequestModel class]]) {
         NSLog(@"非法入参，必须为BaseRequsetModel的子类");
         return nil;
@@ -44,12 +44,13 @@ static int requestId = 0;
         
         NSString *proName = [[NSString alloc] initWithCString:propertyName encoding:NSUTF8StringEncoding];
         NSString *realKeyName = [@"FIELD_KEY_" stringByAppendingString:proName];
-        NSNumber* fieldKey = kAppDelegate.FIELD_KEY_DICTS[realKeyName] ?: @0;
+        NSNumber* fieldKey = kAppDelegate.configModel.FIELD_KEY_DICTS[realKeyName] ?: @0;
         //int类型
         if ([[NSString stringWithCString:[AMSUtil getPropertyType:property]  encoding:NSUTF8StringEncoding] isEqualToString:@"i"]) {
             NSNumber* proValue = (NSNumber* )[model valueForKey:proName] ?: @0;
             auto field = m_factory ->CreateBestField();
             field->SetInt32((int32)proValue.integerValue);
+            NSLog(@"SET FIELD ---- (%@ = %@ , %@)",realKeyName,fieldKey,proValue);
             phase_best_data_message->SetField((int32)fieldKey.integerValue, field);
          
         }else{
@@ -57,6 +58,7 @@ static int requestId = 0;
             NSString* proValue = (NSString* )[model valueForKey:proName] ?: @"";
             auto field = m_factory ->CreateBestField();
             field->SetString(proValue.UTF8String);
+            NSLog(@"SET FIELD ---- (%@ = %@ , %@)",realKeyName,fieldKey,proValue);
             phase_best_data_message->SetField((int32)fieldKey.integerValue, field);
         }
     }
@@ -64,15 +66,10 @@ static int requestId = 0;
     auto requestField = m_factory ->CreateBestField();
     requestField->SetInt32(nRequestId);
     phase_best_data_message->SetField(FIELD_KEY_nRequestID, requestField);
+    NSLog(@"SET FIELD ---- (requestID = %d)",nRequestId);
     //c语言的函数，所以要去手动的去释放内存
-      free(propertyList);
+    free(propertyList);
     phase_best_head_message->SetDataMessage(phase_best_data_message);
-    
-//    //测试
-//    auto mField = m_factory ->CreateBestField();
-//    mField->SetString("21212121212");
-//    phase_best_head_message ->SetField(21, mField);
-    
     phase_best_message->AddHeadMessage(phase_best_head_message);
     phase_best_message->SetRpcHead(phase_best_rpc_head);
     int32 msg_length = 0;
@@ -105,9 +102,42 @@ static int requestId = 0;
 }
 
 +(id)modelWithDataMessage:(best_protocol::IBestDataMessage*)dataMessage modelClass:(Class) clazz{
+    //处理父类
+    id model = [[clazz alloc] init];
+//    if ([NSStringFromClass(clazz.superclass)
+//         isEqualToString:NSStringFromClass([BaseResponseModel class])]) {
+//        unsigned int count = 0;
+//        objc_property_t *propertyList =  class_copyPropertyList(clazz.superclass, &count);
+//       
+//        for(int i=0;i<count;i++)
+//        {
+//            //取出每一个属性
+//            objc_property_t property = propertyList[i];
+//            //获取每一个属性的变量名
+//            const char* propertyName = property_getName(property);
+//            
+//            NSString *proName = [[NSString alloc] initWithCString:propertyName encoding:NSUTF8StringEncoding];
+//            NSString *realKeyName = [@"FIELD_KEY_" stringByAppendingString:proName];
+//            NSNumber* fieldKey = kAppDelegate.configModel.FIELD_KEY_DICTS[realKeyName] ?: @0;
+//            //int类型
+//            if ([[NSString stringWithCString:[AMSUtil getPropertyType:property]  encoding:NSUTF8StringEncoding] isEqualToString:@"i"]) {
+//                auto field = dataMessage->GetField((int32)fieldKey.integerValue);
+//                NSNumber* proValue = @(field->GetInt32());
+////                DLog(@"GET FIELD ---- (%@ = %@ , %@)",realKeyName,fieldKey,proValue);
+//                [model setValue:proValue forKey:proName];
+//            }else{
+//                //string类型
+//                auto field = dataMessage->GetField((int32)fieldKey.integerValue);
+//                NSString* proValue = [NSString stringWithUTF8String:field->GetString()];
+////                DLog(@"GET FIELD ---- (%@ = %@ , %@)",realKeyName,fieldKey,proValue);
+//                [model setValue:proValue forKey:proName];
+//            }
+//        }
+//         free(propertyList);
+//    }
     unsigned int count = 0;
     objc_property_t *propertyList =  class_copyPropertyList(clazz, &count);
-    id model = [[clazz alloc] init];
+//    id model = [[clazz alloc] init];
     for(int i=0;i<count;i++)
     {
         //取出每一个属性
@@ -117,19 +147,22 @@ static int requestId = 0;
         
         NSString *proName = [[NSString alloc] initWithCString:propertyName encoding:NSUTF8StringEncoding];
         NSString *realKeyName = [@"FIELD_KEY_" stringByAppendingString:proName];
-        NSNumber* fieldKey = kAppDelegate.FIELD_KEY_DICTS[realKeyName] ?: @0;
+        NSNumber* fieldKey = kAppDelegate.configModel.FIELD_KEY_DICTS[realKeyName] ?: @0;
         //int类型
         if ([[NSString stringWithCString:[AMSUtil getPropertyType:property]  encoding:NSUTF8StringEncoding] isEqualToString:@"i"]) {
             auto field = dataMessage->GetField((int32)fieldKey.integerValue);
             NSNumber* proValue = @(field->GetInt32());
+//            DLog(@"GET FIELD ---- (%@ = %@ , %@)",realKeyName,fieldKey,proValue);
             [model setValue:proValue forKey:proName];
         }else{
             //string类型
             auto field = dataMessage->GetField((int32)fieldKey.integerValue);
             NSString* proValue = [NSString stringWithUTF8String:field->GetString()];
+//            DLog(@"GET FIELD ---- (%@ = %@ , %@)",realKeyName,fieldKey,proValue);
             [model setValue:proValue forKey:proName];
         }
     }
+
     //c语言的函数，所以要去手动的去释放内存
     free(propertyList);
     //    }
@@ -159,6 +192,17 @@ static int requestId = 0;
 //        IBestDataMessage* defaultBestHeadMessage = routeHead->GetDataMessage();
 //    }
     return phase_best_message;
+}
+
++(best_protocol::IBestRPCHead*)packMessageRPCHead:(NSData *)data{
+    const void* message = data.bytes;
+    int32 length = (int32)data.length;
+    InitBestMessge();
+    best_protocol::IBestMessgeFactory *m_factory = CreateBestMessgeFactrotyInstance();
+    best_protocol::IBestRPCHead* rpcHeader = m_factory->CreateRpcHead();
+    rpcHeader->SetBuffer(message, length);
+    rpcHeader->Deserialize();
+    return rpcHeader;
 }
 
 +(int32)generateRequestID{

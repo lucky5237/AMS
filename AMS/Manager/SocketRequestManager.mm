@@ -15,6 +15,7 @@
 #import "User_Onrspuserlogin.h"
 #import "User_Requserlogout.h"
 #import "User_Onrspuserlogout.h"
+#import "User_Reqorderinsert.h"
 @implementation SocketRequestManager
 +(SocketRequestManager*) shareInstance{
     static SocketRequestManager *manager = nil;
@@ -31,18 +32,23 @@
 //}
 
 -(void)doLogin:(User_Requserlogin *)model{
-  NSData* data = [BestMessageUtil generateBestMsg:AS_SDK_USER_REQUSERLOGIN modelClass:model];
+  NSData* data = [BestMessageUtil generateBestMsg:AS_SDK_USER_REQUSERLOGIN model:model];
   [[AMSSocketManager shareInstance] writeData:data toSocket:SOCKET_NAME_DEFAULT];
 }
 -(void)loginOut{
     User_Requserlogout *request = [[User_Requserlogout alloc] init];
     request.UserID = [kUserDefaults objectForKey:UserDefaults_User_ID_key];
-    NSData* data = [BestMessageUtil generateBestMsg:AS_SDK_USER_REQUSERLOGOUT modelClass:request];
+    NSData* data = [BestMessageUtil generateBestMsg:AS_SDK_USER_REQUSERLOGOUT model:request];
     [[AMSSocketManager shareInstance] writeData:data toSocket:SOCKET_NAME_DEFAULT];
 }
 
 -(void)qryInstrument:(User_Reqqryinstrument *)model{
-    NSData* data = [BestMessageUtil generateBestMsg:AS_SDK_USER_REQQRYINSTRUMENT modelClass:model];
+    NSData* data = [BestMessageUtil generateBestMsg:AS_SDK_USER_REQQRYINSTRUMENT model:model];
+    [[AMSSocketManager shareInstance] writeData:data toSocket:SOCKET_NAME_DEFAULT];
+}
+
+-(void)reqorderinsert:(User_Reqorderinsert *)model{
+    NSData* data = [BestMessageUtil generateBestMsg:AS_SDK_USER_REQORDERINSERT model:model];
     [[AMSSocketManager shareInstance] writeData:data toSocket:SOCKET_NAME_DEFAULT];
 }
 

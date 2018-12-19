@@ -15,7 +15,8 @@
 #import <JQFMDB.h>
 #import <JLRoutes.h>
 #import "CollectQuatationDBModel.h"
-
+#import "AMSSocketManager.h"
+#import "ConfigModel.h"
 
 @implementation AppDelegate (AppSevice)
 
@@ -24,7 +25,6 @@
  */
 -(void)setUpRootViewController{
    
-
     MainViewController *mainVC = [[MainViewController alloc] init];
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.rootViewController = mainVC;
@@ -59,7 +59,8 @@
 }
 
 -(void)initConfig{
-    self.FIELD_KEY_DICTS =@{
+    self.configModel = [[ConfigModel alloc] init];
+    self.configModel.FIELD_KEY_DICTS =@{
                        @"FIELD_KEY_AShortMarginRatioByMoney":@10001,       //套利空头保证金调整系数
                        @"FIELD_KEY_AShortMarginRatioByVolume":@10002,      //套利空头保证金调整系数
                        @"FIELD_KEY_AbandonFrozen":@10003,                  //放弃执行冻结
@@ -764,7 +765,7 @@
                        @"FIELD_KEY_nRequestID":@10702,                     //请求的编号
                        @"FIELD_KEY_nResumeType":@10703,
                        };
-    self.BESTSDKDEFINE_DICTS = @{
+    self.configModel.BESTSDKDEFINE_DICTS = @{
                                  //订阅私有流的数据。若不调用则不会收到私有流的数据。
                                  @"AS_SDK_USER_SUBSCRIBEPRIVATETOPIC" : @20001,
                                  //订阅公有流的数据。若不调用则不会收到公共流的数据。
@@ -1208,7 +1209,9 @@
         return YES;
     }];
 }
-
+-(void)initSocketConnect{
+     [[AMSSocketManager shareInstance] addSocketClient:SOCKET_NAME_DEFAULT withHost:SOCKET_HOST_DEFAULT withPort:SOCKET_PORT_DEFAULT];
+}
 /**
  监听网络发生变化之后的回调
  @param notification 通知内容

@@ -42,7 +42,7 @@
  */
 -(void)fetchData{
     [self.plateDictArray addObjectsFromArray: [kUserDefaults objectForKey:PLATE_SETTING_DICT]];
-    [self.dataArray addObjectsFromArray:@[@{@"id":@1,@"name":@"上海期货交易所"},@{@"id":@2,@"name":@"大连商品交易所"},@{@"id":@3,@"name":@"郑州商品交易所"},@{@"id":@4,@"name":@"中国金融交易所"}]];
+    [self.dataArray addObjectsFromArray:@[@{@"code":@"SHFE",@"name":@"上海期货交易所"},@{@"code":@"DCE",@"name":@"大连商品交易所"},@{@"code":@"CZCE",@"name":@"郑州商品交易所"},@{@"code":@"CFFEX",@"name":@"中国金融交易所"}]];
     [self.tableView reloadData];
 }
 

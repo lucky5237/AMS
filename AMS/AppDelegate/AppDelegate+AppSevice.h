@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)initDB;//数据库操作
 -(void)initRoute;//初始化路由
 -(void)initConfig;//初始化配置
+-(void)initSocketConnect;//初始化socket连接
 @end
 
 NS_ASSUME_NONNULL_END

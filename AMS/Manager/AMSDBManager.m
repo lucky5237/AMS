@@ -20,6 +20,10 @@
 }
 
 -(BOOL)addQuotations:(CollectQuatationDBModel *)quotations{
+    if ([self isQuotationCollected:quotations.instrumentID]) {
+        NSLog(@"%@数据库已存在，插入失败",quotations.instrumentID);
+        return false;
+    }
     return [[JQFMDB shareDatabase] jq_insertTable:NSStringFromClass([CollectQuatationDBModel class]) dicOrModel:quotations];
 }
 
@@ -31,7 +35,7 @@
 }
 
 -(BOOL)isQuotationCollected:(NSString*)queryId{
-     return [[JQFMDB shareDatabase] jq_lookupTable:NSStringFromClass([CollectQuatationDBModel class]) dicOrModel:[CollectQuatationDBModel class] whereFormat:@"WHERE instrumentID = %@",queryId].count > 0;
+     return [[JQFMDB shareDatabase] jq_lookupTable:NSStringFromClass([CollectQuatationDBModel class]) dicOrModel:[CollectQuatationDBModel class] whereFormat:@"WHERE instrumentID = '%@' ",queryId].count > 0;
 }
 
 @end

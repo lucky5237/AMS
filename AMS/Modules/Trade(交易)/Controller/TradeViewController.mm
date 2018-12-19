@@ -18,6 +18,9 @@
 #import "CustomStatusBarView.h"
 #import "LrReportContainerView.h"
 #import "QryQuotationResponseModel.h"
+#import "User_Reqorderinsert.h"
+#import "User_Onrspquoteinsert.h"
+#import "SocketRequestManager.h"
 @interface TradeViewController ()<LrReportContainerViewDelegate,UITextFieldDelegate>
 @property(nonatomic,strong) TradeHeaderView *headerView;
 @property(nonatomic,strong) UISegmentedControl *segmentedControl;
@@ -33,6 +36,7 @@
 @property(nonatomic,strong) UIImageView *underLineView;
 @property(nonatomic,strong) CustomStatusBarView *statusBar;
 @property(nonatomic,strong) LrReportContainerView *containerView;
+@property(nonatomic,strong) NSTimer *timer;
 @end
 
 #define Header_Height  210
@@ -42,6 +46,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = [kUserDefaults objectForKey:UserDefaults_User_ID_key];
     self.itemArray = @[@"持仓",@"挂单",@"委托",@"成交"];
     self.headerTitleArray = @[@[@"合约名称",@"多空",@"总仓",@"可用",@"开仓均价",@"逐笔浮盈"],@[@"合约名称",@"开平",@"委托价",@"委托量",@"挂单量"],@[@"合约名称",@"状态",@"开平",@"委托价",@"委托量",@"已成交",@"已撤单",@"委托时间"],@[@"合约名称",@"开平",@"成交价",@"成交量",@"成交时间"]];
     [self.view addSubview:self.headerView];
@@ -84,6 +89,8 @@
     [self.containerView layoutIfNeeded];
     [self fetchReportViewData:ChiChangType];
     self.containerView.currentSelectIndex = ChiChangType;
+    //http轮询查询最新价格
+    
 }
 
 -(void)fetchReportViewData:(NSInteger)index{
@@ -184,6 +191,9 @@
         [_headerView.priceTf reloadInputViews];
     }
     return _headerView;
+}
+-(void)orderInsert:(User_Reqorderinsert *)model{
+    [[SocketRequestManager shareInstance] reqorderinsert:model];
 }
 
 -(PriceCustomKeyboardView *)keyboardView{
@@ -495,6 +505,10 @@
     }else{
         self.rdv_tabBarController.navigationItem.rightBarButtonItem = nil;
     }
+}
+
+-(void)didReceiveSocketData:(NSNotification *)noti{
+    
 }
 
 

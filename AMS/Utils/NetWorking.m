@@ -12,6 +12,10 @@
 +(void)requestWithApi:(NSString *)url reqeustType:(RequestType)type param:(NSDictionary *)param thenSuccess:(void (^)(NSDictionary *responseObject))success fail:(void (^)(NSString *))fail
 {
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+
+    
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[@"application/json",
                                                                               @"text/html",
                                                                               @"text/json",

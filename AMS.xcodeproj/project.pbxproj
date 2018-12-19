@@ -273,6 +273,8 @@
 		1693AFEE21C783C200A2155A /* User_Onrtnfrombanktofuturebybank.m in Sources */ = {isa = PBXBuildFile; fileRef = 1693AF5121C783C100A2155A /* User_Onrtnfrombanktofuturebybank.m */; };
 		1693AFF121C8D1D900A2155A /* AMSDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1693AFF021C8D1D900A2155A /* AMSDBManager.m */; };
 		1693AFF421C8D37200A2155A /* CollectQuatationDBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1693AFF321C8D37200A2155A /* CollectQuatationDBModel.m */; };
+		1693AFF821C9D8D600A2155A /* QryQuotationRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1693AFF721C9D8D600A2155A /* QryQuotationRequestModel.m */; };
+		1693AFFB21CA021200A2155A /* ConfigModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1693AFFA21CA021200A2155A /* ConfigModel.m */; };
 		169727C32186B45F009F6F65 /* AppDelegate+AppSevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 169727C22186B45F009F6F65 /* AppDelegate+AppSevice.m */; };
 		16AB268121BDFC8200755B81 /* field_key.h in Sources */ = {isa = PBXBuildFile; fileRef = 16AB268021BDFADD00755B81 /* field_key.h */; };
 		16AB268521C0B30700755B81 /* LrReportContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16AB268421C0B30700755B81 /* LrReportContainerView.m */; };
@@ -296,7 +298,7 @@
 		16D6E7FC219A9C97007B41B7 /* NewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16D6E7FB219A9C97007B41B7 /* NewsViewController.m */; };
 		16D6E803219A9EAE007B41B7 /* OptionalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16D6E802219A9EAE007B41B7 /* OptionalViewController.m */; };
 		16D6E806219A9F88007B41B7 /* MarketViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 16D6E805219A9F88007B41B7 /* MarketViewController.mm */; };
-		16D6E809219A9FB1007B41B7 /* TradeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16D6E808219A9FB1007B41B7 /* TradeViewController.m */; };
+		16D6E809219A9FB1007B41B7 /* TradeViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 16D6E808219A9FB1007B41B7 /* TradeViewController.mm */; };
 		16D6E80D219AB11F007B41B7 /* MarketTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 16D6E80C219AB11F007B41B7 /* MarketTableViewCell.m */; };
 		16D6E811219ABB91007B41B7 /* MarketModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 16D6E810219ABB91007B41B7 /* MarketModel.m */; };
 		16D6E814219AC79A007B41B7 /* MarketTableViewHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16D6E813219AC79A007B41B7 /* MarketTableViewHeaderView.m */; };
@@ -832,6 +834,10 @@
 		1693AFF021C8D1D900A2155A /* AMSDBManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AMSDBManager.m; sourceTree = "<group>"; };
 		1693AFF221C8D37200A2155A /* CollectQuatationDBModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CollectQuatationDBModel.h; sourceTree = "<group>"; };
 		1693AFF321C8D37200A2155A /* CollectQuatationDBModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CollectQuatationDBModel.m; sourceTree = "<group>"; };
+		1693AFF621C9D8D600A2155A /* QryQuotationRequestModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QryQuotationRequestModel.h; sourceTree = "<group>"; };
+		1693AFF721C9D8D600A2155A /* QryQuotationRequestModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QryQuotationRequestModel.m; sourceTree = "<group>"; };
+		1693AFF921CA021200A2155A /* ConfigModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfigModel.h; sourceTree = "<group>"; };
+		1693AFFA21CA021200A2155A /* ConfigModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConfigModel.m; sourceTree = "<group>"; };
 		169727C12186B45F009F6F65 /* AppDelegate+AppSevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+AppSevice.h"; sourceTree = "<group>"; };
 		169727C22186B45F009F6F65 /* AppDelegate+AppSevice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+AppSevice.m"; sourceTree = "<group>"; };
 		169727CD2186D92E009F6F65 /* UtilsMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UtilsMacros.h; sourceTree = "<group>"; };
@@ -875,7 +881,7 @@
 		16D6E804219A9F88007B41B7 /* MarketViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarketViewController.h; sourceTree = "<group>"; };
 		16D6E805219A9F88007B41B7 /* MarketViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MarketViewController.mm; sourceTree = "<group>"; };
 		16D6E807219A9FB1007B41B7 /* TradeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TradeViewController.h; sourceTree = "<group>"; };
-		16D6E808219A9FB1007B41B7 /* TradeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TradeViewController.m; sourceTree = "<group>"; };
+		16D6E808219A9FB1007B41B7 /* TradeViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TradeViewController.mm; sourceTree = "<group>"; };
 		16D6E80B219AB11F007B41B7 /* MarketTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarketTableViewCell.h; sourceTree = "<group>"; };
 		16D6E80C219AB11F007B41B7 /* MarketTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarketTableViewCell.m; sourceTree = "<group>"; };
 		16D6E80F219ABB91007B41B7 /* MarketModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarketModel.h; sourceTree = "<group>"; };
@@ -1665,6 +1671,8 @@
 				16AB268021BDFADD00755B81 /* field_key.h */,
 				16D6E7FD219A9D5E007B41B7 /* AMSConstant.h */,
 				169727CD2186D92E009F6F65 /* UtilsMacros.h */,
+				1693AFF921CA021200A2155A /* ConfigModel.h */,
+				1693AFFA21CA021200A2155A /* ConfigModel.m */,
 			);
 			path = Define;
 			sourceTree = "<group>";
@@ -1802,7 +1810,7 @@
 			isa = PBXGroup;
 			children = (
 				16D6E807219A9FB1007B41B7 /* TradeViewController.h */,
-				16D6E808219A9FB1007B41B7 /* TradeViewController.m */,
+				16D6E808219A9FB1007B41B7 /* TradeViewController.mm */,
 				167E8A8621A53BCD00096C93 /* SearchViewController.h */,
 				167E8A8721A53BCD00096C93 /* SearchViewController.m */,
 			);
@@ -1869,6 +1877,8 @@
 				1693AC0321C6A30000A2155A /* QryExchangeAllInstrustResponseModel.m */,
 				1693AFF221C8D37200A2155A /* CollectQuatationDBModel.h */,
 				1693AFF321C8D37200A2155A /* CollectQuatationDBModel.m */,
+				1693AFF621C9D8D600A2155A /* QryQuotationRequestModel.h */,
+				1693AFF721C9D8D600A2155A /* QryQuotationRequestModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2187,6 +2197,7 @@
 				166DDC03218AE34E00D43461 /* Y_StockChartView.m in Sources */,
 				1693AF6121C783C200A2155A /* User_Reqqryewarrantoffset.m in Sources */,
 				1693AFB221C783C200A2155A /* User_Onrspqrysecagentcheckmode.m in Sources */,
+				1693AFFB21CA021200A2155A /* ConfigModel.m in Sources */,
 				1693AF6021C783C200A2155A /* User_Reqqrysecagenttradingaccount.m in Sources */,
 				1693AFD621C783C200A2155A /* User_Onrspqryinvestorpositiondetail.m in Sources */,
 				1693AF8021C783C200A2155A /* User_Reqqryproduct.m in Sources */,
@@ -2239,7 +2250,7 @@
 				1693AFD521C783C200A2155A /* User_Onrspexecorderaction.m in Sources */,
 				16AB268E21C2295900755B81 /* LoginViewController.mm in Sources */,
 				166DDC0C218AE34E00D43461 /* Y_KLineModel.m in Sources */,
-				16D6E809219A9FB1007B41B7 /* TradeViewController.m in Sources */,
+				16D6E809219A9FB1007B41B7 /* TradeViewController.mm in Sources */,
 				16D6E803219A9EAE007B41B7 /* OptionalViewController.m in Sources */,
 				1693AF7221C783C200A2155A /* User_Reqqryinvestunit.m in Sources */,
 				1693AF8421C783C200A2155A /* User_Requserlogout.m in Sources */,
@@ -2429,6 +2440,7 @@
 				1693AFAC21C783C200A2155A /* User_Onrspqryewarrantoffset.m in Sources */,
 				16D6E806219A9F88007B41B7 /* MarketViewController.mm in Sources */,
 				166DDC10218AE34E00D43461 /* Y_KLineVolume.m in Sources */,
+				1693AFF821C9D8D600A2155A /* QryQuotationRequestModel.m in Sources */,
 				16552F0C21AD145F00FA511D /* KlineSelectCycleCollectionViewCell.m in Sources */,
 				1633D02E21A8056B002E0FD0 /* MessageCenterController.m in Sources */,
 				1693AFE621C783C200A2155A /* User_Onrspqryinstrumentmarginrate.m in Sources */,

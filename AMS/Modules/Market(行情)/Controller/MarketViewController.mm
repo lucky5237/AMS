@@ -20,8 +20,10 @@
 #import "AMSConstant.h"
 #import "QryQuotationResponseModel.h"
 #import "CollectQuatationDBModel.h"
-#import <JQFMDB.h>
-
+#import "QryQuotationRequestModel.h"
+#import "best_sdk_define.h"
+#import <MJExtension.h>
+#import <AFNetworking.h>
 @interface MarketViewController ()<UIScrollViewDelegate,UIGestureRecognizerDelegate>
 @property(nonatomic,strong) MarketTableViewHeaderView *headerView;
 @property(nonatomic,assign) FallRiseBtnType fallRiseBtnType;
@@ -32,6 +34,9 @@
 @property(nonatomic,strong) AMSLdatum *currentSelectModel;
 @property(nonatomic,strong) PullDownMenuView *pullDownMenuView;//下拉选择
 @property(nonatomic,strong) UIButton *arrowBtn;
+@property(nonatomic,copy) NSMutableArray *queryArray;
+@property(nonatomic,strong) NSTimer *timer;
+@property(nonatomic,assign)BOOL hasAccessSocket;
 @end
 
 #define identifier @"MarketTableViewCell"
@@ -44,13 +49,13 @@
         kWeakSelf(self)
         _headerView.fallRiseBtnBlock = ^(NSInteger tag) {
             kStrongSelf(self)
-//            self.fallRiseBtnType = tag;
+            //            self.fallRiseBtnType = tag;
             [self.tableView reloadData];
         };
         
         _headerView.volumeBtnBlock = ^(NSInteger tag) {
             kStrongSelf(self)
-//            self.volumeBtnType = tag;
+            //            self.volumeBtnType = tag;
             [self.tableView reloadData];
         };
     }
@@ -77,6 +82,18 @@
     return _arrowBtn;
 }
 
+//-(NSTimer *)timer{
+//    if (_timer) {
+//       _timer = [NSTimer scheduledTimerWithTimeInterval:HTTP_REQUEST_TIME target:self selector:@selector(httpRepeatRuquest) userInfo:nil repeats:YES];
+//        [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
+//    }
+//    return _timer;
+//}
+
+-(void)httpRepeatRuquest{
+//    NSLog(@"模拟http请求");
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -93,8 +110,11 @@
     //添加长按事件
     UILongPressGestureRecognizer *longPressGecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(tableViewDidLongPressed:)];
     [self.tableView addGestureRecognizer:longPressGecognizer];
-    //获取数据
-    [self fetchData:self.isOption];
+    
+    if(!self.isOption){
+         [self fetchData:self.isOption];
+    }
+   
 }
 
 -(void)tableViewDidTapped:(UITapGestureRecognizer*)tap{
@@ -112,25 +132,18 @@
     return NO;
 }
 
+-(void)didConnectSocket:(NSNotification *)noti{
+        [self fetchData:self.isOption];
+
+}
+
 /**
  获取数据
  */
 -(void)fetchData:(BOOL)isOption{
-    //模拟数据
-//    for (int i = 0; i < 10; i++){
-//        AMSLdatum *model = [[MarketModel alloc] init];
-//        model.marketId = @(i);
-//        model.name = [NSString stringWithFormat:@"期货名字%d",i];
-//        model.price = @(i+1);
-//        model.fallRise = @(6.0);
-//        model.fallRisePer = @(1.0);
-//        model.volume = @(i+2);
-//        model.openInterest = @(1000);
-//        model.dailyIncrement = @(10);
-//        model.hasCollect = i % 2 == 0;
-//        [self.dataArray addObject:model];
-//    }
+   
     if (!self.isOption) {
+        [self qryQuotation:[QryQuotationRequestModel new]];
 //        User_Reqqryinstrument *request = [[User_Reqqryinstrument alloc] init];
 //        [[SocketRequestManager shareInstance] qryInstrument:request];
     }else{
@@ -138,54 +151,135 @@
         NSArray *quotationArray = [[AMSDBManager shareInstance] queryAllQuotations];
         NSLog(@"表中所有数据:%@", quotationArray);
         if (quotationArray.count == 0) {
-            NSLog(@"暂未添加到自选");
+            NSLog(@"暂未添加自选");
         }else{
+            QryQuotationRequestModel *requestModel = [[QryQuotationRequestModel alloc] init];
+            
+            NSMutableArray *queryArray = @[].mutableCopy;
             [quotationArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 CollectQuatationDBModel *model = obj;
-                
+                QryQuotationRequestSubModel *subModel =  [[QryQuotationRequestSubModel alloc] init];
+                subModel.stockCodeInternal = model.instrumentID;
+                [queryArray addObject:subModel];
             }];
+            requestModel.stockTradeMins = queryArray;
+            [self qryQuotation:requestModel];
         }
-        [self.dataArray removeAllObjects];
-        [self.dataArray addObjectsFromArray:quotationArray];
-        [self.tableView reloadData];
     }
 }
 
 -(void)didReceiveSocketData:(NSNotification *)noti{
-    NSString *repJson = noti.object;
-    NSLog(@"合约详情-- %@",repJson);
-    User_Onrspqryinstrument *response  = (User_Onrspqryinstrument *)[User_Onrspqryinstrument yy_modelWithJSON:repJson];
-    if(response.InstrumentID != nil && response.InstrumentID.length > 0 ){
-        [self qryQuotation:response.InstrumentID];
-    }else{
-        [MBProgressHUD showErrorMessage:@"合约代码为空"];
+    [super didReceiveSocketData:noti];
+    if((int32)self.funtionNo.integerValue == AS_SDK_USER_ONRSPQRYINSTRUMENT){
+        NSArray *repArray = self.response;
+        //    NSLog(@"合约详情-- %@",repJson);
+        //    User_Onrspqryinstrument *response  = (User_Onrspqryinstrument *)[User_Onrspqryinstrument yy_modelWithJSON:repJson];
+        //    NSLog(@"%@",response.InstrumentID);
+        if(repArray.count > 0){
+            [repArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                User_Onrspqryinstrument *responseObject = (User_Onrspqryinstrument *)obj;
+                QryQuotationRequestSubModel *subModel = [[QryQuotationRequestSubModel alloc] init];
+                subModel.stockCodeInternal = responseObject.InstrumentID;
+                [self.queryArray addObject:subModel];
+            }];
+            
+            QryQuotationRequestModel *requestModel = [[QryQuotationRequestModel alloc] init];
+            requestModel.stockTradeMins = self.queryArray;
+            [self qryQuotation:requestModel];
+        }else{
+            [MBProgressHUD showErrorMessage:@"暂无数据"];
+        }
     }
-    
 }
 
--(void)qryQuotation:(NSString *)instrumentID{
-    NSDictionary *dict = @{@"stockTradeMins":@[@{@"stockCodeInternal":instrumentID}]};
-    [NetWorking requestWithApi:[NSString stringWithFormat:@"%@%@",BaseUrl,QryQuotation_URL] reqeustType:POST_Type param:dict thenSuccess:^(NSDictionary *responseObject) {
-        QryQuotationResponseModel *model = [QryQuotationResponseModel yy_modelWithDictionary:responseObject];
-        NSArray *dataList = model.ldata;
-        if (dataList.count> 0) {
-            [self.dataArray removeAllObjects];
-            [self.dataArray addObjectsFromArray:dataList];
-            [self.tableView reloadData];
-        }else{
-           [MBProgressHUD showErrorMessage:@"暂无数据"];
-        }
+-(NSMutableArray *)queryArray{
+    if (!_queryArray) {
+        _queryArray = [NSMutableArray array];
+    }
+    return _queryArray;
+}
 
-    } fail:^(NSString *str) {
+-(void)qryQuotation:(QryQuotationRequestModel *)model{
+    if (model == nil) {
+        return;
+    }
+    if (!self.isOption) {
+        QryQuotationRequestSubModel *subModel=  [[QryQuotationRequestSubModel alloc] init];
+        subModel.stockCodeInternal  = @"a1903";
+        QryQuotationRequestSubModel *subModel1=  [[QryQuotationRequestSubModel alloc] init];
+        subModel1.stockCodeInternal  = @"zn1912";
+        QryQuotationRequestSubModel *subModel2=  [[QryQuotationRequestSubModel alloc] init];
+        subModel2.stockCodeInternal  = @"a1901";
+        model.stockTradeMins = @[subModel,subModel1,subModel2];
+    }
+   
+    NSString *str =  [model.stockTradeMins.mutableCopy yy_modelToJSONString];
+    NSLog(@"json string is %@",str);
+    NSDictionary *dict = @{@"stockTradeMins":str};
+   
+    NSLog(@"%@",dict);
+        [NetWorking requestWithApi:[NSString stringWithFormat:@"%@%@",BaseUrl,QryQuotation_URL] reqeustType:POST_Type param:dict thenSuccess:^(NSDictionary *responseObject) {
+            QryQuotationResponseModel *model = [QryQuotationResponseModel yy_modelWithDictionary:responseObject];
+            NSArray *dataList = model.ldata;
+            if (dataList.count> 0) {
+                [self.dataArray removeAllObjects];
+                [self.dataArray addObjectsFromArray:dataList];
+                [self.queryArray removeAllObjects];
+                [self.tableView reloadData];
+                [self startTimer];
+                self.hasAccessSocket = YES;
+            }else{
+               [MBProgressHUD showErrorMessage:@"暂无数据"];
+            }
+    
+        } fail:^(NSString *str) {
+    
+        }];
+//    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+//             };
+//    NSURLSessionDataTask *task = [manager POST:[NSString stringWithFormat:@"%@%@",BaseUrl,QryQuotation_URL] parameters:dict progress:^(NSProgress * _Nonnull uploadProgress) {
+//        //        NSLog(@"进度更新");
+//    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+//        QryQuotationResponseModel *model = [QryQuotationResponseModel yy_modelWithDictionary:responseObject];
+//        NSArray *dataList = model.ldata;
+//        if (dataList.count> 0) {
+//            [self.dataArray removeAllObjects];
+//            [self.dataArray addObjectsFromArray:dataList];
+//            [self.queryArray removeAllObjects];
+//            [self.tableView reloadData];
+//            [self startTimer];
+//            self.hasAccessSocket = YES;
+//        }else{
+//            [MBProgressHUD showErrorMessage:@"暂无数据"];
+//        }
+//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+//        NSLog(@"返回错误：%@",error);
+//    }];
+//    [task resume];
+    
+    
+    
+    
+}
+//开启定时器轮询
+-(void)startTimer{
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:HTTP_REQUEST_TIME target:self selector:@selector(httpRepeatRuquest) userInfo:nil repeats:YES];
+    [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
+}
 
-    }];
+//关闭定时器
+-(void)closeTimer{
+    if (self.timer !=nil) {
+        [self.timer invalidate];
+        self.timer = nil;
+    }
 }
 
 /**
  显示下拉菜单
  */
 -(void)showMenuView{
-    NSDictionary *alwaysInDict = @{@"id":@0,@"name":@"主力合约"};
+    NSDictionary *alwaysInDict = @{@"code":@"main",@"name":@"主力合约"};
     NSArray *selectPlateArray = [kUserDefaults objectForKey:PLATE_SETTING_DICT];
     NSMutableArray *selectArray = [NSMutableArray array];
     [selectArray addObject:alwaysInDict];
@@ -193,9 +287,13 @@
     if (self.pullDownMenuView == nil) {
         PullDownMenuView *pullDownMenuView = [[PullDownMenuView alloc] initWithFrame:CGRectMake(1, 0, KScreenWidth, [PullDownMenuView heightOfMenuView:selectArray]) dataArray:selectArray];
         pullDownMenuView.menuCellTapBlock = ^(NSDictionary * _Nonnull dict) {
+            NSLog(@"%@",dict[@"code"]);
             [self.arrowBtn setTitle:dict[@"name"] forState:UIControlStateNormal];
             [self.arrowBtn sizeToFit];
             [self hideMenuView];
+            User_Reqqryinstrument *request = [[User_Reqqryinstrument alloc] init];
+            [request setExchangeID:dict[@"code"]];
+            [[SocketRequestManager shareInstance] qryInstrument:request];
         };
         self.pullDownMenuView = pullDownMenuView;
         self.pullDownMenuView.layer.shadowColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:1].CGColor;
@@ -256,11 +354,18 @@
                 [self.menuView.collectBtn zj_addBtnActionHandler:^{
                     AMSLdatum *model = self.dataArray[self.currentIndexPath.row];
                     if([[AMSDBManager shareInstance] isQuotationCollected:model.stockCodeInternal]){
-//                        CollectQuatationDBModel *dbModel = [[CollectQuatationDBModel alloc] init];
-//                        dbModel.instrumentID = model.stockCodeInternal;
-//                        dbModel.instrumentName = model.stockName;
+                        //                        CollectQuatationDBModel *dbModel = [[CollectQuatationDBModel alloc] init];
+                        //                        dbModel.instrumentID = model.stockCodeInternal;
+                        //                        dbModel.instrumentName = model.stockName;
                         if ([[AMSDBManager shareInstance] deleteQuotation:model.stockCodeInternal]) {
                             [MBProgressHUD showSuccessMessage:@"删除自选成功"];
+                            if (self.isOption) {
+                                [self.tableView deleteRowsAtIndexPaths:@[self.currentIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                            }else{
+                                model.hasCollect = !model.hasCollect;
+                                [self.tableView reloadRowsAtIndexPaths:@[self.currentIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+//                                [self disAppearOpView];
+                            }
                         }else{
                             NSLog(@"删除数据失败--");
                         }
@@ -271,18 +376,25 @@
                         dbModel.instrumentName = model.stockName;
                         if ([[AMSDBManager shareInstance] addQuotations:dbModel]) {
                             [MBProgressHUD showSuccessMessage:[NSString stringWithFormat:@"%@已加入自选",model.stockName]];
+                            model.hasCollect = !model.hasCollect;
+                            [self.tableView reloadRowsAtIndexPaths:@[self.currentIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                            
                         }else{
                             NSLog(@"添加数据失败--");
                         }
                     }
-                    model.hasCollect = !model.hasCollect;
-                    [self.tableView reloadRowsAtIndexPaths:@[self.currentIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                
                     [self disAppearOpView];
+                   
                 }];
                 
                 [self.menuView.goTradeBtn zj_addBtnActionHandler:^{
                     AMSLdatum *model = self.dataArray[self.currentIndexPath.row];
-                    [MBProgressHUD showTipMessageInView:[NSString stringWithFormat:@"点击去交易按钮%@",model.stockName]];
+//                    [MBProgressHUD showTipMessageInView:[NSString stringWithFormat:@"点击去交易按钮%@",model.stockName]];
+                    MarketDetailViewController *detailViewVC = [[MarketDetailViewController alloc] init];
+                    detailViewVC.model = self.dataArray[indexPath.row];
+                    detailViewVC.selectIndex = 2;
+                    [self.navigationController pushViewController:detailViewVC animated:YES];
                     [self disAppearOpView];
                 }];
                 
@@ -294,9 +406,14 @@
                 make.left.mas_equalTo(0);
                 make.top.mas_equalTo(cell.mas_bottom);
             }];
-            AMSLdatum *model = self.dataArray[self.currentIndexPath.row];
-            model.hasCollect = [[AMSDBManager shareInstance] isQuotationCollected:model.stockCodeInternal];
-            [self.menuView.collectBtn setSelected:model.hasCollect];
+            if (self.isOption == YES) {
+                [self.menuView.collectBtn setSelected:YES];
+            }else{
+                AMSLdatum *model = self.dataArray[self.currentIndexPath.row];
+                model.hasCollect = [[AMSDBManager shareInstance] isQuotationCollected:model.stockCodeInternal];
+                [self.menuView.collectBtn setSelected:model.hasCollect];
+            }
+          
             self.menuView.isShow = YES;
         }
     }
@@ -329,7 +446,7 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.backgroundColor = kBlackColor;
     AMSLdatum *model = self.dataArray[indexPath.row];
-//    model.hasCollect =
+    //    model.hasCollect =
     [cell configModel:model fallRiseType:self.fallRiseBtnType volumeType:self.volumeBtnType];
     [cell configSelection:indexPath == self.currentIndexPath fallRiseType:self.fallRiseBtnType volumeType:self.volumeBtnType];
     return cell;
@@ -366,7 +483,13 @@
         }];
     }else{
         self.title = @"自选";
+        [self fetchData:self.isOption];
     }
+    
+    if(self.timer == nil && self.hasAccessSocket){
+        [self startTimer];
+    }
+    
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -375,6 +498,15 @@
     if (!_isOption) {
         [self.arrowBtn removeFromSuperview];
     }
+}
+
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    [self closeTimer];
+}
+
+-(void)dealloc{
+    [self closeTimer];
 }
 
 /*

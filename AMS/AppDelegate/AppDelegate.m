@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "AMSSocketManager.h"
+
 #import "AppDelegate+AppSevice.h"
 #import <JLRoutes.h>
 #import <JPFPSStatus.h>
@@ -27,21 +27,19 @@
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    //设置你工程的启动页使用的是:LaunchImage 还是 LaunchScreen.storyboard(不设置默认:LaunchImage)
-//    self.socketManager = [AMSSocketManager shareInstance];
-//    [self.socketManager addSocketClient:SOCKET_NAME_DEFAULT withHost:SOCKET_HOST_DEFAULT withPort:SOCKET_PORT_DEFAULT];
+
+    //添加socket连接
+    [self initSocketConnect];
+//    [NSThread sleepForTimeInterval:2];
     [self initConfig];
     [self initDB];
-    [self setUpRootViewController];
     //    [self checkVersion];
     [self listenNetworkStatus];
-    [self initRoute];
+//    [self initRoute];
     #if defined(DEBUG)||defined(_DEBUG)
         [[JPFPSStatus sharedInstance] open];
     #endif
-    
-    //添加socket连接 默认
-    [[AMSSocketManager shareInstance] addSocketClient:SOCKET_NAME_DEFAULT withHost:SOCKET_HOST_DEFAULT withPort:SOCKET_PORT_DEFAULT];
+    [self setUpRootViewController];
     return YES;
 }
 
