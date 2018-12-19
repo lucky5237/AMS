@@ -235,31 +235,6 @@
         } fail:^(NSString *str) {
     
         }];
-//    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
-//             };
-//    NSURLSessionDataTask *task = [manager POST:[NSString stringWithFormat:@"%@%@",BaseUrl,QryQuotation_URL] parameters:dict progress:^(NSProgress * _Nonnull uploadProgress) {
-//        //        NSLog(@"进度更新");
-//    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//        QryQuotationResponseModel *model = [QryQuotationResponseModel yy_modelWithDictionary:responseObject];
-//        NSArray *dataList = model.ldata;
-//        if (dataList.count> 0) {
-//            [self.dataArray removeAllObjects];
-//            [self.dataArray addObjectsFromArray:dataList];
-//            [self.queryArray removeAllObjects];
-//            [self.tableView reloadData];
-//            [self startTimer];
-//            self.hasAccessSocket = YES;
-//        }else{
-//            [MBProgressHUD showErrorMessage:@"暂无数据"];
-//        }
-//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//        NSLog(@"返回错误：%@",error);
-//    }];
-//    [task resume];
-    
-    
-    
-    
 }
 //开启定时器轮询
 -(void)startTimer{

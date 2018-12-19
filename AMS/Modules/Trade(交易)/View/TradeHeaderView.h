@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+@class AMSLdatum;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -31,6 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UITextField *priceTf;
 @property (weak, nonatomic) IBOutlet UITextField *numTf;
 @property(nonatomic,strong) UIButton *lockBtn;
+
+-(void)configPriceData:(AMSLdatum*)data;
 @end
 
 NS_ASSUME_NONNULL_END

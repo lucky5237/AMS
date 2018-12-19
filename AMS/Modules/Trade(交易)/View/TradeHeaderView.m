@@ -7,6 +7,7 @@
 //
 
 #import "TradeHeaderView.h"
+#import "AMSQryQuotationResponse.h"
 @interface TradeHeaderView()
 
 @end
@@ -62,7 +63,9 @@
     self.nameTf.leftViewMode = UITextFieldViewModeAlways;
 
 }
-
+-(void)configPriceData:(AMSLdatum *)data{
+    
+}
 
 /*
 // Only override drawRect: if you perform custom drawing.

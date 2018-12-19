@@ -21,6 +21,7 @@
 #import "User_Reqorderinsert.h"
 #import "User_Onrspquoteinsert.h"
 #import "SocketRequestManager.h"
+#import "QryQuotationRequestModel.h"
 @interface TradeViewController ()<LrReportContainerViewDelegate,UITextFieldDelegate>
 @property(nonatomic,strong) TradeHeaderView *headerView;
 @property(nonatomic,strong) UISegmentedControl *segmentedControl;
@@ -89,8 +90,8 @@
     [self.containerView layoutIfNeeded];
     [self fetchReportViewData:ChiChangType];
     self.containerView.currentSelectIndex = ChiChangType;
-    //http轮询查询最新价格
-    
+   
+   
 }
 
 -(void)fetchReportViewData:(NSInteger)index{
@@ -478,6 +479,29 @@
     }
 }
 
+//http轮询最新的价格
+-(void)requestNewestPriceInfo{
+    QryQuotationRequestModel *requestModel = [[QryQuotationRequestModel alloc] init];
+    QryQuotationRequestSubModel *subModel = [[QryQuotationRequestSubModel alloc] init];
+    subModel.stockCodeInternal = self.model.stockCodeInternal;
+    requestModel.stockTradeMins = @[subModel];
+        NSString *str =  [requestModel.stockTradeMins.mutableCopy yy_modelToJSONString];
+        NSDictionary *dict = @{@"stockTradeMins":str};
+
+        [NetWorking requestWithApi:[NSString stringWithFormat:@"%@%@",BaseUrl,QryQuotation_URL] reqeustType:POST_Type param:dict thenSuccess:^(NSDictionary *responseObject) {
+            QryQuotationResponseModel *model = [QryQuotationResponseModel yy_modelWithDictionary:responseObject];
+            NSArray *dataList = model.ldata;
+            if (dataList.count> 0) {
+                [self.headerView config];
+            }else{
+                [MBProgressHUD showErrorMessage:@"暂无数据"];
+            }
+            
+        } fail:^(NSString *str) {
+            
+        }];
+}
+
 //-(CGFloat)reportView:(LMReportView *)reportView heightOfRow:(NSInteger)row{
 //    if (row == 0) {
 //        return 38;
@@ -495,6 +519,17 @@
         self.rdv_tabBarController.tabBarHidden = NO;
     }else{
         self.rdv_tabBarController.navigationItem.rightBarButtonItem = self.menuBtnItem;
+            //http轮询查询最新价格
+        if (self.timer == nil) {
+            kWeakSelf(self);
+            self.timer = [NSTimer timerWithTimeInterval:HTTP_REQUEST_TIME repeats:YES block:^(NSTimer * _Nonnull timer) {
+                NSLog(@"http 轮询");
+                kStrongSelf(self);
+                [self requestNewestPriceInfo];
+                
+            }];
+        }
+        
     }
 }
 
@@ -504,6 +539,20 @@
         self.rdv_tabBarController.tabBarHidden = YES;
     }else{
         self.rdv_tabBarController.navigationItem.rightBarButtonItem = nil;
+    }
+}
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    if (self.timer !=nil) {
+        [self.timer invalidate];
+        self.timer= nil;
+    }
+}
+
+-(void)dealloc{
+    if (self.timer !=nil) {
+        [self.timer invalidate];
+        self.timer= nil;
     }
 }
 
