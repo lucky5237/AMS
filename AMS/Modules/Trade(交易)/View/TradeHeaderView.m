@@ -7,7 +7,7 @@
 //
 
 #import "TradeHeaderView.h"
-#import "AMSQryQuotationResponse.h"
+#import "QryQuotationResponseModel.h"
 @interface TradeHeaderView()
 
 @end
@@ -64,7 +64,12 @@
 
 }
 -(void)configPriceData:(AMSLdatum *)data{
-    
+    self.theNewPriceLabel.text = data.latestPrice;
+    self.salePriceLabel.text = data.salePrice1;
+    self.buyPriceLabel.text = data.buyPrice1;
+    self.saleNumLabel.text = data.saleAmount1;
+    self.buyNumLabel.text = data.buyAmount1;
+    self.buymo
 }
 
 /*
