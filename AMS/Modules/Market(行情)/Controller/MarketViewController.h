@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MarketViewController : BaseTableViewController
 @property(nonatomic,assign) BOOL isOption;
+
 @end
 
 NS_ASSUME_NONNULL_END

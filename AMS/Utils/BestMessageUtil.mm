@@ -14,6 +14,8 @@
 #import "field_key.h"
 #import "AppDelegate.h"
 #import "best_sdk_define.h"
+#import "ConfigModel.h"
+
 @implementation BestMessageUtil
 
 static int requestId = 0;
@@ -46,7 +48,7 @@ static int requestId = 0;
         NSString *realKeyName = [@"FIELD_KEY_" stringByAppendingString:proName];
         NSNumber* fieldKey = kAppDelegate.configModel.FIELD_KEY_DICTS[realKeyName] ?: @0;
         //int类型
-        if ([[NSString stringWithCString:[AMSUtil getPropertyType:property]  encoding:NSUTF8StringEncoding] isEqualToString:@"i"]) {
+        if ([[NSString stringWithCString:[AMSUtil getPropertyType:property]  encoding:NSUTF8StringEncoding] isEqualToString:@"NSNumber"]) {
             NSNumber* proValue = (NSNumber* )[model valueForKey:proName] ?: @0;
             auto field = m_factory ->CreateBestField();
             field->SetInt32((int32)proValue.integerValue);

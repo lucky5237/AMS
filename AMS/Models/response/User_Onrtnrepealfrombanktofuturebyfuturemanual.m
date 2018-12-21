@@ -1,0 +1,6 @@
+//系统运行时期货端手工发起冲正银行转期货请求，银行处理完毕后报盘发回的通知
+#import "User_Onrtnrepealfrombanktofuturebyfuturemanual.h"
+
+@implementation User_Onrtnrepealfrombanktofuturebyfuturemanual
+
+@end

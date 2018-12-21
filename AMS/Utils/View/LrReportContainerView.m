@@ -7,6 +7,9 @@
 //
 
 #import "LrReportContainerView.h"
+#import "User_Onrspqryinvestorposition.h"
+#import "User_Onrspqrytrade.h"
+#import "User_Onrtnorder.h"
 
 @interface LrReportContainerView ()<UIScrollViewDelegate,LMReportViewDelegate,LMReportViewDatasource>
 @property(nonatomic,strong) UIScrollView *scrollView;
@@ -173,10 +176,146 @@
         grid.text = self.titleItemArray[reportView.tag - 1][indexPath.col];
         grid.font = kFontSize(13);
     }else{
-        grid.backgroundColor = kCellBackGroundColor;
-        grid.textColor = kWhiteColor;
-        grid.text = [NSString stringWithFormat:@"%@",self.dataArray[reportView.tag - 1][indexPath.row-1] [indexPath.col]];
-        grid.font = kFontSize(15);
+         grid.textColor = kWhiteColor;
+         grid.backgroundColor = kCellBackGroundColor;
+        //持仓表
+        if(reportView.tag - 1 == ChiChangType){
+              User_Onrspqryinvestorposition *item = (User_Onrspqryinvestorposition *)self.dataArray[reportView.tag - 1][indexPath.row-1];
+            //合约名称
+            if (indexPath.col == 0) {
+                grid.text = item.InstrumentID;
+            }
+            if (indexPath.col == 1) {
+                if (item.PosiDirection!= nil) {
+                    if (item.PosiDirection.intValue == 1) {
+                        grid.text = @"净";
+                    }else if (item.PosiDirection.intValue == 2){
+                         grid.text = @"多";
+                        grid.textColor = kRedTextColor;
+                    }else if (item.PosiDirection.intValue == 3){
+                        grid.text = @"空";
+                        grid.textColor = kGreenTextColor;
+                    }
+                }
+            }
+            //总仓
+            if (indexPath.col == 2) {
+                grid.text = [NSString stringWithFormat:@"%@",item.Position];
+            }
+            //可用
+            if (indexPath.col == 3) {
+              grid.text = [NSString stringWithFormat:@"%d",item.Position.intValue - item.LongFrozen.intValue - item.ShortFrozen.intValue > 0 ?: 0];
+            }
+            //开仓均价
+            if (indexPath.col == 4) {
+//                grid.text = [NSString stringWithFormat:@"%ld",item.Position.intValue - item.LongFrozen.intValue - item.ShortFrozen.intValue > 0 ?: 0];
+                grid.text = @"开仓均价";
+            }
+            //逐笔浮盈
+            if (indexPath.col == 5) {
+                grid.text = @"逐笔浮盈";
+                //                grid.text = [NSString stringWithFormat:@"%ld",item.Position.intValue - item.LongFrozen.intValue - item.ShortFrozen.intValue > 0 ?: 0];
+            }
+            
+        }else if (reportView.tag - 1 == GuaDanType){
+            User_Onrtnorder *item = (User_Onrtnorder *)self.dataArray[reportView.tag - 1][indexPath.row-1];
+            //合约名称
+            if (indexPath.col == 0) {
+                grid.text = item.InstrumentID;
+            }
+            //开平
+            if (indexPath.col == 1) {
+                if([item.CombOffsetFlag isEqualToString:@"0"]){
+                    grid.text = @"开";
+                }else if([item.CombOffsetFlag isEqualToString:@"1"]){
+                    grid.text = @"平";
+                }
+                
+            }
+            //委托价
+            if (indexPath.col == 2) {
+                grid.text = [NSString stringWithFormat:@"%@",item.LimitPrice];
+            }
+            //委托量
+            if (indexPath.col == 3) {
+                grid.text = [NSString stringWithFormat:@"%@",item.VolumeTotalOriginal];
+            }
+            //挂单量
+            if (indexPath.col == 4) {
+                grid.text = [NSString stringWithFormat:@"%@",item.VolumeTotal];
+            }
+        }else if (reportView.tag - 1 == WeiTuoType){
+            User_Onrtnorder *item = (User_Onrtnorder *)self.dataArray[reportView.tag - 1][indexPath.row-1];
+            //合约名称
+            if (indexPath.col == 0) {
+                grid.text = item.InstrumentID;
+            }
+            
+            //状态
+            if (indexPath.col == 2) {
+                if([item.CombOffsetFlag isEqualToString:@"0"]){
+                    grid.text = @"开";
+                }else if([item.CombOffsetFlag isEqualToString:@"1"]){
+                    grid.text = @"平";
+                }
+                
+            }
+            //委托价
+            if (indexPath.col == 3) {
+                grid.text = [NSString stringWithFormat:@"%@",item.LimitPrice];
+            }
+            //委托量
+            if (indexPath.col == 4) {
+                grid.text = [NSString stringWithFormat:@"%@",item.VolumeTotalOriginal];
+            }
+            //已成交
+            if (indexPath.col == 5) {
+                grid.text = [NSString stringWithFormat:@"%@",item.VolumeTotal];
+            }
+            //已撤单
+            if (indexPath.col == 6) {
+                grid.text = [NSString stringWithFormat:@"%@",item.VolumeTotal];
+            }
+            //委托时间
+            if (indexPath.col == 7) {
+                grid.text = [NSString stringWithFormat:@"%@",item.InsertTime];
+            }
+        }
+        
+        else if (reportView.tag - 1 == ChengjiaoType){
+             User_Onrspqrytrade *item = (User_Onrspqrytrade *)self.dataArray[reportView.tag - 1][indexPath.row-1];
+            //合约名称
+            if (indexPath.col == 0) {
+                grid.text = item.InstrumentID;
+            }
+            //开平
+            if (indexPath.col == 1) {
+                if([item.OffsetFlag isEqualToString:@"0"]){
+                    grid.text = @"开";
+                }else if([item.OffsetFlag isEqualToString:@"1"]){
+                     grid.text = @"平";
+                }
+              
+            }
+            //成交价
+            if (indexPath.col == 2) {
+                grid.text = [NSString stringWithFormat:@"%@",item.Price];
+            }
+            //成交量
+            if (indexPath.col == 3) {
+                grid.text = [NSString stringWithFormat:@"%@",item.Volume];
+            }
+            //成交时间
+            if (indexPath.col == 4) {
+                grid.text = [NSString stringWithFormat:@"%@",item.TradeDate];
+            }
+        }
+        
+        else{
+            grid.text = [NSString stringWithFormat:@"%@",self.dataArray[reportView.tag - 1][indexPath.row-1] [indexPath.col]];
+            grid.font = kFontSize(15);
+        }
+      
     }
     return grid;
 }

@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong) UIBarButtonItem *menuBtnItem;
 -(void)didReceiveSocketData:(NSNotification *)noti;
 -(void)didConnectSocket:(NSNotification *)noti;
+-(void)didResponseErrorOccurs:(NSNotification *)noti;
 @end
 
 NS_ASSUME_NONNULL_END

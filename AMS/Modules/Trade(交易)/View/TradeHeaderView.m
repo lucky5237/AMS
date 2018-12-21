@@ -8,6 +8,7 @@
 
 #import "TradeHeaderView.h"
 #import "QryQuotationResponseModel.h"
+#import "User_Onrspqrytradingaccount.h"
 @interface TradeHeaderView()
 
 @end
@@ -63,13 +64,43 @@
     self.nameTf.leftViewMode = UITextFieldViewModeAlways;
 
 }
--(void)configPriceData:(AMSLdatum *)data{
+-(void)configPriceData:(AMSLdatum*)data keyBoardType:(CustomKeyBoardBtnType)type{
     self.theNewPriceLabel.text = data.latestPrice;
+    self.theNewNumLabel.text = [NSString stringWithFormat:@"%ld",data.dealAmount];
     self.salePriceLabel.text = data.salePrice1;
-    self.buyPriceLabel.text = data.buyPrice1;
     self.saleNumLabel.text = data.saleAmount1;
+    self.buyPriceLabel.text = data.buyPrice1;
     self.buyNumLabel.text = data.buyAmount1;
-    self.buymo
+    
+    if (type == PaiDui_Price) {
+        self.buyMoreLabel.text = data.buyPrice1;
+        self.saleEmptyLabel.text = data.salePrice1;
+    }else if (type == DuiShou_Price){
+        self.buyMoreLabel.text = data.salePrice1;
+        self.saleEmptyLabel.text = data.buyPrice1;
+    }else if (type == Shi_Price){
+        self.buyMoreLabel.text = data.highPrice;
+        self.saleEmptyLabel.text = data.downPrice;
+    }else if (type == New_Price){
+        self.buyMoreLabel.text = data.latestPrice;
+        self.saleEmptyLabel.text = data.latestPrice;
+    }else if (type == Super_Price){
+        NSDecimalNumber *highPrice = [[NSDecimalNumber alloc] initWithString:data.highPrice];
+        NSDecimalNumber *downPrice = [[NSDecimalNumber alloc] initWithString:data.downPrice];
+        NSDecimalNumber *minChange = [[NSDecimalNumber alloc] initWithString:data.priceChangeRate];
+        self.buyMoreLabel.text = [highPrice decimalNumberByAdding:minChange].stringValue;
+        self.saleEmptyLabel.text = [downPrice decimalNumberBySubtracting:minChange].stringValue;
+    }else{
+        //默认排队价
+        self.buyMoreLabel.text = data.buyPrice1;
+        self.saleEmptyLabel.text = data.salePrice1;
+    }
+}
+
+-(void)configAccountData:(User_Onrspqrytradingaccount *)data{
+    self.equityLabel.text = [NSString stringWithFormat:@"权益：%@",data.Balance];
+    self.canUseLabel.text = [NSString stringWithFormat:@"可用：%@",data.Available];
+    self.usePerLabel.text = [NSString stringWithFormat:@"使用率：%.2f%%",data.CurrMargin.floatValue * 100 / data.Balance.floatValue];
 }
 
 /*

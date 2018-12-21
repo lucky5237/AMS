@@ -18,6 +18,7 @@
         if ([view isKindOfClass:[UIButton class]]) {
             UIButton *menuBtn = (UIButton *)view;
             [menuBtn setZj_btnOnTouchUp:^(UIButton * sender) {
+                self.type = sender.tag;
                 if (self.priceCustomKeyboardBtnTappedBlock) {
                     self.priceCustomKeyboardBtnTappedBlock(sender.tag);
                 }

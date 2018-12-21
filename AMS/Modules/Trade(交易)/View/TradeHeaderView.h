@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @class AMSLdatum;
+@class User_Onrspqrytradingaccount;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -33,7 +34,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UITextField *numTf;
 @property(nonatomic,strong) UIButton *lockBtn;
 
--(void)configPriceData:(AMSLdatum*)data;
+-(void)configPriceData:(AMSLdatum*)data keyBoardType:(CustomKeyBoardBtnType)type;
+-(void)configAccountData:(User_Onrspqrytradingaccount*)data;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -14,6 +14,7 @@
 #import "MessageCenterController.h"
 #import "LoginViewController.h"
 #import "SocketRequestManager.h"
+#import "best_sdk_define.h"
 
 @interface SettingMainViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong) SettingHeaderView *headerView;
@@ -65,6 +66,7 @@
         //添加退出登录按钮
         [self.logOutBtn setHidden:NO];
         [self.headerView.levelBtn setHidden:NO];
+        self.headerView.nameLabel.text = [kUserDefaults objectForKey:UserDefaults_User_ID_key];
         //        [self.headerView.nameLabel setHidden:false];
     }else{
         [self.logOutBtn setHidden:YES];
@@ -189,13 +191,15 @@
 
 -(void)didReceiveSocketData:(NSNotification *)noti{
     [super didReceiveSocketData:noti];
-    NSString *response = noti.object;
-    if (response.length > 0) {
-        NSLog(@"退出登录成功");
-        [MBProgressHUD showSuccessMessage:@"退出登录成功"];
-        [kUserDefaults setObject:nil forKey:UserDefaults_User_ID_key];
-        [self configLoginStatus];
-    }
+//    NSDictionary *dict = noti.object;
+    
+////    (int32)self.funtionNo ==
+//    if ((int32)self.funtionNo == asdonrlogin) {
+//        NSLog(@"退出登录成功");
+//        [MBProgressHUD showSuccessMessage:@"退出登录成功"];
+//        [kUserDefaults setObject:nil forKey:UserDefaults_User_ID_key];
+//        [self configLoginStatus];
+//    }
 }
 
 

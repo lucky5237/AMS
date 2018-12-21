@@ -34,6 +34,7 @@
     User_Requserlogin *loginModel = [[User_Requserlogin alloc] init];
     loginModel.UserID = self.userNameTf.text;
     loginModel.Password = self.passwordTf.text;
+    loginModel.BrokerID = @"9999";
     [MBProgressHUD showActivityMessageInWindow:@""];
     [[SocketRequestManager shareInstance]doLogin:loginModel];
 }
@@ -52,7 +53,6 @@
             }
         }
     }
-    
 }
 
 /*

@@ -16,6 +16,8 @@
 #import "User_Onrspqryinstrument.h"
 #import "AMSConstant.h"
 #import "AppDelegate.h"
+#import "ConfigModel.h"
+#import "AppDelegate+AppSevice.h"
 //#import "SocketResponseManager.h"
 
 @interface AMSSocketManager()<GCDAsyncSocketDelegate>
@@ -177,6 +179,7 @@ return manager;
     NSLog(@"----开始发送数据----");
     AMSSocketClient *toClient = [self socketClient:tag];
     if (toClient == nil) {
+        [MBProgressHUD showErrorMessage:@"未连接服务器"];
         NSLog(@"tag 为%@的socket不存在",tag);
         return;
     }
@@ -226,6 +229,8 @@ return manager;
         if (client.reconnectCount >= AMSReconnectTime) {
             NSLog(@"Socket（tag = %@)连接超过最大限度%d次,不再重连",client.userData, AMSReconnectTime);
             [client cutOffSocket];
+            [MBProgressHUD hideHUD];
+            [MBProgressHUD showErrorMessage:@"服务器连接失败"];
             client.delegate = nil;
             client = nil;
         }else{
@@ -236,48 +241,16 @@ return manager;
     }
 }
 
--(void)socket:(GCDAsyncSocket *)sock didReadPartialDataOfLength:(NSUInteger)partialLength tag:(long)tag{
-    NSLog(@"partialLength is  %ld",partialLength);
-}
-
-- (void)disposeBufferData:(NSData *)data socket:(GCDAsyncSocket *)socket{
-    // 粘包处理方式 保存缓存数据
-    [_readBuf appendData:data];
-    while (_readBuf.length >= 40)//因为头部固定10个字节，数据长度至少要大于10个字节，我们才能得到完整的消息描述信息
-    {
-        NSData *head = [_readBuf subdataWithRange:NSMakeRange(0, 40)];//取得头部数据
-        auto rpcHead = [BestMessageUtil packMessageRPCHead:head];
-        NSInteger length =  rpcHead ->GetTotalLenght();//得出内容长度
-        NSInteger complateDataLength = length;//算出一个包完整的长度(内容长度＋头长度)
-        if (_readBuf.length >= complateDataLength)//如果缓存中数据够一个整包的长度
-        {
-            NSData *data = [_readBuf	 subdataWithRange:NSMakeRange(0, complateDataLength)];//截取一个包的长度(处理粘包)
-            [self handleTcpResponseData:data socket:socket];//处理包数据
-            //从缓存中截掉处理完的数据,继续循环
-            _readBuf = [NSMutableData dataWithData:[_readBuf subdataWithRange:NSMakeRange(complateDataLength, _readBuf.length - complateDataLength)]];
-        }
-        else//如果缓存中的数据长度不够一个包的长度，则包不完整(处理半包，继续读取)
-        {
-            [socket readDataWithTimeout:-1 buffer:_readBuf bufferOffset:_readBuf.length tag:0];//继续读取数据
-            return;
-        }
-    }
-    //缓存中数据都处理完了，继续读取新数据
-    [socket readDataWithTimeout:-1 buffer:_readBuf bufferOffset:_readBuf.length tag:0];
-}
-
-#pragma mark 解析数据
-- (void)analyticalData:(NSData *)data {
-    
-   
-    
-}
-
-
 -(void)handleTcpResponseData:(NSData*)data socket:(GCDAsyncSocket *)sock{
 //    NSLog(@"handleTcpResponseData -- data length is %ld",data.length);
-    best_protocol::IBestMessge* bestMessage = [BestMessageUtil packMessage:data];
-    auto rpcHeader = bestMessage ->GetRpcHead();
+    const void* message = data.bytes;
+    int32 length = (int32)data.length;
+    InitBestMessge();
+    best_protocol::IBestMessgeFactory *m_factory = CreateBestMessgeFactrotyInstance();
+    best_protocol::IBestMessge* phase_best_message = m_factory->CreateBestMessage();
+    phase_best_message->SetBuffer(message, length);
+    phase_best_message->Deserialize();
+    best_protocol::IBestRPCHead* rpcHeader = phase_best_message ->GetRpcHead();
     if (rpcHeader != NULL) {
         auto functionNo = rpcHeader->GetFuncNo();
         if(functionNo != 0){
@@ -288,8 +261,9 @@ return manager;
     }else{
         NSLog(@"rpcHeader is NULL");
     }
-    auto dataMessage = [BestMessageUtil GetBestMessageDataMessage:bestMessage index:0];
-    
+    best_protocol::IBestDataMessage* dataMessage = [BestMessageUtil GetBestMessageDataMessage:phase_best_message index:0];
+    //说明正确，解析数据
+    int32 functionNo = phase_best_message->GetRpcHead()->GetFuncNo();
     if (dataMessage) {
         
         if(dataMessage->GetField(FIELD_KEY_is_RspInfo_null)->GetInt32() == 0 && dataMessage->GetField(FIELD_KEY_ErrorID_in_RspInfo)->GetInt32() != 0){
@@ -301,20 +275,15 @@ return manager;
             NSString * errorMsg = [[NSString alloc] initWithCString:errorMessage encoding:gbkEncoding];
             if (errorMsg.length > 0) {
                 //发送名字为tag的通知
-                [[NSNotificationCenter defaultCenter] postNotificationName:SOCKET_RESPONSE_ERROR_NOTIFICATION_NAME object:errorMsg];
+                [[NSNotificationCenter defaultCenter] postNotificationName:SOCKET_RESPONSE_ERROR_NOTIFICATION_NAME object:@{@"functionNo":@(functionNo),@"errorMsg":errorMsg}];
                 
                 NSLog(@"RESPONSE有错误--- %@",errorMsg);
             }else{
                 NSLog(@"RESPONSE有错误 消息为空");
             }
         }else{
-            //说明正确，解析数据
-            int32 functionNo = bestMessage->GetRpcHead()->GetFuncNo();
-            int32 isLast =  dataMessage->GetField(FIELD_KEY_bIsLast	)->GetInt32();
-            if(isLast == 1){
-                NSLog(@"islast --- 是最后一条");
-            }
-            
+          //特殊处理的响应
+            //心跳答复
             if(functionNo == AS_SDK_USER_HEARTBEAT){
                 [(AMSSocketClient*)sock resetHeartBeatTime];
             }else{
@@ -330,18 +299,26 @@ return manager;
                         id model = [[clazz alloc] init];
                         if (clazz !=nil) {
                             model = [BestMessageUtil modelWithDataMessage:dataMessage modelClass:clazz];
-                            NSLog(@"%@", [model yy_modelToJSONString]);
-//                            NSNumber *value = [model valueForKey:@"bIsLast"];//是不是最后一条数据
-                            [self.mResponseArray addObject:model];
-                            //是最后一条
-                            if (isLast == 1) {
-                                [kNotificationCenter postNotificationName:sock.userData object:@{@"funtionNo":@(functionNo),@"response":self.mResponseArray.copy}];
-                                [self.mResponseArray removeAllObjects];
+                            //判断响应是否有mlast字段，有则等待到结束通知，否则立即响应
+                            if (dataMessage -> IsExistField(FIELD_KEY_bIsLast)) {
+                                [self.mResponseArray addObject:model];
+                                if (dataMessage->GetField(FIELD_KEY_bIsLast)->GetInt32() == 1) {
+                                    [kNotificationCenter postNotificationName:sock.userData object:@{@"functionNo":@(functionNo),@"response":self.mResponseArray.copy}];
+                                    [self.mResponseArray removeAllObjects];
+                                }
                             }else{
-//                                [self.mResponseArray addObject:model];
-//                                NSLog(@"mResponseArray length is %lu",(unsigned long)self.mResponseArray.count);
+                                //报单响应
+                                if(functionNo == AS_SDK_USER_ONRTNORDER){
+                                    [kAppDelegate dealOrderInsertResponse:model];
+                                }else if(functionNo == AS_SDK_USER_ONRTNTRADE){
+                                    //成交通知
+                                    [kAppDelegate dealOrderInsertResponse:model];
+                                }
+                                    else{
+                                     [kNotificationCenter postNotificationName:sock.userData object:@{@"functionNo":@(functionNo),@"response":@[model]}];
+                                }
                             }
-//                            responseJson = [model yy_modelToJSONString];
+
                         }
                     }
                 }
@@ -351,45 +328,49 @@ return manager;
     }else{
         NSLog(@"response DATA MESSAGE is NULL");
     }
+    phase_best_message->Release();
 }
 
 /**读取到服务端数据*/
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag{
-    if (data.length > 0) {
-        
-        [_readBuf appendData:data];
-        
-    }
-    //我们这边定义的head的长度为16个字节，按具体情况。如果大于16个字节就循环取包
-    while (_readBuf.length > 40) {
-        
-        NSData *head = [_readBuf subdataWithRange:NSMakeRange(0, 40)];//取得头部数据
-        auto rpcHead = [BestMessageUtil packMessageRPCHead:head];
-        
-        NSInteger packageLength = rpcHead ->GetTotalLenght();//得出内容长度
-        
-        //从head中取出和服务器协商的消息协议
-//        NSData *operation = [head subdataWithRange:NSMakeRange(8, 4)];;
-        //如果包的长度没有实际包的长度，读取数据等下次拼接
-        if (packageLength > _readBuf.length) {
-            [sock readDataWithTimeout:-1 tag:0];
-            return;
-        }
-//        取出boday
-        NSData *bodyData = [_readBuf subdataWithRange:NSMakeRange(0, packageLength)];
-        
-        //从cacheData中去掉已读取的数据
-        _readBuf = [NSMutableData dataWithData:[_readBuf subdataWithRange:NSMakeRange(packageLength, _readBuf.length - packageLength)]];
-        
-        __weak typeof(self) weakSelf = self;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            //异步处理数据，根据不同数据类型处理不同的事件
-            [weakSelf handleTcpResponseData:bodyData socket:sock];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (data.length > 0) {
+            [self.readBuf appendData:data];
             
-        });
-    }
-    
-    [sock readDataWithTimeout:-1 tag:0];
+        }
+        
+        //我们这边定义的head的长度为16个字节，按具体情况。如果大于16个字节就循环取包
+        while (self.readBuf.length > 40) {
+            
+            NSData *head = [self.readBuf subdataWithRange:NSMakeRange(0, 40)];//取得头部数据
+            auto rpcHead = [BestMessageUtil packMessageRPCHead:head];
+            
+            NSInteger packageLength = rpcHead ->GetTotalLenght();//得出内容长度
+            
+            //从head中取出和服务器协商的消息协议
+            //        NSData *operation = [head subdataWithRange:NSMakeRange(8, 4)];;
+            //如果包的长度没有实际包的长度，读取数据等下次拼接
+            if (packageLength > self.readBuf.length) {
+                [sock readDataWithTimeout:-1 tag:0];
+                return;
+            }
+            //        取出boday
+            NSData *bodyData = [self.readBuf subdataWithRange:NSMakeRange(0, packageLength)];
+            
+            //从cacheData中去掉已读取的数据
+            self.readBuf = [NSMutableData dataWithData:[self.readBuf subdataWithRange:NSMakeRange(packageLength, self.readBuf.length - packageLength)]];
+            
+//            __weak typeof(self) weakSelf = self;
+//            dispatch_async(dispatch_get_main_queue(), ^{
+                //异步处理数据，根据不同数据类型处理不同的事件
+                [self handleTcpResponseData:bodyData socket:sock];
+                
+//            });
+        }
+        
+        [sock readDataWithTimeout:-1 tag:0];
+    });
+   
 }
 
      

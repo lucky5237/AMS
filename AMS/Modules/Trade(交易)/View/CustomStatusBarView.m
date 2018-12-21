@@ -11,6 +11,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *messageLabel;
 @property(nonatomic,assign) NSTimeInterval limitTime;
 @property(nonatomic,assign) BOOL isShowing;
+@property(nonatomic,assign) BOOL isAnimation;
 @end
 @implementation CustomStatusBarView
 - (IBAction)closeBtnTapped:(UIButton *)sender {
@@ -42,7 +43,7 @@ static CustomStatusBarView *__onetimeClass;
     self.limitTime = time;
     self.messageLabel.text = msg;
     [[UIApplication sharedApplication].keyWindow addSubview:self];
-    [UIView animateWithDuration:0.1
+    [UIView animateWithDuration:0.2
                      animations:^{
                          self.frame = CGRectMake(0, kStatusBarHeight, KScreenWidth, kNavBarHeight);
                      }completion:^(BOOL finished) {

@@ -11,7 +11,8 @@
 #import "AppDelegate+AppSevice.h"
 #import <JLRoutes.h>
 #import <JPFPSStatus.h>
-//#import <XHLaunchAd.h>
+#import "ConfigModel.h"
+#import <RDVTabBarController.h>
 @interface AppDelegate ()
 
 @end
@@ -24,6 +25,20 @@
  */
 +(AppDelegate *)shareAppDelegate{
     return (AppDelegate*)[UIApplication sharedApplication].delegate;
+}
+
+-(NSMutableArray *)guadanOrderArray{
+    if (!_guadanOrderArray) {
+        _guadanOrderArray = [[NSMutableArray alloc] init];
+    }
+    return _guadanOrderArray;
+}
+
+-(NSMutableArray *)weituoOrderArray{
+    if (!_weituoOrderArray) {
+        _weituoOrderArray = [[NSMutableArray alloc] init];
+    }
+    return _weituoOrderArray;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {

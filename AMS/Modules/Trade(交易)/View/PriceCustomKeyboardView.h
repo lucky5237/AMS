@@ -21,8 +21,10 @@ typedef void(^PriceCustomKeyboardBtnTappedBlock)(CustomKeyBoardBtnType type);
 //- (IBAction)superPriceBtnTapped:(UIButton *)sender;
 //- (IBAction)oneBtnTapped:(UIButton *)sender;
 //- (IBAction)twoPriceBtnTapped:(UIButton *)sender;
+//@property (weak, nonatomic) IBOutlet UILabel *topHintLabel;
 @property(nonatomic,copy)PriceCustomKeyboardBtnTappedBlock priceCustomKeyboardBtnTappedBlock;
 @property(nonatomic,assign) BOOL isUsingSystemPrice;
+@property(nonatomic,assign)CustomKeyBoardBtnType type;
 -(void)configTopHintMsg:(double)minChangePrice riseStopPrice:(double) riseStopPrice fallStopPrice:(double)fallStopPrice;
 
 @end

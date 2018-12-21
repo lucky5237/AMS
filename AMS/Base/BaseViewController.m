@@ -99,14 +99,15 @@
     NSLog(@"%@收到通知",NSStringFromClass([self class]));
 //    NSData *data = (NSData*) noti;
     NSDictionary *responseData = noti.object;
-    self.funtionNo = [responseData objectForKey:@"funtionNo"];
+    self.funtionNo = [responseData objectForKey:@"functionNo"];
     self.response = [responseData objectForKey:@"response"];
 }
 
 -(void)didResponseErrorOccurs:(NSNotification *)noti{
 //    [MBProgressHUD hideHUD];
     NSLog(@"%@答复出错",NSStringFromClass([self class]));
-    NSString *errorMsg = noti.object;
+    NSDictionary *errorData = noti.object;
+    NSString *errorMsg = [errorData objectForKey:@"errorMsg"];
     [MBProgressHUD showErrorMessage:errorMsg];
 }
 

@@ -1,0 +1,6 @@
+//系统运行时期货端手工发起冲正银行转期货错误回报
+#import "User_Onerrrtnrepealbanktofuturebyfuturemanual.h"
+
+@implementation User_Onerrrtnrepealbanktofuturebyfuturemanual
+
+@end

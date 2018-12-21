@@ -434,7 +434,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
-                <outlet property="topHintLabel" destination="GgN-6l-e5D" id="bNS-u0-N6t"/>
+                <outlet property="topHintLabel" destination="GgN-6l-e5D" id="xDR-gS-Qjp"/>
             </connections>
             <point key="canvasLocation" x="-687.20000000000005" y="-63.418290854572717"/>
         </view>

@@ -49,13 +49,13 @@
         kWeakSelf(self)
         _headerView.fallRiseBtnBlock = ^(NSInteger tag) {
             kStrongSelf(self)
-            //            self.fallRiseBtnType = tag;
+            self.fallRiseBtnType = tag == 0 ? FallRise : FallRisePer;
             [self.tableView reloadData];
         };
         
         _headerView.volumeBtnBlock = ^(NSInteger tag) {
             kStrongSelf(self)
-            //            self.volumeBtnType = tag;
+            self.volumeBtnType = tag == 0 ? Volume : (tag == 1 ?  OpenInterest : DailyIncrement);
             [self.tableView reloadData];
         };
     }
@@ -92,6 +92,9 @@
 
 -(void)httpRepeatRuquest{
 //    NSLog(@"模拟http请求");
+    QryQuotationRequestModel *requestModel = [[QryQuotationRequestModel alloc] init];
+    requestModel.stockTradeMins = self.queryArray;
+    [self qryQuotation:requestModel];
 }
 
 - (void)viewDidLoad {
@@ -111,9 +114,9 @@
     UILongPressGestureRecognizer *longPressGecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(tableViewDidLongPressed:)];
     [self.tableView addGestureRecognizer:longPressGecognizer];
     
-    if(!self.isOption){
-         [self fetchData:self.isOption];
-    }
+//    if(!self.isOption){
+//         [self fetchData:self.isOption];
+//    }
    
 }
 
@@ -143,9 +146,10 @@
 -(void)fetchData:(BOOL)isOption{
    
     if (!self.isOption) {
-        [self qryQuotation:[QryQuotationRequestModel new]];
-//        User_Reqqryinstrument *request = [[User_Reqqryinstrument alloc] init];
-//        [[SocketRequestManager shareInstance] qryInstrument:request];
+        User_Reqqryinstrument *request = [[User_Reqqryinstrument alloc] init];
+        [MBProgressHUD showActivityMessageInView:@""];
+        request.ExchangeID = @"INE";
+        [[SocketRequestManager shareInstance] qryInstrument:request];
     }else{
         //查找表中所有数据
         NSArray *quotationArray = [[AMSDBManager shareInstance] queryAllQuotations];
@@ -162,6 +166,7 @@
                 subModel.stockCodeInternal = model.instrumentID;
                 [queryArray addObject:subModel];
             }];
+            self.queryArray = queryArray;
             requestModel.stockTradeMins = queryArray;
             [self qryQuotation:requestModel];
         }
@@ -170,8 +175,10 @@
 
 -(void)didReceiveSocketData:(NSNotification *)noti{
     [super didReceiveSocketData:noti];
+    [MBProgressHUD hideHUD];
     if((int32)self.funtionNo.integerValue == AS_SDK_USER_ONRSPQRYINSTRUMENT){
         NSArray *repArray = self.response;
+        [self.queryArray removeAllObjects];
         //    NSLog(@"合约详情-- %@",repJson);
         //    User_Onrspqryinstrument *response  = (User_Onrspqryinstrument *)[User_Onrspqryinstrument yy_modelWithJSON:repJson];
         //    NSLog(@"%@",response.InstrumentID);
@@ -203,28 +210,19 @@
     if (model == nil) {
         return;
     }
-    if (!self.isOption) {
-        QryQuotationRequestSubModel *subModel=  [[QryQuotationRequestSubModel alloc] init];
-        subModel.stockCodeInternal  = @"a1903";
-        QryQuotationRequestSubModel *subModel1=  [[QryQuotationRequestSubModel alloc] init];
-        subModel1.stockCodeInternal  = @"zn1912";
-        QryQuotationRequestSubModel *subModel2=  [[QryQuotationRequestSubModel alloc] init];
-        subModel2.stockCodeInternal  = @"a1901";
-        model.stockTradeMins = @[subModel,subModel1,subModel2];
-    }
-   
+    
     NSString *str =  [model.stockTradeMins.mutableCopy yy_modelToJSONString];
-    NSLog(@"json string is %@",str);
+//    NSLog(@"json string is %@",str);
     NSDictionary *dict = @{@"stockTradeMins":str};
    
-    NSLog(@"%@",dict);
+//    NSLog(@"%@",dict);
         [NetWorking requestWithApi:[NSString stringWithFormat:@"%@%@",BaseUrl,QryQuotation_URL] reqeustType:POST_Type param:dict thenSuccess:^(NSDictionary *responseObject) {
             QryQuotationResponseModel *model = [QryQuotationResponseModel yy_modelWithDictionary:responseObject];
             NSArray *dataList = model.ldata;
             if (dataList.count> 0) {
                 [self.dataArray removeAllObjects];
                 [self.dataArray addObjectsFromArray:dataList];
-                [self.queryArray removeAllObjects];
+//                [self.queryArray removeAllObjects];
                 [self.tableView reloadData];
                 [self startTimer];
                 self.hasAccessSocket = YES;
@@ -238,8 +236,10 @@
 }
 //开启定时器轮询
 -(void)startTimer{
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:HTTP_REQUEST_TIME target:self selector:@selector(httpRepeatRuquest) userInfo:nil repeats:YES];
-    [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
+    if(self.timer == nil){
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:HTTP_REQUEST_TIME target:self selector:@selector(httpRepeatRuquest) userInfo:nil repeats:YES];
+        [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
+    }
 }
 
 //关闭定时器
@@ -254,7 +254,7 @@
  显示下拉菜单
  */
 -(void)showMenuView{
-    NSDictionary *alwaysInDict = @{@"code":@"main",@"name":@"主力合约"};
+    NSDictionary *alwaysInDict = @{@"code":@"INE",@"name":@"主力合约"};
     NSArray *selectPlateArray = [kUserDefaults objectForKey:PLATE_SETTING_DICT];
     NSMutableArray *selectArray = [NSMutableArray array];
     [selectArray addObject:alwaysInDict];

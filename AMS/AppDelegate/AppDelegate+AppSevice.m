@@ -17,7 +17,7 @@
 #import "CollectQuatationDBModel.h"
 #import "AMSSocketManager.h"
 #import "ConfigModel.h"
-
+#import "User_Onrtnorder.h"
 @implementation AppDelegate (AppSevice)
 
 /**
@@ -1237,6 +1237,38 @@
             NSLog(@"未知网络连接");
             break;
     }
+}
+//处理挂单委托表
+-(void)dealOrderInsertResponse:(User_Onrtnorder *)model{
+    [self.guadanOrderArray removeAllObjects];
+    if (self.weituoOrderArray.count == 0) {
+        [self.weituoOrderArray addObject:model];
+    }else{
+        [self.weituoOrderArray.copy enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            User_Onrtnorder *item = (User_Onrtnorder *)obj;
+            //已存在合约
+            if (item.InstrumentID == model.InstrumentID) {
+                //方向相同更新状态
+                if ([item.Direction isEqualToString:model.Direction]) {
+                    self.weituoOrderArray[idx] = model;
+                    *stop = YES;
+                }
+            }
+            [self.weituoOrderArray insertObject:model atIndex:0];
+        }];
+    }
+    [self.weituoOrderArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        User_Onrtnorder *model = (User_Onrtnorder *)obj;
+        if (![model.OrderStatus isEqualToString:@"0"] && ![model.OrderStatus isEqualToString:@"2"]&& ![model.OrderStatus isEqualToString:@"5"] ) {
+            [self.guadanOrderArray addObject:model];
+        }
+    }];
+     
+     [kNotificationCenter postNotificationName:UPDTAE_INSERT_ORDER_NOTIFICATION_NAME object:nil];
+}
+//处理成交表
+-(void)dealOrderTradeResponse:(User_Onrtntrade *)model{
+    [kNotificationCenter postNotificationName:UPDTAE_TRADE_ORDER_NOTIFICATION_NAME object:nil];
 }
 
 @end

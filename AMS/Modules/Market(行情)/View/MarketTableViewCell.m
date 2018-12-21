@@ -74,10 +74,10 @@
 
 -(void)configModel:(AMSLdatum *)model fallRiseType:(FallRiseBtnType)fallRiseType volumeType:(VolumeBtnType)volumeType{
     self.model = model;
-    self.nameLabel.text = model.stockCodeInternal;
+    self.nameLabel.text = model.stockName;
     self.priceLabel.text = model.latestPrice;
     if (fallRiseType == FallRise) {
-        self.fallRiseLabel.text = [NSString stringWithFormat:@"%@",model.priceChange];
+        self.fallRiseLabel.text = [NSString stringWithFormat:@"%.2f",model.priceChange.floatValue];
         if ([model.priceChange hasPrefix:@"-"]) {
             self.fallRiseLabel.textColor = kGreenTextColor;
         }else if ([model.priceChange floatValue] == 0.00f){
@@ -86,7 +86,7 @@
             self.fallRiseLabel.textColor = kRedTextColor;
         }
     }else if (fallRiseType == FallRisePer){
-         self.fallRiseLabel.text = [NSString stringWithFormat:@"%@",model.priceChangeRate];
+         self.fallRiseLabel.text = [NSString stringWithFormat:@"%.2f",model.priceChangeRate.floatValue];
         if ([model.priceChangeRate hasPrefix:@"-"]) {
             self.fallRiseLabel.textColor = kGreenTextColor;
         }else if ([model.priceChangeRate floatValue] == 0.00f){
