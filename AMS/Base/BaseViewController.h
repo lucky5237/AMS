@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface BaseViewController : UIViewController
 @property(nonatomic,assign) BOOL hideRightButton;
 @property(nonatomic,assign) BOOL useRdvTab;
+@property(nonatomic,assign) BOOL popToRoot;
 @property(nonatomic,strong) NSNumber *funtionNo;
 @property(nonatomic,copy) NSArray *response;
 @property(nonatomic,strong) UIBarButtonItem *extraRightButtonItem;

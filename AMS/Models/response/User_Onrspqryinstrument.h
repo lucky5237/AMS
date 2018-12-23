@@ -1,5 +1,6 @@
 //请求查询合约响应
 #import <Foundation/Foundation.h>
+//#import "BGFMDB.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -42,6 +42,7 @@
     [self.headerView.nameLabel zj_addTapGestureWithCallback:^(UITapGestureRecognizer *gesture) {
         if (![AMSUtil isUserLogin]){
             LoginViewController *loginVc = [[LoginViewController alloc] init];
+            loginVc.hideRightButton = YES;
             [self.navigationController pushViewController:loginVc animated:YES];
         }
     }];
@@ -84,8 +85,11 @@
 //    [[SocketRequestManager shareInstance] loginOut];
     NSLog(@"退出登录成功");
     [MBProgressHUD showSuccessMessage:@"退出登录成功"];
-    [kUserDefaults setObject:nil forKey:UserDefaults_User_ID_key];
+    //    [kUserDefaults setObject:nil forKey:UserDefaults_User_ID_key];
+    //    [kUserDefaults setObject:nil forKey:UserDefaults_User_Password_key];
+    [kUserDefaults setObject:@0 forKey:UserDefaults_User_Is_Login];
     [self configLoginStatus];
+    [self resetAllList];
 }
 
 /**
@@ -147,6 +151,7 @@
         //点击了账号设置
         AccountSettingViewController *accountSettingVC = [[AccountSettingViewController alloc] init];
         accountSettingVC.hideRightButton = YES;
+        accountSettingVC.popToRoot = YES;
         if (![AMSUtil isUserLogin]) {
             LoginViewController *loginVC = [[LoginViewController alloc] init];
             loginVC.destinationVC = accountSettingVC;
@@ -160,6 +165,7 @@
     }else if (indexPath.row == 3){
         MessageCenterController* msgCenterVC = [[MessageCenterController alloc] init];
         msgCenterVC.hideRightButton = YES;
+        msgCenterVC.popToRoot = YES;
         
         if (![AMSUtil isUserLogin]) {
             LoginViewController *loginVC = [[LoginViewController alloc] init];
@@ -191,15 +197,25 @@
 
 -(void)didReceiveSocketData:(NSNotification *)noti{
     [super didReceiveSocketData:noti];
-//    NSDictionary *dict = noti.object;
+
+    if ((int32)self.funtionNo.integerValue == AS_SDK_USER_ONRSPUSERLOGOUT) {
+        NSLog(@"退出登录成功");
+        [MBProgressHUD showSuccessMessage:@"退出登录成功"];
+        //    [kUserDefaults setObject:nil forKey:UserDefaults_User_ID_key];
+        //    [kUserDefaults setObject:nil forKey:UserDefaults_User_Password_key];
+        [kUserDefaults setObject:@0 forKey:UserDefaults_User_Is_Login];
+        [self configLoginStatus];
+        [self resetAllList];
+    }
     
-////    (int32)self.funtionNo ==
-//    if ((int32)self.funtionNo == asdonrlogin) {
-//        NSLog(@"退出登录成功");
-//        [MBProgressHUD showSuccessMessage:@"退出登录成功"];
-//        [kUserDefaults setObject:nil forKey:UserDefaults_User_ID_key];
-//        [self configLoginStatus];
-//    }
+}
+
+//退出登录清空
+-(void) resetAllList{
+    [kAppDelegate.chicangOrderArray removeAllObjects];
+    [kAppDelegate.guadanOrderArray removeAllObjects];
+    [kAppDelegate.weituoOrderArray removeAllObjects];
+    [kAppDelegate.chengjiaoOrderArray removeAllObjects];
 }
 
 

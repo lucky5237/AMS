@@ -73,7 +73,7 @@
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
-                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="su0-zK-uW0">
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="su0-zK-uW0">
                             <rect key="frame" x="146.33333333333334" y="49" width="101" height="34"/>
                             <color key="backgroundColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.1764705882" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -272,7 +272,7 @@
                                         <constraint firstAttribute="height" constant="1" id="63Q-rS-eQ2"/>
                                     </constraints>
                                 </view>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JPk-h6-2g1">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="先开先平" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JPk-h6-2g1">
                                     <rect key="frame" x="7" y="0.0" width="118" height="30"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -344,17 +344,20 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="buyMoreDesLabel" destination="e0k-0H-P8j" id="OrH-EM-tnH"/>
                 <outlet property="buyMoreLabel" destination="fVJ-3m-OBV" id="zOz-LV-aqp"/>
                 <outlet property="buyMoreView" destination="gEg-IQ-0KE" id="9d0-Dm-BYs"/>
                 <outlet property="buyNumLabel" destination="5ub-lr-F75" id="zxe-ZA-a9N"/>
                 <outlet property="buyPriceLabel" destination="3hO-Ay-K8h" id="P2W-vL-MI5"/>
                 <outlet property="canUseLabel" destination="ZDa-wT-wGD" id="R8K-hk-u9H"/>
                 <outlet property="equityLabel" destination="zY0-4k-B8I" id="t8V-mk-3Wx"/>
+                <outlet property="eveningUpDescLabel" destination="ZMz-Hj-b68" id="Z3U-im-ezD"/>
                 <outlet property="eveningUpLabel" destination="JPk-h6-2g1" id="85v-GW-ZO1"/>
                 <outlet property="eveningUpView" destination="J2T-rg-7Rx" id="YZi-uz-nvN"/>
                 <outlet property="nameTf" destination="JJ6-my-4Xk" id="IWb-8D-Bin"/>
                 <outlet property="numTf" destination="su0-zK-uW0" id="4RG-Nn-YvQ"/>
                 <outlet property="priceTf" destination="1wN-BT-t76" id="3mg-Z6-OYu"/>
+                <outlet property="saleEmptyDesLabel" destination="cHz-sh-YMJ" id="CNi-5y-Oco"/>
                 <outlet property="saleEmptyLabel" destination="fzr-Ds-6AW" id="pxy-dH-86j"/>
                 <outlet property="saleEmptyView" destination="K4u-kb-vHA" id="flx-C5-fZW"/>
                 <outlet property="saleNumLabel" destination="Gh0-l3-ZdU" id="9nv-Tq-d9n"/>

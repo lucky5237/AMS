@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)initSocketConnect;//初始化socket连接
 -(void)dealOrderInsertResponse:(User_Onrtnorder*)model;//报单通知
 -(void)dealOrderTradeResponse:(User_Onrtntrade*)model;//成交通知
+-(void)dealOrderPosition:(NSArray *)models;//处理持仓
 @end
 
 NS_ASSUME_NONNULL_END

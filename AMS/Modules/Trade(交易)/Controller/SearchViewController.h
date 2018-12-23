@@ -7,9 +7,9 @@
 //
 
 #import "BaseViewController.h"
-
+@class InstrumentDBModel;
 NS_ASSUME_NONNULL_BEGIN
-typedef void(^DidSelectItemBlock)(NSDictionary * dict);
+typedef void(^DidSelectItemBlock)(InstrumentDBModel * dict);
 @interface SearchViewController : BaseViewController
 @property(nonatomic,copy) DidSelectItemBlock didSelectItemBlock;
 @end

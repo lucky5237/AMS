@@ -15,6 +15,7 @@
                 <outlet property="passwordTf" destination="vvv-9I-0jf" id="plt-39-Li9"/>
                 <outlet property="registerLabel" destination="l5C-un-vLL" id="sAV-GW-Uzy"/>
                 <outlet property="userNameTf" destination="hV6-RH-oxJ" id="zIA-oX-eU6"/>
+                <outlet property="userNameView" destination="iug-Oa-Ism" id="ZkC-ff-sfY"/>
                 <outlet property="view" destination="M4L-Vo-dCf" id="Kiw-Tq-3vz"/>
             </connections>
         </placeholder>

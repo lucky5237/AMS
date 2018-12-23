@@ -12,8 +12,8 @@
 #import <UITableView+FDTemplateLayoutCell.h>
 #import <DZNEmptyDataSet/UIScrollView+EmptyDataSet.h>
 #import "DealDetailModel.h"
-#import "MarketModel.h"
 #import <RDVTabBarController.h>
+#import "InstumentModel.h"
 
 @interface HandicapViewController ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource>
 @property(nonatomic,strong)UICollectionView *collectView;

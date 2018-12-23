@@ -17,6 +17,7 @@
 #import "UIColor+Y_StockChart.h"
 #import "Y_StockChartGlobalVariable.h"
 #import "QryKLineResponseModel.h"
+#import "InstumentModel.h"
 #define kMinimumPanDistance [Y_StockChartGlobalVariable kLineWidth] + [Y_StockChartGlobalVariable kLineGap]
 @interface KlineViewController ()<Y_KlineEventDelegete,UIGestureRecognizerDelegate>
 @property(nonatomic,strong) ChartBottomView *chartBottomView;
@@ -163,7 +164,7 @@
             [self.selectCycleView hide];
             [self.leftTimeLabelBarButton setTitle:dict[@"name"]];
             NSNumber *type = dict[@"id"];		
-            [self fetchData:@"sc1903" type:type.integerValue];
+            [self fetchData:self.model.instrument.InstrumentID type:type.integerValue];
         };
     }
     return _selectCycleView;

@@ -7,11 +7,11 @@
 //
 
 #import "BaseViewController.h"
-@class AMSLdatum;
+@class InstumentModel;
 NS_ASSUME_NONNULL_BEGIN
 
 @interface KlineViewController : BaseViewController
-@property(nonatomic,strong) AMSLdatum *model;
+@property(nonatomic,strong) InstumentModel *model;
 @end
 
 NS_ASSUME_NONNULL_END

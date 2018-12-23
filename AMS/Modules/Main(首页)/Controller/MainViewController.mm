@@ -14,7 +14,9 @@
 #import "TradeViewController.h"
 #import "NewsViewController.h"
 #import "BestMessageUtil.h"
+#import "LoginViewController.h"
 @interface MainViewController ()
+@property(nonatomic,strong) TradeViewController *tradeVC;
 @end
 
 @implementation MainViewController
@@ -32,6 +34,7 @@
     //交易
     TradeViewController *tradeVC = [[TradeViewController alloc] init];
     RTContainerNavigationController *tradeNavVc = [[RTContainerNavigationController alloc] initWithRootViewController:tradeVC];
+    self.tradeVC = tradeVC;
     //资讯
     NewsViewController *newsVC = [[NewsViewController alloc] init];
     RTContainerNavigationController *newsNavVc = [[RTContainerNavigationController alloc] initWithRootViewController:newsVC];
@@ -70,6 +73,40 @@
         index++;
     }
 }
+-(BOOL)tabBar:(RDVTabBar *)tabBar shouldSelectItemAtIndex:(NSInteger)index{
+    //交易未登录，先登录
+    if (index == 2) {
+        NSNumber *isLoginFlag = [kUserDefaults objectForKey:UserDefaults_User_Is_Login];
+        if( isLoginFlag == nil || isLoginFlag.integerValue == 0){
+            if (![AMSUtil isUserLogin]) {
+                
+                LoginViewController *loginVC = [[LoginViewController alloc] init];
+                loginVC.destinationVC = self.tradeVC;
+                loginVC.hideRightButton = YES;
+                loginVC.showBack = YES;
+                UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:loginVC];
+                navVC.title = @"登录";
+                navVC.navigationBar.tintColor = kWhiteColor;
+                navVC.navigationBar.backgroundColor = kNavBackGroundColor;
+//                navVC.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithImage:kImageName(@"back") style:UIBarButtonItemStylePlain target:self action:@selector(backButtonItemTapped:)];
+//                navVC.navigationController.navigationBar.backIndicatorImage = [UIImage new];
+//                self.navigationController.navigationBar.backIndicatorTransitionMaskImage = [UIImage new];
+                [self presentViewController:navVC animated:loginVC completion:^{
+                    
+                }];
+                return false;
+            }
+        }
+    }
+    return YES;
+}
+
+-(void)setTabbarSelection:(NSInteger)selection{
+    [self tabBar:self.tabBar didSelectItemAtIndex:selection];
+}
+
+
+
 
 
 /*

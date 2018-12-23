@@ -32,6 +32,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UITextField *nameTf;
 @property (weak, nonatomic) IBOutlet UITextField *priceTf;
 @property (weak, nonatomic) IBOutlet UITextField *numTf;
+@property (weak, nonatomic) IBOutlet UILabel *buyMoreDesLabel;
+@property (weak, nonatomic) IBOutlet UILabel *saleEmptyDesLabel;
+@property (weak, nonatomic) IBOutlet UILabel *eveningUpDescLabel;
 @property(nonatomic,strong) UIButton *lockBtn;
 
 -(void)configPriceData:(AMSLdatum*)data keyBoardType:(CustomKeyBoardBtnType)type;

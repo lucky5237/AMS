@@ -9,9 +9,9 @@
 #import "BaseViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
-@class AMSLdatum;
+@class InstumentModel;
 @interface TimeChartViewController : BaseViewController
-@property(nonatomic,strong) AMSLdatum *model;
+@property(nonatomic,strong) InstumentModel *model;
 @end
 
 NS_ASSUME_NONNULL_END

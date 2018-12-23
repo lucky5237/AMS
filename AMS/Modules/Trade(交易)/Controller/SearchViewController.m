@@ -12,7 +12,7 @@
 #import "QryQuotationResponseModel.h"
 #import "CollectQuatationDBModel.h"
 #import "AMSDBManager.h"
-
+#import "InstumentModel.h"
 
 @interface SearchViewController ()<UISearchBarDelegate,UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong) UISearchBar *searchBar;
@@ -110,14 +110,12 @@
 #pragma mark 实例方法
 -(void)doSearch:(NSString*)keyWord{
     [self.dataArray removeAllObjects];
-//    for (int i =0; i<keyWord.length; i++) {
-//
-//
-//    }
-    AMSLdatum *data = [[AMSLdatum alloc] init];
-    data.stockCodeInternal = @"1111";
-    data.stockName = @"sc1903";
-    [self.dataArray addObject:data];
+    
+    if (keyWord.length != 0) {
+        NSArray *resultArray = [[AMSDBManager shareInstance] queryInstumentByKeyWord:keyWord];
+        [self.dataArray addObjectsFromArray:resultArray];
+    }
+    
     [self.tableView reloadData];
 }
 
@@ -133,16 +131,14 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     SearchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-    AMSLdatum *model = self.dataArray[indexPath.row];
-    cell.nameLabel.text = model.stockName;
+    InstrumentDBModel *model = self.dataArray[indexPath.row];
+    cell.nameLabel.text = model.instrumentName;
     cell.backgroundColor = kCellBackGroundColor;
 //    NSNumber *hasCollect = dict[@"hasCollect"];
-    [cell.collectBtn setSelected:[[AMSDBManager shareInstance]isQuotationCollected:model.stockName]];
+    [cell.collectBtn setSelected:[[AMSDBManager shareInstance]hasInstrumentCollected:model.instrumentID]];
     [cell.collectBtn setZj_onTouchUp:^(UIButton* sender) {
         if (sender.selected) {//取消收藏
-//            dict[@"hasCollect"] = @0;
-            
-            if ([[AMSDBManager shareInstance] deleteQuotation:model.stockCodeInternal]) {
+            if ([[AMSDBManager shareInstance] canCelCollectInstumentById:model.instrumentID]) {
                 [MBProgressHUD showSuccessMessage:@"删除自选成功"];
                 sender.selected = !sender.selected;
             }else{
@@ -150,15 +146,9 @@
             }
            
         }else{
-           
-//            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            
-            CollectQuatationDBModel *dbModel = [[CollectQuatationDBModel alloc] init];
-            dbModel.instrumentID = model.stockCodeInternal;
-            dbModel.instrumentName = model.stockName;
-            if ([[AMSDBManager shareInstance] addQuotations:dbModel]) {
-                 sender.selected = !sender.selected;
-                [MBProgressHUD showSuccessMessage:[NSString stringWithFormat:@"%@已加入自选",model.stockName]];
+            if ([[AMSDBManager shareInstance] collectInstumentById:model.instrumentID]) {
+                sender.selected = !sender.selected;
+                [MBProgressHUD showSuccessMessage:[NSString stringWithFormat:@"%@已加入自选",model.instrumentName]];
             }else{
                 NSLog(@"添加数据失败--");
             }
@@ -178,9 +168,9 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-     NSDictionary *dict = self.dataArray[indexPath.row];
+     InstrumentDBModel *dbModel = self.dataArray[indexPath.row];
     if(self.didSelectItemBlock){
-        self.didSelectItemBlock(dict);
+        self.didSelectItemBlock(dbModel);
     }
     [self.navigationController popViewControllerAnimated:YES];
 }

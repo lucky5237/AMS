@@ -21,10 +21,10 @@
 static int requestId = 0;
 
 +(NSData *)generateBestMsg:(uint32)fucntionType model:(id)model{
-    if (![[model class] isSubclassOfClass:[BaseRequestModel class]]) {
-        NSLog(@"非法入参，必须为BaseRequsetModel的子类");
-        return nil;
-    }
+//    if (![[model class] isSubclassOfClass:[BaseRequestModel class]]) {
+//        NSLog(@"非法入参，必须为BaseRequsetModel的子类");
+//        return nil;
+//    }
     InitBestMessge();
     best_protocol::IBestMessgeFactory *m_factory = CreateBestMessgeFactrotyInstance();
     best_protocol::IBestMessge* phase_best_message = m_factory->CreateBestMessage();
@@ -49,11 +49,13 @@ static int requestId = 0;
         NSNumber* fieldKey = kAppDelegate.configModel.FIELD_KEY_DICTS[realKeyName] ?: @0;
         //int类型
         if ([[NSString stringWithCString:[AMSUtil getPropertyType:property]  encoding:NSUTF8StringEncoding] isEqualToString:@"NSNumber"]) {
-            NSNumber* proValue = (NSNumber* )[model valueForKey:proName] ?: @0;
-            auto field = m_factory ->CreateBestField();
-            field->SetInt32((int32)proValue.integerValue);
-            NSLog(@"SET FIELD ---- (%@ = %@ , %@)",realKeyName,fieldKey,proValue);
-            phase_best_data_message->SetField((int32)fieldKey.integerValue, field);
+            if (fieldKey.integerValue != FIELD_KEY_nRequestID) {
+                NSNumber* proValue = (NSNumber* )[model valueForKey:proName] ?: @0;
+                auto field = m_factory ->CreateBestField();
+                field->SetInt32((int32)proValue.integerValue);
+                NSLog(@"SET FIELD ---- (%@ = %@ , %@)",realKeyName,fieldKey,proValue);
+                phase_best_data_message->SetField((int32)fieldKey.integerValue, field);
+            }
          
         }else{
             //string类型
@@ -68,7 +70,7 @@ static int requestId = 0;
     auto requestField = m_factory ->CreateBestField();
     requestField->SetInt32(nRequestId);
     phase_best_data_message->SetField(FIELD_KEY_nRequestID, requestField);
-    NSLog(@"SET FIELD ---- (requestID = %d)",nRequestId);
+    NSLog(@"SET FIELD ---- (FIELD_KEY_nRequestID = %d)",nRequestId);
     //c语言的函数，所以要去手动的去释放内存
     free(propertyList);
     phase_best_head_message->SetDataMessage(phase_best_data_message);
@@ -150,8 +152,10 @@ static int requestId = 0;
         NSString *proName = [[NSString alloc] initWithCString:propertyName encoding:NSUTF8StringEncoding];
         NSString *realKeyName = [@"FIELD_KEY_" stringByAppendingString:proName];
         NSNumber* fieldKey = kAppDelegate.configModel.FIELD_KEY_DICTS[realKeyName] ?: @0;
+//         NSLog(@"%@ - %@",realKeyName,[NSString stringWithCString:[AMSUtil getPropertyType:property]  encoding:NSUTF8StringEncoding]);
         //int类型
-        if ([[NSString stringWithCString:[AMSUtil getPropertyType:property]  encoding:NSUTF8StringEncoding] isEqualToString:@"i"]) {
+        if ([[NSString stringWithCString:[AMSUtil getPropertyType:property]  encoding:NSUTF8StringEncoding] isEqualToString:@"NSNumber"]) {
+           
             auto field = dataMessage->GetField((int32)fieldKey.integerValue);
             NSNumber* proValue = @(field->GetInt32());
 //            DLog(@"GET FIELD ---- (%@ = %@ , %@)",realKeyName,fieldKey,proValue);
@@ -159,7 +163,9 @@ static int requestId = 0;
         }else{
             //string类型
             auto field = dataMessage->GetField((int32)fieldKey.integerValue);
-            NSString* proValue = [NSString stringWithUTF8String:field->GetString()];
+//            NSString* proValue = [NSString stringWithUTF8String:field->GetString()];
+            NSStringEncoding gbkEncoding = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+            NSString * proValue = [[NSString alloc] initWithCString:field->GetString() encoding:gbkEncoding];
 //            DLog(@"GET FIELD ---- (%@ = %@ , %@)",realKeyName,fieldKey,proValue);
             [model setValue:proValue forKey:proName];
         }

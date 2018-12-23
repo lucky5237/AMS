@@ -10,6 +10,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MainViewController : RDVTabBarController
+-(void) setTabbarSelection:(NSInteger)selection;
 @end
 
 NS_ASSUME_NONNULL_END

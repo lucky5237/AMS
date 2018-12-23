@@ -37,7 +37,8 @@
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             NSLog(@"Error: %@", error);
             dispatch_async(dispatch_get_main_queue(), ^{
-                [MBProgressHUD showErrorMessage:error.localizedDescription];
+//                [MBProgressHUD showErrorMessage:error.localizedDescription];
+                NSLog(@"%@", error.localizedDescription);
                 !fail ? : fail(error.description);
             });
         }];

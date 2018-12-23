@@ -39,6 +39,7 @@ target 'AMS' do
   pod 'JPFPSStatus', '~> 0.1.1'
   pod 'RDVTabBarController'
   pod 'YYModel'
-  pod 'MJExtension'
+#  pod 'MJExtension'
+#  pod 'BGFMDB', '~> 2.0.9'
 #  pod 'LMReport'
 end

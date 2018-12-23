@@ -28,7 +28,7 @@ typedef void(^LMReportViewDidScrollBlock)(UIScrollView *scrollView,BOOL isMainSc
 @property(nonatomic,copy) NSMutableArray *dataArray;
 -(void)dataArray:(NSArray*)dataArray forIndex:(NSInteger)index;
 -(void)reloadData;
-
+-(void)reloadData:(NSInteger) index;
 @end
 
 NS_ASSUME_NONNULL_END

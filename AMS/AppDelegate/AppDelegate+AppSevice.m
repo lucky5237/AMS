@@ -12,12 +12,16 @@
 #import <RealReachability.h>
 #import <JDStatusBarNotification.h>
 #import <Harpy.h>
-#import <JQFMDB.h>
 #import <JLRoutes.h>
 #import "CollectQuatationDBModel.h"
 #import "AMSSocketManager.h"
 #import "ConfigModel.h"
 #import "User_Onrtnorder.h"
+#import "User_Onrtntrade.h"
+#import "User_Onrspqryinvestorposition.h"
+#import "User_Reqqryinvestorposition.h"
+#import "InstrumentDBModel.h"
+#import <JQFMDB.h>
 @implementation AppDelegate (AppSevice)
 
 /**
@@ -52,10 +56,8 @@
  */
 - (void)initDB{
     //创建数据库
-  JQFMDB *db = [JQFMDB shareDatabase:DB_NAME];
-  if (![db jq_isExistTable:NSStringFromClass([CollectQuatationDBModel class])]) {
-         [db jq_createTable:NSStringFromClass([CollectQuatationDBModel class]) dicOrModel:[CollectQuatationDBModel class]];
-    }
+    JQFMDB *db = [JQFMDB shareDatabase:@"ams.sqlite"];
+    [db jq_createTable:@"InstrumentDBModel" dicOrModel:[InstrumentDBModel class]];
 }
 
 -(void)initConfig{
@@ -927,13 +929,13 @@
                                  
                                  
                                  //ctp报单通知
-                                 @"AS_SDK_ONRTN_ORDER_INSERT" : @20080,//废弃的名称
+//                                 @"AS_SDK_ONRTN_ORDER_INSERT" : @20080,//废弃的名称
                                  @"AS_SDK_USER_ONRTNORDER" : @20080,//正式名称
                                  //ctp报单操作请求(撤单)的响应
-                                 @"AS_SDK_ONRTN_USER_REQORDERACTION" : @20081,//废弃的名称
+//                                 @"AS_SDK_ONRTN_USER_REQORDERACTION" : @20081,//废弃的名称
                                  @"AS_SDK_USER_ONRSPORDERACTION" : @20081,//正式名称
                                  //ctp成交通知
-                                 @"AS_SDK_ONRTN_USER_ORDERTRADE" : @20082,//废弃的名称
+//                                 @"AS_SDK_ONRTN_USER_ORDERTRADE" : @20082,//废弃的名称
                                  @"AS_SDK_USER_ONRTNTRADE" : @20082,//正式名称
                                  
                                  //查询报单响应
@@ -1244,18 +1246,22 @@
     if (self.weituoOrderArray.count == 0) {
         [self.weituoOrderArray addObject:model];
     }else{
+        __block BOOL exsitFlag = NO;
         [self.weituoOrderArray.copy enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             User_Onrtnorder *item = (User_Onrtnorder *)obj;
             //已存在合约
-            if (item.InstrumentID == model.InstrumentID) {
+            if (item.InstrumentID == model.InstrumentID) { 
                 //方向相同更新状态
                 if ([item.Direction isEqualToString:model.Direction]) {
                     self.weituoOrderArray[idx] = model;
+                    exsitFlag = YES;
                     *stop = YES;
                 }
             }
-            [self.weituoOrderArray insertObject:model atIndex:0];
         }];
+        if (!exsitFlag) {
+             [self.weituoOrderArray insertObject:model atIndex:0];
+        }
     }
     [self.weituoOrderArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         User_Onrtnorder *model = (User_Onrtnorder *)obj;
@@ -1263,12 +1269,53 @@
             [self.guadanOrderArray addObject:model];
         }
     }];
-     
      [kNotificationCenter postNotificationName:UPDTAE_INSERT_ORDER_NOTIFICATION_NAME object:nil];
 }
 //处理成交表
 -(void)dealOrderTradeResponse:(User_Onrtntrade *)model{
+    if (self.chengjiaoOrderArray.count == 0) {
+        [self.chengjiaoOrderArray addObject:model];
+    }else{
+         __block BOOL exsitFlag = NO;
+        [self.chengjiaoOrderArray.copy enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            User_Onrtntrade *item = (User_Onrtntrade *)obj;
+            //已存在合约
+            if ([item.TradeID isEqualToString:model.TradeID]) {
+                self.chengjiaoOrderArray[idx] = model;
+                 exsitFlag = YES;
+                *stop = YES;
+            }
+        }];
+        if (!exsitFlag) {
+          [self.chengjiaoOrderArray insertObject:model atIndex:0];
+        }
+    }
+//    //登录之后
+//    if (isAfterLogin) {
+//      
+//    }
     [kNotificationCenter postNotificationName:UPDTAE_TRADE_ORDER_NOTIFICATION_NAME object:nil];
+}
+
+//处理持仓表
+-(void)dealOrderPosition:(NSArray *)models{
+    //登录后的响应
+    if (self.chicangOrderArray.count == 0) {
+        [self.chicangOrderArray addObjectsFromArray:models];
+    }else{
+        User_Onrspqryinvestorposition *model = models.firstObject;
+        [self.chicangOrderArray.copy enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            User_Onrspqryinvestorposition *item = (User_Onrspqryinvestorposition *)obj;
+            //存在持仓先删除
+            if ([item.InstrumentID isEqualToString:model.InstrumentID]) {
+                [self.chicangOrderArray removeObject:item];
+            }
+        }];
+        // 更新持仓
+        NSRange range = NSMakeRange(0,models.count);
+        NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:range];
+        [self.chicangOrderArray insertObjects:models atIndexes:indexSet];
+    }
 }
 
 @end

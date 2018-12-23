@@ -124,7 +124,7 @@ typedef NS_ENUM(NSUInteger, LMRPart) {
         return;
     }
     [super didMoveToSuperview];
-//    [self reloadData];
+    [self reloadData];
 }
 
 #pragma mark - load

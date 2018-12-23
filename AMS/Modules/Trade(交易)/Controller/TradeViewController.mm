@@ -31,6 +31,8 @@
 #import "User_Onrspqrytrade.h"
 #import "User_Reqqrytradingaccount.h"
 #import "User_Onrspqrytradingaccount.h"
+#import "InstumentModel.h"
+
 @interface TradeViewController ()<LrReportContainerViewDelegate,UITextFieldDelegate>
 @property(nonatomic,strong) TradeHeaderView *headerView;
 @property(nonatomic,strong) UISegmentedControl *segmentedControl;
@@ -103,13 +105,17 @@
         make.bottom.mas_equalTo(0);
     }];
     [self.containerView layoutIfNeeded];
-     [self startTimer];
+    if(self.model != nil){
+       [self requestNewestPriceInfo:self.keyboardView.isUsingSystemPrice];
+    }
+    [self startTimer];
     [self queryAccountInfo];
-     self.containerView.currentSelectIndex = ChiChangType;
+//    [self queryChicang];
+    self.containerView.currentSelectIndex = ChiChangType;
     [self fetchReportViewData:ChiChangType];
     
     if(self.model != nil){
-        self.headerView.nameTf.text = self.model.stockCodeInternal;
+        self.headerView.nameTf.text = self.model.instrument.InstrumentName;
     }
     
     [self.headerView.priceTf.rac_textSignal subscribeNext:^(NSString * _Nullable x) {
@@ -119,6 +125,8 @@
             self.headerView.eveningUpLabel.text = x;
         }
     }];
+    
+    [self initButtonConfig];
     
    
 }
@@ -130,7 +138,7 @@
     [[SocketRequestManager shareInstance] reqqrytradingaccount:request];
 }
 
--(void) startTimer{
+-(void)startTimer{
     if (self.timer == nil && self.model != nil) {
         kWeakSelf(self);
         self.timer = [NSTimer timerWithTimeInterval:HTTP_REQUEST_TIME repeats:YES block:^(NSTimer * _Nonnull timer) {
@@ -143,24 +151,54 @@
     }
 }
 
+-(void)initButtonConfig{
+    NSArray* chicangArray = kAppDelegate.chicangOrderArray;
+    if (chicangArray.count == 0) {
+        self.headerView.buyMoreDesLabel.text = @"买多";
+        self.headerView.saleEmptyDesLabel.text  = @"卖空";
+        self.headerView.eveningUpDescLabel.text = @"平仓";
+    }else{
+        [self.chicangArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            User_Onrspqryinvestorposition *model = obj;
+            if ([model.InstrumentID isEqualToString:self.model.instrument.InstrumentID]) {
+//                if()
+            }
+        }];
+    }
+}
+
 -(void)fetchReportViewData:(NSInteger)index{
-//    NSArray *array = @[@[@[@"泸金190yi",@"多",@1,@1,@280.35,@650],@[@"泸金1906",@"空",@1,@1,@280.45,@-550],@[@"IH1812",@"多",@1,@1,@2493.2,@-19860]],@[@[@"泸金1906",@"开多",@280.35,@650,@650],@[@"泸金1906",@"开多",@280.35,@650,@650],@[@"泸金1906",@"开多",@280.35,@650,@650]],@[@[@"泸金1901",@"状态",@"开多",@280.35,@650,@1,@1,@"2018-12-12 10:00:58"],@[@"泸金1902",@"状态",@"开多",@280.35,@650,@1,@1,@"2018-12-12 10:00:58"],@[@"泸金1903",@"状态",@"开多",@280.35,@650,@1,@1,@"2018-12-12 10:00:58"],@[@"泸金1904",@"状态",@"开多",@280.35,@650,@1,@1,@"2018-12-12 10:00:58"],@[@"泸金1907",@"状态",@"开多",@280.35,@650,@1,@1,@"2018-12-12 10:00:58"],@[@"泸金1908",@"状态",@"开多",@280.35,@650,@1,@1,@"2018-12-12 10:00:58"],@[@"泸金1909",@"状态",@"开多",@280.35,@650,@1,@1,@"2018-12-12 10:00:58"],@[@"泸金1910",@"状态",@"开多",@280.35,@650,@1,@1,@"2018-12-12 10:00:58"],@[@"泸金1911",@"状态",@"开多",@280.35,@650,@1,@1,@"2019-12-12 10:02:58"]],@[@[@"泸金1906",@"开多",@280.35,@650,@"2018-12-12 12:02:28"],@[@"泸金1906",@"开多",@280.35,@650,@"2018-12-12 12:02:28"],@[@"泸金1906",@"开多",@280.35,@650,@"2018-12-12 10:02:28"]]];
-//    [self.containerView dataArray:array[index] forIndex:index];
+
     //查询持仓
     if (index == 0) {
 //        User_Reqqryinvestorposition *request = [[User_Reqqryinvestorposition alloc] init];
 //        request.BrokerID = @"9999";
 //        request.InvestorID = [kUserDefaults objectForKey:UserDefaults_User_ID_key];
 //        [[SocketRequestManager shareInstance]  reqqryinvestorposition:request];
-        User_Onrspqryinvestorposition *response = [[User_Onrspqryinvestorposition alloc] init];
-        response.InstrumentID = self.model.stockCodeInternal;
-        response.PosiDirection = @"1";
-        response.Position = @1;
-        response.ShortFrozen = @0;
-        response.LongFrozen = @0;
-        self.chicangArray = @[response];
-        [self.containerView dataArray:self.chicangArray forIndex:ChiChangType];
-        [self.containerView reloadData];
+//        User_Onrspqryinvestorposition *response = [[User_Onrspqryinvestorposition alloc] init];
+//        response.InstrumentID = self.model.stockCodeInternal;
+//        response.PosiDirection = @"1";
+//        response.Position = @1;
+//        response.ShortFrozen = @0;
+//        response.LongFrozen = @0;
+//
+//        User_Onrspqryinvestorposition *response1 = [[User_Onrspqryinvestorposition alloc] init];
+//        response1.InstrumentID = self.model.stockCodeInternal;
+//        response1.PosiDirection = @"2";
+//        response1.Position = @3;
+//        response1.ShortFrozen = @1;
+//        response1.LongFrozen = @0;
+//
+//        User_Onrspqryinvestorposition *response2 = [[User_Onrspqryinvestorposition alloc] init];
+//        response2.InstrumentID = self.model.stockCodeInternal;
+//        response2.PosiDirection = @"1";
+//        response2.Position = @4;
+//        response2.ShortFrozen = @0;
+//        response2.LongFrozen = @1;
+        
+//        self.chicangArray = @[response,response1,response2];
+        [self.containerView dataArray:kAppDelegate.chicangOrderArray forIndex:ChiChangType];
+        
     }else if (index == 3){
         //查询成交表
 //        User_Reqqrytrade *request = [[User_Reqqrytrade alloc] init];
@@ -168,9 +206,26 @@
 //        request.InvestorID = [kUserDefaults objectForKey:UserDefaults_User_ID_key];
 //        request.InstrumentID = self.model.stockCodeInternal;
 //        [[SocketRequestManager shareInstance]  reqqrytrade:request];
+        [self.containerView dataArray:kAppDelegate.chengjiaoOrderArray forIndex:ChiChangType];
+//        [self.containerView reloadData];
+    }else if (index == 1){
+        //查询挂单表
+        [self.containerView dataArray:kAppDelegate.guadanOrderArray forIndex:ChiChangType];
+//        [self.containerView reloadData];
+    }else if (index == 2){
+        //查询委托表
+        [self.containerView dataArray:kAppDelegate.weituoOrderArray forIndex:ChiChangType];
+//        [self.containerView reloadData];
     }
-   
-    
+    [self.containerView reloadData:index];
+}
+
+-(void)queryChicang{
+    User_Reqqryinvestorposition *request = [[User_Reqqryinvestorposition alloc] init];
+    request.BrokerID = @"9999";
+    request.InstrumentID = self.model.instrument.InstrumentID;
+    request.InvestorID = [kUserDefaults objectForKey:UserDefaults_User_ID_key];
+    [[SocketRequestManager shareInstance] reqqryinvestorposition:request];
 }
 #pragma mark 懒加载
 
@@ -217,6 +272,7 @@
 //            [self.statusBar showMessage:@"点击买多了！！！" limitTime:3];
             User_Reqorderinsert *request = [[User_Reqorderinsert alloc] init];
             request.Direction = @"0";
+            request.LimitPrice = self.headerView.buyMoreLabel.text;
             [self orderInsert:request];
         }];
         //点击卖空
@@ -224,6 +280,7 @@
 //            [MBProgressHUD showSuccessMessage:@"点击卖空"];
             User_Reqorderinsert *request = [[User_Reqorderinsert alloc] init];
             request.Direction = @"1";
+            request.LimitPrice = self.headerView.saleEmptyLabel.text;
             [self orderInsert:request];
         }];
         //点击平仓
@@ -267,13 +324,14 @@
         return ;
     }
     
-    UIAlertController *alertVC = [UIAlertController zj_alertControllerWithTitle:@"确认下单吗？" message:[NSString stringWithFormat:@"%@,%.2f,%@,%@手",self.model.stockName,self.headerView.buyMoreLabel.text.doubleValue,[model.Direction isEqualToString:@"0"] ?@"买开":@"卖开",self.headerView.numTf.text]  optionStyle:OptionStyleStyleOK_Cancel OkTitle:@"下单" cancelTitle:@"取消" okBlock:^{
-        model.LimitPrice = self.headerView.priceTf.text;
+    UIAlertController *alertVC = [UIAlertController zj_alertControllerWithTitle:@"确认下单吗？" message:[NSString stringWithFormat:@"%@,%.2f,%@,%@手",self.model.instrument.InstrumentName,self.headerView.buyMoreLabel.text.doubleValue,[model.Direction isEqualToString:@"0"] ?@"买开":@"卖开",self.headerView.numTf.text]  optionStyle:OptionStyleStyleOK_Cancel OkTitle:@"下单" cancelTitle:@"取消" okBlock:^{
+//        model.LimitPrice = self.headerView.priceTf.text;
         model.BrokerID = @"9999";
+        model.TimeCondition = @"3";
         model.InvestorID = [kUserDefaults valueForKey:UserDefaults_User_ID_key];
         model.OrderPriceType = @"2";
-        model.InstrumentID = self.model.stockCodeInternal;
-        model.ExchangeID = [NSString stringWithFormat:@"%ld",(long)self.model.stockExchangeCode];
+        model.InstrumentID = self.model.instrument.InstrumentID;
+        model.ExchangeID = self.model.instrument.ExchangeID;
         model.CombHedgeFlag = @"1";
         model.MinVolume = @1;
         model.CombOffsetFlag = model.Direction.length == 0 ? @"1" : @"0";
@@ -474,9 +532,10 @@
     }];
 //    self.reportView.frame = CGRectMake(0,Header_Height+SegmentedControl_Height, KScreenWidth, KScreenHeight - ( +Header_Height+SegmentedControl_Height));
 //    [self.reportView reloadData];
-    [self fetchReportViewData:control.selectedSegmentIndex];
     self.containerView.currentSelectIndex = control.selectedSegmentIndex;
+    [self fetchReportViewData:control.selectedSegmentIndex];
 }
+    
 
 #pragma mark 代理回调事件
 
@@ -495,9 +554,11 @@
 //        NSLog(@"跳转搜索页");
         SearchViewController *searchVC = [[SearchViewController alloc] init];
         searchVC.hideRightButton = YES;
-        searchVC.didSelectItemBlock = ^(NSDictionary * _Nonnull dict) {
-            self.title = dict[@"name"];
-            [MBProgressHUD showInfoMessage:[NSString stringWithFormat:@"选择了%@",dict[@"name"]]];
+        searchVC.didSelectItemBlock = ^(InstrumentDBModel  *model) {
+            
+//            self.title = dict[@"name"];
+//            AMSLdatum *data  = [AMSLdatum yy_modelWithDictionary:dict];
+//            [MBProgressHUD showInfoMessage:[NSString stringWithFormat:@"选择了%@",data.stockName]];
         };
         [self.navigationController pushViewController:searchVC animated:YES];
         return NO;
@@ -566,7 +627,7 @@
 -(void)requestNewestPriceInfo:(BOOL)needChangePrice{
     QryQuotationRequestModel *requestModel = [[QryQuotationRequestModel alloc] init];
     QryQuotationRequestSubModel *subModel = [[QryQuotationRequestSubModel alloc] init];
-    subModel.stockCodeInternal = self.model.stockCodeInternal;
+    subModel.stockCodeInternal = self.model.instrument.InstrumentID;
     requestModel.stockTradeMins = @[subModel];
         NSString *str =  [requestModel.stockTradeMins.mutableCopy yy_modelToJSONString];
         NSDictionary *dict = @{@"stockTradeMins":str};
@@ -588,6 +649,10 @@
         }];
 }
 
+-(void)queryInstrumentById:(NSString *)instrumentId{
+    
+}
+
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     if (self.model == nil) {
@@ -595,26 +660,28 @@
     }else{
         self.rdv_tabBarController.navigationItem.rightBarButtonItem = self.menuBtnItem;
     }
-    //报单通知
-    [[kNotificationCenter rac_addObserverForName:UPDTAE_INSERT_ORDER_NOTIFICATION_NAME object:nil] subscribeNext:^(NSNotification * _Nullable x) {
-        [self.containerView dataArray:kAppDelegate.weituoOrderArray forIndex:WeiTuoType];
-        [self.containerView dataArray:kAppDelegate.guadanOrderArray forIndex:GuaDanType];
-        //查询持仓
-        //        User_Reqqryinvestorposition *request = [[User_Reqqryinvestorposition alloc] init];
-        //        request.BrokerID = @"9999";
-        //        request.InvestorID = [kUserDefaults objectForKey:UserDefaults_User_ID_key];
-        //        [[SocketRequestManager shareInstance]  reqqryinvestorposition:request];
-    }];
+     //报单通知
+    [kNotificationCenter addObserver:self selector:@selector(updateOrderInsert:) name:UPDTAE_INSERT_ORDER_NOTIFICATION_NAME object:nil];
     
     //成交通知
-    [[kNotificationCenter rac_addObserverForName:UPDTAE_TRADE_ORDER_NOTIFICATION_NAME object:nil] subscribeNext:^(NSNotification * _Nullable x) {
+    [kNotificationCenter addObserver:self selector:@selector(updateOrderTrade:) name:UPDTAE_TRADE_ORDER_NOTIFICATION_NAME object:nil];
+}
 
-        //查询持仓
-        //        User_Reqqryinvestorposition *request = [[User_Reqqryinvestorposition alloc] init];
-        //        request.BrokerID = @"9999";
-        //        request.InvestorID = [kUserDefaults objectForKey:UserDefaults_User_ID_key];
-        //        [[SocketRequestManager shareInstance]  reqqryinvestorposition:request];
-    }];
+-(void)updateOrderInsert:(NSNotification*) noti{
+    [self.containerView dataArray:kAppDelegate.weituoOrderArray forIndex:WeiTuoType];
+    [self.containerView dataArray:kAppDelegate.guadanOrderArray forIndex:GuaDanType];
+    [self.containerView reloadData:WeiTuoType];
+    [self.containerView reloadData:GuaDanType];
+}
+
+-(void)updateOrderTrade:(NSNotification*) noti{
+    [self.containerView dataArray:kAppDelegate.chengjiaoOrderArray forIndex:ChengjiaoType];
+    [self.containerView reloadData:ChengjiaoType];
+    //查询持仓
+    User_Reqqryinvestorposition *request = [[User_Reqqryinvestorposition alloc] init];
+    request.BrokerID = @"9999";
+    request.InvestorID = [kUserDefaults objectForKey:UserDefaults_User_ID_key];
+    [[SocketRequestManager shareInstance]  reqqryinvestorposition:request];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -648,26 +715,27 @@
      if ((int32)self.funtionNo.integerValue == AS_SDK_USER_ONRSPQRYTRADINGACCOUNT){
          self.currentAccountInfo = self.response.firstObject;
          [self.headerView configAccountData:self.currentAccountInfo];
-     }else if ((int32)self.funtionNo.integerValue == AS_SDK_USER_ONRSPQRYINVESTORPOSITION){
-         //持仓表响应
-         self.chicangArray = self.response;
-         [self.containerView dataArray:self.chicangArray forIndex:ChiChangType];
-         [self.containerView reloadData];
-//     }else if ((int32)self.funtionNo.integerValue == AS_SDK_USER_REQQRYTRADE){
-//         //成交表响应
-////         self.chengjiaoArray = self.response;
-////         [self.containerView dataArray:self.chengjiaoArray forIndex:ChengjiaoType];
-////         [self.containerView reloadData];
-     }else if((int32)self.funtionNo.integerValue == AS_SDK_USER_ONERRRTNORDERINSERT){
-         //报单错误响应
-         NSLog(@"收到报单错误响应");
+//     }else if ((int32)self.funtionNo.integerValue == AS_SDK_USER_ONRSPQRYINVESTORPOSITION){
+//         //持仓表响应
+//         self.chicangArray = self.response;
+//         [self.containerView dataArray:self.chicangArray forIndex:ChiChangType];
+//         [self.containerView reloadData:ChiChangType];
+////     }else if ((int32)self.funtionNo.integerValue == AS_SDK_USER_REQQRYTRADE){
+////         //成交表响应
+//////         self.chengjiaoArray = self.response;
+//////         [self.containerView dataArray:self.chengjiaoArray forIndex:ChengjiaoType];
+//////         [self.containerView reloadData];
+//     }
+//     else if((int32)self.funtionNo.integerValue == AS_SDK_USER_ONRSPORDERINSERT){
+//         //报单错误响应
+//         NSLog(@"收到报单错误响应");
      }
 }
 
 -(void)didResponseErrorOccurs:(NSNotification *)noti{
     NSDictionary *dict = noti.object;
     NSNumber *functionNo = dict[@"functionNo"];
-    if ((int32)functionNo.integerValue == AS_SDK_USER_ONERRRTNORDERINSERT) {
+    if ((int32)functionNo.integerValue == AS_SDK_USER_ONRSPORDERINSERT) {
        [self.statusBar showMessage:dict[@"errorMsg"] limitTime:3];
     }
 }

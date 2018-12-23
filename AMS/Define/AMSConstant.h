@@ -185,8 +185,9 @@ static NSString *kHandicapParamNames[20] = {
 
 
 #pragma mark userdefaults
+#define UserDefaults_User_Is_Login @"UserDefaults_User_Is_Login"
 #define UserDefaults_User_ID_key @"UserDefaults_User_ID_key"
-
+#define UserDefaults_User_Password_key @"UserDefaults_User_Password_key"
 
 #pragma mark db相关
 #define DB_NAME @"AMS.db"

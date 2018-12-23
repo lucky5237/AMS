@@ -9,10 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "MarketModel.h"
 NS_ASSUME_NONNULL_BEGIN
-@class AMSLdatum;
+@class InstumentModel;
 
 @interface MarketTableViewCell : UITableViewCell
--(void)configModel:(AMSLdatum*) model fallRiseType:(FallRiseBtnType) fallRiseType volumeType:(VolumeBtnType) volumeType;
+-(void)configModel:(InstumentModel*) model fallRiseType:(FallRiseBtnType) fallRiseType volumeType:(VolumeBtnType) volumeType;
 -(void)configSelection:(BOOL)isSelect fallRiseType:(FallRiseBtnType)fallRiseType volumeType:(VolumeBtnType)volumeType;
 @end
 

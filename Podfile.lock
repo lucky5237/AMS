@@ -39,7 +39,6 @@ PODS:
     - FMDB
   - Masonry (1.1.0)
   - MBProgressHUD (1.0.0)
-  - MJExtension (3.0.15.1)
   - MJRefresh (3.1.12)
   - NJKWebViewProgress (0.2.3):
     - NJKWebViewProgress/Core (= 0.2.3)
@@ -131,7 +130,6 @@ DEPENDENCIES:
   - JQFMDB
   - Masonry (~> 1.1)
   - MBProgressHUD
-  - MJExtension
   - MJRefresh
   - RDVTabBarController
   - ReactiveObjC (~> 3.1.0)
@@ -162,7 +160,6 @@ SPEC CHECKSUMS:
   JQFMDB: 39ab0d6d7c26fd30e51c4dd92edcb27506a34c3a
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
-  MJExtension: 19bc33ce2eee2d319760f5622562cf581a6ff756
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
   NJKWebViewProgress: f481fd424cb5ecc27eacae11b5397db92fba9a4d
   RDVTabBarController: b6d63a7fc49b00568ba07255c6171edc737ad833
@@ -176,6 +173,6 @@ SPEC CHECKSUMS:
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
   ZJKitTool: 997e3b28d233e8fa5752eb16251d960341b13cc6
 
-PODFILE CHECKSUM: edfc20151e7f60c22e0e80bd71da384fda7d23b8
+PODFILE CHECKSUM: b043c54ab7568a60c713a1f1c64399b8a68c156e
 
 COCOAPODS: 1.4.0

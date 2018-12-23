@@ -8,11 +8,12 @@
 
 #import <RDVTabBarController.h>
 #import "Y_BollMAView.h"
-@class AMSLdatum;
+@class InstumentModel;
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MarketDetailViewController : RDVTabBarController
-@property(nonatomic,strong) AMSLdatum *model;
+@property(nonatomic,strong) InstumentModel *model;
+@property(nonatomic,copy) NSString *exchangeId;
 @property(nonatomic,assign) NSInteger selectIndex;
 @end
 

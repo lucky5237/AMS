@@ -80,7 +80,8 @@
 }
 
 +(BOOL)isUserLogin{
-    return [kUserDefaults objectForKey:UserDefaults_User_ID_key] != nil;
+    NSNumber *isLoginFlag = [kUserDefaults objectForKey:UserDefaults_User_Is_Login];
+    return  isLoginFlag != nil && isLoginFlag.integerValue == 1;
 }
 
 +(void)drawCorner:(UIRectCorner)corners cornerRadii:(CGSize)cornerRadii view:(UIView*) view{

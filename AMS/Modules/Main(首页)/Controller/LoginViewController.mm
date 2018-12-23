@@ -11,12 +11,15 @@
 #import "User_Onrspuserlogin.h"
 #import "SocketRequestManager.h"
 #import "best_sdk_define.h"
+#import "User_Reqqryinvestorposition.h"
+#import "MainViewController.h"
 
 @interface LoginViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *userNameTf;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTf;
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
 @property (weak, nonatomic) IBOutlet UILabel *registerLabel;
+@property (weak, nonatomic) IBOutlet UIView *userNameView;
 
 @end
 
@@ -28,8 +31,27 @@
     [self.registerLabel zj_addTapGestureWithCallback:^(UITapGestureRecognizer *gesture) {
         NSLog(@"点击了注册按钮");
     }];
-
+    if([kUserDefaults objectForKey:UserDefaults_User_ID_key] !=nil){
+        self.userNameTf.text = [kUserDefaults objectForKey:UserDefaults_User_ID_key];
+    }
+    if ([kUserDefaults objectForKey:UserDefaults_User_Password_key] !=nil) {
+        self.passwordTf.text = [kUserDefaults objectForKey:UserDefaults_User_Password_key];
+    }
+    if (self.showBack) {
+        
+        UIImageView *backImageView = [UIImageView zj_imageViewWithImage:kImageName(@"back")];
+        [self.navigationController.navigationBar addSubview:backImageView];
+        [backImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(10);
+            make.size.mas_equalTo(CGSizeMake(9, 15));
+            make.centerY.mas_equalTo(self.navigationController.navigationBar);
+        }];
+        [backImageView zj_addTapGestureWithCallback:^(UITapGestureRecognizer *gesture) {
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }];
 }
+}
+
 - (IBAction)loginBtnTapped:(UIButton *)sender {
     User_Requserlogin *loginModel = [[User_Requserlogin alloc] init];
     loginModel.UserID = self.userNameTf.text;
@@ -37,6 +59,20 @@
     loginModel.BrokerID = @"9999";
     [MBProgressHUD showActivityMessageInWindow:@""];
     [[SocketRequestManager shareInstance]doLogin:loginModel];
+//    if(self.showBack){
+//        [(MainViewController*) kAppWindow.rootViewController setTabbarSelection:2];
+//        [self dismissViewControllerAnimated:YES completion:^{
+////            [(MainViewController*) kAppWindow.rootViewController setTabbarSelection:2];
+//        }];
+//    }else if(self.navigationController != nil){
+//        if (self.destinationVC != nil) {
+//            [self.navigationController pushViewController:self.destinationVC animated:YES];
+//
+//        }
+//        [self.navigationController po:YES];
+        
+        
+//    }
 }
 
 -(void)didReceiveSocketData:(NSNotification *)noti{
@@ -46,11 +82,27 @@
         if(model != nil){
             [MBProgressHUD hideHUD];
             //        [MBProgressHUD showSuccessMessage:@"登录成功"];
+            [kUserDefaults setObject:@1 forKey:UserDefaults_User_Is_Login];
             [kUserDefaults setObject:model.UserID forKey:UserDefaults_User_ID_key];
-            [self.navigationController popViewControllerAnimated:YES];
-            if (self.destinationVC != nil) {
-                [self.navigationController pushViewController:self.destinationVC animated:YES];
+            [kUserDefaults setObject:self.passwordTf.text forKey:UserDefaults_User_Password_key];
+            
+            //登录之后查询一次持仓至内存中
+            User_Reqqryinvestorposition *request = [[User_Reqqryinvestorposition alloc] init];
+            request.BrokerID = @"9999";
+            request.InvestorID = model.UserID;
+            [[SocketRequestManager shareInstance] reqqryinvestorposition:request];
+            if(self.navigationController != nil){
+                [self.navigationController popViewControllerAnimated:YES];
+                if (self.destinationVC != nil) {
+                    [self.navigationController pushViewController:self.destinationVC animated:YES];
+                }
+
+            }else{
+                [self dismissViewControllerAnimated:YES completion:^{
+                    [(MainViewController*) kAppWindow.rootViewController setTabbarSelection:2];
+                }];
             }
+           
         }
     }
 }

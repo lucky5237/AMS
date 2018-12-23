@@ -91,7 +91,11 @@
 }
 
 -(void)backButtonItemTapped:(UIBarButtonItem *) barItem{
-    [self.navigationController popViewControllerAnimated:YES];
+    if (self.popToRoot) {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }else{
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 -(void)didReceiveSocketData:(NSNotification *)noti{

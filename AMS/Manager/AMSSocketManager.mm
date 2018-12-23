@@ -18,6 +18,9 @@
 #import "AppDelegate.h"
 #import "ConfigModel.h"
 #import "AppDelegate+AppSevice.h"
+#import "User_Reqqryinvestorposition.h"
+#import "SocketRequestManager.h"
+#import "User_Onrtntrade.h"
 //#import "SocketResponseManager.h"
 
 @interface AMSSocketManager()<GCDAsyncSocketDelegate>
@@ -211,14 +214,19 @@ return manager;
     //连接后开始读取服务端数据
     //    [client readDataToLength:40 withTimeout:-1 tag:0];
     _readBuf = [[NSMutableData alloc] init];
+//    NSString *userId = [kUserDefaults objectForKey:UserDefaults_User_ID_key];
+//    NSString *password = [kUserDefaults objectForKey:UserDefaults_User_Password_key];
+//    if (userId!=nil && userId.length > 0 &&  password!=nil && password.length > 0   ) {
+//        [requestm]
+//    }
     [client readDataWithTimeout:-1 tag:0];
 //    self.readRPCHead = YES;
 }
 /**socket断开连接*/
 -(void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err{
-    AMSSocketClient *client = (AMSSocketClient*) sock;
-    NSLog(@"----socket (tag = %@)断开连接，%@----",sock.userData,err.localizedDescription);
+    AMSSocketClient *client = (AMSSocketClient*) sock;    NSLog(@"----socket (tag = %@)断开连接，%@----",sock.userData,err.localizedDescription);
     [self.socketClientDict removeObjectForKey:sock.userData];
+    
     //判断网络，网络不好的情况下不重连
     if(client.offlineType == AMSSocketOfflineCutByUser){
         [client cutOffSocket];
@@ -303,18 +311,32 @@ return manager;
                             if (dataMessage -> IsExistField(FIELD_KEY_bIsLast)) {
                                 [self.mResponseArray addObject:model];
                                 if (dataMessage->GetField(FIELD_KEY_bIsLast)->GetInt32() == 1) {
-                                    [kNotificationCenter postNotificationName:sock.userData object:@{@"functionNo":@(functionNo),@"response":self.mResponseArray.copy}];
-                                    [self.mResponseArray removeAllObjects];
+                                    if (functionNo == AS_SDK_USER_ONRSPQRYINVESTORPOSITION){
+                                        //持仓表响应
+                                        [kAppDelegate dealOrderPosition:self.mResponseArray];
+                                        
+                                    }else{
+                                        [kNotificationCenter postNotificationName:sock.userData object:@{@"functionNo":@(functionNo),@"response":self.mResponseArray.copy}];
+                                    }
+                                   [self.mResponseArray removeAllObjects];
                                 }
                             }else{
                                 //报单响应
-                                if(functionNo == AS_SDK_USER_ONRTNORDER){
+                                if(functionNo == AS_SDK_USER_ONRTNORDER || functionNo == AS_SDK_USER_ONRTNORDER_AFTER_LOGIN){
                                     [kAppDelegate dealOrderInsertResponse:model];
-                                }else if(functionNo == AS_SDK_USER_ONRTNTRADE){
+                                }else if(functionNo == AS_SDK_USER_ONRTNTRADE || functionNo == AS_SDK_USER_ONRTNTRADE_AFTER_LOGIN){
                                     //成交通知
-                                    [kAppDelegate dealOrderInsertResponse:model];
-                                }
-                                    else{
+                                    [kAppDelegate dealOrderTradeResponse:model];
+                                    //普通成交通知还要更新持仓明细
+                                    if(functionNo == AS_SDK_USER_ONRTNTRADE){
+                                        User_Onrtntrade *item  = (User_Onrtntrade *)model;
+                                        User_Reqqryinvestorposition *request = [[User_Reqqryinvestorposition alloc] init];
+                                        request.BrokerID = @"9999";
+                                        request.InstrumentID = item.InstrumentID;
+                                        request.InvestorID = [kUserDefaults objectForKey:UserDefaults_User_ID_key];
+                                        [[SocketRequestManager shareInstance]  reqqryinvestorposition:request];
+                                    }
+                                }else{
                                      [kNotificationCenter postNotificationName:sock.userData object:@{@"functionNo":@(functionNo),@"response":@[model]}];
                                 }
                             }
@@ -333,6 +355,7 @@ return manager;
 
 /**读取到服务端数据*/
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag{
+    NSLog(@"----读取到数据----");
     dispatch_async(dispatch_get_main_queue(), ^{
         if (data.length > 0) {
             [self.readBuf appendData:data];

@@ -200,7 +200,7 @@
             }
             //总仓
             if (indexPath.col == 2) {
-                grid.text = [NSString stringWithFormat:@"%@",item.Position];
+                grid.text = [NSString stringWithFormat:@"%@",item.Position ? : @0];
             }
             //可用
             if (indexPath.col == 3) {
@@ -215,6 +215,11 @@
             if (indexPath.col == 5) {
                 grid.text = @"逐笔浮盈";
                 //                grid.text = [NSString stringWithFormat:@"%ld",item.Position.intValue - item.LongFrozen.intValue - item.ShortFrozen.intValue > 0 ?: 0];
+            }
+            
+            printf("%s ",grid.text.UTF8String);
+            if (indexPath.col == 5) {
+                NSLog(@"\n");
             }
             
         }else if (reportView.tag - 1 == GuaDanType){
@@ -342,6 +347,13 @@
 -(void)reloadData{
 //    LMReportView *reportView = (LMReportView *)[self.scrollView viewWithTag:self.currentSelectIndex];
     [self.currentReportView reloadData];
+    self.currentReportView.frame = CGRectMake(KScreenWidth * self.currentSelectIndex, 0, self.scrollView.zj_width, self.scrollView.zj_height);
+}
+
+-(void)reloadData:(NSInteger) index{
+    LMReportView *reportView =  (LMReportView *)[self.scrollView viewWithTag:index + 1];
+    [reportView reloadData];
+    reportView.frame = CGRectMake(KScreenWidth * index, 0, self.scrollView.zj_width, self.scrollView.zj_height);
 }
 
 @end

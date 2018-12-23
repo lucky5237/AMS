@@ -17,6 +17,7 @@
 #import "Y_StockChartGlobalVariable.h"
 #import "QryMinuteLineResponseModel.h"
 #import "QryQuotationResponseModel.h"
+#import "InstumentModel.h"
 #define kMinimumPanDistance [Y_StockChartGlobalVariable kLineWidth] + [Y_StockChartGlobalVariable kLineGap]
 @interface TimeChartViewController ()<UIGestureRecognizerDelegate,Y_KlineEventDelegete>
 @property(nonatomic,strong) ChartBottomView *chartBottomView;
@@ -91,7 +92,7 @@
     //    } fail:^{
     //        NSLog(@"fail");
     //    }];
-    NSDictionary *dict = @{@"symbol":@"sc1903"};
+    NSDictionary *dict = @{@"symbol":self.model.instrument.InstrumentID};
     [NetWorking requestWithApi:[NSString stringWithFormat:@"%@%@",BaseUrl,QryMinuteLine_URL] reqeustType:POST_Type param:dict thenSuccess:^(NSDictionary *responseObject) {
         QryMinuteLineResponseModel *model = [QryMinuteLineResponseModel yy_modelWithDictionary:responseObject];
         NSArray *timeSharingListArray = model.mdata.timeSharingList;

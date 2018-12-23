@@ -41,6 +41,7 @@
 -(void)loginOut{
     User_Requserlogout *request = [[User_Requserlogout alloc] init];
     request.UserID = [kUserDefaults objectForKey:UserDefaults_User_ID_key];
+    request.BrokerID = @"9999";
     NSData* data = [BestMessageUtil generateBestMsg:AS_SDK_USER_REQUSERLOGOUT model:request];
     [[AMSSocketManager shareInstance] writeData:data toSocket:SOCKET_NAME_DEFAULT];
 }

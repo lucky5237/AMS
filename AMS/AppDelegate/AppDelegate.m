@@ -41,12 +41,26 @@
     return _weituoOrderArray;
 }
 
+-(NSMutableArray *)chengjiaoOrderArray{
+    if (!_chengjiaoOrderArray) {
+        _chengjiaoOrderArray = [[NSMutableArray alloc] init];
+    }
+    return _chengjiaoOrderArray;
+}
+
+-(NSMutableArray *)chicangOrderArray{
+    if (!_chicangOrderArray) {
+        _chicangOrderArray = [[NSMutableArray alloc] init];
+    }
+    return _chicangOrderArray;
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
     //添加socket连接
     [self initSocketConnect];
 //    [NSThread sleepForTimeInterval:2];
-    [self initConfig];
+    [self initConfig];;
     [self initDB];
     //    [self checkVersion];
     [self listenNetworkStatus];
@@ -55,6 +69,7 @@
         [[JPFPSStatus sharedInstance] open];
     #endif
     [self setUpRootViewController];
+    
     return YES;
 }
 
@@ -67,6 +82,9 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    // 实现如下代码，才能使程序处于后台时被杀死，调用applicationWillTerminate:方法
+    [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^(){}];
+    
 }
 
 
@@ -82,6 +100,10 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+     NSLog(@"applicationWillTerminate");
+    [kUserDefaults setObject:@0 forKey:UserDefaults_User_Is_Login];
+//    [kUserDefaults setObject:nil forKey:UserDefaults_User_ID_key];
+//    [kUserDefaults setObject:nil forKey:UserDefaults_User_Password_key];
 }
 
 -(BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options{

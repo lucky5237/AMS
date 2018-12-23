@@ -14,6 +14,7 @@
 #import "SettingMainViewController.h"
 #import <RDVTabBarItem.h>
 #import "QryQuotationResponseModel.h"
+#import "InstumentModel.h"
 @interface MarketDetailViewController()
 @property(nonatomic,strong) UIBarButtonItem *menuBtnItem;
 @property(nonatomic,strong) UIBarButtonItem *timeBtnItem;
@@ -23,7 +24,7 @@
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-    self.title = self.model.stockName;
+    self.title = self.model.instrument.InstrumentName;
     self.view.backgroundColor = kBackGroundColor;
     if (@available(iOS 11.0, *)){
         [[UIScrollView appearance] setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentNever];
@@ -32,8 +33,6 @@
     }
     //分时图
     TimeChartViewController *timeVC = [[TimeChartViewController alloc] init];
-//    NewTimeChartViewController *timeVC = [[NewTimeChartViewController alloc] init];
-
     timeVC.useRdvTab = YES;
     timeVC.model = self.model;
     //k线图
@@ -89,7 +88,6 @@
             [self.tabBar setSelectedItem:item];
         }
 
-        
         index++;
             }
 }
