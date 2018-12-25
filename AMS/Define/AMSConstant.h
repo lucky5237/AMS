@@ -70,7 +70,8 @@ typedef NS_ENUM(NSInteger,OrderPlaceSettingType) {
 typedef NS_ENUM(NSInteger,TradeCellMenuBtnType) {
     CloseBtn = 0,//平仓
     ReverseBtn,//反手
-    LockBtn//锁单
+    LockBtn,//锁单
+    BackBtn = 999 //撤单
 };
 
 //键盘相关

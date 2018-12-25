@@ -53,6 +53,7 @@ typedef NS_ENUM(NSUInteger, LMRPart) {
     if (self = [super initWithCoder:aDecoder]) {
         [self p_setupViews];
         [self p_setupGestureRecognizers];
+        self.currentSelectedRow = -1;
         _style = [LMRStyle defaultStyle];
     }
     return self;
@@ -62,6 +63,7 @@ typedef NS_ENUM(NSUInteger, LMRPart) {
     if (self = [super initWithFrame:frame]) {
         [self p_setupViews];
         [self p_setupGestureRecognizers];
+        self.currentSelectedRow = -1;
         _style = [LMRStyle defaultStyle];
     }
     return self;
@@ -435,6 +437,10 @@ typedef NS_ENUM(NSUInteger, LMRPart) {
     theLabel.lineBreakMode = NSLineBreakByCharWrapping;
     theLabel.numberOfLines = 0;
     theLabel.underline = grid.underline;
+    //设置选中的行的背景颜色
+    if(grid.indexPath.row == self.currentSelectedRow){
+        theLabel.backgroundColor = [UIColor orangeColor];
+    }
     *label = theLabel;
 }
 

@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class User_Reqqryinvestorposition;
 @class User_Reqqrytradingaccount;
 @class User_Reqqrytrade;
+@class User_Reqorderaction;
 @interface SocketRequestManager : NSObject
 +(SocketRequestManager*) shareInstance;
 +(NSDictionary *)responseDictWithBestMessage:(best_protocol::IBestMessage *)bestMessage;
@@ -27,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)reqqryinvestorposition:(User_Reqqryinvestorposition *)model;//查询资金
 -(void)reqqrytrade:(User_Reqqrytrade *)model;//查询成交
 -(void)reqqrytradingaccount:(User_Reqqrytradingaccount*)model;//查询资金
+-(void)reqorderaction:(User_Reqorderaction *)model;//报单操作（撤单）
 @end
 
 NS_ASSUME_NONNULL_END

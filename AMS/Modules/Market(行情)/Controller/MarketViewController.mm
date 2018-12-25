@@ -320,7 +320,7 @@
                 }];
                 [self.tableView reloadData];
                 if(!self.haveLoadData){
-                    [self startTimer];
+//                    [self startTimer];
                     self.hasAccessSocket = YES;
                     self.haveLoadData = YES;
                 }
@@ -553,7 +553,7 @@
     }
     
     if(self.timer == nil && self.hasAccessSocket){
-        [self startTimer];
+//        [self startTimer];
     }
     
 }

@@ -78,6 +78,7 @@
     reportView.style.spacing = REPORT_VIEW_BOARDER_WIDTH;
     reportView.style.trimWidthSpace = false;
     reportView.style.borderColor = [UIColor grayColor];
+    reportView.style.selectBackGroundColor = kCellBackGroundColor;
     reportView.backgroundColor = kCellBackGroundColor;
     reportView.style.borderInsets = UIEdgeInsetsMake(REPORT_VIEW_BOARDER_WIDTH, 0, REPORT_VIEW_BOARDER_WIDTH, 0);
     reportView.tag = index + 1;

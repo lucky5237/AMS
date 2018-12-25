@@ -59,7 +59,6 @@
 
     //添加socket连接
     [self initSocketConnect];
-//    [NSThread sleepForTimeInterval:2];
     [self initConfig];;
     [self initDB];
     //    [self checkVersion];

@@ -35,6 +35,8 @@
 #import "User_Reqqryinstrument.h"
 #import "MainViewController.h"
 #import "User_Onrtnorder.h"
+#import "User_Reqorderaction.h"
+
 
 @interface TradeViewController ()<LrReportContainerViewDelegate,UITextFieldDelegate>
 @property(nonatomic,strong) TradeHeaderView *headerView;
@@ -58,6 +60,7 @@
 @property(nonatomic,copy) NSArray *guaDanArray;
 @property(nonatomic,copy) NSArray *weituoArray;
 @property(nonatomic,copy) NSArray *chengjiaoArray;
+@property(nonatomic,strong)User_Onrspqryinvestorposition *currentSelectInvestorposition;
 @end
 
 #define Header_Height  210
@@ -109,9 +112,7 @@
         make.bottom.mas_equalTo(-120);
     }];
     [self.view layoutIfNeeded];
-    if(self.model != nil){
-       [self requestNewestPriceInfo:self.keyboardView.isUsingSystemPrice];
-    }
+
 //    [self startTimer];
     [self queryAccountInfo];
 //    [self queryChicang];
@@ -119,7 +120,9 @@
   
     
     if(self.model != nil){
+        self.headerView.priceTf.text = @"排队价";
         self.headerView.nameTf.text = self.model.instrument.InstrumentName;
+        [self requestNewestPriceInfo:self.keyboardView.isUsingSystemPrice];
     }
     
     [self.headerView.priceTf.rac_textSignal subscribeNext:^(NSString * _Nullable x) {
@@ -129,10 +132,31 @@
             self.headerView.eveningUpLabel.text = x;
         }
     }];
-  
-    
-   
 }
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    //报单通知
+    [kNotificationCenter addObserver:self selector:@selector(updateOrderInsert:) name:UPDTAE_INSERT_ORDER_NOTIFICATION_NAME object:nil];
+    
+    //成交通知
+    [kNotificationCenter addObserver:self selector:@selector(updateOrderTrade:) name:UPDTAE_TRADE_ORDER_NOTIFICATION_NAME object:nil];
+    
+    //查询持仓
+    [kNotificationCenter addObserver:self selector:@selector(updateOrderChicang:) name:UPDTAE_CHICANG_ORDER_NOTIFICATION_NAME object:nil];
+    if (self.model == nil) {
+        self.rdv_tabBarController.tabBarHidden = NO;
+    }else{
+        self.rdv_tabBarController.tabBarHidden = NO;
+        self.rdv_tabBarController.navigationItem.rightBarButtonItem = self.menuBtnItem;
+    }
+    [self fetchReportViewData:self.containerView.currentSelectIndex];
+    
+    //三键下单业务逻辑 未选中
+    [self initButtonConfig:false];
+    
+}
+
 //查资金
 -(void)queryAccountInfo{
     User_Reqqrytradingaccount *request = [[User_Reqqrytradingaccount alloc] init];
@@ -154,19 +178,82 @@
     }
 }
 
--(void)initButtonConfig{
+-(void)initButtonConfig:(BOOL)isSelect{
     NSArray* chicangArray = kAppDelegate.chicangOrderArray;
+    //没有持仓则默认显示
     if (chicangArray.count == 0) {
         self.headerView.buyMoreDesLabel.text = @"买多";
         self.headerView.saleEmptyDesLabel.text  = @"卖空";
         self.headerView.eveningUpDescLabel.text = @"平仓";
+        self.headerView.eveningUpLabel.text = @"优先平昨";
     }else{
-        [self.chicangArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        __block BOOL hadBull = false;//是否存在多仓
+        __block BOOL hadBear = false;//是否存在空仓
+        [chicangArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             User_Onrspqryinvestorposition *model = obj;
+            //合约id相同说明存在持仓
             if ([model.InstrumentID isEqualToString:self.model.instrument.InstrumentID]) {
-//                if()
+                //判断多空 2-多，3-空
+                //存在多仓
+                if([model.PosiDirection isEqualToString:@"2"]){
+                    hadBull = YES;
+                }
+                //存在空仓
+                if([model.PosiDirection isEqualToString:@"3"]){
+                    hadBear = YES;
+                }
+                
+                //两个都存在,终止循环
+                if (hadBull && hadBear) {
+                    *stop = YES;
+                }
             }
         }];
+        
+        //4种情况
+        //1-没有合约
+        if (!hadBull && !hadBear) {
+            self.headerView.buyMoreDesLabel.text = @"买多";
+            self.headerView.saleEmptyDesLabel.text  = @"卖空";
+            self.headerView.eveningUpDescLabel.text = @"平仓";
+        }
+        //只有空仓
+        else if (hadBear && !hadBull){
+            self.headerView.buyMoreDesLabel.text = @"锁仓";
+            self.headerView.saleEmptyDesLabel.text  = @"加空";
+            self.headerView.eveningUpDescLabel.text = @"平仓";//买
+        }
+        //只有多仓
+        else if (!hadBear && hadBull){
+            self.headerView.buyMoreDesLabel.text = @"加多";
+            self.headerView.saleEmptyDesLabel.text  = @"锁仓";
+            self.headerView.eveningUpDescLabel.text = @"平仓";//买
+        }
+        
+        //多空都有
+        else{
+            self.headerView.buyMoreDesLabel.text = @"加多";
+            self.headerView.saleEmptyDesLabel.text  = @"加空";
+            self.headerView.eveningUpDescLabel.text = @"平仓";//买
+            if (!isSelect) {
+                 self.headerView.eveningUpLabel.text = @"锁仓状态";
+            }else{
+                NSInteger row  = self.containerView.currentReportView.currentSelectedRow;
+                if (row < 0) {
+                    return;
+                }else{
+                    User_Onrspqryinvestorposition *item = self.containerView.dataArray[0][row];
+                    //判断点击了多还是空
+                    if ([item.PosiDirection isEqualToString:@"2"]) {
+                        self.headerView.eveningUpLabel.text = @"平多单";
+                    }else{
+                         self.headerView.eveningUpLabel.text = @"平空单";
+                    }
+                }
+            }
+           
+        }
+        
     }
 }
 
@@ -223,13 +310,13 @@
     [self.containerView reloadData:index];
 }
 
--(void)queryChicang{
-    User_Reqqryinvestorposition *request = [[User_Reqqryinvestorposition alloc] init];
-    request.BrokerID = @"9999";
-    request.InstrumentID = self.model.instrument.InstrumentID;
-    request.InvestorID = [kUserDefaults objectForKey:UserDefaults_User_ID_key];
-    [[SocketRequestManager shareInstance] reqqryinvestorposition:request];
-}
+//-(void)queryChicang{
+//    User_Reqqryinvestorposition *request = [[User_Reqqryinvestorposition alloc] init];
+//    request.BrokerID = @"9999";
+//    request.InstrumentID = self.model.instrument.InstrumentID;
+//    request.InvestorID = [kUserDefaults objectForKey:UserDefaults_User_ID_key];
+//    [[SocketRequestManager shareInstance] reqqryinvestorposition:request];
+//}
 #pragma mark 懒加载
 
 -(NSMutableArray *)tableArray{
@@ -382,6 +469,7 @@
 -(TradeCellMenuView *)menuView{
     if (!_menuView) {
         _menuView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([TradeCellMenuView class]) owner:nil options:nil]lastObject];
+        
         kWeakSelf(self);
         _menuView.frame = CGRectMake(0, 0, KScreenWidth, 44);
         _menuView.tradeCellMenuClickBlock = ^(TradeCellMenuBtnType type) {
@@ -405,8 +493,11 @@
         
     }else if(type == ReverseBtn){//反仓
        NSLog(@"点击了反仓");
+        
     }else if (type == LockBtn){//锁单
         NSLog(@"点击了锁单");
+    }else if (type == BackBtn){//撤单
+        [self cancelOrder];
     }
     [self disAppearOpView];
 }
@@ -422,6 +513,23 @@
         self.currentSelectIndexPath = nil;
         self.menuView.isShowing = false;
         [self.containerView reloadData];
+    }
+}
+
+//撤销订单
+-(void)cancelOrder{
+    NSInteger row  = self.containerView.currentReportView.currentSelectedRow;
+    if (row < 0) {
+        return;
+    }else{
+        User_Onrtnorder *item = self.containerView.dataArray[1][row];
+        User_Reqorderaction *request = [[User_Reqorderaction alloc] init];
+        request.BrokerID = @"9999";
+        request.InvestorID = [kUserDefaults objectForKey:UserDefaults_User_ID_key];
+        request.ExchangeID = item.ExchangeID;
+        request.OrderSysID = item.OrderSysID;
+        request.ActionFlag = @"0";//删除
+        [[SocketRequestManager shareInstance] reqorderaction:request];
     }
 }
 
@@ -600,27 +708,33 @@
     if (indexPath == nil || indexPath.row == 0) {
         return;
     }else{
-        self.currentSelectIndexPath = indexPath;
-        NSLog(@"frame is %@",NSStringFromCGRect(label.frame));
-        [self.containerView.currentReportView addSubview:self.menuView];
-         self.menuView.frame = CGRectMake(0, CGRectGetMaxY(label.frame)  - self.containerView.currentReportView.contentOffSet, KScreenWidth, 45);
-        self.menuView.alpha = 0.f;
-        	[UIView animateWithDuration:0.2 animations:^{
-              
+        //持仓表或者委托表才有
+        if (reportView.tag - 1 == 0 || reportView.tag - 1 == 1) {
+            self.currentSelectIndexPath = indexPath;
+            NSLog(@"frame is %@",NSStringFromCGRect(label.frame));
+            [self.containerView.currentReportView addSubview:self.menuView];
+            self.menuView.frame = CGRectMake(0, CGRectGetMaxY(label.frame)  - self.containerView.currentReportView.contentOffSet, KScreenWidth, 45);
+            self.menuView.alpha = 0.f;
+            [self.menuView configType:reportView.tag - 1];
+            [UIView animateWithDuration:0.2 animations:^{
+                
                 if (CGRectGetMaxY(label.frame) + 41  - self.containerView.currentReportView.contentOffSet >=self.containerView.bounds.size.height) {
                     NSLog(@"超出屏幕");
                     self.menuView.frame = CGRectMake(0, CGRectGetMaxY(label.frame) - self.containerView.currentReportView.contentOffSet - 4, KScreenWidth, 45);
                 }else{
-                      self.menuView.frame = CGRectMake(0, CGRectGetMaxY(label.frame) + 41  - self.containerView.currentReportView.contentOffSet, KScreenWidth, 45);
+                    self.menuView.frame = CGRectMake(0, CGRectGetMaxY(label.frame) + 41  - self.containerView.currentReportView.contentOffSet, KScreenWidth, 45);
                 }
-//            self.menuView.frame = CGRectMake(0, CGRectGetMaxY(label.frame) + 41  - self.containerView.currentReportView.contentOffSet, KScreenWidth, 45);
-            [self.containerView.currentReportView addSubview:self.menuView];
-            self.menuView.isShowing = YES;
-            self.menuView.alpha = 1;
-        }];
+                //            self.menuView.frame = CGRectMake(0, CGRectGetMaxY(label.frame) + 41  - self.containerView.currentReportView.contentOffSet, KScreenWidth, 45);
+                [self.containerView.currentReportView addSubview:self.menuView];
+                self.menuView.isShowing = YES;
+                self.menuView.alpha = 1;
+            }];
+            
+            [self.containerView reloadData];
+            [self.containerView bringSubviewToFront:self.menuView];
+        }
+      
        
-        [self.containerView reloadData];
-        [self.containerView bringSubviewToFront:self.menuView];
     }
     
 }
@@ -631,7 +745,16 @@
     if (self.menuView.isShowing) {
         [self disAppearOpView];
     }else{
-        NSLog(@"点击了%@",label.text);
+        //点击事件
+        //点击表头无效
+        if(label.indexPath.row == 0){
+            return;
+        }
+        NSLog(@"点击了第%ld行",(long)label.indexPath.row);
+        reportView.currentSelectedRow = label.indexPath.row;
+        [reportView reloadData];
+        User_Onrspqryinvestorposition *item = (User_Onrspqryinvestorposition *)self.containerView.dataArray[reportView.tag - 1][label.indexPath.row -1];
+        [self queryInstrumentById:item.InstrumentID];
     }
 }
 
@@ -667,27 +790,7 @@
     [[SocketRequestManager shareInstance] qryInstrument:query];
 }
 
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    //报单通知
-    [kNotificationCenter addObserver:self selector:@selector(updateOrderInsert:) name:UPDTAE_INSERT_ORDER_NOTIFICATION_NAME object:nil];
-    
-    //成交通知
-    [kNotificationCenter addObserver:self selector:@selector(updateOrderTrade:) name:UPDTAE_TRADE_ORDER_NOTIFICATION_NAME object:nil];
-    
-    //查询持仓
-    [kNotificationCenter addObserver:self selector:@selector(updateOrderChicang:) name:UPDTAE_CHICANG_ORDER_NOTIFICATION_NAME object:nil];
-    if (self.model == nil) {
-        self.rdv_tabBarController.tabBarHidden = NO;
-    }else{
-           self.rdv_tabBarController.tabBarHidden = NO;
-        self.rdv_tabBarController.navigationItem.rightBarButtonItem = self.menuBtnItem;
-    }
-    [self fetchReportViewData:self.containerView.currentSelectIndex];
-    
-    [self initButtonConfig];
-    
-}
+
 
  //报单通知
 -(void)updateOrderInsert:(NSNotification*) noti{
@@ -709,11 +812,12 @@
 
  //成交通知
 -(void)updateOrderTrade:(NSNotification*) noti{
+    //更新成交表
     [self.containerView dataArray:kAppDelegate.chengjiaoOrderArray forIndex:ChengjiaoType];
     [self.containerView reloadData:ChengjiaoType];
     //更新资金
     [self queryAccountInfo];
-    //查询持仓
+    //重新查询持仓
     User_Reqqryinvestorposition *request = [[User_Reqqryinvestorposition alloc] init];
     request.BrokerID = @"9999";
     request.InvestorID = [kUserDefaults objectForKey:UserDefaults_User_ID_key];
@@ -761,11 +865,24 @@
          self.chicangArray = self.response;
          [self.containerView dataArray:self.chicangArray forIndex:ChiChangType];
          [self.containerView reloadData:ChiChangType];
-//     }else if ((int32)self.funtionNo.integerValue == AS_SDK_USER_REQQRYTRADE){
-////         //成交表响应
-//////         self.chengjiaoArray = self.response;
-//////         [self.containerView dataArray:self.chengjiaoArray forIndex:ChengjiaoType];
-//////         [self.containerView reloadData];
+     }else if ((int32)self.funtionNo.integerValue == AS_SDK_USER_ONRSPQRYINSTRUMENT){
+         User_Onrspqryinstrument *instrument = self.response.firstObject;
+        
+         NSLog(@"查询到INSTRUMENT --  %@",instrument);
+         InstumentModel *model  = [[InstumentModel alloc] init];
+         model.instrument = instrument;
+         self.model = model;
+         if(instrument != nil){
+             self.headerView.nameTf.text = instrument.InstrumentName;
+             [self requestNewestPriceInfo:self.keyboardView.isUsingSystemPrice];
+             [self initButtonConfig:YES];
+         }else{
+              NSLog(@"INSTRUMENT is null");
+         }
+//         //成交表响应
+////         self.chengjiaoArray = self.response;
+////         [self.containerView dataArray:self.chengjiaoArray forIndex:ChengjiaoType];
+////         [self.containerView reloadData];
 //     }
 //     else if((int32)self.funtionNo.integerValue == AS_SDK_USER_ONRSPORDERINSERT){
 //         //报单错误响应

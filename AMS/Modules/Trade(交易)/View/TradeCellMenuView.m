@@ -35,4 +35,22 @@
         self.tradeCellMenuClickBlock(sender.tag);
     }
 }
+
+-(void)configType:(NSInteger)type{
+    //持仓表
+    if (type == 0) {
+        self.leftButton.hidden = false;
+//        self.centerButton.hidden = false;
+        [self.centerButton setTitle:@"快捷反手" forState:UIControlStateNormal];
+        self.rightButton.hidden = false;
+         self.centerButton.tag = 1;
+    }else if(type == 1){
+        self.leftButton.hidden = YES;
+//        self.centerButton.hidden = false;
+        [self.centerButton setTitle:@"撤单" forState:UIControlStateNormal];
+        self.rightButton.hidden = YES;
+        self.centerButton.tag = 999;
+    }
+   
+}
 @end

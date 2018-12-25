@@ -19,6 +19,7 @@
 #import "User_Reqqryinvestorposition.h"
 #import "User_Reqqrytrade.h"
 #import "User_Reqqrytradingaccount.h"
+#import "User_Reqorderaction.h"
 @implementation SocketRequestManager
 +(SocketRequestManager*) shareInstance{
     static SocketRequestManager *manager = nil;
@@ -67,6 +68,10 @@
 }
 -(void)reqqrytradingaccount:(User_Reqqrytradingaccount*)model{
     NSData* data = [BestMessageUtil generateBestMsg:AS_SDK_USER_REQQRYTRADINGACCOUNT model:model];
+    [[AMSSocketManager shareInstance] writeData:data toSocket:SOCKET_NAME_DEFAULT];
+}
+-(void)reqorderaction:(User_Reqorderaction *)model{
+    NSData* data = [BestMessageUtil generateBestMsg:AS_SDK_USER_REQORDERACTION model:model];
     [[AMSSocketManager shareInstance] writeData:data toSocket:SOCKET_NAME_DEFAULT];
 }
 @end

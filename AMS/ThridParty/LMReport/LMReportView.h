@@ -53,6 +53,8 @@ typedef NS_ENUM(NSInteger, LMROrder) {
 @property (nonatomic, copy) LMReportViewDidScrollBlock lMReportViewDidScrollBlock;
 @property(nonatomic,assign) CGFloat contentOffSet;
 
+@property (nonatomic, assign) NSUInteger currentSelectedRow;
+
 - (instancetype)initWithFrame:(CGRect)frame; // 在frame.size.width/height == 0 时候，会自动拉伸至内容所需宽度/长度
 - (void)reloadData;
 - (void)sortByCol:(NSInteger)col order:(LMROrder)order;

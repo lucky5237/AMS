@@ -116,6 +116,11 @@ extern NSString *const LMRStripeTextColorSettingName;
  */
 @property (nonatomic, strong) UIColor *stripeTextColor;
 
+/**
+*  选中颜色，默认为[UIColor blackColor]
+*/
+@property (nonatomic, strong) UIColor *selectBackGroundColor;
+
 + (instancetype)defaultStyle;
 + (instancetype)styleWithSettings:(NSDictionary *)settings;
 - (instancetype)initWithSettings:(NSDictionary *)settings;
