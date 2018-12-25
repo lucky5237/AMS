@@ -169,10 +169,12 @@ static int requestId = 0;
 //            DLog(@"GET FIELD ---- (%@ = %@ , %@)",realKeyName,fieldKey,proValue);
             [model setValue:proValue forKey:proName];
         }
+//        free(property);
     }
 
     //c语言的函数，所以要去手动的去释放内存
     free(propertyList);
+    
     //    }
     return model;
 }

@@ -62,6 +62,14 @@
                         <action selector="suocangMenuBtnTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="uX5-si-mBa"/>
                     </connections>
                 </button>
+                <button hidden="YES" opaque="NO" tag="999" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g5e-GE-f62">
+                    <rect key="frame" x="0.0" y="0.0" width="537" height="44"/>
+                    <color key="backgroundColor" red="0.78431372549019607" green="0.054901960784313725" blue="0.25882352941176467" alpha="0.99515732020547942" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <state key="normal" title="撤单">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                </button>
             </subviews>
             <color key="backgroundColor" red="0.78431372549019607" green="0.054901960784313725" blue="0.25882352941176467" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
@@ -70,9 +78,13 @@
                 <constraint firstItem="nLj-Un-tst" firstAttribute="centerY" secondItem="WMI-gi-ouD" secondAttribute="centerY" id="8gu-GD-RSG"/>
                 <constraint firstItem="nLj-Un-tst" firstAttribute="leading" secondItem="nBW-8d-zBv" secondAttribute="trailing" id="BL8-RT-Eov"/>
                 <constraint firstItem="vtc-OP-eCc" firstAttribute="leading" secondItem="QqH-mn-pXe" secondAttribute="trailing" id="Jds-2R-v7c"/>
+                <constraint firstItem="g5e-GE-f62" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="MVW-Ck-KFL"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="vtc-OP-eCc" secondAttribute="trailing" id="Ogg-TO-yi2"/>
                 <constraint firstItem="nLj-Un-tst" firstAttribute="height" secondItem="WMI-gi-ouD" secondAttribute="height" id="QGG-Xh-dLi"/>
+                <constraint firstItem="g5e-GE-f62" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="R4s-dw-pWJ"/>
                 <constraint firstItem="WMI-gi-ouD" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="TSb-Z1-4gM"/>
+                <constraint firstItem="g5e-GE-f62" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="XQ5-M7-DCN"/>
+                <constraint firstItem="g5e-GE-f62" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="YyU-CN-zza"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="WMI-gi-ouD" secondAttribute="bottom" id="ftT-bH-EvC"/>
                 <constraint firstItem="nBW-8d-zBv" firstAttribute="leading" secondItem="WMI-gi-ouD" secondAttribute="trailing" id="goX-Bb-gU9"/>
                 <constraint firstAttribute="bottom" secondItem="nBW-8d-zBv" secondAttribute="bottom" constant="8" id="hMI-TD-mic"/>
@@ -87,11 +99,12 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="backButton" destination="g5e-GE-f62" id="tSR-s8-daA"/>
                 <outlet property="centerButton" destination="nLj-Un-tst" id="NOp-EM-vgz"/>
                 <outlet property="leftButton" destination="WMI-gi-ouD" id="5db-On-nyC"/>
                 <outlet property="rightButton" destination="vtc-OP-eCc" id="NQA-c2-nZi"/>
             </connections>
-            <point key="canvasLocation" x="69.599999999999994" y="-143.47826086956522"/>
+            <point key="canvasLocation" x="69.599999999999994" y="-143.92803598200899"/>
         </view>
     </objects>
 </document>

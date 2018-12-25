@@ -36,7 +36,7 @@
 #import "MainViewController.h"
 #import "User_Onrtnorder.h"
 #import "User_Reqorderaction.h"
-
+#import "User_Onrspqryinstrument.h"
 
 @interface TradeViewController ()<LrReportContainerViewDelegate,UITextFieldDelegate>
 @property(nonatomic,strong) TradeHeaderView *headerView;
@@ -424,8 +424,15 @@
         model.ExchangeID = self.model.instrument.ExchangeID;
         model.CombHedgeFlag = @"1";
         model.MinVolume = @1;
+        //平仓1 开仓0
         model.CombOffsetFlag = model.Direction.length == 0 ? @"1" : @"0";
         model.VolumeTotalOriginal = @(self.headerView.numTf.text.integerValue);
+        
+        //买平的方向
+        //平仓
+        if(model.Direction.length == 0){
+            
+        }
         [[SocketRequestManager shareInstance] reqorderinsert:model];
     } cancelBlock:^{
         
@@ -715,7 +722,7 @@
             [self.containerView.currentReportView addSubview:self.menuView];
             self.menuView.frame = CGRectMake(0, CGRectGetMaxY(label.frame)  - self.containerView.currentReportView.contentOffSet, KScreenWidth, 45);
             self.menuView.alpha = 0.f;
-            [self.menuView configType:reportView.tag - 1];
+//            [self.menuView configType:reportView.tag - 1];
             [UIView animateWithDuration:0.2 animations:^{
                 
                 if (CGRectGetMaxY(label.frame) + 41  - self.containerView.currentReportView.contentOffSet >=self.containerView.bounds.size.height) {
@@ -753,35 +760,61 @@
         NSLog(@"点击了第%ld行",(long)label.indexPath.row);
         reportView.currentSelectedRow = label.indexPath.row;
         [reportView reloadData];
-        User_Onrspqryinvestorposition *item = (User_Onrspqryinvestorposition *)self.containerView.dataArray[reportView.tag - 1][label.indexPath.row -1];
-        [self queryInstrumentById:item.InstrumentID];
+        NSInteger row  = self.containerView.currentReportView.currentSelectedRow;
+        if (row < 0) {
+            return;
+        }else{
+             User_Onrspqryinvestorposition *item = self.containerView.dataArray[0][row];
+            if (self.model == nil) {
+                self.model = [[InstumentModel alloc] init];
+                User_Onrspqryinstrument *instrument = [[User_Onrspqryinstrument alloc] init];
+                instrument.InstrumentID = item.InstrumentID;
+                instrument.InstrumentName = item.InstrumentID;
+                instrument.ExchangeID = item.ExchangeID;
+                self.model.instrument = instrument;
+            }else{
+                self.model.instrument.InstrumentID = item.InstrumentID;
+                self.model.instrument.ExchangeID = item.ExchangeID;
+            }
+            self.headerView.nameTf.text = item.InstrumentID;
+            [self requestNewestPriceInfo:self.keyboardView.isUsingSystemPrice];
+            [self initButtonConfig:YES];
+           
+        }
+       
+//        User_Onrspqryinvestorposition *item = (User_Onrspqryinvestorposition *)self.containerView.dataArray[reportView.tag - 1][label.indexPath.row -1];
+//        [self queryInstrumentById:item.InstrumentID];
     }
 }
 
 //http轮询最新的价格
 -(void)requestNewestPriceInfo:(BOOL)needChangePrice{
-    QryQuotationRequestModel *requestModel = [[QryQuotationRequestModel alloc] init];
-    QryQuotationRequestSubModel *subModel = [[QryQuotationRequestSubModel alloc] init];
-    subModel.stockCodeInternal = self.model.instrument.InstrumentID;
-    requestModel.stockTradeMins = @[subModel];
-        NSString *str =  [requestModel.stockTradeMins.mutableCopy yy_modelToJSONString];
-        NSDictionary *dict = @{@"stockTradeMins":str};
-
-        [NetWorking requestWithApi:[NSString stringWithFormat:@"%@%@",BaseUrl,QryQuotation_URL] reqeustType:POST_Type param:dict thenSuccess:^(NSDictionary *responseObject) {
-            QryQuotationResponseModel *model = [QryQuotationResponseModel yy_modelWithDictionary:responseObject];
-            NSArray *dataList = model.ldata;
-            if (dataList.count> 0) {
-                self.currentData = (AMSLdatum*)dataList.firstObject;
-                [self.headerView configPriceData:self.currentData keyBoardType:self.keyboardView.type];
-                [self.keyboardView configTopHintMsg:self.currentData.priceChangeRate.doubleValue riseStopPrice:self.currentData.highPrice.doubleValue fallStopPrice:self.currentData.downPrice.doubleValue];
-                self.minChangePrice = [[NSDecimalNumber alloc] initWithString:self.currentData.priceChangeRate];
-            }else{
-                [MBProgressHUD showErrorMessage:@"暂无数据"];
-            }
-            
-        } fail:^(NSString *str) {
-            
-        }];
+    dispatch_async(dispatch_get_main_queue()
+                   , ^{
+                       QryQuotationRequestModel *requestModel = [[QryQuotationRequestModel alloc] init];
+                       QryQuotationRequestSubModel *subModel = [[QryQuotationRequestSubModel alloc] init];
+                       subModel.stockCodeInternal = self.model.instrument.InstrumentID;
+                       requestModel.stockTradeMins = @[subModel];
+                       NSString *str =  [requestModel.stockTradeMins.mutableCopy yy_modelToJSONString];
+                       NSDictionary *dict = @{@"stockTradeMins":str};
+                       
+                       [NetWorking requestWithApi:[NSString stringWithFormat:@"%@%@",BaseUrl,QryQuotation_URL] reqeustType:POST_Type param:dict thenSuccess:^(NSDictionary *responseObject) {
+                           QryQuotationResponseModel *model = [QryQuotationResponseModel yy_modelWithDictionary:responseObject];
+                           NSArray *dataList = model.ldata;
+                           if (dataList.count> 0) {
+                               self.currentData = (AMSLdatum*)dataList.firstObject;
+                               [self.headerView configPriceData:self.currentData keyBoardType:self.keyboardView.type];
+                               [self.keyboardView configTopHintMsg:self.currentData.priceChangeRate.doubleValue riseStopPrice:self.currentData.highPrice.doubleValue fallStopPrice:self.currentData.downPrice.doubleValue];
+                               self.minChangePrice = [[NSDecimalNumber alloc] initWithString:self.currentData.priceChangeRate];
+                           }else{
+                               [MBProgressHUD showErrorMessage:@"暂无数据"];
+                           }
+                           
+                       } fail:^(NSString *str) {
+                           
+                       }];
+                   });
+    
 }
 
 -(void)queryInstrumentById:(NSString *)instrumentId{
@@ -866,19 +899,19 @@
          [self.containerView dataArray:self.chicangArray forIndex:ChiChangType];
          [self.containerView reloadData:ChiChangType];
      }else if ((int32)self.funtionNo.integerValue == AS_SDK_USER_ONRSPQRYINSTRUMENT){
-         User_Onrspqryinstrument *instrument = self.response.firstObject;
-        
-         NSLog(@"查询到INSTRUMENT --  %@",instrument);
-         InstumentModel *model  = [[InstumentModel alloc] init];
-         model.instrument = instrument;
-         self.model = model;
-         if(instrument != nil){
-             self.headerView.nameTf.text = instrument.InstrumentName;
-             [self requestNewestPriceInfo:self.keyboardView.isUsingSystemPrice];
-             [self initButtonConfig:YES];
-         }else{
-              NSLog(@"INSTRUMENT is null");
-         }
+//         User_Onrspqryinstrument *instrument = self.response.firstObject;
+//
+//         NSLog(@"查询到INSTRUMENT --  %@",instrument);
+//         InstumentModel *model  = [[InstumentModel alloc] init];
+//         model.instrument = instrument;
+//         self.model = model;
+//         if(instrument != nil){
+//             self.headerView.nameTf.text = instrument.InstrumentName;
+//             [self requestNewestPriceInfo:self.keyboardView.isUsingSystemPrice];
+//             [self initButtonConfig:YES];
+//         }else{
+//              NSLog(@"INSTRUMENT is null");
+//         }
 //         //成交表响应
 ////         self.chengjiaoArray = self.response;
 ////         [self.containerView dataArray:self.chengjiaoArray forIndex:ChengjiaoType];

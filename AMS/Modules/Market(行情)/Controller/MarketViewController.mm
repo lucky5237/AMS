@@ -43,6 +43,7 @@
 @end
 
 #define identifier @"MarketTableViewCell"
+#define default_exchange_code @"INE"
 
 @implementation MarketViewController
 
@@ -357,7 +358,7 @@
  显示下拉菜单
  */
 -(void)showMenuView{
-    NSDictionary *alwaysInDict = @{@"code":@"",@"name":@"全部合约"};
+    NSDictionary *alwaysInDict = @{@"code":default_exchange_code,@"name":@"全部合约"};
     NSArray *selectPlateArray = [kUserDefaults objectForKey:PLATE_SETTING_DICT];
     NSMutableArray *selectArray = [NSMutableArray array];
     [selectArray addObject:alwaysInDict];
@@ -549,7 +550,8 @@
         }];
     }else{
         self.title = @"自选";
-        [self fetchData:self.isOption exchangeID:@""];
+//        [self fetchData:self.isOption exchangeID:@""];
+        [self fetchData:self.isOption exchangeID:default_exchange_code];
     }
     
     if(self.timer == nil && self.hasAccessSocket){

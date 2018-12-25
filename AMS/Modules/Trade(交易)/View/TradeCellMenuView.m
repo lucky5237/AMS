@@ -18,6 +18,16 @@
 }
 */
 
+-(void)awakeFromNib{
+    [super awakeFromNib];
+    self.backButton.userInteractionEnabled = YES;
+    [[self.backButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        if (self.tradeCellMenuClickBlock) {
+            self.tradeCellMenuClickBlock(x.tag);
+        }
+    }];
+}
+
 - (IBAction)pingcangMenuBtnTapped:(UIButton *)sender {
     if (self.tradeCellMenuClickBlock) {
         self.tradeCellMenuClickBlock(sender.tag);
@@ -36,20 +46,20 @@
     }
 }
 
+
 -(void)configType:(NSInteger)type{
     //持仓表
     if (type == 0) {
-        self.leftButton.hidden = false;
-//        self.centerButton.hidden = false;
-        [self.centerButton setTitle:@"快捷反手" forState:UIControlStateNormal];
-        self.rightButton.hidden = false;
-         self.centerButton.tag = 1;
+        self.leftButton.hidden = NO;
+        self.centerButton.hidden = NO;
+        self.rightButton.hidden = NO;
+        self.backButton.hidden = YES;
     }else if(type == 1){
         self.leftButton.hidden = YES;
-//        self.centerButton.hidden = false;
-        [self.centerButton setTitle:@"撤单" forState:UIControlStateNormal];
+        self.centerButton.hidden = YES;
         self.rightButton.hidden = YES;
-        self.centerButton.tag = 999;
+        self.backButton.hidden = NO;
+        [self bringSubviewToFront:self.backButton];
     }
    
 }

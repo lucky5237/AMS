@@ -23,7 +23,10 @@
 #import "User_Onrtnorder.h"
 #import "User_Onrtntrade.h"
 //#import "SocketResponseManager.h"
-
+best_protocol::IBestMessgeFactory *m_factory;
+best_protocol::IBestMessge*  phase_best_message;
+best_protocol::IBestRPCHead* rpcHeader;
+best_protocol::IBestDataMessage* dataMessage;
 @interface AMSSocketManager()<GCDAsyncSocketDelegate>
 
 /**
@@ -33,6 +36,7 @@
 @property(nonatomic,assign) BOOL readRPCHead;
 @property(nonatomic,strong) NSMutableData* readBuf;
 @property(nonatomic,strong)NSMutableArray *mResponseArray;
+
 @end
 
 
@@ -43,6 +47,9 @@ static AMSSocketManager *manager = nil;
 static dispatch_once_t onceSocketToken;
 dispatch_once(&onceSocketToken, ^{
     manager = [[self alloc] init];
+    InitBestMessge();
+    m_factory = CreateBestMessgeFactrotyInstance();
+    phase_best_message = m_factory->CreateBestMessage();
 });
 return manager;
 }
@@ -270,14 +277,12 @@ return manager;
 
 -(void)handleTcpResponseData:(NSData*)data socket:(GCDAsyncSocket *)sock tag:(long)tag{
 //    NSLog(@"handleTcpResponseData -- data length is %ld",data.length);
+    
     const void* message = data.bytes;
-    int32 length = (int32)data.length;
-    InitBestMessge();
-    best_protocol::IBestMessgeFactory *m_factory = CreateBestMessgeFactrotyInstance();
-    best_protocol::IBestMessge* phase_best_message = m_factory->CreateBestMessage();
-    phase_best_message->SetBuffer(message, length);
+    phase_best_message = m_factory->CreateBestMessage();
+    phase_best_message->SetBuffer(message, (int32)data.length);
     phase_best_message->Deserialize();
-    best_protocol::IBestRPCHead* rpcHeader = phase_best_message ->GetRpcHead();
+    rpcHeader = phase_best_message ->GetRpcHead();
     if (rpcHeader != NULL) {
         auto functionNo = rpcHeader->GetFuncNo();
         if(functionNo != 0){
@@ -288,7 +293,7 @@ return manager;
     }else{
         NSLog(@"rpcHeader is NULL");
     }
-    best_protocol::IBestDataMessage* dataMessage = [BestMessageUtil GetBestMessageDataMessage:phase_best_message index:0];
+    dataMessage = [BestMessageUtil GetBestMessageDataMessage:phase_best_message index:0];
     //说明正确，解析数据
     int32 functionNo = phase_best_message->GetRpcHead()->GetFuncNo();
     if (dataMessage) {
@@ -409,43 +414,51 @@ return manager;
 /**读取到服务端数据*/
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag{
     NSLog(@"----读取到数据----");
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (data.length > 0) {
-            [self.readBuf appendData:data];
-            
-        }
-        
-        //我们这边定义的head的长度为16个字节，按具体情况。如果大于16个字节就循环取包
-        while (self.readBuf.length > 40) {
-            
-            NSData *head = [self.readBuf subdataWithRange:NSMakeRange(0, 40)];//取得头部数据
-            auto rpcHead = [BestMessageUtil packMessageRPCHead:head];
-            
-            NSInteger packageLength = rpcHead ->GetTotalLenght();//得出内容长度
-            
-            //从head中取出和服务器协商的消息协议
-            //        NSData *operation = [head subdataWithRange:NSMakeRange(8, 4)];;
-            //如果包的长度没有实际包的长度，读取数据等下次拼接
-            if (packageLength > self.readBuf.length) {
-                [sock readDataWithTimeout:-1 tag:0];
-                return;
-            }
-            //        取出boday
-            NSData *bodyData = [self.readBuf subdataWithRange:NSMakeRange(0, packageLength)];
-            
-            //从cacheData中去掉已读取的数据
-            self.readBuf = [NSMutableData dataWithData:[self.readBuf subdataWithRange:NSMakeRange(packageLength, self.readBuf.length - packageLength)]];
-            
-//            __weak typeof(self) weakSelf = self;
-//            dispatch_async(dispatch_get_main_queue(), ^{
-                //异步处理数据，根据不同数据类型处理不同的事件
-            [self handleTcpResponseData:bodyData socket:sock tag:tag];
+    @autoreleasepool {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (data.length > 0) {
+                [self.readBuf appendData:data];
                 
-//            });
-        }
-        
-        [sock readDataWithTimeout:-1 tag:0];
-    });
+            }
+            
+            //我们这边定义的head的长度为16个字节，按具体情况。如果大于16个字节就循环取包
+            while (self.readBuf.length > 40) {
+                
+                NSData *head = [self.readBuf subdataWithRange:NSMakeRange(0, 40)];//取得头部数据
+                
+                rpcHeader = m_factory->CreateRpcHead();
+                rpcHeader->SetBuffer(head.bytes,(int32) head.length);
+                rpcHeader->Deserialize();
+//                auto rpcHead = [BestMessageUtil packMessageRPCHead:head];
+                
+                NSInteger packageLength = rpcHeader ->GetTotalLenght();//得出内容长度
+                
+                //从head中取出和服务器协商的消息协议
+                //        NSData *operation = [head subdataWithRange:NSMakeRange(8, 4)];;
+                //如果包的长度没有实际包的长度，读取数据等下次拼接
+                if (packageLength > self.readBuf.length) {
+                    [sock readDataWithTimeout:-1 tag:0];
+                    return;
+                }
+                //        取出boday
+                NSData *bodyData = [self.readBuf subdataWithRange:NSMakeRange(0, packageLength)];
+                
+                //从cacheData中去掉已读取的数据
+                self.readBuf = [NSMutableData dataWithData:[self.readBuf subdataWithRange:NSMakeRange(packageLength, self.readBuf.length - packageLength)]];
+                
+                //            __weak typeof(self) weakSelf = self;
+                //            dispatch_async(dispatch_get_main_queue(), ^{
+                //异步处理数据，根据不同数据类型处理不同的事件
+                [self handleTcpResponseData:bodyData socket:sock tag:tag];
+                
+                //            });
+                
+            }
+            
+            [sock readDataWithTimeout:-1 tag:0];
+        });
+    }
+    
 
 }
 

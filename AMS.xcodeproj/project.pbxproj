@@ -222,6 +222,7 @@
 		1633D02A21A7F90F002E0FD0 /* ForgetPwdController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1633D02821A7F90F002E0FD0 /* ForgetPwdController.m */; };
 		1633D02B21A7F90F002E0FD0 /* ForgetPwdController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1633D02921A7F90F002E0FD0 /* ForgetPwdController.xib */; };
 		1633D02E21A8056B002E0FD0 /* MessageCenterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1633D02D21A8056B002E0FD0 /* MessageCenterController.m */; };
+		163D702421D21D030024BD70 /* memory_pool.inl in Resources */ = {isa = PBXBuildFile; fileRef = 163D702321D21D020024BD70 /* memory_pool.inl */; };
 		163DE91321A29B0200A29315 /* LMRStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 163DE90A21A29B0200A29315 /* LMRStyle.m */; };
 		163DE91421A29B0200A29315 /* LMReportView.m in Sources */ = {isa = PBXBuildFile; fileRef = 163DE90B21A29B0200A29315 /* LMReportView.m */; };
 		163DE91521A29B0200A29315 /* LMRGrid.m in Sources */ = {isa = PBXBuildFile; fileRef = 163DE90C21A29B0200A29315 /* LMRGrid.m */; };
@@ -302,7 +303,6 @@
 		169180B021918D5D00BC1901 /* lib_best_msssage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1691808021918D5300BC1901 /* lib_best_msssage.cpp */; };
 		169180B121918D5D00BC1901 /* default_best_group.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1691808321918D5400BC1901 /* default_best_group.cpp */; };
 		169180B221918D5D00BC1901 /* default_bestIteror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1691808521918D5400BC1901 /* default_bestIteror.cpp */; };
-		169180B421918D5D00BC1901 /* memory_pool.inl in Resources */ = {isa = PBXBuildFile; fileRef = 1691808721918D5500BC1901 /* memory_pool.inl */; };
 		169180B621918D5D00BC1901 /* default_best_data_message.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1691808B21918D5600BC1901 /* default_best_data_message.cpp */; };
 		169180B721918D5D00BC1901 /* qcmutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1691808C21918D5700BC1901 /* qcmutex.cpp */; };
 		169180B821918D5D00BC1901 /* default_head_message.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1691809321918D5800BC1901 /* default_head_message.cpp */; };
@@ -787,6 +787,7 @@
 		1633D02921A7F90F002E0FD0 /* ForgetPwdController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ForgetPwdController.xib; sourceTree = "<group>"; };
 		1633D02C21A8056B002E0FD0 /* MessageCenterController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessageCenterController.h; sourceTree = "<group>"; };
 		1633D02D21A8056B002E0FD0 /* MessageCenterController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessageCenterController.m; sourceTree = "<group>"; };
+		163D702321D21D020024BD70 /* memory_pool.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = memory_pool.inl; sourceTree = "<group>"; };
 		163DE90821A29B0200A29315 /* NSIndexPath+LMReport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSIndexPath+LMReport.h"; sourceTree = "<group>"; };
 		163DE90921A29B0200A29315 /* LMReport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMReport.h; sourceTree = "<group>"; };
 		163DE90A21A29B0200A29315 /* LMRStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMRStyle.m; sourceTree = "<group>"; };
@@ -938,7 +939,6 @@
 		1691808321918D5400BC1901 /* default_best_group.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = default_best_group.cpp; sourceTree = "<group>"; };
 		1691808421918D5400BC1901 /* qcmutex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = qcmutex.h; sourceTree = "<group>"; };
 		1691808521918D5400BC1901 /* default_bestIteror.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = default_bestIteror.cpp; sourceTree = "<group>"; };
-		1691808721918D5500BC1901 /* memory_pool.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = memory_pool.inl; sourceTree = "<group>"; };
 		1691808821918D5500BC1901 /* default_message_pool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = default_message_pool.h; sourceTree = "<group>"; };
 		1691808A21918D5600BC1901 /* default_bestIteror.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = default_bestIteror.h; sourceTree = "<group>"; };
 		1691808B21918D5600BC1901 /* default_best_data_message.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = default_best_data_message.cpp; sourceTree = "<group>"; };
@@ -1769,6 +1769,7 @@
 				1691809321918D5800BC1901 /* default_head_message.cpp */,
 				1691807821918D4F00BC1901 /* default_head_message.h */,
 				1691809F21918D5C00BC1901 /* default_message_pool.cpp */,
+				163D702321D21D020024BD70 /* memory_pool.inl */,
 				1691808821918D5500BC1901 /* default_message_pool.h */,
 				1691807421918D4F00BC1901 /* default_message.cpp */,
 				1691807621918D4F00BC1901 /* default_message.h */,
@@ -1776,7 +1777,6 @@
 				1691807321918D4E00BC1901 /* default_serializer.h */,
 				1691808021918D5300BC1901 /* lib_best_msssage.cpp */,
 				1691807A21918D5200BC1901 /* memory_pool.h */,
-				1691808721918D5500BC1901 /* memory_pool.inl */,
 				1691807521918D4F00BC1901 /* object_list.h */,
 				1691809021918D5800BC1901 /* object_pool_ts.h */,
 				1691809421918D5900BC1901 /* object_pool.h */,
@@ -2292,7 +2292,6 @@
 				167E8A7D21A4114B00096C93 /* HandicapCollectionViewCell.xib in Resources */,
 				1610C9DE21CB42D400DCB14E /* readme.txt in Resources */,
 				161F28F7218844AD0036E22B /* Assets.xcassets in Resources */,
-				169180B421918D5D00BC1901 /* memory_pool.inl in Resources */,
 				1687941B219D1EA700B989A2 /* PullDownMenuCollectionViewCell.xib in Resources */,
 				16879424219E921800B989A2 /* TradeHeaderView.xib in Resources */,
 				16552F0121ACE9BD00FA511D /* CustomStatusBarView.xib in Resources */,
@@ -2302,6 +2301,7 @@
 				167E8A8221A4119800096C93 /* HandicapTableViewCell.xib in Resources */,
 				163DE91C21A2AC4000A29315 /* PriceCustomKeyboardView.xib in Resources */,
 				1603A7CB21A7D2A000BF3802 /* ModifyPasswordController.xib in Resources */,
+				163D702421D21D030024BD70 /* memory_pool.inl in Resources */,
 				167E8A8D21A541CE00096C93 /* SearchTableViewCell.xib in Resources */,
 				16D6E822219C0546007B41B7 /* SettingHeaderView.xib in Resources */,
 				16D6E818219BCA26007B41B7 /* MarketCellMenuView.xib in Resources */,
