@@ -76,6 +76,7 @@
     reportView.datasource = self;
     reportView.delegate = self;
     reportView.style.spacing = REPORT_VIEW_BOARDER_WIDTH;
+    reportView.style.trimWidthSpace = false;
     reportView.style.borderColor = [UIColor grayColor];
     reportView.backgroundColor = kCellBackGroundColor;
     reportView.style.borderInsets = UIEdgeInsetsMake(REPORT_VIEW_BOARDER_WIDTH, 0, REPORT_VIEW_BOARDER_WIDTH, 0);
@@ -215,11 +216,6 @@
             if (indexPath.col == 5) {
                 grid.text = @"逐笔浮盈";
                 //                grid.text = [NSString stringWithFormat:@"%ld",item.Position.intValue - item.LongFrozen.intValue - item.ShortFrozen.intValue > 0 ?: 0];
-            }
-            
-            printf("%s ",grid.text.UTF8String);
-            if (indexPath.col == 5) {
-                NSLog(@"\n");
             }
             
         }else if (reportView.tag - 1 == GuaDanType){

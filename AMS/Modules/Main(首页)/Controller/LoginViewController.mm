@@ -13,7 +13,8 @@
 #import "best_sdk_define.h"
 #import "User_Reqqryinvestorposition.h"
 #import "MainViewController.h"
-
+#import "TradeViewController.h"
+#import "AMSSocketManager.h"
 @interface LoginViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *userNameTf;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTf;
@@ -53,6 +54,9 @@
 }
 
 - (IBAction)loginBtnTapped:(UIButton *)sender {
+ 
+        
+    
     User_Requserlogin *loginModel = [[User_Requserlogin alloc] init];
     loginModel.UserID = self.userNameTf.text;
     loginModel.Password = self.passwordTf.text;
@@ -83,7 +87,7 @@
             [MBProgressHUD hideHUD];
             //        [MBProgressHUD showSuccessMessage:@"登录成功"];
             [kUserDefaults setObject:@1 forKey:UserDefaults_User_Is_Login];
-            [kUserDefaults setObject:model.UserID forKey:UserDefaults_User_ID_key];
+            [kUserDefaults setObject:self.userNameTf.text forKey:UserDefaults_User_ID_key];
             [kUserDefaults setObject:self.passwordTf.text forKey:UserDefaults_User_Password_key];
             
             //登录之后查询一次持仓至内存中
@@ -91,7 +95,7 @@
             request.BrokerID = @"9999";
             request.InvestorID = model.UserID;
             [[SocketRequestManager shareInstance] reqqryinvestorposition:request];
-            if(self.navigationController != nil){
+            if(self.navigationController != nil && [self.destinationVC isKindOfClass:[TradeViewController class]]){
                 [self.navigationController popViewControllerAnimated:YES];
                 if (self.destinationVC != nil) {
                     [self.navigationController pushViewController:self.destinationVC animated:YES];

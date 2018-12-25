@@ -356,6 +356,7 @@
 		16D6E820219BFCD6007B41B7 /* SettingMainViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 16D6E81F219BFCD6007B41B7 /* SettingMainViewController.mm */; };
 		16D6E822219C0546007B41B7 /* SettingHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16D6E821219C0546007B41B7 /* SettingHeaderView.xib */; };
 		16D6E826219C0569007B41B7 /* SettingHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16D6E825219C0569007B41B7 /* SettingHeaderView.m */; };
+		16E9C80C21D0B3D600927AE9 /* User_Onrtntrade_After_Login.m in Sources */ = {isa = PBXBuildFile; fileRef = 16E9C80B21D0B3D500927AE9 /* User_Onrtntrade_After_Login.m */; };
 		EB6723090429AED141100950 /* libPods-AMS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ED4F555FD2DABEE3B2C3E1 /* libPods-AMS.a */; };
 /* End PBXBuildFile section */
 
@@ -1042,6 +1043,8 @@
 		16D6E821219C0546007B41B7 /* SettingHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingHeaderView.xib; sourceTree = "<group>"; };
 		16D6E824219C0569007B41B7 /* SettingHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingHeaderView.h; sourceTree = "<group>"; };
 		16D6E825219C0569007B41B7 /* SettingHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingHeaderView.m; sourceTree = "<group>"; };
+		16E9C80A21D0B3D500927AE9 /* User_Onrtntrade_After_Login.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = User_Onrtntrade_After_Login.h; sourceTree = "<group>"; };
+		16E9C80B21D0B3D500927AE9 /* User_Onrtntrade_After_Login.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = User_Onrtntrade_After_Login.m; sourceTree = "<group>"; };
 		97ED4F555FD2DABEE3B2C3E1 /* libPods-AMS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AMS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE7A29FF76A97989127737E4 /* Pods-AMS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AMS.release.xcconfig"; path = "Pods/Target Support Files/Pods-AMS/Pods-AMS.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1093,6 +1096,7 @@
 				1610C9ED21CBEEF500DCB14E /* User_Onerrrtnquerybankbalancebyfuture.h */,
 				1610C9EE21CBEEF500DCB14E /* User_Onrspqryinstrumentcommissionrate.m */,
 				1610C9EF21CBEEF500DCB14E /* User_Onrspqryparkedorderaction.m */,
+				16E9C80A21D0B3D500927AE9 /* User_Onrtntrade_After_Login.h */,
 				1610C9F021CBEEF500DCB14E /* User_Onrspqrytransferserial.h */,
 				1610C9F121CBEEF500DCB14E /* User_Onrtntrade.m */,
 				1610C9F221CBEEF500DCB14E /* User_Onrtnoptionselfclose.h */,
@@ -1202,6 +1206,7 @@
 				1610CA5A21CBEEF500DCB14E /* User_Onrtnoptionselfclose.m */,
 				1610CA5B21CBEEF500DCB14E /* User_Onrsporderaction.m */,
 				1610CA5C21CBEEF500DCB14E /* User_Onrspqryoptioninstrtradecost.m */,
+				16E9C80B21D0B3D500927AE9 /* User_Onrtntrade_After_Login.m */,
 				1610CA5D21CBEEF500DCB14E /* User_Onrtntrade.h */,
 				1610CA5E21CBEEF500DCB14E /* User_Onrspqryparkedorderaction.h */,
 				1610CA5F21CBEEF500DCB14E /* User_Onrspqrytransferserial.m */,
@@ -2561,6 +2566,7 @@
 				16AB269721C2346200755B81 /* BaseRequestModel.mm in Sources */,
 				166DDC0D218AE34E00D43461 /* Y_KLineGroupModel.m in Sources */,
 				166DDC0B218AE34E00D43461 /* Y_KLinePositionModel.m in Sources */,
+				16E9C80C21D0B3D600927AE9 /* User_Onrtntrade_After_Login.m in Sources */,
 				169180BA21918D5D00BC1901 /* stdafx.cpp in Sources */,
 				166DDC01218AE34E00D43461 /* Y_StockChartGlobalVariable.m in Sources */,
 				1610CBD521CBEEF800DCB14E /* User_Onrspparkedorderinsert.m in Sources */,

@@ -187,13 +187,13 @@ const int AS_SDK_USER_REQQUERYBANKACCOUNTMONEYBYFUTURE        = 20079;
 
 
 //ctp报单通知
-const int AS_SDK_ONRTN_ORDER_INSERT                           = 20080;//废弃的名称
+//const int AS_SDK_ONRTN_ORDER_INSERT                           = 20080;//废弃的名称
 const int AS_SDK_USER_ONRTNORDER                              = 20080;//正式名称
 //ctp报单操作请求(撤单)的响应
-const int AS_SDK_ONRTN_USER_REQORDERACTION                    = 20081;//废弃的名称
+//const int AS_SDK_ONRTN_USER_REQORDERACTION                    = 20081;//废弃的名称
 const int AS_SDK_USER_ONRSPORDERACTION                        = 20081;//正式名称
 //ctp成交通知
-const int AS_SDK_ONRTN_USER_ORDERTRADE                        = 20082;//废弃的名称
+//const int AS_SDK_ONRTN_USER_ORDERTRADE                        = 20082;//废弃的名称
 const int AS_SDK_USER_ONRTNTRADE                              = 20082;//正式名称
 
 //查询报单响应

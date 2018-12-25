@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)cutOffSocketClient:(NSString*)tag;//断开tcp连接
 -(AMSSocketClient*)socketClient:(NSString*)tag;//获取tcp连接
 -(void)writeData:(NSData*)data toSocket:(NSString*)tag;//给socket写数据
+-(void)writeData:(NSData*)data toSocket:(NSString*)name tag:(NSInteger)tag;
 -(void)showSocketDictInfo;//打印当前socket字典的信息
 -(void)cutOffAllClient;//断开所有tcp连接
 @end

@@ -281,53 +281,60 @@
 
 //http查询行情
 -(void)qryQuotation:(QryQuotationRequestModel *)model{
-    if (model == nil) {
-        return;
-    }
-    
-    if (self.dataArray.count == 0) {
-        return ;
-    }
-    
-    NSString *str =  [model.stockTradeMins.mutableCopy yy_modelToJSONString];
-    NSDictionary *dict = @{@"stockTradeMins":str};
-//    NSMutableArray *tempQuotationArray = @[].mutableCopy;
-//    [self.dataArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//        AMSLdatum *data = [[AMSLdatum alloc] init];
-//        [tempQuotationArray addObject:data];
-//    }];
-    
-    [NetWorking requestWithApi:[NSString stringWithFormat:@"%@%@",BaseUrl,QryQuotation_URL] reqeustType:POST_Type param:dict thenSuccess:^(NSDictionary *responseObject) {
-        QryQuotationResponseModel *item = [QryQuotationResponseModel yy_modelWithDictionary:responseObject];
-
-        NSArray *quotationArray = item.ldata;
-        if (quotationArray.count != self.dataArray.count) {
-            NSLog(@"行情数目与合约数目不相等");
-            NSLog(@"quotationArray is %ld and requestArray is %ld ",quotationArray.count,model.stockTradeMins.count);
+    dispatch_async(dispatch_queue_create(0, 0), ^{
+        if (model == nil) {
+            return;
         }
-        if (quotationArray.count> 0) {
-            [quotationArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                AMSLdatum *quotation =(AMSLdatum *)obj;
-                if (idx > self.dataArray.count - 1) {
-                    *stop = YES;
-                }else
-                {
-                    InstumentModel *model = self.dataArray[idx];
-                    model.quotation = quotation;
+        
+        if (self.dataArray.count == 0) {
+            return ;
+        }
+        
+        NSString *str =  [model.stockTradeMins.mutableCopy yy_modelToJSONString];
+        NSDictionary *dict = @{@"stockTradeMins":str};
+        //    NSMutableArray *tempQuotationArray = @[].mutableCopy;
+        //    [self.dataArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        //        AMSLdatum *data = [[AMSLdatum alloc] init];
+        //        [tempQuotationArray addObject:data];
+        //    }];
+        
+        [NetWorking requestWithApi:[NSString stringWithFormat:@"%@%@",BaseUrl,QryQuotation_URL] reqeustType:POST_Type param:dict thenSuccess:^(NSDictionary *responseObject) {
+            QryQuotationResponseModel *item = [QryQuotationResponseModel yy_modelWithDictionary:responseObject];
+            
+            NSArray *quotationArray = item.ldata;
+            if (quotationArray.count != self.dataArray.count) {
+                NSLog(@"行情数目与合约数目不相等");
+                NSLog(@"quotationArray is %ld and requestArray is %ld ",quotationArray.count,model.stockTradeMins.count);
+            }
+            if (quotationArray.count> 0) {
+                [quotationArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    AMSLdatum *quotation =(AMSLdatum *)obj;
+                    if (idx > self.dataArray.count - 1) {
+                        *stop = YES;
+                    }else
+                    {
+                        InstumentModel *model = self.dataArray[idx];
+                        model.quotation = quotation;
+                    }
+                    
+                }];
+                [self.tableView reloadData];
+                if(!self.haveLoadData){
+                    [self startTimer];
+                    self.hasAccessSocket = YES;
+                    self.haveLoadData = YES;
                 }
-               
-            }];
-            [self.tableView reloadData];
-            [self startTimer];
-            self.hasAccessSocket = YES;
-        }else{
-            [self.tableView reloadData];
-//            [MBProgressHUD showErrorMessage:@"暂无数据"];
-        }
-        
-    } fail:^(NSString *str) {
-        
-    }];
+                
+            }else{
+                [self.tableView reloadData];
+                //            [MBProgressHUD showErrorMessage:@"暂无数据"];
+            }
+            
+        } fail:^(NSString *str) {
+            
+        }];
+    });
+    
 }
 
 //开启定时器轮询

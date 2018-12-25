@@ -1242,6 +1242,10 @@
 }
 //处理挂单委托表
 -(void)dealOrderInsertResponse:(User_Onrtnorder *)model{
+    //这种情况下不处理
+    if([model.OrderStatus isEqualToString:@"a"] && model.OrderSysID.length == 0){
+        return;
+    }
     [self.guadanOrderArray removeAllObjects];
     if (self.weituoOrderArray.count == 0) {
         [self.weituoOrderArray addObject:model];
@@ -1269,7 +1273,7 @@
             [self.guadanOrderArray addObject:model];
         }
     }];
-     [kNotificationCenter postNotificationName:UPDTAE_INSERT_ORDER_NOTIFICATION_NAME object:nil];
+     [kNotificationCenter postNotificationName:UPDTAE_INSERT_ORDER_NOTIFICATION_NAME object:model];
 }
 //处理成交表
 -(void)dealOrderTradeResponse:(User_Onrtntrade *)model{
@@ -1290,10 +1294,7 @@
           [self.chengjiaoOrderArray insertObject:model atIndex:0];
         }
     }
-//    //登录之后
-//    if (isAfterLogin) {
-//      
-//    }
+
     [kNotificationCenter postNotificationName:UPDTAE_TRADE_ORDER_NOTIFICATION_NAME object:nil];
 }
 
@@ -1316,6 +1317,7 @@
         NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:range];
         [self.chicangOrderArray insertObjects:models atIndexes:indexSet];
     }
+    
 }
 
 @end

@@ -48,7 +48,7 @@
 
 -(void)qryInstrument:(User_Reqqryinstrument *)model{
     NSData* data = [BestMessageUtil generateBestMsg:AS_SDK_USER_REQQRYINSTRUMENT model:model];
-    [[AMSSocketManager shareInstance] writeData:data toSocket:SOCKET_NAME_DEFAULT];
+    [[AMSSocketManager shareInstance] writeData:data toSocket:SOCKET_NAME_DEFAULT tag:999];
 }
 
 -(void)reqorderinsert:(User_Reqorderinsert *)model{

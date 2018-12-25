@@ -81,7 +81,7 @@
             if (![AMSUtil isUserLogin]) {
                 
                 LoginViewController *loginVC = [[LoginViewController alloc] init];
-                loginVC.destinationVC = self.tradeVC;
+//                loginVC.destinationVC = self.tradeVC;
                 loginVC.hideRightButton = YES;
                 loginVC.showBack = YES;
                 UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:loginVC];

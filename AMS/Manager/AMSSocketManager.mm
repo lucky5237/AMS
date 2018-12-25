@@ -20,6 +20,7 @@
 #import "AppDelegate+AppSevice.h"
 #import "User_Reqqryinvestorposition.h"
 #import "SocketRequestManager.h"
+#import "User_Onrtnorder.h"
 #import "User_Onrtntrade.h"
 //#import "SocketResponseManager.h"
 
@@ -179,15 +180,33 @@ return manager;
  @param tag 要写的socket的tag
  */
 -(void)writeData:(NSData*)data toSocket:(NSString*)tag{
+//    NSLog(@"----开始发送数据----");
+//    AMSSocketClient *toClient = [self socketClient:tag];
+//    if (toClient == nil) {
+//        [MBProgressHUD showErrorMessage:@"未连接服务器"];
+//        NSLog(@"tag 为%@的socket不存在",tag);
+//        return;
+//    }
+//    if (toClient.isConnected == YES) {
+//        [toClient writeData:data withTimeout:- 1 tag:0];
+//        NSLog(@"发送数据,数据已发送");
+//    }else{
+//        NSLog(@"----发送数据,socket未连接----");
+//        [toClient socketConnectHost];
+//    }
+    [self writeData:data toSocket:tag tag:0];
+}
+
+-(void)writeData:(NSData*)data toSocket:(NSString*)name tag:(NSInteger)tag{
     NSLog(@"----开始发送数据----");
-    AMSSocketClient *toClient = [self socketClient:tag];
+    AMSSocketClient *toClient = [self socketClient:name];
     if (toClient == nil) {
         [MBProgressHUD showErrorMessage:@"未连接服务器"];
-        NSLog(@"tag 为%@的socket不存在",tag);
+        NSLog(@"tag 为%@的socket不存在",name);
         return;
     }
     if (toClient.isConnected == YES) {
-        [toClient writeData:data withTimeout:- 1 tag:0];
+        [toClient writeData:data withTimeout:- 1 tag:tag];
         NSLog(@"发送数据,数据已发送");
     }else{
         NSLog(@"----发送数据,socket未连接----");
@@ -249,7 +268,7 @@ return manager;
     }
 }
 
--(void)handleTcpResponseData:(NSData*)data socket:(GCDAsyncSocket *)sock{
+-(void)handleTcpResponseData:(NSData*)data socket:(GCDAsyncSocket *)sock tag:(long)tag{
 //    NSLog(@"handleTcpResponseData -- data length is %ld",data.length);
     const void* message = data.bytes;
     int32 length = (int32)data.length;
@@ -262,7 +281,7 @@ return manager;
     if (rpcHeader != NULL) {
         auto functionNo = rpcHeader->GetFuncNo();
         if(functionNo != 0){
-//            NSLog(@"fuctionNo  is  %u",functionNo);
+            NSLog(@"fuctionNo  is  %u",functionNo);
         }else{
             NSLog(@"fuctionNo  is  0");
         }
@@ -283,6 +302,7 @@ return manager;
             NSString * errorMsg = [[NSString alloc] initWithCString:errorMessage encoding:gbkEncoding];
             if (errorMsg.length > 0) {
                 //发送名字为tag的通知
+               
                 [[NSNotificationCenter defaultCenter] postNotificationName:SOCKET_RESPONSE_ERROR_NOTIFICATION_NAME object:@{@"functionNo":@(functionNo),@"errorMsg":errorMsg}];
                 
                 NSLog(@"RESPONSE有错误--- %@",errorMsg);
@@ -311,9 +331,18 @@ return manager;
                             if (dataMessage -> IsExistField(FIELD_KEY_bIsLast)) {
                                 [self.mResponseArray addObject:model];
                                 if (dataMessage->GetField(FIELD_KEY_bIsLast)->GetInt32() == 1) {
+                                    
+                                    //查询持仓
                                     if (functionNo == AS_SDK_USER_ONRSPQRYINVESTORPOSITION){
-                                        //持仓表响应
-                                        [kAppDelegate dealOrderPosition:self.mResponseArray];
+                                        if(tag == 999){
+                                            //发送通知
+                                            
+                                            [kNotificationCenter postNotificationName:UPDTAE_CHICANG_ORDER_NOTIFICATION_NAME object:nil];
+                                        }else{
+                                            //持仓表响应
+                                            [kAppDelegate dealOrderPosition:self.mResponseArray];
+                                        }
+                                      
                                         
                                     }else{
                                         [kNotificationCenter postNotificationName:sock.userData object:@{@"functionNo":@(functionNo),@"response":self.mResponseArray.copy}];
@@ -322,27 +351,51 @@ return manager;
                                 }
                             }else{
                                 //报单响应
-                                if(functionNo == AS_SDK_USER_ONRTNORDER || functionNo == AS_SDK_USER_ONRTNORDER_AFTER_LOGIN){
-                                    [kAppDelegate dealOrderInsertResponse:model];
-                                }else if(functionNo == AS_SDK_USER_ONRTNTRADE || functionNo == AS_SDK_USER_ONRTNTRADE_AFTER_LOGIN){
+                                if(functionNo == AS_SDK_USER_ONRTNORDER){
+                                   
+                                    NSLog(@"报单响应 ---- %@",[model yy_modelToJSONString]);
+                                        [kAppDelegate dealOrderInsertResponse:model];
+                                    //查询持仓
+                                    User_Reqqryinvestorposition *request = [[User_Reqqryinvestorposition alloc] init];
+                                    request.BrokerID = @"9999";
+                                    User_Onrtnorder *res = (User_Onrtnorder *)model;
+                                    request.InstrumentID = res.InstrumentID;
+                                    request.InvestorID = [kUserDefaults objectForKey:UserDefaults_User_ID_key];
+                                    [[SocketRequestManager shareInstance]  reqqryinvestorposition:request];
+                                    
+                                }else if (functionNo == AS_SDK_USER_ONRTNORDER_AFTER_LOGIN){
+                                     NSLog(@"登录后的报单响应 ---- %@",[model yy_modelToJSONString]);
+                                     [kAppDelegate dealOrderInsertResponse:model];
+                                    
+                                }
+                                
+                                else if(functionNo == AS_SDK_USER_ONRTNTRADE){
+                                      NSLog(@"成交响应 ---- %@",[model yy_modelToJSONString]);
                                     //成交通知
                                     [kAppDelegate dealOrderTradeResponse:model];
-                                    //普通成交通知还要更新持仓明细
-                                    if(functionNo == AS_SDK_USER_ONRTNTRADE){
-                                        User_Onrtntrade *item  = (User_Onrtntrade *)model;
-                                        User_Reqqryinvestorposition *request = [[User_Reqqryinvestorposition alloc] init];
-                                        request.BrokerID = @"9999";
-                                        request.InstrumentID = item.InstrumentID;
-                                        request.InvestorID = [kUserDefaults objectForKey:UserDefaults_User_ID_key];
-                                        [[SocketRequestManager shareInstance]  reqqryinvestorposition:request];
-                                    }
-                                }else{
+//                                    //普通成交通知还要更新持仓明细
+                                    //                                    if(functionNo == AS_SDK_USER_ONRTNTRADE){
+                                    User_Onrtntrade *item  = (User_Onrtntrade *)model;
+                                    User_Reqqryinvestorposition *request = [[User_Reqqryinvestorposition alloc] init];
+                                    request.BrokerID = @"9999";
+                                    request.InstrumentID = item.InstrumentID;
+                                    request.InvestorID = [kUserDefaults objectForKey:UserDefaults_User_ID_key];
+                                    [[SocketRequestManager shareInstance]  reqqryinvestorposition:request];
+
+                                }else if (functionNo == AS_SDK_USER_ONRTNTRADE_AFTER_LOGIN){
+                                     NSLog(@"登录后的成交响应 ---- %@",[model yy_modelToJSONString]);
+                                      [kAppDelegate dealOrderTradeResponse:model];
+                                }
+                                
+                                else{
                                      [kNotificationCenter postNotificationName:sock.userData object:@{@"functionNo":@(functionNo),@"response":@[model]}];
                                 }
                             }
 
                         }
                     }
+                }else{
+                    DLog(@"model 不存在,请添加该model");
                 }
             }
             
@@ -386,14 +439,14 @@ return manager;
 //            __weak typeof(self) weakSelf = self;
 //            dispatch_async(dispatch_get_main_queue(), ^{
                 //异步处理数据，根据不同数据类型处理不同的事件
-                [self handleTcpResponseData:bodyData socket:sock];
+            [self handleTcpResponseData:bodyData socket:sock tag:tag];
                 
 //            });
         }
         
         [sock readDataWithTimeout:-1 tag:0];
     });
-   
+
 }
 
      

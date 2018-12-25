@@ -32,6 +32,9 @@
 #import "User_Reqqrytradingaccount.h"
 #import "User_Onrspqrytradingaccount.h"
 #import "InstumentModel.h"
+#import "User_Reqqryinstrument.h"
+#import "MainViewController.h"
+#import "User_Onrtnorder.h"
 
 @interface TradeViewController ()<LrReportContainerViewDelegate,UITextFieldDelegate>
 @property(nonatomic,strong) TradeHeaderView *headerView;
@@ -97,22 +100,23 @@
 ////    }];
     //    [self.reportView reloadData];
     [self.view addSubview:self.containerView];
-    [self.containerView setNeedsLayout];
+    [self.view setNeedsLayout];
+//    MainViewController *rootVC = (MainViewController *)kAppWindow.rootViewController;
     [self.containerView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.segmentedControl.mas_bottom).offset(1);
         make.left.mas_equalTo(0);
         make.width.mas_equalTo(KScreenWidth);
-        make.bottom.mas_equalTo(0);
+        make.bottom.mas_equalTo(-120);
     }];
-    [self.containerView layoutIfNeeded];
+    [self.view layoutIfNeeded];
     if(self.model != nil){
        [self requestNewestPriceInfo:self.keyboardView.isUsingSystemPrice];
     }
-    [self startTimer];
+//    [self startTimer];
     [self queryAccountInfo];
 //    [self queryChicang];
     self.containerView.currentSelectIndex = ChiChangType;
-    [self fetchReportViewData:ChiChangType];
+  
     
     if(self.model != nil){
         self.headerView.nameTf.text = self.model.instrument.InstrumentName;
@@ -125,8 +129,7 @@
             self.headerView.eveningUpLabel.text = x;
         }
     }];
-    
-    [self initButtonConfig];
+  
     
    
 }
@@ -206,15 +209,15 @@
 //        request.InvestorID = [kUserDefaults objectForKey:UserDefaults_User_ID_key];
 //        request.InstrumentID = self.model.stockCodeInternal;
 //        [[SocketRequestManager shareInstance]  reqqrytrade:request];
-        [self.containerView dataArray:kAppDelegate.chengjiaoOrderArray forIndex:ChiChangType];
+        [self.containerView dataArray:kAppDelegate.chengjiaoOrderArray forIndex:ChengjiaoType];
 //        [self.containerView reloadData];
     }else if (index == 1){
         //查询挂单表
-        [self.containerView dataArray:kAppDelegate.guadanOrderArray forIndex:ChiChangType];
+        [self.containerView dataArray:kAppDelegate.guadanOrderArray forIndex:GuaDanType];
 //        [self.containerView reloadData];
     }else if (index == 2){
         //查询委托表
-        [self.containerView dataArray:kAppDelegate.weituoOrderArray forIndex:ChiChangType];
+        [self.containerView dataArray:kAppDelegate.weituoOrderArray forIndex:WeiTuoType];
 //        [self.containerView reloadData];
     }
     [self.containerView reloadData:index];
@@ -555,6 +558,15 @@
         SearchViewController *searchVC = [[SearchViewController alloc] init];
         searchVC.hideRightButton = YES;
         searchVC.didSelectItemBlock = ^(InstrumentDBModel  *model) {
+            if(model!=nil){
+                self.headerView.nameTf.text = model.instrumentName;
+                self.model = [[InstumentModel alloc] initWithInstumentDBModel:model];
+//                if(self.model != nil){
+                [self requestNewestPriceInfo:self.keyboardView.isUsingSystemPrice];
+//                }
+//                [self startTimer];
+//                [self queryAccountInfo];
+            }
             
 //            self.title = dict[@"name"];
 //            AMSLdatum *data  = [AMSLdatum yy_modelWithDictionary:dict];
@@ -563,7 +575,7 @@
         [self.navigationController pushViewController:searchVC animated:YES];
         return NO;
     }else{
-        if (self.isLock) {
+        if (self.isLock || self.model == nil) {
             return NO;
         }
 //        //获取最小变动价之类
@@ -650,33 +662,57 @@
 }
 
 -(void)queryInstrumentById:(NSString *)instrumentId{
-    
+    User_Reqqryinstrument *query = [[User_Reqqryinstrument alloc] init];
+    query.InstrumentID = instrumentId;
+    [[SocketRequestManager shareInstance] qryInstrument:query];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    if (self.model == nil) {
-        self.rdv_tabBarController.tabBarHidden = NO;
-    }else{
-        self.rdv_tabBarController.navigationItem.rightBarButtonItem = self.menuBtnItem;
-    }
-     //报单通知
+    //报单通知
     [kNotificationCenter addObserver:self selector:@selector(updateOrderInsert:) name:UPDTAE_INSERT_ORDER_NOTIFICATION_NAME object:nil];
     
     //成交通知
     [kNotificationCenter addObserver:self selector:@selector(updateOrderTrade:) name:UPDTAE_TRADE_ORDER_NOTIFICATION_NAME object:nil];
+    
+    //查询持仓
+    [kNotificationCenter addObserver:self selector:@selector(updateOrderChicang:) name:UPDTAE_CHICANG_ORDER_NOTIFICATION_NAME object:nil];
+    if (self.model == nil) {
+        self.rdv_tabBarController.tabBarHidden = NO;
+    }else{
+           self.rdv_tabBarController.tabBarHidden = NO;
+        self.rdv_tabBarController.navigationItem.rightBarButtonItem = self.menuBtnItem;
+    }
+    [self fetchReportViewData:self.containerView.currentSelectIndex];
+    
+    [self initButtonConfig];
+    
 }
 
+ //报单通知
 -(void)updateOrderInsert:(NSNotification*) noti{
+    
+    User_Onrtnorder *insert = (User_Onrtnorder *)noti.object ;
+    if (insert.StatusMsg.length > 0) {
+        [self.statusBar showMessage:insert.StatusMsg limitTime:3];
+    }
+    //更新资金
+    [self queryAccountInfo];
+    //更新挂单和委托表
     [self.containerView dataArray:kAppDelegate.weituoOrderArray forIndex:WeiTuoType];
     [self.containerView dataArray:kAppDelegate.guadanOrderArray forIndex:GuaDanType];
     [self.containerView reloadData:WeiTuoType];
     [self.containerView reloadData:GuaDanType];
+   
+   
 }
 
+ //成交通知
 -(void)updateOrderTrade:(NSNotification*) noti{
     [self.containerView dataArray:kAppDelegate.chengjiaoOrderArray forIndex:ChengjiaoType];
     [self.containerView reloadData:ChengjiaoType];
+    //更新资金
+    [self queryAccountInfo];
     //查询持仓
     User_Reqqryinvestorposition *request = [[User_Reqqryinvestorposition alloc] init];
     request.BrokerID = @"9999";
@@ -684,22 +720,27 @@
     [[SocketRequestManager shareInstance]  reqqryinvestorposition:request];
 }
 
+-(void)updateOrderChicang:(NSNotification*) noti{
+  
+}
+
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
+    [kNotificationCenter removeObserver:UPDTAE_INSERT_ORDER_NOTIFICATION_NAME];
+    [kNotificationCenter removeObserver:UPDTAE_TRADE_ORDER_NOTIFICATION_NAME];
+    [kNotificationCenter removeObserver:UPDTAE_CHICANG_ORDER_NOTIFICATION_NAME];
     if (self.model == nil) {
         self.rdv_tabBarController.tabBarHidden = YES;
     }else{
         self.rdv_tabBarController.navigationItem.rightBarButtonItem = nil;
     }
-}
--(void)viewDidDisappear:(BOOL)animated{
-    [super viewDidDisappear:animated];
-    [kNotificationCenter removeObserver:UPDTAE_INSERT_ORDER_NOTIFICATION_NAME];
-    [kNotificationCenter removeObserver:UPDTAE_TRADE_ORDER_NOTIFICATION_NAME];
     if (self.timer !=nil) {
         [self.timer invalidate];
         self.timer= nil;
     }
+}
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
 }
 
 -(void)dealloc{
@@ -715,12 +756,12 @@
      if ((int32)self.funtionNo.integerValue == AS_SDK_USER_ONRSPQRYTRADINGACCOUNT){
          self.currentAccountInfo = self.response.firstObject;
          [self.headerView configAccountData:self.currentAccountInfo];
-//     }else if ((int32)self.funtionNo.integerValue == AS_SDK_USER_ONRSPQRYINVESTORPOSITION){
-//         //持仓表响应
-//         self.chicangArray = self.response;
-//         [self.containerView dataArray:self.chicangArray forIndex:ChiChangType];
-//         [self.containerView reloadData:ChiChangType];
-////     }else if ((int32)self.funtionNo.integerValue == AS_SDK_USER_REQQRYTRADE){
+     }else if ((int32)self.funtionNo.integerValue == AS_SDK_USER_ONRSPQRYINVESTORPOSITION){
+         //持仓表响应
+         self.chicangArray = self.response;
+         [self.containerView dataArray:self.chicangArray forIndex:ChiChangType];
+         [self.containerView reloadData:ChiChangType];
+//     }else if ((int32)self.funtionNo.integerValue == AS_SDK_USER_REQQRYTRADE){
 ////         //成交表响应
 //////         self.chengjiaoArray = self.response;
 //////         [self.containerView dataArray:self.chengjiaoArray forIndex:ChengjiaoType];
@@ -735,8 +776,13 @@
 -(void)didResponseErrorOccurs:(NSNotification *)noti{
     NSDictionary *dict = noti.object;
     NSNumber *functionNo = dict[@"functionNo"];
+    //报单通知有错误信息
     if ((int32)functionNo.integerValue == AS_SDK_USER_ONRSPORDERINSERT) {
        [self.statusBar showMessage:dict[@"errorMsg"] limitTime:3];
+    }
+    //查询资金账户有错误
+    else if ((int32)functionNo.integerValue == AS_SDK_USER_ONRSPQRYSECAGENTTRADINGACCOUNT) {
+        [MBProgressHUD showErrorMessage:dict[@"errorMsg"]];
     }
 }
 

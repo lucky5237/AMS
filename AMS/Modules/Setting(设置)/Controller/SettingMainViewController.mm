@@ -15,6 +15,7 @@
 #import "LoginViewController.h"
 #import "SocketRequestManager.h"
 #import "best_sdk_define.h"
+#import "AMSSocketManager.h"
 
 @interface SettingMainViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong) SettingHeaderView *headerView;
@@ -88,6 +89,7 @@
     //    [kUserDefaults setObject:nil forKey:UserDefaults_User_ID_key];
     //    [kUserDefaults setObject:nil forKey:UserDefaults_User_Password_key];
     [kUserDefaults setObject:@0 forKey:UserDefaults_User_Is_Login];
+//    [[AMSSocketManager shareInstance] cutOffSocketClient:SOCKET_NAME_DEFAULT];
     [self configLoginStatus];
     [self resetAllList];
 }
