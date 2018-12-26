@@ -7,8 +7,8 @@
 
 // 全局工具类宏定义
 
-#ifndef define_h
-#define define_h
+#ifndef UtilsMacros
+#define UtilsMacros
 
 //获取系统对象
 #define kApplication        [UIApplication sharedApplication]

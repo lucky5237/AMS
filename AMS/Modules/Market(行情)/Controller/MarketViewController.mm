@@ -43,7 +43,7 @@
 @end
 
 #define identifier @"MarketTableViewCell"
-#define default_exchange_code @"INE"
+#define default_exchange_code @""
 
 @implementation MarketViewController
 

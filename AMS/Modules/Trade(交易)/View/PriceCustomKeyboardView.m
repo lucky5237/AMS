@@ -13,7 +13,9 @@
 -(void)awakeFromNib{
     [super awakeFromNib];
     self.autoresizingMask = NO;
-    
+    //默认排队价
+    self.type = PaiDui_Price;
+    self.isUsingSystemPrice = YES;
     for(UIView *view in self.subviews){
         if ([view isKindOfClass:[UIButton class]]) {
             UIButton *menuBtn = (UIButton *)view;
