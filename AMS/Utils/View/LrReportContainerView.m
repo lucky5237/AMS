@@ -254,6 +254,12 @@
             }
             
             //状态
+            if (indexPath.col == 1) {
+                grid.text = item.StatusMsg;
+                grid.font = kFontSize(10);
+            }
+            
+            //开平方向
             if (indexPath.col == 2) {
                 if([item.CombOffsetFlag isEqualToString:@"0"]){
                     grid.text = @"开";

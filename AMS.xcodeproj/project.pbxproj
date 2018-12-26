@@ -337,7 +337,6 @@
 		16BAC14721893F8B008F965E /* LeftMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16BAC14621893F8B008F965E /* LeftMenuViewController.m */; };
 		16CA589821B772F60010DC43 /* TimeLineLongTapParamView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16CA589521B772F50010DC43 /* TimeLineLongTapParamView.m */; };
 		16CA589921B77B680010DC43 /* TimeLineLongTapParamView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16CA589621B772F50010DC43 /* TimeLineLongTapParamView.xib */; };
-		16CB71B521C39F650063F39B /* SocketResponseManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 16CB71B421C39F650063F39B /* SocketResponseManager.mm */; };
 		16CCD3A821831456003D5BFD /* MainViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 16CCD3A721831456003D5BFD /* MainViewController.mm */; };
 		16D3D818217F17A000793DF8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 16D3D817217F17A000793DF8 /* AppDelegate.m */; };
 		16D3D81E217F17A000793DF8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16D3D81C217F17A000793DF8 /* Main.storyboard */; };
@@ -1008,8 +1007,6 @@
 		16CA589521B772F50010DC43 /* TimeLineLongTapParamView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TimeLineLongTapParamView.m; sourceTree = "<group>"; };
 		16CA589621B772F50010DC43 /* TimeLineLongTapParamView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimeLineLongTapParamView.xib; sourceTree = "<group>"; };
 		16CA589721B772F60010DC43 /* TimeLineLongTapParamView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimeLineLongTapParamView.h; sourceTree = "<group>"; };
-		16CB71B321C39F650063F39B /* SocketResponseManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SocketResponseManager.h; sourceTree = "<group>"; };
-		16CB71B421C39F650063F39B /* SocketResponseManager.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SocketResponseManager.mm; sourceTree = "<group>"; };
 		16CCD3A621831456003D5BFD /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		16CCD3A721831456003D5BFD /* MainViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MainViewController.mm; sourceTree = "<group>"; };
 		16D3D813217F17A000793DF8 /* AMS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AMS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1905,8 +1902,6 @@
 				1693ADF7218007FE00EDEEF6 /* AMSSocketManager.mm */,
 				16AB26A821C2650A00755B81 /* SocketRequestManager.h */,
 				16AB26A921C2650A00755B81 /* SocketRequestManager.mm */,
-				16CB71B321C39F650063F39B /* SocketResponseManager.h */,
-				16CB71B421C39F650063F39B /* SocketResponseManager.mm */,
 				1693AFEF21C8D1D900A2155A /* AMSDBManager.h */,
 				1693AFF021C8D1D900A2155A /* AMSDBManager.m */,
 			);
@@ -2755,7 +2750,6 @@
 				1610CBEA21CBEEF800DCB14E /* User_Reqparkedorderaction.m in Sources */,
 				1610CC1621CBEEF800DCB14E /* User_Reqqrybrokertradingparams.m in Sources */,
 				1610CBAF21CBEEF700DCB14E /* User_Onrspqrymmoptioninstrcommrate.m in Sources */,
-				16CB71B521C39F650063F39B /* SocketResponseManager.mm in Sources */,
 				1610CC2B21CBEEF800DCB14E /* User_Reqfrombanktofuturebyfuture.m in Sources */,
 				1610CBBF21CBEEF700DCB14E /* User_Onrspremoveparkedorder.m in Sources */,
 				1610CBC121CBEEF700DCB14E /* User_Onrspqrytrade.m in Sources */,

@@ -96,7 +96,7 @@
 //初始化view
 - (void)initView{
     [self.view addSubview:self.headerView];
-    //    _headerView.frame = CGRectMake(0, 1, KScreenWidth,500);
+//    _headerView.frame = CGRectMake(0, 1, KScreenWidth,500);
     [self.headerView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(1);
         make.left.mas_equalTo(0);
@@ -281,29 +281,29 @@
    
     if (index == 0) {
         
-        User_Onrspqryinvestorposition *response = [[User_Onrspqryinvestorposition alloc] init];
-        response.InstrumentID = self.model.quotation.stockCodeInternal;
-        response.PosiDirection = @"1";
-        response.Position = @1;
-        response.ShortFrozen = @0;
-        response.LongFrozen = @0;
-        
-        User_Onrspqryinvestorposition *response1 = [[User_Onrspqryinvestorposition alloc] init];
-        response1.InstrumentID = self.model.quotation.stockCodeInternal;
-        response1.PosiDirection = @"2";
-        response1.Position = @3;
-        response1.ShortFrozen = @1;
-        response1.LongFrozen = @0;
-        
-        User_Onrspqryinvestorposition *response2 = [[User_Onrspqryinvestorposition alloc] init];
-        response2.InstrumentID = self.model.quotation.stockCodeInternal;
-        response2.PosiDirection = @"1";
-        response2.Position = @4;
-        response2.ShortFrozen = @0;
-        response2.LongFrozen = @1;
-        
-        [kAppDelegate.chicangOrderArray removeAllObjects];
-        [kAppDelegate.chicangOrderArray addObjectsFromArray:@[response,response1,response2]] ;
+//        User_Onrspqryinvestorposition *response = [[User_Onrspqryinvestorposition alloc] init];
+//        response.InstrumentID = self.model.quotation.stockCodeInternal;
+//        response.PosiDirection = @"1";
+//        response.Position = @1;
+//        response.ShortFrozen = @0;
+//        response.LongFrozen = @0;
+//
+//        User_Onrspqryinvestorposition *response1 = [[User_Onrspqryinvestorposition alloc] init];
+//        response1.InstrumentID = self.model.quotation.stockCodeInternal;
+//        response1.PosiDirection = @"2";
+//        response1.Position = @3;
+//        response1.ShortFrozen = @1;
+//        response1.LongFrozen = @0;
+//
+//        User_Onrspqryinvestorposition *response2 = [[User_Onrspqryinvestorposition alloc] init];
+//        response2.InstrumentID = self.model.quotation.stockCodeInternal;
+//        response2.PosiDirection = @"1";
+//        response2.Position = @4;
+//        response2.ShortFrozen = @0;
+//        response2.LongFrozen = @1;
+//
+//        [kAppDelegate.chicangOrderArray removeAllObjects];
+//        [kAppDelegate.chicangOrderArray addObjectsFromArray:@[response,response1,response2]] ;
 
        //查询持仓表
         [self.containerView dataArray:kAppDelegate.chicangOrderArray forIndex:ChiChangType];
@@ -386,7 +386,7 @@
         [_headerView.eveningUpView zj_addTapGestureWithCallback:^(UITapGestureRecognizer *gesture) {
            
             User_Reqorderinsert *request = [[User_Reqorderinsert alloc] init];
-            request.LimitPrice = self.headerView.eveningUpDescLabel.text;
+            request.LimitPrice = self.headerView.eveningUpLabel.text;
             [self orderInsert:request isEveningUp:YES];
         }];
         
@@ -497,6 +497,7 @@
                 //选中
                 num = self.currentSelectInvestorposition.Position.integerValue;
                 direction = [self.currentSelectInvestorposition.PosiDirection isEqualToString:@"2"] ? @"1":@"0";
+                desStr = [self.currentSelectInvestorposition.PosiDirection isEqualToString:@"2"] ? @"卖平" :@"买平";
             }
             
         }else if (!self.bullPositionModel && !self.bearPositionModel){
@@ -528,7 +529,7 @@
                            } cancelBlock:^{
                 
             }] animated:YES completion:^{
-                UIAlertController *alertVC = [UIAlertController zj_alertControllerWithTitle:@"确认下单吗？" message:[NSString stringWithFormat:@"%@,%.2f,%@,%ld手",self.model.instrument.InstrumentName,self.headerView.buyMoreLabel.text.doubleValue,desStr,num]  optionStyle:OptionStyleStyleOK_Cancel OkTitle:@"下单" cancelTitle:@"取消" okBlock:^{
+                UIAlertController *alertVC = [UIAlertController zj_alertControllerWithTitle:@"确认下单吗？" message:[NSString stringWithFormat:@"%@,%.2f,%@,%ld手",self.model.instrument.InstrumentName,self.headerView.eveningUpLabel.text.doubleValue,desStr,num]  optionStyle:OptionStyleStyleOK_Cancel OkTitle:@"下单" cancelTitle:@"取消" okBlock:^{
                     
                     model.BrokerID = @"9999";
                     model.TimeCondition = @"3";
@@ -552,7 +553,7 @@
             }];
         
         }else{
-            UIAlertController *alertVC = [UIAlertController zj_alertControllerWithTitle:@"确认下单吗？" message:[NSString stringWithFormat:@"%@,%.2f,%@,%@手",self.model.instrument.InstrumentName,self.headerView.buyMoreLabel.text.doubleValue,desStr,self.headerView.numTf.text]  optionStyle:OptionStyleStyleOK_Cancel OkTitle:@"下单" cancelTitle:@"取消" okBlock:^{
+            UIAlertController *alertVC = [UIAlertController zj_alertControllerWithTitle:@"确认下单吗？" message:[NSString stringWithFormat:@"%@,%.2f,%@,%@手",self.model.instrument.InstrumentName,self.headerView.eveningUpLabel.text.doubleValue,desStr,self.headerView.numTf.text]  optionStyle:OptionStyleStyleOK_Cancel OkTitle:@"下单" cancelTitle:@"取消" okBlock:^{
                 
                 model.BrokerID = @"9999";
                 model.TimeCondition = @"3";
@@ -564,7 +565,7 @@
                 model.MinVolume = @1;
                 model.Direction = direction;
                 //平仓1 开仓0
-                model.CombOffsetFlag = model.Direction.length == 0 ? @"1" : @"0";
+                model.CombOffsetFlag = @"1";
                 model.VolumeTotalOriginal = @(self.headerView.numTf.text.integerValue);
                 
                 [[SocketRequestManager shareInstance] reqorderinsert:model];
@@ -579,7 +580,7 @@
         
     }else{
         //开仓
-        UIAlertController *alertVC = [UIAlertController zj_alertControllerWithTitle:@"确认下单吗？" message:[NSString stringWithFormat:@"%@,%.2f,%@,%@手",self.model.instrument.InstrumentName,self.headerView.buyMoreLabel.text.doubleValue,[model.Direction isEqualToString:@"0"] ?@"买开":@"卖开",self.headerView.numTf.text]  optionStyle:OptionStyleStyleOK_Cancel OkTitle:@"下单" cancelTitle:@"取消" okBlock:^{
+        UIAlertController *alertVC = [UIAlertController zj_alertControllerWithTitle:@"确认下单吗？" message:[NSString stringWithFormat:@"%@,%.2f,%@,%@手",self.model.instrument.InstrumentName,[model.Direction isEqualToString:@"0"] ? self.headerView.buyMoreLabel.text.doubleValue :self.headerView.saleEmptyLabel.text.doubleValue,[model.Direction isEqualToString:@"0"] ?@"买开":@"卖开",self.headerView.numTf.text]  optionStyle:OptionStyleStyleOK_Cancel OkTitle:@"下单" cancelTitle:@"取消" okBlock:^{
             //        model.LimitPrice = self.headerView.priceTf.text;
             model.BrokerID = @"9999";
             model.TimeCondition = @"3";
@@ -904,7 +905,19 @@
         }else{
             reportView.currentSelectedRow = label.indexPath.row;
              self.currentSelectInvestorposition = kAppDelegate.chicangOrderArray[label.indexPath.row - 1];
-             [self queryInstrumentById:self.currentSelectInvestorposition.InstrumentID];
+//             [self queryInstrumentById:self.currentSelectInvestorposition.InstrumentID];
+            if (self.model == nil) {
+                self.model = [[InstumentModel alloc] init];
+                User_Onrspqryinstrument *instrument = [[User_Onrspqryinstrument alloc] init];
+                instrument.InstrumentID = self.currentSelectInvestorposition.InstrumentID;
+                instrument.InstrumentName = self.currentSelectInvestorposition.InstrumentID;
+                instrument.ExchangeID = self.currentSelectInvestorposition.ExchangeID;
+                self.model.instrument = instrument;
+            }else{
+                self.model.instrument.InstrumentID = self.currentSelectInvestorposition.InstrumentID;
+                self.model.instrument.ExchangeID = self.currentSelectInvestorposition.ExchangeID;
+            }
+            self.headerView.nameTf.text = self.currentSelectInvestorposition.InstrumentID;
             
         }
         [self requestNewestPriceInfo];
@@ -947,7 +960,7 @@
                                [self.keyboardView configTopHintMsg:self.currentData.priceChangeRate.doubleValue riseStopPrice:self.currentData.highPrice.doubleValue fallStopPrice:self.currentData.downPrice.doubleValue];
                                self.minChangePrice = [[NSDecimalNumber alloc] initWithString:self.currentData.priceChangeRate];
                            }else{
-                               [MBProgressHUD showErrorMessage:@"暂无数据"];
+//                               [MBProgressHUD showErrorMessage:@"暂无数据"];
                            }
                            
                        } fail:^(NSString *str) {
