@@ -228,9 +228,9 @@
             //开平
             if (indexPath.col == 1) {
                 if([item.CombOffsetFlag isEqualToString:@"0"]){
-                    grid.text = @"开";
+                    grid.text = @"开仓";
                 }else if([item.CombOffsetFlag isEqualToString:@"1"]){
-                    grid.text = @"平";
+                    grid.text = @"平仓";
                 }
                 
             }
@@ -262,9 +262,9 @@
             //开平方向
             if (indexPath.col == 2) {
                 if([item.CombOffsetFlag isEqualToString:@"0"]){
-                    grid.text = @"开";
+                    grid.text = @"开仓";
                 }else if([item.CombOffsetFlag isEqualToString:@"1"]){
-                    grid.text = @"平";
+                    grid.text = @"平仓";
                 }
                 
             }
@@ -278,7 +278,7 @@
             }
             //已成交
             if (indexPath.col == 5) {
-                grid.text = [NSString stringWithFormat:@"%@",item.VolumeTotal];
+                grid.text = [NSString stringWithFormat:@"%@",item.VolumeTraded];
             }
             //已撤单
             if (indexPath.col == 6) {
@@ -350,13 +350,13 @@
 -(void)reloadData{
 //    LMReportView *reportView = (LMReportView *)[self.scrollView viewWithTag:self.currentSelectIndex];
     [self.currentReportView reloadData];
-//    self.currentReportView.frame = CGRectMake(KScreenWidth * self.currentSelectIndex, 0, self.scrollView.zj_width, self.scrollView.zj_height);
+    self.currentReportView.frame = CGRectMake(KScreenWidth * self.currentSelectIndex, 0, self.scrollView.zj_width, self.scrollView.zj_height - 120);
 }
 
 -(void)reloadData:(NSInteger) index{
     LMReportView *reportView =  (LMReportView *)[self.scrollView viewWithTag:index + 1];
     [reportView reloadData];
-//    reportView.frame = CGRectMake(KScreenWidth * index, 0, self.scrollView.zj_width, self.scrollView.zj_height);
+    reportView.frame = CGRectMake(KScreenWidth * index, 0, self.scrollView.zj_width, self.scrollView.zj_height - 120);
 }
 
 @end

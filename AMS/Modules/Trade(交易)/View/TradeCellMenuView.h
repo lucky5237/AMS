@@ -15,6 +15,7 @@ typedef void(^TradeCellMenuClickBlock)(TradeCellMenuBtnType type);
 @property (weak, nonatomic) IBOutlet UIButton *centerButton;
 @property (weak, nonatomic) IBOutlet UIButton *leftButton;
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
+@property (assign, nonatomic) NSInteger selectedIndex;
 - (IBAction)pingcangMenuBtnTapped:(UIButton *)sender;
 - (IBAction)fanshouMenuBtnTapped:(UIButton *)sender;
 - (IBAction)suocangMenuBtnTapped:(UIButton *)sender;

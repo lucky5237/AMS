@@ -1253,14 +1253,15 @@
         __block BOOL exsitFlag = NO;
         [self.weituoOrderArray.copy enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             User_Onrtnorder *item = (User_Onrtnorder *)obj;
+            NSString *uniQueStr = [item.OrderSysID stringByAppendingString:item.ExchangeID];
             //已存在合约
-            if (item.InstrumentID == model.InstrumentID) { 
+            if ([uniQueStr isEqualToString:[model.OrderSysID stringByAppendingString:model.ExchangeID]]  ) {
                 //方向相同更新状态
-                if ([item.Direction isEqualToString:model.Direction]) {
+//                if ([item.Direction isEqualToString:model.Direction]) {
                     self.weituoOrderArray[idx] = model;
                     exsitFlag = YES;
                     *stop = YES;
-                }
+//                }
             }
         }];
         if (!exsitFlag) {

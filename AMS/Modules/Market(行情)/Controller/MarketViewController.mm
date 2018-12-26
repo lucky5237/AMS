@@ -24,6 +24,7 @@
 #import <AFNetworking.h>
 #import "InstrumentDBModel.h"
 #import "InstumentModel.h"
+#import "LoginViewController.h"
 @interface MarketViewController ()<UIScrollViewDelegate,UIGestureRecognizerDelegate>
 @property(nonatomic,strong) MarketTableViewHeaderView *headerView;
 @property(nonatomic,assign) FallRiseBtnType fallRiseBtnType;
@@ -459,11 +460,25 @@
                 }];
                 
                 [self.menuView.goTradeBtn zj_addBtnActionHandler:^{
-                    InstumentModel *model = self.dataArray[self.currentIndexPath.row];
-                    MarketDetailViewController *detailViewVC = [[MarketDetailViewController alloc] init];
-                    detailViewVC.model = model;
-                    detailViewVC.selectIndex = 2;
-                    [self.navigationController pushViewController:detailViewVC animated:YES];
+                    if (![AMSUtil isUserLogin]) {
+                        LoginViewController *loginVC = [[LoginViewController alloc] init];
+                        loginVC.hideRightButton = YES;
+                        loginVC.showBack = YES;
+                        UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:loginVC];
+                        navVC.title = @"登录";
+                        navVC.navigationBar.tintColor = kWhiteColor;
+                        navVC.navigationBar.backgroundColor = kNavBackGroundColor;
+                        [self presentViewController:navVC animated:loginVC completion:^{
+                            
+                        }];
+                    }else{
+                        InstumentModel *model = self.dataArray[self.currentIndexPath.row];
+                        MarketDetailViewController *detailViewVC = [[MarketDetailViewController alloc] init];
+                        detailViewVC.model = model;
+                        detailViewVC.selectIndex = 2;
+                        [self.navigationController pushViewController:detailViewVC animated:YES];
+                    }
+                    
                     [self disAppearOpView];
                 }];
                 

@@ -54,6 +54,7 @@ typedef NS_ENUM(NSUInteger, LMRPart) {
         [self p_setupViews];
         [self p_setupGestureRecognizers];
         self.currentSelectedRow = -1;
+        self.currentLongPressSelectedRow = -1;
         _style = [LMRStyle defaultStyle];
     }
     return self;
@@ -64,6 +65,7 @@ typedef NS_ENUM(NSUInteger, LMRPart) {
         [self p_setupViews];
         [self p_setupGestureRecognizers];
         self.currentSelectedRow = -1;
+        self.currentLongPressSelectedRow = -1;
         _style = [LMRStyle defaultStyle];
     }
     return self;

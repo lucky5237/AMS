@@ -116,7 +116,7 @@
         make.top.mas_equalTo(self.segmentedControl.mas_bottom).offset(1);
         make.left.mas_equalTo(0);
         make.width.mas_equalTo(KScreenWidth);
-        make.bottom.mas_equalTo(-60);
+        make.bottom.mas_equalTo(0);
     }];
     [self.view layoutIfNeeded];
 }
@@ -129,6 +129,8 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    
+    if([kUserDefaults objectForKey:UserDefaults_User_Is_Login])
     //报单通知
     [kNotificationCenter addObserver:self selector:@selector(updateOrderInsert:) name:UPDTAE_INSERT_ORDER_NOTIFICATION_NAME object:nil];
     
@@ -139,9 +141,9 @@
     [kNotificationCenter addObserver:self selector:@selector(updateOrderChicang:) name:UPDTAE_CHICANG_ORDER_NOTIFICATION_NAME object:nil];
     
     if (self.model == nil) {
-//        self.rdv_tabBarController.tabBarHidden = NO;
+        self.rdv_tabBarController.tabBarHidden = NO;
     }else{
-//        self.rdv_tabBarController.tabBarHidden = NO;
+        self.rdv_tabBarController.tabBarHidden = NO;
         self.rdv_tabBarController.navigationItem.rightBarButtonItem = self.menuBtnItem;
         self.headerView.nameTf.text = self.model.instrument.InstrumentName;
         [self requestNewestPriceInfo];
@@ -158,6 +160,7 @@
     if (self.model == nil) {
         self.rdv_tabBarController.tabBarHidden = YES;
     }else{
+        self.rdv_tabBarController.tabBarHidden = YES;
         self.rdv_tabBarController.navigationItem.rightBarButtonItem = nil;
     }
     if (self.timer !=nil) {
@@ -622,6 +625,7 @@
             [self.menuView removeFromSuperview];
         }
         self.currentSelectIndexPath = nil;
+        self.containerView.currentReportView.currentLongPressSelectedRow = -1;
         self.menuView.isShowing = false;
         [self.containerView reloadData];
     }
@@ -630,7 +634,7 @@
 //撤销订单
 -(void)cancelOrder{
     [self presentViewController:[UIAlertController zj_alertControllerWithTitle:@"提示" message:@"确认撤销吗？" optionStyle:OptionStyleStyleOK_Cancel OkTitle:@"确认" cancelTitle:@"取消" okBlock:^{
-        NSInteger row  = self.currentSelectIndexPath.row;
+        NSInteger row  = self.containerView.currentReportView.currentLongPressSelectedRow;
         if (row < 0) {
             return;
         }else{
@@ -856,9 +860,11 @@
         //持仓表或者委托表才有
         if (reportView.tag - 1 == 0 || reportView.tag - 1 == 1) {
             self.currentSelectIndexPath = indexPath;
+            self.containerView.currentReportView.currentLongPressSelectedRow = indexPath.row;
             [self.containerView.currentReportView addSubview:self.menuView];
             self.menuView.frame = CGRectMake(0, CGRectGetMaxY(label.frame)  - self.containerView.currentReportView.contentOffSet, KScreenWidth, 45);
             self.menuView.alpha = 0.f;
+            self.menuView.selectedIndex = indexPath.row;
             [self.menuView configType:reportView.tag - 1];
             [UIView animateWithDuration:0.2 animations:^{
                 
@@ -891,7 +897,8 @@
     }else{
         
         //点击表头无效
-        if(label.indexPath.row == 0){
+        //不是持仓表无反应
+        if(label.indexPath.row == 0 || reportView.tag != 1){
             return;
         }
 //        NSLog(@"点击了第%ld行",(long)label.indexPath.row);

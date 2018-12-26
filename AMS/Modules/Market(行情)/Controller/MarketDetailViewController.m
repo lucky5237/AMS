@@ -15,6 +15,7 @@
 #import <RDVTabBarItem.h>
 #import "QryQuotationResponseModel.h"
 #import "InstumentModel.h"
+#import "LoginViewController.h"
 @interface MarketDetailViewController()
 @property(nonatomic,strong) UIBarButtonItem *menuBtnItem;
 @property(nonatomic,strong) UIBarButtonItem *timeBtnItem;
@@ -113,6 +114,31 @@
         self.navigationController.interactivePopGestureRecognizer.enabled = YES;
     }
 }
+
+-(BOOL)tabBar:(RDVTabBar *)tabBar shouldSelectItemAtIndex:(NSInteger)index{
+    //交易未登录，先登录
+    if (index == 2) {
+        //        NSNumber *isLoginFlag = [kUserDefaults objectForKey:UserDefaults_User_Is_Login];
+        //        if( isLoginFlag == nil || isLoginFlag.integerValue == 0){
+        if (![AMSUtil isUserLogin]) {
+            
+            LoginViewController *loginVC = [[LoginViewController alloc] init];
+            loginVC.hideRightButton = YES;
+            loginVC.showBack = YES;
+            UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:loginVC];
+            navVC.title = @"登录";
+            navVC.navigationBar.tintColor = kWhiteColor;
+            navVC.navigationBar.backgroundColor = kNavBackGroundColor;
+            [self presentViewController:navVC animated:loginVC completion:^{
+                
+            }];
+            return false;
+        }
+        //        }
+    }
+    return YES;
+}
+
 
 #pragma mark
 
