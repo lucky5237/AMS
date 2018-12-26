@@ -350,13 +350,13 @@
 -(void)reloadData{
 //    LMReportView *reportView = (LMReportView *)[self.scrollView viewWithTag:self.currentSelectIndex];
     [self.currentReportView reloadData];
-    self.currentReportView.frame = CGRectMake(KScreenWidth * self.currentSelectIndex, 0, self.scrollView.zj_width, self.scrollView.zj_height);
+//    self.currentReportView.frame = CGRectMake(KScreenWidth * self.currentSelectIndex, 0, self.scrollView.zj_width, self.scrollView.zj_height);
 }
 
 -(void)reloadData:(NSInteger) index{
     LMReportView *reportView =  (LMReportView *)[self.scrollView viewWithTag:index + 1];
     [reportView reloadData];
-    reportView.frame = CGRectMake(KScreenWidth * index, 0, self.scrollView.zj_width, self.scrollView.zj_height);
+//    reportView.frame = CGRectMake(KScreenWidth * index, 0, self.scrollView.zj_width, self.scrollView.zj_height);
 }
 
 @end

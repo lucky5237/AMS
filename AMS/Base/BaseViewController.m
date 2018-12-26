@@ -83,6 +83,7 @@
     SettingMainViewController *settingVC = [[SettingMainViewController alloc] init];
     settingVC.hideRightButton = YES;
     [self.rdv_tabBarController setHidesBottomBarWhenPushed:YES];
+    [self.navigationController setHidesBottomBarWhenPushed:YES];
     if (_useRdvTab) {
         [self.rdv_tabBarController.navigationController pushViewController:settingVC animated:YES];
     }else{

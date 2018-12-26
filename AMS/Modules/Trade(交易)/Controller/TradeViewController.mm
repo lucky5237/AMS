@@ -84,13 +84,6 @@
     self.headerTitleArray = @[@[@"合约名称",@"多空",@"总仓",@"可用",@"开仓均价",@"逐笔浮盈"],@[@"合约名称",@"开平",@"委托价",@"委托量",@"挂单量"],@[@"合约名称",@"状态",@"开平",@"委托价",@"委托量",@"已成交",@"已撤单",@"委托时间"],@[@"合约名称",@"开平",@"成交价",@"成交量",@"成交时间"]];
     [self initView];
     [self initData];
-//    [self.headerView.priceTf.rac_textSignal subscribeNext:^(NSString * _Nullable x) {
-//        if (!self.keyboardView.isUsingSystemPrice) {
-//            self.headerView.buyMoreLabel.text = x;
-//            self.headerView.saleEmptyLabel.text = x;
-//            self.headerView.eveningUpLabel.text = x;
-//        }
-//    }];
 }
 
 //初始化view
@@ -123,7 +116,7 @@
         make.top.mas_equalTo(self.segmentedControl.mas_bottom).offset(1);
         make.left.mas_equalTo(0);
         make.width.mas_equalTo(KScreenWidth);
-        make.bottom.mas_equalTo(-120);
+        make.bottom.mas_equalTo(-60);
     }];
     [self.view layoutIfNeeded];
 }
@@ -146,9 +139,9 @@
     [kNotificationCenter addObserver:self selector:@selector(updateOrderChicang:) name:UPDTAE_CHICANG_ORDER_NOTIFICATION_NAME object:nil];
     
     if (self.model == nil) {
-        self.rdv_tabBarController.tabBarHidden = NO;
+//        self.rdv_tabBarController.tabBarHidden = NO;
     }else{
-        self.rdv_tabBarController.tabBarHidden = NO;
+//        self.rdv_tabBarController.tabBarHidden = NO;
         self.rdv_tabBarController.navigationItem.rightBarButtonItem = self.menuBtnItem;
         self.headerView.nameTf.text = self.model.instrument.InstrumentName;
         [self requestNewestPriceInfo];

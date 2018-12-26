@@ -81,16 +81,12 @@
             if (![AMSUtil isUserLogin]) {
                 
                 LoginViewController *loginVC = [[LoginViewController alloc] init];
-//                loginVC.destinationVC = self.tradeVC;
                 loginVC.hideRightButton = YES;
                 loginVC.showBack = YES;
                 UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:loginVC];
                 navVC.title = @"登录";
                 navVC.navigationBar.tintColor = kWhiteColor;
                 navVC.navigationBar.backgroundColor = kNavBackGroundColor;
-//                navVC.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithImage:kImageName(@"back") style:UIBarButtonItemStylePlain target:self action:@selector(backButtonItemTapped:)];
-//                navVC.navigationController.navigationBar.backIndicatorImage = [UIImage new];
-//                self.navigationController.navigationBar.backIndicatorTransitionMaskImage = [UIImage new];
                 [self presentViewController:navVC animated:loginVC completion:^{
                     
                 }];
@@ -103,6 +99,30 @@
 
 -(void)setTabbarSelection:(NSInteger)selection{
     [self tabBar:self.tabBar didSelectItemAtIndex:selection];
+    
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    //如果当前在交易页
+    if (self.selectedIndex == 2) {
+        NSNumber *isLoginFlag = [kUserDefaults objectForKey:UserDefaults_User_Is_Login];
+        if( isLoginFlag == nil || isLoginFlag.integerValue == 0){
+            if (![AMSUtil isUserLogin]) {
+                
+                LoginViewController *loginVC = [[LoginViewController alloc] init];
+                loginVC.hideRightButton = YES;
+                loginVC.showBack = YES;
+                UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:loginVC];
+                navVC.title = @"登录";
+                navVC.navigationBar.tintColor = kWhiteColor;
+                navVC.navigationBar.backgroundColor = kNavBackGroundColor;
+                [self presentViewController:navVC animated:loginVC completion:^{
+                    
+                }];
+            }
+        }
+    }
 }
 
 
