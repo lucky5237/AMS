@@ -60,10 +60,20 @@
         make.left.right.mas_equalTo(0);
         make.bottom.mas_equalTo(self.chartBottomView.mas_top);
     }];
-    //1-1min 2-5min 3-15min
-    self.selectCycleViewItemsArray = @[@{@"name":@"1m",@"id":@1},@{@"name":@"3m",@"id":@2},@{@"name":@"5m",@"id":@2},@{@"name":@"10m",@"id":@4},@{@"name":@"15m",@"id":@3},@{@"name":@"30m",@"id":@6},@{@"name":@"1h",@"id":@7},@{@"name":@"2h",@"id":@8},@{@"name":@"3h",@"id":@9},@{@"name":@"4h",@"id":@10},@{@"name":@"1day",@"id":@11},@{@"name":@"1week",@"id":@12},@{@"name":@"1month",@"id":@13}];
+    /*
+    ONE_MINUTE = 1;
+    FIVE_MINUTE = 2;
+    FIFTEEN_MINUTE = 3;
+    ONE_DAY = 4;
+    THREE_MINUTE = 5;
+    TEN_MINUTE = 6;
+    THIRTY_MINUTE = 7;
+    ONE_HOUR = 8;
+    ONE_WEEK = 9;
+    ONE_MONTH = 10;*/
+    self.selectCycleViewItemsArray = @[@{@"name":@"1m",@"id":@1},@{@"name":@"3m",@"id":@5},@{@"name":@"5m",@"id":@2},@{@"name":@"10m",@"id":@6},@{@"name":@"15m",@"id":@3},@{@"name":@"30m",@"id":@7},@{@"name":@"1h",@"id":@8},@{@"name":@"1day",@"id":@4},@{@"name":@"1week",@"id":@9},@{@"name":@"1month",@"id":@10}];
     self.isFirstLoad = YES;
-    [self fetchData:@"sc1903" type:1];
+    [self fetchData:self.model.instrument.InstrumentID type:1];
     // Do any additional setup after loading the view.
 }
 
@@ -88,25 +98,6 @@
 }
 
 - (void)fetchData:(NSString *)symbol type:(NSInteger)type{
-//    NSMutableDictionary *param = [NSMutableDictionary dictionary];
-//    param[@"type"] =  type;
-//    param[@"market"] = @"btc_usdt";
-//    param[@"size"] = @"1000";
-//    [NetWorking request:@"http://stock2.finance.sina.com.cn/futures/api/json.php/IndexService.getInnerFuturesDailyKLine?symbol=M0" param:nil thenSuccess:^(NSArray *responseObject) {
-//
-//            Y_KLineGroupModel *groupModel = [Y_KLineGroupModel objectWithArray:responseObject type:Y_StockChartcenterViewTypeKline];
-//            self.groupModel = groupModel;
-//            [self.kLineView setKLineModels:groupModel.models];
-//            if (self.isFirstLoad) {
-//                self.kLineView.scrollView.targetLineStatus = Y_StockChartTargetLineStatusMACD;
-//                self.kLineView.targetLineStatus = Y_StockChartTargetLineStatusMACD;
-//                self.isFirstLoad = false;
-//            }
-//
-//
-//    } fail:^{
-//        NSLog(@"fail");
-//    }];
     NSDictionary *dict = @{@"symbol":symbol,@"type":@(type)};
     [NetWorking requestWithApi:[NSString stringWithFormat:@"%@%@",BaseUrl,QryKLine_URL] reqeustType:POST_Type param:dict thenSuccess:^(NSDictionary *responseObject) {
         QryKLineResponseModel *model = [QryKLineResponseModel yy_modelWithDictionary:responseObject];

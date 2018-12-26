@@ -77,21 +77,6 @@
 }
 
 - (void)fetchData{
-    //    NSMutableDictionary *param = [NSMutableDictionary dictionary];
-    //    param[@"type"] =  @"1min";
-    //    param[@"market"] = @"btc_usdt";
-    //    param[@"size"] = @"1000";
-    //    [NetWorking request:@"http://stock2.finance.sina.com.cn/futures/api/json.php/IndexService.getInnerFuturesMinLine?symbol=M0" param:nil thenSuccess:^(NSArray *responseObject) {
-    //        Y_KLineGroupModel *groupModel = [Y_KLineGroupModel objectWithArray:responseObject type:Y_StockChartcenterViewTypeTimeLine lastDayClosePrice:@2000];
-    //        self.groupModel = groupModel;
-    //        NSInteger minCount = 241;
-    //       [Y_StockChartGlobalVariable setTimeLineVolumeWidth:((self.kLineView.scrollView.bounds.size.width -  (minCount + 1) * Y_StockTimeLineViewVolumeGap) / minCount)];
-    //        self.kLineView.lastDayClosepPrice = @2000;
-    //        [self.kLineView setKLineModels:groupModel.models];
-    //
-    //    } fail:^{
-    //        NSLog(@"fail");
-    //    }];
     NSDictionary *dict = @{@"symbol":self.model.instrument.InstrumentID};
     [NetWorking requestWithApi:[NSString stringWithFormat:@"%@%@",BaseUrl,QryMinuteLine_URL] reqeustType:POST_Type param:dict thenSuccess:^(NSDictionary *responseObject) {
         QryMinuteLineResponseModel *model = [QryMinuteLineResponseModel yy_modelWithDictionary:responseObject];

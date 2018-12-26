@@ -636,19 +636,25 @@
 
 //撤销订单
 -(void)cancelOrder{
-    NSInteger row  = self.containerView.currentReportView.currentSelectedRow;
-    if (row < 0) {
-        return;
-    }else{
-        User_Onrtnorder *item = self.containerView.dataArray[1][row];
-        User_Reqorderaction *request = [[User_Reqorderaction alloc] init];
-        request.BrokerID = @"9999";
-        request.InvestorID = [kUserDefaults objectForKey:UserDefaults_User_ID_key];
-        request.ExchangeID = item.ExchangeID;
-        request.OrderSysID = item.OrderSysID;
-        request.ActionFlag = @"0";//删除
-        [[SocketRequestManager shareInstance] reqorderaction:request];
-    }
+    [self presentViewController:[UIAlertController zj_alertControllerWithTitle:@"提示" message:@"确认撤销吗？" optionStyle:OptionStyleStyleOK_Cancel OkTitle:@"确认" cancelTitle:@"取消" okBlock:^{
+        NSInteger row  = self.currentSelectIndexPath.row;
+        if (row < 0) {
+            return;
+        }else{
+            User_Onrtnorder *item = self.containerView.dataArray[1][row];
+            User_Reqorderaction *request = [[User_Reqorderaction alloc] init];
+            request.BrokerID = @"9999";
+            request.InvestorID = [kUserDefaults objectForKey:UserDefaults_User_ID_key];
+            request.ExchangeID = item.ExchangeID;
+            request.OrderSysID = item.OrderSysID;
+            request.ActionFlag = @"0";//删除
+            [[SocketRequestManager shareInstance] reqorderaction:request];
+        }
+    } cancelBlock:^{
+        
+    }] animated:YES completion:^{
+        
+    }];
 }
 
 
@@ -857,7 +863,6 @@
         //持仓表或者委托表才有
         if (reportView.tag - 1 == 0 || reportView.tag - 1 == 1) {
             self.currentSelectIndexPath = indexPath;
-            NSLog(@"frame is %@",NSStringFromCGRect(label.frame));
             [self.containerView.currentReportView addSubview:self.menuView];
             self.menuView.frame = CGRectMake(0, CGRectGetMaxY(label.frame)  - self.containerView.currentReportView.contentOffSet, KScreenWidth, 45);
             self.menuView.alpha = 0.f;
@@ -896,7 +901,7 @@
         if(label.indexPath.row == 0){
             return;
         }
-        NSLog(@"点击了第%ld行",(long)label.indexPath.row);
+//        NSLog(@"点击了第%ld行",(long)label.indexPath.row);
         
         //取消选中
         if(reportView.currentSelectedRow == label.indexPath.row){
@@ -980,9 +985,9 @@
 -(void)updateOrderInsert:(NSNotification*) noti{
     
     User_Onrtnorder *insert = (User_Onrtnorder *)noti.object ;
-    if (insert.StatusMsg.length > 0) {
-        [self.statusBar showMessage:insert.StatusMsg limitTime:3];
-    }
+//    if (insert.StatusMsg.length > 0) {
+//        [self.statusBar showMessage:insert.StatusMsg limitTime:3];
+//    }
     //更新资金
     [self queryAccountInfo];
     //更新挂单和委托表

@@ -76,7 +76,7 @@
     reportView.datasource = self;
     reportView.delegate = self;
     reportView.style.spacing = REPORT_VIEW_BOARDER_WIDTH;
-    reportView.style.trimWidthSpace = false;
+    reportView.style.trimWidthSpace = NO;
     reportView.style.borderColor = [UIColor grayColor];
     reportView.style.selectBackGroundColor = kCellBackGroundColor;
     reportView.backgroundColor = kCellBackGroundColor;

@@ -435,7 +435,8 @@
                         if ([[AMSDBManager shareInstance] canCelCollectInstumentById:model.instrument.InstrumentID]) {
                             [MBProgressHUD showSuccessMessage:@"删除自选成功"];
                             if (self.isOption) {
-                                [self.tableView deleteRowsAtIndexPaths:@[self.currentIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                                [self.dataArray removeObjectAtIndex:self.currentIndexPath.row];
+                                [self.tableView deleteRowsAtIndexPaths:@[self.currentIndexPath] withRowAnimation:UITableViewRowAnimationFade];
                             }else{
                                 model.hasCollect = !model.hasCollect;
                                 [self.tableView reloadRowsAtIndexPaths:@[self.currentIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];

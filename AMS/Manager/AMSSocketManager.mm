@@ -252,6 +252,7 @@ return manager;
 -(void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err{
     AMSSocketClient *client = (AMSSocketClient*) sock;    NSLog(@"----socket (tag = %@)断开连接，%@----",sock.userData,err.localizedDescription);
     [self.socketClientDict removeObjectForKey:sock.userData];
+    [kUserDefaults setObject:@0 forKey:UserDefaults_User_Is_Login];
     
     //判断网络，网络不好的情况下不重连
     if(client.offlineType == AMSSocketOfflineCutByUser){
